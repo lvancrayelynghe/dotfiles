@@ -1,0 +1,15 @@
+source .muttrc
+source .mutt/.muttrc.gmail
+
+set realname="user.name"
+# set signature='~/.mutt/signature.txt'
+
+# IMAP configuration
+set imap_user="user.name@gmail.com"
+set imap_pass="YourPassword"
+
+# SMTP configuration
+set smtp_url="smtp://user.name@smtp.gmail.com:587/"
+set smtp_pass="YourPassword"
+set from="user.name@gmail.com"
+

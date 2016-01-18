@@ -1,0 +1,6 @@
+# IMAP configuration
+set folder="imaps://imap.gmail.com:993"
+set spoolfile="+INBOX"
+set trash="+[Gmail]/Corbeille"
+set postponed="+[Gmail]/Brouillons"
+set record=""
