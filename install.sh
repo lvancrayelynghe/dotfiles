@@ -10,3 +10,5 @@ git config --local user.name "Benoth"
 
 # Create the symlinks
 ./symlink-dotfiles.sh
+
+echo "All done. Re-run your session to finish the installation :)"
