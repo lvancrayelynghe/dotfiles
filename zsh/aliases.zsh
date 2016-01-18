@@ -116,6 +116,7 @@ alias vgrep='grep -v --color=auto'
 alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias zshrc='source ~/.zshrc' ## Reload config
+alias dotfiles='cd ~/dotfiles && git pull origin master && cd - && source ~/.zshrc' ## Pull dotfiles from github and reload config
 
 # Find things...
 alias f='grep -rinw "." -e ' ## inside files
