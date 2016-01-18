@@ -41,7 +41,7 @@ Because they're used in aliases & co
 - [Github does dotfiles](http://dotfiles.github.io/)
 - [Most starred dotfiles repos](https://github.com/search?langOverride=&language=&o=desc&q=dotfiles&repo=&s=stars&start_value=1&type=Repositories&utf8=%E2%9C%93)
 - [Prezto](https://github.com/sorin-ionescu/prezto)
-- [Oh My ESH](https://github.com/robbyrussell/oh-my-zsh)
+- [Oh My ZSH](https://github.com/robbyrussell/oh-my-zsh)
 - [Oh My Git](https://github.com/arialdomartini/oh-my-git)
 - [Agnoster's ZSH theme](https://gist.github.com/agnoster/3712874)
 
