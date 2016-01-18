@@ -8,3 +8,7 @@ if [ "$BASH" ]; then
 fi
 
 mesg n
+
+mkdir -p "$HOME/.cache"
+
+export HISTFILE="$HOME/.cache/bash_history"
