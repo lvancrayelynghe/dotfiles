@@ -1,0 +1,18 @@
+if ! glances http >/dev/null 2>&1; then
+	echo ""
+	echo "You should consider installing Glances : http://nicolargo.github.io/glances/"
+	echo ""
+fi
+
+if ! hash http >/dev/null 2>&1; then
+	echo ""
+	echo "You should consider installing httpie : https://github.com/jkbrzt/httpie"
+	echo ""
+fi
+
+if hash cowsay >/dev/null 2>&1 && hash fortune >/dev/null 2>&1 && [[ -n $LC_POWERLINE && $LC_POWERLINE = 'true' ]] ; then
+    echo ""
+    fortune | cowsay
+    echo ""
+fi
+
