@@ -1,5 +1,4 @@
 # Dotfiles
-Personnal dotfiles
 
 ## Requirements
 - ZSH
