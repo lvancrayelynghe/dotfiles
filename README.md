@@ -1,8 +1,8 @@
 # Dotfiles
 
 ## Requirements
-- ZSH
-- Git
+- ZSH and Git on Ubuntu
+- [Babun](http://babun.github.io/) on Windows
 
 
 ## Installation
