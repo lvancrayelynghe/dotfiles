@@ -3,6 +3,8 @@ DOTFILES_DIR="$HOME/dotfiles"
 HOST_CONFIG_FILE="$HOME/.zshrc_$HOSTNAME"
 LOCAL_CONFIG_FILE="$HOME/.zshrc_local"
 
+mkdir -p "$HOME/.cache"
+
 source $DOTFILES_DIR/zsh/global.zsh
 source $DOTFILES_DIR/zsh/completion.zsh
 source $DOTFILES_DIR/zsh/correction.zsh

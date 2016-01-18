@@ -14,6 +14,7 @@ zplug "b4b4r07/zplug", from:github
 
 zplug "rimraf/k", from:github, as:plugin
 
+_Z_DATA="$HOME/.cache/z-directories-trackfile"
 zplug "rupa/z", from:github, as:plugin, of:z.sh
 
 zplug "jamesob/desk", from:github, as:command, of:"desk"
