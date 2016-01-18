@@ -1,0 +1,7 @@
+# Disable mouse
+unset mouse
+
+# Reset keypad bindings
+set rebindkeypad
+
+

@@ -1,0 +1,45 @@
+[color]
+    branch = auto
+    diff = auto
+    status = auto
+    interactive = auto
+    ui = true
+    pager = true
+
+[color "branch"]
+    current = yellow reverse
+    local = yellow
+    remote = green
+
+[color "diff"]
+    meta = yellow bold
+    frag = magenta bold
+    old = red bold
+    new = green bold
+
+[color "status"]
+    added = yellow
+    changed = green
+    untracked = cyan
+
+[core]
+    pager = less -FRS
+    editor = vim
+    autocrlf = input
+    whitespace = trailing-space,space-before-tab,cr-at-eol
+
+[alias]
+    # Log aliases
+    tree                = log --graph --pretty=oneline --decorate
+    pretty-log-nomerges = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative --no-merges
+    pretty-log-short    = log --pretty=oneline --abbrev-commit --graph --decorate
+    pretty-log          = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+    # Status aliases
+    status-short        = status -sb
+    # Assume unchanged
+    assume              = update-index --assume-unchanged
+    unassume            = update-index --no-assume-unchanged
+    assumed             = "!git ls-files -v | grep ^h | cut -c 3-"
+
+[push]
+    default = current

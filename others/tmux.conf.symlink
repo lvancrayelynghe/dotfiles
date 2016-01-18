@@ -1,0 +1,22 @@
+# Keyboard shortcuts cheatsheet
+### <Ctrl> + <b> then <c> : Create a new term
+### <Ctrl> + <b> then [X] : Choose a specifid term (where [X] is the term number)
+
+# Change default shell
+set-option -g default-shell /usr/bin/zsh
+
+# Allow mouse usage
+setw -g mode-mouse on
+set -g mouse-resize-pane on
+set -g mouse-select-pane on
+set -g mouse-select-window on
+
+# Footer status line
+### List Colors :
+### for i in {0..255} ; do
+###     printf "\x1b[38;5;${i}mcolour${i}\n"
+### done
+set-option -g status-bg colour8
+set-option -g status-fg colour7
+set-window-option -g window-status-current-fg colour2
+set-window-option -g window-status-current-bg colour8

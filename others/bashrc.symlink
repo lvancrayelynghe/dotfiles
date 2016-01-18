@@ -1,0 +1,25 @@
+eval "`dircolors`"
+
+if [ -f "$HOME/.zsh/aliases.zsh" ]; then
+    source "$HOME/.zsh/aliases.zsh"
+fi
+
+shopt -s cdspell                 # Correct cd typos
+shopt -s histappend              # Append History instead of overwriting file
+shopt -s cmdhist                 # Bash attempts to save all lines of a multiple-line command in the same history entry
+shopt -s extglob                 # Extended pattern
+shopt -s no_empty_cmd_completion # No empty completion
+
+BLACK="\[\e[30m\]"
+RED="\[\e[31m\]"
+GREEN="\[\e[32m\]"
+YELLOW="\[\e[33m\]"
+BLUE="\[\e[34m\]"
+MAGENTA="\[\e[35m\]"
+CYAN="\[\e[36m\]"
+WHITE="\[\e[97m\]"
+NONE="\[\e[0m\]"
+
+export PS1="[${WHITE}\u${NONE}@${RED}\h${NONE} ${CYAN}\w${NONE}]\\$\[$(tput sgr0)\] "
+export VISUAL='vim'
+export EDITOR='vim'

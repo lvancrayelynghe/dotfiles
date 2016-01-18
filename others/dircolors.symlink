@@ -1,0 +1,208 @@
+# Configuration file for dircolors, a utility to help you set the
+# LS_COLORS environment variable used by GNU ls with the --color option.
+# Copyright (C) 1996-2013 Free Software Foundation, Inc.
+# Copying and distribution of this file, with or without modification,
+# are permitted provided the copyright notice and this notice are preserved.
+# The keywords COLOR, OPTIONS, and EIGHTBIT (honored by the
+# slackware version of dircolors) are recognized but ignored.
+# Below, there should be one TERM entry for each termtype that is colorizable
+TERM Eterm
+TERM ansi
+TERM color-xterm
+TERM con132x25
+TERM con132x30
+TERM con132x43
+TERM con132x60
+TERM con80x25
+TERM con80x28
+TERM con80x30
+TERM con80x43
+TERM con80x50
+TERM con80x60
+TERM cons25
+TERM console
+TERM cygwin
+TERM dtterm
+TERM eterm-color
+TERM gnome
+TERM gnome-256color
+TERM jfbterm
+TERM konsole
+TERM kterm
+TERM linux
+TERM linux-c
+TERM mach-color
+TERM mlterm
+TERM putty
+TERM rxvt
+TERM rxvt-256color
+TERM rxvt-cygwin
+TERM rxvt-cygwin-native
+TERM rxvt-unicode
+TERM rxvt-unicode-256color
+TERM rxvt-unicode256
+TERM screen
+TERM screen-256color
+TERM screen-256color-bce
+TERM screen-bce
+TERM screen-w
+TERM screen.Eterm
+TERM screen.rxvt
+TERM screen.linux
+TERM st
+TERM st-256color
+TERM terminator
+TERM vt100
+TERM xterm
+TERM xterm-16color
+TERM xterm-256color
+TERM xterm-88color
+TERM xterm-color
+TERM xterm-debian
+
+
+# Effects
+# 	00	Default colour
+# 	01	Bold
+# 	04	Underlined
+# 	05	Flashing text
+# 	07	Reversetd
+# 	08	Concealed
+# Colors
+# 	30	Black
+# 	31	Red
+# 	32	Green
+# 	33	Orange
+# 	34	Blue
+# 	35	Purple
+# 	36	Cyan
+# 	37	Grey
+# Backgrounds
+# 	40	Black background
+# 	41	Red background
+# 	42	Green background
+# 	43	Orange background
+# 	44	Blue background
+# 	45	Purple background
+# 	46	Cyan background
+# 	47	Grey background
+# Extra colours
+# 	90	Dark grey
+# 	91	Light red
+# 	92	Light green
+# 	93	Yellow
+# 	94	Light blue
+# 	95	Light purple
+# 	96	Turquoise
+# 	97	White
+# 	100	Dark grey background
+# 	101	Light red background
+# 	102	Light green background
+# 	103	Yellow background
+# 	104	Light blue background
+# 	105	Light purple background
+# 	106	Turquoise background
+
+# Global default color
+NORMAL 00
+# Default color for Files
+FILE 00
+# Color for directories
+DIR 01;34
+# Color for symlinks
+LINK 36
+# Color for FIFOs
+FIFO 33
+# Color for sockets
+SOCK 01;35
+# Color for block device drivers
+BLK 01;33
+# Color for character device drivers
+CHR 01;33
+# Color for executables
+EXEC 00
+
+
+# configuration files
+.conf 01;33
+
+# scripts files
+.rb   01;32
+.sh   01;32
+.pl   01;32
+.py   01;32
+.php3 01;32
+.php  01;32
+
+# Zipped files
+.tar  36
+.tgz  36
+.txz  36
+.tbz  36
+.arj  36
+.taz  36
+.lzh  36
+.zip  36
+.gz   36
+.bz2  36
+.lzma 36
+.xz   36
+.rar  36
+
+# Packages
+.deb  33
+.rpm  33
+
+# Images files
+.jpg  35
+.JPG  35
+.jpeg 35
+.eps  35
+.gif  35
+.png  35
+.bmp  35
+.xpm  35
+.tif  35
+.tiff 35
+.tga  35
+.pcx  35
+.jp2  35
+
+# Audio/video files
+.avi  32
+.mkv  32
+.mpg  32
+.mov  32
+.mpeg 32
+.vob  32
+.au   32
+.wav  32
+.mp3  32
+.ogg  32
+.ogm  32
+.ogv  32
+.flac 32
+.wmv  32
+.wma  32
+
+# Office files
+.odg  33
+.odc  33
+.ods  33
+.odp  33
+.odd  33
+.doc  33
+.xls  33
+.ppt  33
+.pps  33
+.tex  33
+.pdf  33
+.ps   33
+.djvu 33
+
+# Web files
+.js   33
+.css  34
+.scss 34
+.sass 34
+.tpl  01

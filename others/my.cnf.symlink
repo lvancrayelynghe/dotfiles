@@ -1,0 +1,21 @@
+[client]
+default-character-set = utf8
+host                  = localhost
+port                  = 3306
+user                  = root
+password              = secret
+
+[mysql]
+default-character-set = utf8
+port                  = 3306
+pager                 = less -SFX
+prompt                = mysql:\\u@\\h:\\d>\\
+show_warnings
+
+[mysqld]
+character-set-server = utf8
+tmpdir               = /tmp
+
+[mysqldump]
+max_allowed_packet = 16M
+
