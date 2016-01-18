@@ -3,7 +3,7 @@
 
 # Save the location of the current completion dump file.
 if [ -z "$ZSH_COMPDUMP" ]; then
-  ZSH_COMPDUMP="${ZDOTDIR:-${HOME}}/.zcompdump-${ZSH_VERSION}"
+  ZSH_COMPDUMP="${ZDOTDIR:-${HOME}}/.zcompdump"
 fi
 
 setopt long_list_jobs       # list jobs in the long format by default
