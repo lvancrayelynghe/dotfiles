@@ -109,7 +109,6 @@ alias rmrf="rm -rf"
 alias bak='backup-file'
 alias tailf='tail -f'
 alias less='less -r'
-alias free='free -m'
 alias whence='type -a'
 alias whereis='whereis'
 alias grep='grep --color=auto'
