@@ -5,7 +5,7 @@
 # Source : https://github.com/pengwynn/dotfiles/blob/master/script/symlinks
 
 
-DOTFILES_ROOT="`pwd`"
+DOTFILES_ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 set -e
 
