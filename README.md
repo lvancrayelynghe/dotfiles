@@ -29,7 +29,7 @@ Because they're used in aliases & co
 - [Pygments](http://pygments.org/) : A generic syntax highlighter (apt-get install python-pygments)
 - [HTTPie](https://github.com/jkbrzt/httpie) : A CLI cURL-like tool for humans (apt-get install httpie)
 - [Mutt](http://www.mutt.org/) : See compilation [here](https://github.com/Benoth/dotfiles/blob/master/mutt/muttrc.symlink#L1) (or apt-get install python-pygments on recent distros)
-- []()
+- curl (apt-get install curl)
 - pwgen for password generation (apt-get install pwgen)
 - imagemagick (apt-get install imagemagick)
 - ffmpeg (apt-get install ffmpeg)
@@ -44,3 +44,4 @@ Because they're used in aliases & co
 - [Oh My ESH](https://github.com/robbyrussell/oh-my-zsh)
 - [Oh My Git](https://github.com/arialdomartini/oh-my-git)
 - [Agnoster's ZSH theme](https://gist.github.com/agnoster/3712874)
+
