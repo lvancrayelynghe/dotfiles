@@ -34,7 +34,7 @@ Because they're used in aliases & co
 - imagemagick (apt-get install imagemagick)
 - ffmpeg (apt-get install ffmpeg)
 - openssl (apt-get install openssl)
-- cowsay and fortune for the lulz (apt-get install cowsay, fortune)
+- cowsay and fortune for the lulz (apt-get install cowsay fortune)
 
 
 ## Sources of inspiration
