@@ -1,0 +1,28 @@
+export LANG=fr_FR.utf8
+
+# Homestead host creation
+function serve() {
+	if [ "$1" ] && [ "$2" ]
+	then
+		sudo dos2unix /vagrant/scripts/serve.sh
+		sudo bash /vagrant/scripts/serve.sh "$1" "$2"
+	else
+		echo "Error: missing required parameters."
+		echo "Usage: "
+		echo "  serve domain path"
+	fi
+}
+
+# HHVM Composer
+alias hcomposer='hhvm /usr/local/bin/composer'
+
+# PHP-CS-Fixer
+alias fix='php-cs-fixer --level=symfony --fixers=-indentation,-braces,-strict,-return,-spaces_cast,-function_declaration,align_double_arrow,align_equals,short_array_syntax fix'
+
+# Enable/Disable XDebug and Blackfire
+alias xdebug-status='if [ `php -m -c | grep "Xdebug" | head -1` ]; then echo on; else echo off; fi'
+alias blackfire-status='if [ `php -m -c | grep "blackfire" | head -1` ]; then echo on; else echo off; fi'
+alias blackfire-on='if [[ `blackfire-status` == "off" ]]; then sudo php5dismod xdebug && sudo php5enmod blackfire && sudo service php5-fpm restart; else echo "Blackfire already enabled"; fi'
+alias blackfire-off='if [[ `blackfire-status` == "on" ]]; then sudo php5dismod blackfire && sudo service php5-fpm restart; else echo "Blackfire already disabled"; fi'
+alias xdebug-on='if [[ `xdebug-status` == "off" ]]; then sudo php5dismod blackfire && sudo php5enmod xdebug && sudo service php5-fpm restart; else echo "Xdebug already enabled"; fi'
+alias xdebug-off='if [[ `xdebug-status` == "on" ]]; then sudo php5dismod xdebug && sudo service php5-fpm restart; else echo "Xdebug already disabled"; fi'

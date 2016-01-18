@@ -1,0 +1,38 @@
+HOSTNAME=`hostname`
+DOTFILES_DIR="$HOME/dotfiles/"
+HOST_CONFIG_FILE="$HOME/.zshrc_$HOSTNAME"
+LOCAL_CONFIG_FILE="$HOME/.zshrc_local"
+
+source $DOTFILES_DIR/zsh/global.zsh
+source $DOTFILES_DIR/zsh/completion.zsh
+source $DOTFILES_DIR/zsh/correction.zsh
+source $DOTFILES_DIR/zsh/directories.zsh
+source $DOTFILES_DIR/zsh/history.zsh
+source $DOTFILES_DIR/zsh/key-bindings.zsh
+source $DOTFILES_DIR/zsh/git.zsh
+source $DOTFILES_DIR/zsh/aliases.zsh
+source $DOTFILES_DIR/zsh/functions.zsh
+source $DOTFILES_DIR/zsh/zplug.zsh
+source $DOTFILES_DIR/zsh/other-installs.zsh
+
+[[ -n $HOST_CONFIG_FILE && -e $HOST_CONFIG_FILE ]] && source $HOST_CONFIG_FILE || true
+[[ -n $LOCAL_CONFIG_FILE && -e $LOCAL_CONFIG_FILE ]] && source $LOCAL_CONFIG_FILE || true
+
+source $DOTFILES_DIR/zsh/plugins/colored-man.plugin.zsh
+source $DOTFILES_DIR/zsh/plugins/last-working-dir.plugin.zsh
+source $DOTFILES_DIR/zsh/plugins/gulp.plugin.zsh
+
+if hash fzf >/dev/null 2>&1; then
+	FZF_COMPLETION_TRIGGER='*'
+	$DOTFILES_DIR/zsh/plugins/fzf-completion.plugin.zsh
+	$DOTFILES_DIR/zsh/plugins/fzf-key-bindings.plugin.zsh
+fi
+
+if [[ -n $LC_POWERLINE && $LC_POWERLINE = 'true' ]]; then
+	$DOTFILES_DIR/zsh/themes/agnoster-modified.zsh
+else
+	$DOTFILES_DIR/zsh/themes/gianu-modified.zsh
+fi
+
+# Hook for desk activation (must stay after every other scripts)
+[ -n "$DESK_ENV" ] && source "$DESK_ENV"
