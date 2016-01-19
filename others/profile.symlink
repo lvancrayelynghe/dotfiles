@@ -1,0 +1,11 @@
+# ~/.profile: executed by Bourne-compatible login shells.
+# This file must have the stuff NOT specifically related to bash, such as environment variables (PATH and friends)
+
+if [ "$BASH" ]; then
+  if [ -f ~/.bashrc ]; then
+    . ~/.bashrc
+  fi
+fi
+
+mesg n
+

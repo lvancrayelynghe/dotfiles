@@ -1,3 +1,5 @@
+ZSH_COMPDUMP="$HOME/.cache/zsh-completion-dump"
+
 # Load and run compinit (autocompletion)
 autoload -U compinit
 compinit -i -d "${ZSH_COMPDUMP}"
@@ -14,7 +16,7 @@ zmodload -i zsh/complist
 
 # Use caching to make completion for commands such as dpkg and apt usable.
 zstyle ':completion::complete:*' use-cache on
-zstyle ':completion::complete:*' cache-path "$HOME/.zcompcache"
+zstyle ':completion::complete:*' cache-path "$HOME/.cache/zsh-completion-cache"
 
 # Case-sensitive (all), partial-word, and then substring completion.
 # zstyle ':completion:*' matcher-list 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'

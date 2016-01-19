@@ -1,16 +1,19 @@
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " General                                                                    "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-let mapleader=":"          " Force default mapleader
-set nocompatible           " Get rid of Vi compatibility mode. SET FIRST!
-set encoding=utf-8 nobomb  " Use UTF-8 without BOM
-set mouse=a                " Enable mouse in all modes
-set clipboard=unnamed      " Use the OS clipboard by default (on versions compiled with `+clipboard`)
-set wildmenu               " Enhance command-line completion
-set nobackup               " No backup
-set nowritebackup          " No backup
-set noswapfile             " No swapfile
-set autowrite              " Automatically :write before running commands
+let mapleader=":"                " Force default mapleader
+set nocompatible                 " Get rid of Vi compatibility mode. SET FIRST!
+set encoding=utf-8 nobomb        " Use UTF-8 without BOM
+set mouse=a                      " Enable mouse in all modes
+set clipboard=unnamed            " Use the OS clipboard by default (on versions compiled with `+clipboard`)
+set wildmenu                     " Enhance command-line completion
+set nobackup                     " No backup
+set nowritebackup                " No backup
+set noswapfile                   " No swapfile
+set undofile                     " Allow undofiles (undo modifications after vim close)
+set undodir=$HOME/.vim/undofiles " Store undofiles in the same dir
+set autowrite                    " Automatically :write before running commands
+set viminfo+=n~/.vim/viminfo     " Move viminfo path
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Text Formatting/Layout                                                     "
