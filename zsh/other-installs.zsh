@@ -1,4 +1,4 @@
-mkdir -p ~/bin
+mkdir -p "$HOME/bin"
 
 # install ack (grep++)
 # see http://beyondgrep.com/install/
