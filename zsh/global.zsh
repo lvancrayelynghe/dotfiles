@@ -1,11 +1,6 @@
 # List of all options http://zsh.sourceforge.net/Doc/Release/Options-Index.html
 # List of all functions http://zsh.sourceforge.net/Doc/Release/Functions-Index.html
 
-# Save the location of the current completion dump file.
-if [ -z "$ZSH_COMPDUMP" ]; then
-  ZSH_COMPDUMP="${ZDOTDIR:-${HOME}}/.zcompdump"
-fi
-
 setopt long_list_jobs       # list jobs in the long format by default
 setopt auto_resume          # Attempt to resume existing job before creating a new process.
 setopt notify               # Report status of background jobs immediately.

@@ -4,4 +4,14 @@ unset mouse
 # Reset keypad bindings
 set rebindkeypad
 
+# Text scroll line-by-line, instead of the usual chunk-by-chunk behavio
+set smooth
 
+# Auto indent code
+set autoindent
+
+# Don't wrap long lines
+set nowrap
+
+# No search history
+unset historylog

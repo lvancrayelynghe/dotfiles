@@ -1,0 +1,3 @@
+skip_global_compinit=1
+export LESSHISTFILE=-
+export MYSQL_HISTFILE=/dev/null
