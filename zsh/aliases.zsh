@@ -120,6 +120,7 @@ alias du0='du --max-depth=0'
 alias du1='du --max-depth=1 | sort -k2' ## sort by name
 alias du1s='du --max-depth=1 | sort -h' ## sort by size
 alias iotop='iotop -Poa' ## iotop with only processes using i/o + accumulated i/o
+alias dmesg="dmesg -T|sed -e 's|\(^.*'`date +%Y`']\)\(.*\)|\x1b[0;34m\1\x1b[0m - \2|g'" ## dmesg with colored human-readable dates
 
 # Find things...
 alias f='grep -rinw "." -e ' ## inside files
