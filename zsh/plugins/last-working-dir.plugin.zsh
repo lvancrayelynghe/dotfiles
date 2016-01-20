@@ -4,7 +4,6 @@
 
 # Flag indicating if we've previously jumped to last directory.
 typeset -g ZSH_LAST_WORKING_DIRECTORY
-mkdir -p "$HOME/.cache"
 cache_file="$HOME/.cache/last-working-dir"
 touch $cache_file
 
