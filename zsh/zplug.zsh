@@ -23,6 +23,8 @@ zplug "raylee/tldr", from:github, as:command, of:"tldr"
 
 zplug "junegunn/fzf-bin", as:command, from:gh-r, file:fzf, of:"*linux*amd64*"
 
+zplug "Russell91/sshrc", from:github, as:command, of:"sshrc"
+
 # Actually doesn't work :( tested : master/1.3/1.3.1
 # zplug "vifon/deer", from:github, at:v1.3.1, of:deer
 

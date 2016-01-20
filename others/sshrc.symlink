@@ -1,0 +1,379 @@
+# ALIASES
+# Global aliases only works with ZSH
+if [[ "$0" =~ 'zsh' ]]; then
+	# Global directories aliases
+	alias -g ..='..'
+	alias -g ...='../..'
+	alias -g ....='../../..'
+	alias -g .....='../../../..'
+	alias -g ......='../../../../..'
+	alias -g .......='../../../../../..'
+
+	# Global commands aliases
+	alias -g G='| grep'
+	alias -g N='| grep -v'
+	alias -g C='| wc -l'
+	alias -g S='| sort'
+	alias -g H='| head'
+	alias -g L="| less"
+	alias -g T='| tail'
+else
+	# Directories aliases
+	alias ..='cd ..'
+	alias ...='cd ../..'
+	alias ....='cd ../../..'
+	alias .....='cd ../../../..'
+	alias ......='cd ../../../../..'
+	alias .......='cd ../../../../../..'
+fi
+
+# Aliases only for non root users
+if [[ $UID != 0 || $EUID != 0 ]]; then
+	alias sudo='sudo ' # Allow aliases to be sudo’ed
+	alias apt='sudo apt-get'
+	alias aptinstall='sudo apt-get install'
+	alias aptremove='sudo apt-get remove'
+	alias aptupdate='sudo apt-get update'
+	alias aptupgrade='sudo apt-get upgrade'
+	alias aptsearch='sudo apt-cache search'
+	alias aptall='sudo apt-get update && sudo apt-get upgrade && sudo apt-get autoremove'
+else
+	alias apt='apt-get'
+	alias aptinstall='apt-get install'
+	alias aptremove='apt-get remove'
+	alias aptupdate='apt-get update'
+	alias aptupgrade='apt-get upgrade'
+	alias aptsearch='apt-cache search'
+	alias aptall='apt-get update && apt-get upgrade && apt-get autoremove'
+fi
+
+# Directories working
+alias pwd=' pwd'
+alias cd=' cd'
+alias cdg=' cd "$(git rev-parse --show-toplevel)"' ## git root
+alias -- -=' cd -'
+alias 1=' cd -'
+alias 2=' cd -2'
+alias 3=' cd -3'
+alias 4=' cd -4'
+alias 5=' cd -5'
+alias 6=' cd -6'
+alias 7=' cd -7'
+alias 8=' cd -8'
+alias 9=' cd -9'
+alias ls='ls --color=auto'
+alias l='ls -lh --group-directories-first'
+alias ll='ls -lhA --group-directories-first'
+alias llm='ls -lhAt --group-directories-first' ## "m" for sort by last modified date
+alias llc='ls -lhAU --group-directories-first' ## "c" for sort by creation date
+alias lls='ls -lhAS --group-directories-first' ## "s" for sort by size
+
+# 1 letter commands shortcuts
+alias c=" clear && printf '\033[3J'"
+alias p=' dirs -v | head -10' ## most used dirs for current session
+alias x=' exit'
+alias h='history'
+alias j='jobs'
+alias v='vim'
+alias e='vim'
+alias n='nano'
+alias g='git'
+
+# Others commands shortcuts
+alias rd='rmdir'
+alias md='mkdir -p'
+alias mcd='mkdir-cd'
+alias mkcd='mkdir-cd'
+alias rmf="rm -rf"
+alias rmrf="rm -rf"
+alias bak='backup-file'
+alias tailf='tail -f'
+alias less='less -r'
+alias whence='type -a'
+alias whereis='whereis'
+alias grep='grep --color=auto'
+alias vgrep='grep -v --color=auto'
+alias egrep='egrep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias zshrc='source ~/.zshrc' ## Reload config
+
+# System stats
+alias free='free -h'
+alias ps='ps auxf'
+alias df='df -h'
+alias du='du -h'
+alias du0='du --max-depth=0'
+alias du1='du --max-depth=1 | sort -k2' ## sort by name
+alias du1s='du --max-depth=1 | sort -h' ## sort by size
+alias iotop='iotop -Poa' ## iotop with only processes using i/o + accumulated i/o
+
+# Find things...
+alias f='grep -rinw "." -e ' ## inside files
+alias ack='ack -Hir' ## inside files advanced
+alias ff='find . -type f -iname ' ## insensitive filename
+alias fn='glob-find-files-by-name' ## insensitive filename with zsh globbing
+
+# Git
+alias gs='git status'
+alias ga='git add'
+alias gss='git status-short'
+alias gl='git log'
+alias gll='git pretty-log'
+alias gls='git pretty-log-short'
+alias glll='git pretty-log-nomerges'
+alias gd='git diff'
+alias gc='git commit'
+alias gb='git branch'
+alias gt='git tag'
+alias gca='git commit -a'
+alias gco='git checkout'
+alias gpull='git pull'
+alias gpullo='git pull origin master'
+alias gpush='git push'
+alias gpusho='git push origin master'
+alias gss='git stash save'
+alias gsa='git stash apply'
+alias gsp='git stash pop'
+alias gsl='git stash list'
+
+# Local rsync
+alias rsync-copy="rsync -av --progress -h"
+alias rsync-move="rsync -av --progress -h --remove-source-files"
+alias rsync-update="rsync -avu --progress -h"
+alias rsync-synchronize="rsync -avu --delete --progress -h"
+
+# Files rights
+alias 600='chmod 600 -R'
+alias 640='chmod 640 -R'
+alias 644='chmod 644 -R'
+alias 755='chmod 755 -R'
+alias 775='chmod 775 -R'
+alias 777='chmod 777 -R'
+alias www="chown www-data:www-data * .* -R"
+
+# Date & time helpers
+alias cal='cal -3'
+alias week='date +%V'
+alias timer='echo "Timer started. Stop with Ctrl-D." && date && time cat && date'
+
+# Network & ISP tests
+alias myip='dig +short myip.opendns.com @resolver1.opendns.com'
+alias myips="ifconfig -a | grep -o 'inet6\? \(ad\?dr:\)\?\s\?\(\(\([0-9]\+\.\)\{3\}[0-9]\+\)\|[a-fA-F0-9:]\+\)' | awk '{ sub(/inet6? (addr:|adr:)? ?/, \"\"); print }' | grep -v '127.0.0.1' | grep -v '::1'"
+alias localip="ifconfig | grep -Eo 'inet (addr:|adr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*' | grep -v '127.0.0.1'"
+alias speedtest="wget -O /dev/null http://speedtest.wdc01.softlayer.com/downloads/test10.zip"
+alias ipstats="netstat -ntu | tail -n +3 | awk '{print $5}' | cut -d: -f1 | sort | uniq -c | sort -n"
+alias ns="nslookup"
+
+# Curl & web helpers
+alias dl='curl --continue-at - --location --progress-bar --remote-name --remote-time' # Download remote file
+alias wget-site='wget --mirror -p --convert-links -P'
+alias header='curl-header'
+alias purge='curl-purge'
+
+# Online pastebins
+alias sprunge="curl -F 'sprunge=<-' http://sprunge.us"
+alias clbin="curl -F 'clbin=<-' https://clbin.com"
+
+# Because Oo
+alias utf8test="wget -qO- http://8n1.org/utf8"
+
+
+# Laravel helpers
+alias art='php artisan'
+alias mig-install='php artisan migrate:install'
+alias mig-seed='php artisan migrate:refresh --seed'
+
+
+
+# FUNCTIONS
+# List content of archive but don't extract
+function ll-archive() {
+	if [ -f "$1" ]; then
+		case "$1" in
+			*.tar.bz2|*.tbz2|*.tbz)  tar -jtf "$1"     ;;
+			*.tar.gz)                tar -ztf "$1"     ;;
+			*.tar|*.tgz|*.tar.xz)    tar -tf  "$1"     ;;
+			*.gz)                    gzip -l  "$1"     ;;
+			*.rar)                   rar vb   "$1"     ;;
+			*.zip)                   unzip -l "$1"     ;;
+			*.7z)                    7z l     "$1"     ;;
+			*.lzo)                   lzop -l  "$1"     ;;
+			*.xz|*.txz|*.lzma|*.tlz) xz -l    "$1"     ;;
+		esac
+	else
+		echo "Sorry, '$1' is not a valid archive."
+		echo "Valid archive types are:"
+		echo "tar.bz2, tar.gz, tar.xz, tar, gz,"
+		echo "tbz2, tbz, tgz, lzo, rar"
+		echo "zip, 7z, xz and lzma"
+	fi
+}
+
+# Extract an archive
+function extract() {
+	if [ -z "$2" ]; then 2="."; fi
+	if [ -f "$1" ] ; then
+		case "$1" in
+			*.tar.bz2|*.tgz|*.tbz2|*.tbz) mkdir -v "$2" 2>/dev/null ; tar xvjf "$1" -C "$2"  ;;
+			*.tar.gz)                     mkdir -v "$2" 2>/dev/null ; tar xvzf "$1" -C "$2"  ;;
+			*.tar.xz)                     mkdir -v "$2" 2>/dev/null ; tar xvJf "$1"          ;;
+			*.tar)                        mkdir -v "$2" 2>/dev/null ; tar xvf  "$1" -C "$2"  ;;
+			*.rar)                        mkdir -v "$2" 2>/dev/null ; 7z x     "$1" -o"$2"   ;;
+			*.zip)                        mkdir -v "$2" 2>/dev/null ; unzip    "$1" -d "$2"  ;;
+			*.7z)                         mkdir -v "$2" 2>/dev/null ; 7z x     "$1" -o"$2"   ;;
+			*.lzo)                        mkdir -v "$2" 2>/dev/null ; lzop -d  "$1" -p "$2"  ;;
+			*.gz)                         gunzip "$1"                                        ;;
+			*.bz2)                        bunzip2 "$1"                                       ;;
+			*.Z)                          uncompress "$1"                                    ;;
+			*.xz|*.txz|*.lzma|*.tlz)      xz -d "$1"                                         ;;
+			*)
+		esac
+	else
+		echo "Sorry, '$1' could not be decompressed."
+		echo "Usage: extract <archive> <destination>"
+		echo "Example: extract PKGBUILD.tar.bz2 ."
+		echo "Valid archive types are:"
+		echo "tar.bz2, tar.gz, tar.xz, tar, bz2,"
+		echo "gz, tbz2, tbz, tgz, lzo,"
+		echo "rar, zip, 7z, xz and lzma"
+	fi
+}
+
+# compress a file or folder
+function compress() {
+		case "$1" in
+		tar.bz2|.tar.bz2) tar cvjf "${2%%/}.tar.bz2" "${2%%/}/" ;;
+		tbz2|.tbz2)       tar cvjf "${2%%/}.tbz2" "${2%%/}/"    ;;
+		tbz|.tbz)         tar cvjf "${2%%/}.tbz" "${2%%/}/"     ;;
+		tar.xz)           tar cvJf "${2%%/}.tar.xz" "${2%%/}/"  ;;
+		tar.gz|.tar.gz)   tar cvzf "${2%%/}.tar.gz" "${2%%/}/"  ;;
+		tgz|.tgz)         tar cvjf "${2%%/}.tgz" "${2%%/}/"     ;;
+		tar|.tar)         tar cvf  "${2%%/}.tar" "${2%%/}/"     ;;
+		rar|.rar)         rar a "${2}.rar" "$2"                 ;;
+		zip|.zip)         zip -r -9 "${2}.zip" "$2"             ;;
+		7z|.7z)           7z a "${2}.7z" "$2"                   ;;
+		lzo|.lzo)         lzop -v "$2"                          ;;
+		gz|.gz)           gzip -r -v "$2"                       ;;
+		bz2|.bz2)         bzip2 -v "$2"                         ;;
+		xz|.xz)           xz -v "$2"                            ;;
+		lzma|.lzma)       lzma -v "$2"                          ;;
+		*)                echo "Compress a file or directory."
+		echo "Usage:   compress <archive type> <filename>"
+		echo "Example: ac tar.bz2 PKGBUILD"
+		echo "Please specify archive type and source."
+		echo "Valid archive types are:"
+		echo "tar.bz2, tar.gz, tar.gz, tar, bz2, gz, tbz2, tbz,"
+		echo "tgz, lzo, rar, zip, 7z, xz and lzma." ;;
+	esac
+}
+
+# Human readable path variable
+function path() {
+    LF=$(printf '\\\012_')
+    LF=${LF%_}
+
+    echo $PATH | sed 's/:/'"$LF"'/g'
+}
+
+# Recursively fix dir/file permissions on a given directory
+function fix-dir-perm() {
+	if [ -d $1 ]; then
+		find $1 -type d -exec chmod 755 {} \;
+		find $1 -type f -exec chmod 644 {} \;
+	else
+		echo "$1 is not a directory."
+	fi
+}
+
+# Get an HTTP response header only
+function curl-header() {
+	curl -s -D - "${1}" -o /dev/null
+}
+
+# Get an HTTP response header only
+function curl-purge() {
+	curl -s -X PURGE "${1}" | grep "title" | sed "s_<\([^<>][^<>]*\)>\([^<>]*\)</\1>_$prefix\2_g" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//'
+}
+
+# Create a directory and "cd" into it
+function mkdir-cd() {
+    mkdir "${1}" && cd "${1}"
+}
+
+# Backup a file
+function backup-file() {
+	cp -r "$1"{,.bak};
+}
+
+# Encrypt a file
+function encrypt() {
+	openssl des3 -in $* -out $*.secret
+}
+
+# Decrypt a file
+function decrypt() {
+	openssl des3 -d -in $* -out $*.plain
+}
+
+# Small calc function
+function calc() {
+	echo "scale=2;$@" | bc;
+}
+
+# Smart JPG / PNG images resize
+function smartresize() {
+	if [ "$1" == "" ]
+		then echo "Syntax : smartresize inputfile width outputdir"
+	elif [ "$2" == "" ]
+		then echo "Syntax : smartresize inputfile width outputdir"
+	elif [ "$3" == "" ]
+		then echo "Syntax : smartresize inputfile width outputdir"
+	else
+		mogrify -path "$3" -filter Triangle -define filter:support=2 -thumbnail "$2" -unsharp 0.25x0.08+8.3+0.045 -dither None -posterize 136 -quality 82 -define jpeg:fancy-upsampling=off -define png:compression-filter=5 -define png:compression-level=9 -define png:compression-strategy=1 -define png:exclude-chunk=all -interlace none -colorspace sRGB "$1"
+	fi
+}
+
+# Generate a password using pwgen
+function strong-password() {
+	echo "Syntax : strong-password [-B] [-y] [-s] [length]"
+	echo "        -B : Don't use characters that could be confused"
+	echo "        -y : Include at least one special character in the password"
+	echo "        -s : Generate  completely  random, hard-to-memorize passwords"
+	echo "    length : Password length"
+	echo ""
+	pwgen "$@"
+}
+
+
+
+# BASHRC
+eval "`dircolors`"
+
+shopt -s autocd                  # A command name that is the name of a directory is executed as if it were the argument to the cd command
+shopt -s dirspell                # Bash attempts spelling correction on directory names during word completion if the directory name initially supplied does not exist.
+shopt -s nocaseglob              # Bash matches filenames in a case-insensitive fashion when performing filename expansion.
+shopt -s cdspell                 # Correct cd typos
+shopt -s histappend              # Append History instead of overwriting file
+shopt -s cmdhist                 # Bash attempts to save all lines of a multiple-line command in the same history entry
+shopt -s extglob                 # Extended pattern
+shopt -s no_empty_cmd_completion # No empty completion
+
+BLACK="\[\e[30m\]"
+RED="\[\e[31m\]"
+GREEN="\[\e[32m\]"
+YELLOW="\[\e[33m\]"
+BLUE="\[\e[34m\]"
+MAGENTA="\[\e[35m\]"
+CYAN="\[\e[36m\]"
+WHITE="\[\e[97m\]"
+NONE="\[\e[0m\]"
+
+
+export HISTFILE="$HOME/.cache/bash_history"
+export LESSHISTFILE=-
+export MYSQL_HISTFILE=/dev/null
+
+export PS1="[${WHITE}\u${NONE}@${RED}\h${NONE} ${CYAN}\w${NONE}]\\$\[$(tput sgr0)\] "
+export VISUAL='vim'
+export EDITOR='vim'
+

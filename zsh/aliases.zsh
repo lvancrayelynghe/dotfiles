@@ -93,13 +93,6 @@ alias m='mutt'
 alias dg='desk go'
 alias co='pygmentize -O style=monokai -f console256 -g'
 alias mf='mutt -F'
-alias ps='ps auxf'
-alias free='free -h'
-alias df='df -h'
-alias du='du -h'
-alias du0='du --max-depth=0'
-alias du1='du --max-depth=1 | sort -k2' # sort by name
-alias du1s='du --max-depth=1 | sort -h' # sort by size
 alias rd='rmdir'
 alias md='mkdir -p'
 alias mcd='mkdir-cd'
@@ -117,6 +110,16 @@ alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias zshrc='source ~/.zshrc' ## Reload config
 alias dotfiles='cd ~/dotfiles && git pull origin master && cd - && source ~/.zshrc' ## Pull dotfiles from github and reload config
+
+# System stats
+alias free='free -h'
+alias ps='ps auxf'
+alias df='df -h'
+alias du='du -h'
+alias du0='du --max-depth=0'
+alias du1='du --max-depth=1 | sort -k2' ## sort by name
+alias du1s='du --max-depth=1 | sort -h' ## sort by size
+alias iotop='iotop -Poa' ## iotop with only processes using i/o + accumulated i/o
 
 # Find things...
 alias f='grep -rinw "." -e ' ## inside files

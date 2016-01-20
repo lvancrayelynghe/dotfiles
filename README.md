@@ -18,6 +18,7 @@ curl --silent https://raw.githubusercontent.com/Benoth/dotfiles/master/install.s
   - [tl;dr](https://github.com/raylee/tldr) : Simplified and community-driven man pages
   - [Desk](https://github.com/jamesob/desk) : A lightweight workspace manager for the shell
   - [FZF](https://github.com/junegunn/fzf) : A command-line fuzzy finder
+  - [sshrc](https://github.com/Russell91/sshrc) : Bring your dotfiles with you when you ssh
   - [ZSH Syntax highlighting](https://github.com/zsh-users/zsh-syntax-highlighting)
 - [ack](http://beyondgrep.com/) : A tool like grep, optimized for programmers (require Perl 5)
 - A lot of [ZSH](https://github.com/Benoth/dotfiles/tree/master/zsh) (lightweight) customisations, without the use of any framework, but a lot of inspiration from OhMyZsh and Prezto
