@@ -1,0 +1,59 @@
+# See : https://www.gnu.org/software/bash/manual/html_node/Readline-Init-File-Syntax.html
+
+# Include system wide settings which are ignored
+# by default if one has their own .inputrc
+$include /etc/inputrc
+
+# UTF-8 support
+set meta-flag on
+set input-meta on
+set output-meta on
+set convert-meta off
+
+# Completion Options
+set page-completions on
+set completion-ignore-case on
+set completion-map-case on
+set completion-query-items 50
+set show-all-if-ambiguous on
+set show-all-if-unmodified on
+set visible-stats on
+set mark-symlinked-directories on
+
+# Enable coloring for tab completions with bash >= 4.3
+set colored-stats on
+
+# Do not bell on tab-completion \o/
+set bell-style none
+
+# History search
+"\e[B": history-search-forward
+"\e[A": history-search-backward
+"\C-p": history-search-backward
+"\C-n": history-search-forward
+
+# Mappings for Ctrl-left-arrow and Ctrl-right-arrow
+"\e[1;5C": forward-word
+"\e[1;5D": backward-word
+"\e[5C": forward-word
+"\e[5D": backward-word
+"\e\e[C": forward-word
+"\e\e[D": backward-word
+
+# Allow the use of the Delete/Insert keys
+"\e[3~": delete-char
+"\e[2~": quoted-insert
+
+# Mappings for Ctrl-X keys
+"\C-a": beginning-of-line
+"\C-b": backward-char
+"\C-d": delete-char
+"\C-e": end-of-line
+"\C-f": forward-char
+"\C-k": kill-line
+"\C-w": unix-filename-rubout
+
+# Others
+Control-l: clear-screen
+Control-j: menu-complete
+Control-k: menu-complete-backward
