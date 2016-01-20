@@ -34,7 +34,7 @@ echo "" >> ~/dotfiles/others/sshrc.symlink
 echo "" >> ~/dotfiles/others/sshrc.symlink
 
 echo "# BASHRC" >> ~/dotfiles/others/sshrc.symlink
-cat ~/dotfiles/others/bashrc.symlink \
+cat ~/dotfiles/bash/bashrc.symlink \
 | perl -p0e 's/\nif.*?fi\n//s' \
 | grep -v "mkdir" \
 >> ~/dotfiles/others/sshrc.symlink
