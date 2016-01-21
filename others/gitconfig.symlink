@@ -25,8 +25,11 @@
 [core]
     pager = less -FRS
     editor = vim
-    autocrlf = input
+    autocrlf = false
     whitespace = trailing-space,space-before-tab,cr-at-eol
+
+[apply]
+    whitespace = nowarn
 
 [alias]
     # Log aliases
