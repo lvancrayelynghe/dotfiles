@@ -11,6 +11,7 @@ if [[ "$0" =~ 'zsh' ]]; then
 	# Global commands aliases
 	alias -g G='| grep'
 	alias -g N='| grep -v'
+    alias -g E='| grep-passthru'
 	alias -g C='| wc -l'
 	alias -g S='| sort'
 	alias -g H='| head'
