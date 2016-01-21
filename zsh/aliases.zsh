@@ -16,7 +16,7 @@ if [[ "$0" =~ 'zsh' ]]; then
 	alias -g H='| head'
 	alias -g L="| less"
 	alias -g T='| tail'
-	alias -g C='| pygmentize -O style=monokai -f console256 -g'
+	alias -g P='| pygmentize -O style=monokai -f console256 -g'
 else
 	# Directories aliases
 	alias ..='cd ..'
