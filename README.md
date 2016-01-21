@@ -14,7 +14,7 @@ curl --silent https://raw.githubusercontent.com/Benoth/dotfiles/master/install.s
 ## What's in it?
 - [Zplug](https://git.io/zplug) to manage this tools :
   - [k](https://github.com/rimraf/k) : Directory listings for zsh with git features
-  - [z](https://github.com/rupa/z) : Tracks and jump to your most used directorie
+  - [z](https://github.com/knu/z) : Tracks and jump to your most used directories (knu fork)
   - [tl;dr](https://github.com/raylee/tldr) : Simplified and community-driven man pages
   - [Desk](https://github.com/jamesob/desk) : A lightweight workspace manager for the shell
   - [FZF](https://github.com/junegunn/fzf) : A command-line fuzzy finder

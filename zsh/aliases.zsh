@@ -92,6 +92,7 @@ alias m='mutt'
 # Others commands shortcuts
 alias dg='desk go'
 alias co='pygmentize -O style=monokai -f console256 -g'
+alias zd='z --del'
 alias mf='mutt -F'
 alias rd='rmdir'
 alias md='mkdir -p'
