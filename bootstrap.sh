@@ -44,6 +44,10 @@ echo 'Installing public dotfiles...'
 
 do_symlinks() {
     echo 'Symlinks...'
+    
+    # remove dead symlinks
+    for i in $(file .* | grep broken | cut -d : -f 1); do rm $i; done
+    
     overwrite_all=false
     backup_all=false
     skip_all=false
