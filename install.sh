@@ -16,7 +16,7 @@ mkdir -p ~/dotfiles/private
 cd ~/dotfiles/private
 print -n "To clone the private repository, you need to provide its address (just press Enter to abort) : "
 read repo
-if [ -n "$repo" ]; then
+if [[ -n "$repo" ]]; then
     git clone --recursive "$repo" .
     chmod u+x *.sh
     echo ""
