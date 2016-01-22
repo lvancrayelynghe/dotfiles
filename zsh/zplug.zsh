@@ -22,6 +22,8 @@ zplug "junegunn/fzf-bin", as:command, from:gh-r, file:fzf, of:"*linux*amd64*"
 
 zplug "Russell91/sshrc", from:github, as:command, of:"sshrc"
 
+zplug "ymattw/cdiff", from:github, as:command, of:"cdiff.py", file:"cdiff", at:0.9.8
+
 # Actually doesn't work :( tested : master/1.3/1.3.1
 # zplug "vifon/deer", from:github, at:v1.3.1, of:deer
 

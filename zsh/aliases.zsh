@@ -158,6 +158,7 @@ alias gss='git stash save'
 alias gsa='git stash apply'
 alias gsp='git stash pop'
 alias gsl='git stash list'
+alias cdiff='cdiff -s -w 0'
 
 # Local rsync
 alias rsync-copy="rsync -av --progress -h"
