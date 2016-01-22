@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/zsh
 
 # Clone & config the public repository
 mkdir -p ~/dotfiles/public
