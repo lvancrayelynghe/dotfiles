@@ -7,7 +7,7 @@
 
 ## Installation
 ```
-curl --silent https://raw.githubusercontent.com/Benoth/dotfiles/master/install.sh | sh
+wget https://raw.githubusercontent.com/Benoth/dotfiles/master/install.zsh && chmod u+x install.zsh && ./install.zsh && rm install.zsh
 ```
 
 
