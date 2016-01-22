@@ -9,6 +9,6 @@ git config --local user.email "benoth83@gmail.com"
 git config --local user.name "Benoth"
 
 # Create the symlinks
-./symlink-dotfiles.sh
+./bootstrap.sh
 
 echo "All done. Re-run your session to finish the installation :)"
