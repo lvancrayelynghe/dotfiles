@@ -1,0 +1,8 @@
+source ~/.vimrc
+
+set ts=2
+set expandtab
+set nobackup
+set nohlsearch
+set ruler
+set spell
