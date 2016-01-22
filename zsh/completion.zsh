@@ -114,7 +114,7 @@ zstyle ':completion:*:*:mocp:*' file-patterns '*.(wav|WAV|mp3|MP3|ogg|OGG|flac):
 # Mutt
 if [[ -s "$HOME/.mutt/aliases" ]]; then
   zstyle ':completion:*:*:mutt:*' menu yes select
-  zstyle ':completion:*:mutt:*' users ${${${(f)"$(<"$HOME/dotfiles/mutt/aliases")"}#alias[[:space:]]}%%[[:space:]]*}
+  zstyle ':completion:*:mutt:*' users ${${${(f)"$(<"$HOME/dotfiles/public/mutt/aliases")"}#alias[[:space:]]}%%[[:space:]]*}
 fi
 
 # SSH/SCP/RSYNC

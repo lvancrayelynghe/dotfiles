@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cd ~/dotfiles
+cd ~/dotfiles/public
 git remote rm origin
 git remote add origin git@github.com:Benoth/dotfiles.git
 git push origin master

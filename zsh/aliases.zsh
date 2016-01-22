@@ -117,7 +117,7 @@ alias vgrep='grep -v --color=auto'
 alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias zshrc='source ~/.zshrc' ## Reload config
-alias dotfiles='cd ~/dotfiles && git pull origin master && cd - && source ~/.zshrc' ## Pull dotfiles from github and reload config
+alias dotfiles='(cd ~/dotfiles/public && git pull) ; (cd ~/dotfiles/private && git pull) ; source ~/.zshrc' ## Pull dotfiles from repositories and reload config
 
 # System stats
 alias free='free -h'
