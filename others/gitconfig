@@ -37,6 +37,7 @@
     pretty-log-nomerges = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative --no-merges
     pretty-log-short    = log --pretty=oneline --abbrev-commit --graph --decorate
     pretty-log          = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+    change-log          = "!git log --graph --pretty=format:'%Cgreen%cd%Creset -%C(yellow)%d%Creset %s' --abbrev-commit --date=short"
     # Status aliases
     status-short        = status -sb
     # Assume unchanged
