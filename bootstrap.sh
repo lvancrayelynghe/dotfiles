@@ -102,6 +102,9 @@ do_symlinks() {
           fi
 
         else
+          if [ -L $dest ]; then
+            rm $dest
+          fi
           link_file $source $dest
         fi
     done
