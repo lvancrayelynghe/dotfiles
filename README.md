@@ -29,7 +29,7 @@ curl --silent https://raw.githubusercontent.com/Benoth/dotfiles/master/install.s
 Because they're used in aliases & co
 - [Pygments](http://pygments.org/) : A generic syntax highlighter (apt-get install python-pygments)
 - [HTTPie](https://github.com/jkbrzt/httpie) : A CLI cURL-like tool for humans (apt-get install httpie)
-- [Mutt](http://www.mutt.org/) : See compilation [here](https://github.com/Benoth/dotfiles/blob/master/mutt/muttrc.symlink#L1) (or apt-get install mutt on recent distros)
+- [Mutt](http://www.mutt.org/) : See compilation [here](https://github.com/Benoth/dotfiles/blob/master/mutt/muttrc#L1) (or apt-get install mutt on recent distros)
 - curl (apt-get install curl)
 - pwgen for password generation (apt-get install pwgen)
 - imagemagick (apt-get install imagemagick)
