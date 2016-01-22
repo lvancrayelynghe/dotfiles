@@ -22,7 +22,11 @@ source $DOTFILES_DIR/zsh/other-installs.zsh
 
 source $DOTFILES_DIR/zsh/plugins/colored-man.plugin.zsh
 source $DOTFILES_DIR/zsh/plugins/last-working-dir.plugin.zsh
-source $DOTFILES_DIR/zsh/plugins/gulp.plugin.zsh
+
+if hash npm >/dev/null 2>&1; then
+    source $DOTFILES_DIR/zsh/npm.zsh
+    source $DOTFILES_DIR/zsh/plugins/gulp.plugin.zsh
+fi
 
 if hash fzf >/dev/null 2>&1; then
 	FZF_COMPLETION_TRIGGER='*'

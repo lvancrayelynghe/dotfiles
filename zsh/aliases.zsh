@@ -11,12 +11,19 @@ if [[ "$0" =~ 'zsh' ]]; then
 	# Global commands aliases
 	alias -g G='| grep'
 	alias -g N='| grep -v'
+    alias -g E='| grep-passthru'
+    alias -g HR='| highlight red'
+    alias -g HG='| highlight green'
+    alias -g HB='| highlight blue'
+    alias -g HM='| highlight magenta'
+    alias -g HC='| highlight cyan'
+    alias -g HY='| highlight yellow'
 	alias -g C='| wc -l'
 	alias -g S='| sort'
 	alias -g H='| head'
 	alias -g L="| less"
 	alias -g T='| tail'
-	alias -g C='| pygmentize -O style=monokai -f console256 -g'
+	alias -g P='| pygmentize -O style=monokai -f console256 -g'
 else
 	# Directories aliases
 	alias ..='cd ..'
@@ -92,6 +99,7 @@ alias m='mutt'
 # Others commands shortcuts
 alias dg='desk go'
 alias co='pygmentize -O style=monokai -f console256 -g'
+alias zd='z --del'
 alias mf='mutt -F'
 alias rd='rmdir'
 alias md='mkdir -p'
@@ -120,6 +128,7 @@ alias du0='du --max-depth=0'
 alias du1='du --max-depth=1 | sort -k2' ## sort by name
 alias du1s='du --max-depth=1 | sort -h' ## sort by size
 alias iotop='iotop -Poa' ## iotop with only processes using i/o + accumulated i/o
+alias dmesg="dmesg -T|sed -e 's|\(^.*'`date +%Y`']\)\(.*\)|\x1b[0;34m\1\x1b[0m - \2|g'" ## dmesg with colored human-readable dates
 
 # Find things...
 alias f='grep -rinw "." -e ' ## inside files
@@ -130,26 +139,26 @@ alias fr='find-and-replace' ## find and replace in current dir
 
 # Git
 alias gs='git status'
+alias gst='git status-short'
 alias ga='git add'
-alias gss='git status-short'
 alias gl='git log'
 alias gll='git pretty-log'
 alias gls='git pretty-log-short'
 alias glll='git pretty-log-nomerges'
 alias gd='git diff'
 alias gc='git commit'
+alias gca='git commit -a'
 alias gb='git branch'
 alias gt='git tag'
-alias gca='git commit -a'
 alias gco='git checkout'
+alias gp='git pull'
 alias gpull='git pull'
-alias gpullo='git pull origin master'
 alias gpush='git push'
-alias gpusho='git push origin master'
 alias gss='git stash save'
 alias gsa='git stash apply'
 alias gsp='git stash pop'
 alias gsl='git stash list'
+alias cdiff='cdiff -s -w 0'
 
 # Local rsync
 alias rsync-copy="rsync -av --progress -h"
@@ -177,7 +186,12 @@ alias myips="ifconfig -a | grep -o 'inet6\? \(ad\?dr:\)\?\s\?\(\(\([0-9]\+\.\)\{
 alias localip="ifconfig | grep -Eo 'inet (addr:|adr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*' | grep -v '127.0.0.1'"
 alias speedtest="wget -O /dev/null http://speedtest.wdc01.softlayer.com/downloads/test10.zip"
 alias ipstats="netstat -ntu | tail -n +3 | awk '{print $5}' | cut -d: -f1 | sort | uniq -c | sort -n"
+alias ports="lsof -ni | grep LISTEN"
 alias ns="nslookup"
+
+for method in GET HEAD POST PUT DELETE PURGE TRACE OPTIONS; do
+    alias "$method"="http '$method'"
+done
 
 # Curl & web helpers
 alias dl='curl --continue-at - --location --progress-bar --remote-name --remote-time' # Download remote file
