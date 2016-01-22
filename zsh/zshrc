@@ -1,5 +1,5 @@
 HOSTNAME=`hostname`
-DOTFILES_DIR="$HOME/dotfiles"
+DOTFILES_DIR="$HOME/dotfiles/public"
 HOST_CONFIG_FILE="$HOME/.zshrc_$HOSTNAME"
 LOCAL_CONFIG_FILE="$HOME/.zshrc_local"
 

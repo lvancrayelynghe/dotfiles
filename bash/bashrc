@@ -1,7 +1,7 @@
 eval "`dircolors`"
 
-if [ -f "$HOME/dotfiles/zsh/aliases.zsh" ]; then
-    source "$HOME/dotfiles/zsh/aliases.zsh"
+if [ -f "$HOME/dotfiles/public/zsh/aliases.zsh" ]; then
+    source "$HOME/dotfiles/public/zsh/aliases.zsh"
 fi
 
 shopt -s autocd                  # A command name that is the name of a directory is executed as if it were the argument to the cd command

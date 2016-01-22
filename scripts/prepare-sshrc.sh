@@ -1,7 +1,7 @@
 #!/bin/sh
 
-echo "# ALIASES" >| ~/dotfiles/others/sshrc
-cat ~/dotfiles/zsh/aliases.zsh \
+echo "# ALIASES" >| ~/dotfiles/public/others/sshrc
+cat ~/dotfiles/public/zsh/aliases.zsh \
 | grep -v "shutdown" \
 | grep -v "ffmpeg" \
 | grep -v "desk" \
@@ -12,14 +12,14 @@ cat ~/dotfiles/zsh/aliases.zsh \
 | grep -v "find-and-replace" \
 | grep -v "'k -" \
 | grep -v "# Record x11" \
->> ~/dotfiles/others/sshrc
+>> ~/dotfiles/public/others/sshrc
 
-echo "" >> ~/dotfiles/others/sshrc
-echo "" >> ~/dotfiles/others/sshrc
-echo "" >> ~/dotfiles/others/sshrc
+echo "" >> ~/dotfiles/public/others/sshrc
+echo "" >> ~/dotfiles/public/others/sshrc
+echo "" >> ~/dotfiles/public/others/sshrc
 
-echo "# FUNCTIONS" >> ~/dotfiles/others/sshrc
-cat ~/dotfiles/zsh/functions.zsh \
+echo "# FUNCTIONS" >> ~/dotfiles/public/others/sshrc
+cat ~/dotfiles/public/zsh/functions.zsh \
 | perl -p0e 's/\n# Commands usage statistics.*?}\n//s' \
 | perl -p0e 's/\n# Find files using ZSH globbing.*?}\n//s' \
 | perl -p0e 's/\n# Find and replace in current dir.*?}\n//s' \
@@ -27,14 +27,14 @@ cat ~/dotfiles/zsh/functions.zsh \
 | perl -p0e 's/\n# Restore ports speed.*?}\n//s' \
 | perl -p0e 's/\n# Animated gifs from any video.*?}\n//s' \
 | perl -p0e 's/\n# Because Metroid.*?}\n//s' \
->> ~/dotfiles/others/sshrc
+>> ~/dotfiles/public/others/sshrc
 
-echo "" >> ~/dotfiles/others/sshrc
-echo "" >> ~/dotfiles/others/sshrc
-echo "" >> ~/dotfiles/others/sshrc
+echo "" >> ~/dotfiles/public/others/sshrc
+echo "" >> ~/dotfiles/public/others/sshrc
+echo "" >> ~/dotfiles/public/others/sshrc
 
-echo "# BASHRC" >> ~/dotfiles/others/sshrc
-cat ~/dotfiles/bash/bashrc \
+echo "# BASHRC" >> ~/dotfiles/public/others/sshrc
+cat ~/dotfiles/public/bash/bashrc \
 | perl -p0e 's/\nif.*?fi\n//s' \
 | grep -v "mkdir" \
->> ~/dotfiles/others/sshrc
+>> ~/dotfiles/public/others/sshrc
