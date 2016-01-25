@@ -95,6 +95,16 @@ function cheat-sheet() {
 		sed -r "s/'(.*)'/\1/" |
 		sed -r 's/"(.*)"/\1/'
 	echo ""
+	echo "\x1b[32m\x1b[1m\nFunctions\x1b[0m"
+
+	cat ~/dotfiles/public/zsh/functions.zsh |
+		grep "^function" -B1 |
+		grep -v "^--" |
+		awk '{printf "%s%s",$0,NR%2?"\t":"\n" ; }' |
+		awk -F'\t' '{ t = $1; $1 = $2; $2 = t; print; }' |
+		sed -r 's/^function ([A-Za-z0-9_-]+)(.*) # (.*)/\x1b[36m\1\x1b[0m\t\x1b[33m         ## \3\x1b[0m/g' |
+		column -s $'\t' -t
+	echo ""
 }
 
 # Passthru grep
