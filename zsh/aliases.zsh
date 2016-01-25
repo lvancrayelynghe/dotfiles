@@ -11,13 +11,13 @@ if [[ "$0" =~ 'zsh' ]]; then
 	# Global commands aliases
 	alias -g G='| grep'
 	alias -g N='| grep -v'
-    alias -g E='| grep-passthru'
-    alias -g HR='| highlight red'
-    alias -g HG='| highlight green'
-    alias -g HB='| highlight blue'
-    alias -g HM='| highlight magenta'
-    alias -g HC='| highlight cyan'
-    alias -g HY='| highlight yellow'
+	alias -g E='| grep-passthru'
+	alias -g HR='| highlight red'
+	alias -g HG='| highlight green'
+	alias -g HB='| highlight blue'
+	alias -g HM='| highlight magenta'
+	alias -g HC='| highlight cyan'
+	alias -g HY='| highlight yellow'
 	alias -g C='| wc -l'
 	alias -g S='| sort'
 	alias -g H='| head'
@@ -36,7 +36,7 @@ fi
 
 # Aliases only for non root users
 if [[ $UID != 0 || $EUID != 0 ]]; then
-	alias sudo='sudo ' # Allow aliases to be sudo’ed
+	alias sudo='sudo ' ## Allow aliases to be sudo’ed
 	alias halt='sudo shutdown -h now'
 	alias reboot='sudo shutdown -r now'
 	alias apt='sudo apt-get'
@@ -190,7 +190,7 @@ alias ports="lsof -ni | grep LISTEN"
 alias ns="nslookup"
 
 for method in GET HEAD POST PUT DELETE PURGE TRACE OPTIONS; do
-    alias "$method"="http '$method'"
+	alias "$method"="http '$method'"
 done
 
 # Curl & web helpers
