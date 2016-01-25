@@ -79,8 +79,26 @@ function compress() {
 	esac
 }
 
+# Cheat-sheet
+function cheat-sheet() {
+	cat ~/dotfiles/public/zsh/aliases.zsh |
+		perl -p0e 's/\nelse\n.*?\nfi\n//sg' |
+		perl -p0e 's/\nfor .*?done\n//sg' |
+		grep -v "^if " |
+		sed -r 's/^[[:space:]]+(.*)/\1/g' |
+		sed -r 's/^# (.*)/\x1b[32m\x1b[1m\n# \1\x1b[0m/' |
+		sed -r 's/## (.*)/\x1b[33m## \1\x1b[0m/' |
+		sed -r 's/-- -/-/' |
+		sed -r 's/alias -g/alias/' |
+		sed -r 's/^alias (-g )?([A-Za-z0-9.-]+)=(.*)/\x1b[36m\2\x1b[0m\t\3/g' |
+		column -s $'\t' -t |
+		sed -r "s/'(.*)'/\1/" |
+		sed -r 's/"(.*)"/\1/'
+	echo ""
+}
+
 # Passthru grep
-function grep-passthru {
+function grep-passthru() {
     if [ -z "$2" ]; then
         egrep "$1|$"
     else

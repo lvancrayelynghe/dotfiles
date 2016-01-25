@@ -194,7 +194,7 @@ for method in GET HEAD POST PUT DELETE PURGE TRACE OPTIONS; do
 done
 
 # Curl & web helpers
-alias dl='curl --continue-at - --location --progress-bar --remote-name --remote-time' # Download remote file
+alias dl='curl --continue-at - --location --progress-bar --remote-name --remote-time' ## Download remote file
 alias wget-site='wget --mirror -p --convert-links -P'
 alias header='curl-header'
 alias purge='curl-purge'
@@ -204,7 +204,7 @@ alias sprunge="curl -F 'sprunge=<-' http://sprunge.us"
 alias clbin="curl -F 'clbin=<-' https://clbin.com"
 
 # Because Oo
-alias tableflip="echo '(ノಠ益ಠ)ノ彡┻━┻'" # see https://gist.github.com/endolith/157796
+alias tableflip="echo '(ノಠ益ಠ)ノ彡┻━┻'" ## see https://gist.github.com/endolith/157796
 alias utf8test="wget -qO- http://8n1.org/utf8"
 
 # Record x11
