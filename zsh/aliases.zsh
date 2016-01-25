@@ -81,7 +81,7 @@ alias lls='ls -lhAS --group-directories-first' ## "s" for sort by size
 alias k='k -h'
 alias kl='k -h --no-vcs'
 alias kk='k -Ah'
-alias kkl='k -h --no-vcs'
+alias kkl='k -Ah --no-vcs'
 
 # 1 letter commands shortcuts
 alias c=" clear && printf '\033[3J'"
