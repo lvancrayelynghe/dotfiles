@@ -22,7 +22,6 @@ declare -A SYMLINKS=(
     ['others/sshrc']='.sshrc'
     ['others/tmux.conf']='.tmux.conf'
     ['others/wgetrc']='.wgetrc'
-    ['others/zlogin']='.zlogin'
     ['vim/vimrc']='.vimrc'
     ['vim/vim']='.vim'
     ['zsh/zlogin']='.zlogin'
