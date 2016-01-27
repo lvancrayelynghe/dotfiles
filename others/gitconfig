@@ -31,6 +31,9 @@
 [apply]
     whitespace = nowarn
 
+[status]
+    showuntrackedfiles = all
+
 [alias]
     # Log aliases
     tree                = log --graph --pretty=oneline --decorate
