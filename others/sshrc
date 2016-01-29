@@ -12,6 +12,13 @@ if [[ "$0" =~ 'zsh' ]]; then
 	# Global commands aliases
 	alias -g G='| grep'
 	alias -g N='| grep -v'
+	alias -g E='| grep-passthru'
+	alias -g HR='| highlight red'
+	alias -g HG='| highlight green'
+	alias -g HB='| highlight blue'
+	alias -g HM='| highlight magenta'
+	alias -g HC='| highlight cyan'
+	alias -g HY='| highlight yellow'
 	alias -g C='| wc -l'
 	alias -g S='| sort'
 	alias -g H='| head'
@@ -29,7 +36,7 @@ fi
 
 # Aliases only for non root users
 if [[ $UID != 0 || $EUID != 0 ]]; then
-	alias sudo='sudo ' # Allow aliases to be sudo’ed
+	alias sudo='sudo ' ## Allow aliases to be sudo’ed
 	alias apt='sudo apt-get'
 	alias aptinstall='sudo apt-get install'
 	alias aptremove='sudo apt-get remove'
@@ -80,6 +87,7 @@ alias n='nano'
 alias g='git'
 
 # Others commands shortcuts
+alias zd='z --del'
 alias rd='rmdir'
 alias md='mkdir -p'
 alias mcd='mkdir-cd'
@@ -106,6 +114,7 @@ alias du0='du --max-depth=0'
 alias du1='du --max-depth=1 | sort -k2' ## sort by name
 alias du1s='du --max-depth=1 | sort -h' ## sort by size
 alias iotop='iotop -Poa' ## iotop with only processes using i/o + accumulated i/o
+alias dmesg="dmesg -T|sed -e 's|\(^.*'`date +%Y`']\)\(.*\)|\x1b[0;34m\1\x1b[0m - \2|g'" ## dmesg with colored human-readable dates
 
 # Find things...
 alias f='grep -rinw "." -e ' ## inside files
@@ -115,26 +124,26 @@ alias fn='glob-find-files-by-name' ## insensitive filename with zsh globbing
 
 # Git
 alias gs='git status'
+alias gst='git status-short'
 alias ga='git add'
-alias gss='git status-short'
 alias gl='git log'
 alias gll='git pretty-log'
 alias gls='git pretty-log-short'
 alias glll='git pretty-log-nomerges'
 alias gd='git diff'
 alias gc='git commit'
+alias gca='git commit -a'
 alias gb='git branch'
 alias gt='git tag'
-alias gca='git commit -a'
 alias gco='git checkout'
+alias gp='git pull'
 alias gpull='git pull'
-alias gpullo='git pull origin master'
 alias gpush='git push'
-alias gpusho='git push origin master'
 alias gss='git stash save'
 alias gsa='git stash apply'
 alias gsp='git stash pop'
 alias gsl='git stash list'
+alias cgd='cdiff -s -w 0' ## columned & colored git diff
 
 # Local rsync
 alias rsync-copy="rsync -av --progress -h"
@@ -157,15 +166,21 @@ alias week='date +%V'
 alias timer='echo "Timer started. Stop with Ctrl-D." && date && time cat && date'
 
 # Network & ISP tests
+alias httping='httping'
 alias myip='dig +short myip.opendns.com @resolver1.opendns.com'
 alias myips="ifconfig -a | grep -o 'inet6\? \(ad\?dr:\)\?\s\?\(\(\([0-9]\+\.\)\{3\}[0-9]\+\)\|[a-fA-F0-9:]\+\)' | awk '{ sub(/inet6? (addr:|adr:)? ?/, \"\"); print }' | grep -v '127.0.0.1' | grep -v '::1'"
 alias localip="ifconfig | grep -Eo 'inet (addr:|adr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*' | grep -v '127.0.0.1'"
 alias speedtest="wget -O /dev/null http://speedtest.wdc01.softlayer.com/downloads/test10.zip"
 alias ipstats="netstat -ntu | tail -n +3 | awk '{print $5}' | cut -d: -f1 | sort | uniq -c | sort -n"
+alias ports="lsof -ni | grep LISTEN"
 alias ns="nslookup"
 
+for method in GET HEAD POST PUT DELETE PURGE TRACE OPTIONS; do
+	alias "$method"="http '$method'"
+done
+
 # Curl & web helpers
-alias dl='curl --continue-at - --location --progress-bar --remote-name --remote-time' # Download remote file
+alias dl='curl --continue-at - --location --progress-bar --remote-name --remote-time' ## download a file
 alias wget-site='wget --mirror -p --convert-links -P'
 alias header='curl-header'
 alias purge='curl-purge'
@@ -175,7 +190,7 @@ alias sprunge="curl -F 'sprunge=<-' http://sprunge.us"
 alias clbin="curl -F 'clbin=<-' https://clbin.com"
 
 # Because Oo
-alias utf8test="wget -qO- http://8n1.org/utf8"
+alias utf8test="wget -qO- http://8n1.org/utf8" ## test terminal UTF8 capabilities
 
 
 # Laravel helpers
@@ -267,6 +282,59 @@ function compress() {
 	esac
 }
 
+# Show aliases and functions cheat-sheet
+function cheat-sheet() {
+	cat ~/dotfiles/public/zsh/aliases.zsh |
+		perl -p0e 's/\nelse\n.*?\nfi\n/\n/sg' |
+		perl -p0e 's/\nfor .*?done\n//sg' |
+		grep -v "^if " |
+		sed -r 's/^[[:space:]]+(.*)/\1/g' |
+		sed -r 's/^# (.*)/\x1b[32m\x1b[1m\n# \1\x1b[0m/' |
+		sed -r 's/## (.*)/\x1b[33m## \1\x1b[0m/' |
+		sed -r 's/-- -/-/' |
+		sed -r 's/alias -g/alias/' |
+		sed -r 's/^alias (-g )?([A-Za-z0-9.-]+)=(.*)/\x1b[36m\2\x1b[0m\t\3/g' |
+		awk 'BEGIN { FS = "\t" } ; { printf "%-30s %s\n", $1, $2}' |
+		sed -r "s/'(.*)'/\1/" |
+		sed -r 's/"(.*)"/\1/'
+	echo ""
+	echo "\x1b[32m\x1b[1m\nFunctions\x1b[0m"
+
+	cat ~/dotfiles/public/zsh/functions.zsh |
+		grep "^function" -B1 |
+		grep -v "^--" |
+		awk '{printf "%s%s",$0,NR%2?"\t":"\n" ; }' |
+		awk -F'\t' '{ t = $1; $1 = $2; $2 = t; print; }' |
+		sed -r 's/^function ([A-Za-z0-9_-]+)(.*) # (.*)/\x1b[36m\1\x1b[0m\t\x1b[33m\3\x1b[0m/g' |
+		awk 'BEGIN { FS = "\t" } ; { printf "%-35s %s\n", $1, $2}'
+	echo ""
+}
+
+# Passthru grep
+function grep-passthru() {
+    if [ -z "$2" ]; then
+        egrep "$1|$"
+    else
+        egrep "$1|$" $2
+    fi
+}
+
+# Highlight a match in given color
+function highlight() {
+    declare -A fg_color_map
+    fg_color_map[black]=30
+    fg_color_map[red]=31
+    fg_color_map[green]=32
+    fg_color_map[yellow]=33
+    fg_color_map[blue]=34
+    fg_color_map[magenta]=35
+    fg_color_map[cyan]=36
+
+    fg_c=$(echo -e "\e[1;${fg_color_map[$1]}m")
+    c_rs=$'\e[0m'
+    sed -u s"/$2/$fg_c\0$c_rs/g"
+}
+
 # Human readable path variable
 function path() {
     LF=$(printf '\\\012_')
@@ -290,7 +358,7 @@ function curl-header() {
 	curl -s -D - "${1}" -o /dev/null
 }
 
-# Get an HTTP response header only
+# Send a purge query (Varnish)
 function curl-purge() {
 	curl -s -X PURGE "${1}" | grep "title" | sed "s_<\([^<>][^<>]*\)>\([^<>]*\)</\1>_$prefix\2_g" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//'
 }
