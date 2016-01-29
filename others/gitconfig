@@ -27,6 +27,8 @@
     editor = vim
     autocrlf = false
     whitespace = trailing-space,space-before-tab,cr-at-eol
+    # Only use on Windows networks share : git config --local core.filemode false
+    # filemode = false
 
 [apply]
     whitespace = nowarn
