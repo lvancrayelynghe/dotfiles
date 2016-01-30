@@ -174,6 +174,7 @@ alias 755='chmod 755 -R'
 alias 775='chmod 775 -R'
 alias 777='chmod 777 -R'
 alias www="chown www-data:www-data * .* -R"
+alias mx='chmod u+x'
 
 # Date & time helpers
 alias cal='cal -3'

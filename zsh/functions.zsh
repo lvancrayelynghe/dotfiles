@@ -188,6 +188,7 @@ function glob-find-files-by-name() {
 # Backup a file
 function backup-file() {
 	cp -r "$1"{,.bak};
+	#cp $1 $1_`date +%H:%M:%S_%d-%m-%Y`
 }
 
 # Encrypt a file
@@ -249,6 +250,12 @@ function strong-password() {
 	pwgen "$@"
 }
 
+# Download all files of a certain type with wget #
+# usage: wgetall mp3 http://example.com/download/
+function wgetall() {
+	wget -r -l2 -nd -Nc -A.$@ $@ ;
+}
+
 # Animated gifs from any video (from alex sexton gist.github.com/SlexAxton/4989674)
 function gifify() {
 	if [[ -n "$1" ]]; then
@@ -262,6 +269,32 @@ function gifify() {
 	else
 		echo "proper usage: gifify <input_movie.mov>. You DO need to include extension."
 	fi
+}
+
+# Let's be corporate
+function robco() {
+echo "$(tput setaf 2)
+
+  ██████████▒             ████▒       ███████████
+  ███▒▒▒▒███▒▒            ████▒▒      ███████████▒▒
+  ███▒▒▒▒███▒▒            ████▒▒      ███▒▒▒▒▒███▒▒
+  ███▒▒▒▒███▒▒            ████▒▒      ███▒▒▒▒▒███▒▒
+  ███▒▒  ███▒▒            ████▒▒      ███▒▒   ███▒▒
+  ███▒▒  ███▒▒            ████▒▒      ███▒▒   ███▒▒
+  ███▒▒  ███▒▒ ████████   █████████   ███▒▒   ▒▒▒▒▒ ████████
+  ███▒██████▒▒ █████████▒ ██████████▒ ███▒▒        █████████▒▒
+  ███▒██████▒▒ ███▒▒▒███▒▒████▒▒▒███▒▒███▒▒        ████▒▒▒██▒▒
+  ███▒███▒▒▒▒▒ ███▒▒▒███▒▒████▒▒▒███▒▒███▒▒        ████▒▒▒██▒▒
+  ███▒████▒▒▒  ███▒▒ ███▒▒████▒▒ ███▒▒███▒▒        ████▒▒ ██▒▒
+  ███▒▒███▒▒   ███▒▒ ███▒▒████▒▒ ███▒▒███▒▒   ███  ████▒▒ ██▒▒
+  ███▒▒███▒▒   ███▒▒ ███▒▒████▒▒ ███▒▒███▒▒   ███▒▒████▒▒ ██▒▒
+  ███▒▒ ███▒   ███▒▒ ███▒▒████▒▒ ███▒▒███▒▒   ███▒▒████▒▒ ██▒▒
+  ███▒▒ ███▒▒  ███▒▒ ███▒▒████▒  ███▒▒███████████▒▒████▒  ██▒▒
+  ███▒▒  ███▒▒ █████████▒▒██████████▒▒███████████▒▒█████████▒▒
+  ▒▒▒▒▒  ▒▒▒▒▒ ▒▒▒▒▒▒▒▒▒▒▒ ▒▒▒▒▒▒▒▒▒▒▒ ▒▒▒▒▒▒▒▒▒▒▒▒ ▒▒▒▒▒▒▒▒▒▒
+   ▒▒      ▒▒   ▒▒▒▒▒▒▒▒    ▒▒▒▒▒▒▒▒    ▒▒▒▒▒▒▒▒▒    ▒▒▒▒▒▒▒▒
+
+$(tput sgr0)"
 }
 
 # Because Metroid !
