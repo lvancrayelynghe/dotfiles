@@ -1,0 +1,6 @@
+<snippet>
+    <content><![CDATA[array($1)]]></content>
+    <tabTrigger>a</tabTrigger>
+    <scope>source.php - variable.other.php</scope>
+    <description>array()</description>
+</snippet>
