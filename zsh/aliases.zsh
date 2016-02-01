@@ -93,6 +93,7 @@ alias j='jobs'
 alias v='vim'
 alias e='vim'
 alias n='nano'
+alias s='subl'
 alias g='git'
 alias m='mutt'
 
