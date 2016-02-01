@@ -101,6 +101,7 @@ alias dg='desk go'
 alias co='pygmentize -O style=monokai -f console256 -g'
 alias zd='z --del'
 alias mf='mutt -F'
+alias k9='kill -9'
 alias rd='rmdir'
 alias md='mkdir -p'
 alias mcd='mkdir-cd'
@@ -178,6 +179,10 @@ alias 775='chmod 775 -R'
 alias 777='chmod 777 -R'
 alias www="chown www-data:www-data * .* -R"
 alias mx='chmod u+x'
+
+# SSH helpers
+alias tunnel='ssh -f -N' ## Create a tunnel
+alias tunnel-list='ps aux | grep "ssh -f -N" | grep -v "grep"' ## List tunnels
 
 # Date & time helpers
 alias cal='cal -3'
