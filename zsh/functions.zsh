@@ -107,6 +107,33 @@ function cheat-sheet() {
 	echo ""
 }
 
+# Opens the current directory in Sublime Text, otherwise opens the given location
+function open-with-sublime-text() {
+	if [ $# -eq 0 ]; then
+		subl .;
+	else
+		subl "$@";
+	fi;
+}
+
+# Opens the current directory in Atom, otherwise opens the given location
+function open-with-atom() {
+	if [ $# -eq 0 ]; then
+		atom .;
+	else
+		atom "$@";
+	fi;
+}
+
+# Opens the current directory in Vim, otherwise opens the given location
+function open-with-vim() {
+	if [ $# -eq 0 ]; then
+		vim .;
+	else
+		vim "$@";
+	fi;
+}
+
 # Passthru grep
 function grep-passthru() {
     if [ -z "$2" ]; then
