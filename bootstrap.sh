@@ -113,7 +113,7 @@ do_symlinks() {
           fi
 
         else
-          if [ -L $dest ]; then
+          if [ -L "$dest" ]; then
             rm "$dest"
           fi
           link_file "$source" "$dest"
@@ -178,7 +178,7 @@ do_copies() {
           fi
 
         else
-          if [ -L $dest ]; then
+          if [ -L "$dest" ]; then
             rm "$dest"
           fi
           copy_file "$source" "$dest"
