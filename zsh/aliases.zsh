@@ -11,13 +11,13 @@ if [[ "$0" =~ 'zsh' ]]; then
 	# Global commands aliases
 	alias -g G='| grep'
 	alias -g N='| grep -v'
-    alias -g E='| grep-passthru'
-    alias -g HR='| highlight red'
-    alias -g HG='| highlight green'
-    alias -g HB='| highlight blue'
-    alias -g HM='| highlight magenta'
-    alias -g HC='| highlight cyan'
-    alias -g HY='| highlight yellow'
+	alias -g E='| grep-passthru'
+	alias -g HR='| highlight red'
+	alias -g HG='| highlight green'
+	alias -g HB='| highlight blue'
+	alias -g HM='| highlight magenta'
+	alias -g HC='| highlight cyan'
+	alias -g HY='| highlight yellow'
 	alias -g C='| wc -l'
 	alias -g S='| sort'
 	alias -g H='| head'
@@ -36,7 +36,7 @@ fi
 
 # Aliases only for non root users
 if [[ $UID != 0 || $EUID != 0 ]]; then
-	alias sudo='sudo ' # Allow aliases to be sudo’ed
+	alias sudo='sudo ' ## Allow aliases to be sudo’ed
 	alias halt='sudo shutdown -h now'
 	alias reboot='sudo shutdown -r now'
 	alias apt='sudo apt-get'
@@ -81,7 +81,7 @@ alias lls='ls -lhAS --group-directories-first' ## "s" for sort by size
 alias k='k -h'
 alias kl='k -h --no-vcs'
 alias kk='k -Ah'
-alias kkl='k -h --no-vcs'
+alias kkl='k -Ah --no-vcs'
 
 # 1 letter commands shortcuts
 alias c=" clear && printf '\033[3J'"
@@ -90,8 +90,10 @@ alias x=' exit'
 alias d='desk'
 alias h='history'
 alias j='jobs'
-alias v='vim'
-alias e='vim'
+alias v='open-with-vim'
+alias e='open-with-vim'
+alias s='open-with-sublime-text'
+alias a='open-with-atom'
 alias n='nano'
 alias g='git'
 alias m='mutt'
@@ -101,6 +103,7 @@ alias dg='desk go'
 alias co='pygmentize -O style=monokai -f console256 -g'
 alias zd='z --del'
 alias mf='mutt -F'
+alias k9='kill -9'
 alias rd='rmdir'
 alias md='mkdir -p'
 alias mcd='mkdir-cd'
@@ -141,13 +144,16 @@ alias fr='find-and-replace' ## find and replace in current dir
 alias gs='git status'
 alias gst='git status-short'
 alias ga='git add'
+alias gaa='git add -A'
 alias gl='git log'
 alias gll='git pretty-log'
 alias gls='git pretty-log-short'
 alias glll='git pretty-log-nomerges'
 alias gd='git diff'
 alias gc='git commit'
+alias gcm='git commit -m'
 alias gca='git commit -a'
+alias gcam='git commit -a -m'
 alias gb='git branch'
 alias gt='git tag'
 alias gco='git checkout'
@@ -158,7 +164,7 @@ alias gss='git stash save'
 alias gsa='git stash apply'
 alias gsp='git stash pop'
 alias gsl='git stash list'
-alias cdiff='cdiff -s -w 0'
+alias cgd='cdiff -s -w 0' ## columned & colored git diff
 
 # Local rsync
 alias rsync-copy="rsync -av --progress -h"
@@ -174,6 +180,11 @@ alias 755='chmod 755 -R'
 alias 775='chmod 775 -R'
 alias 777='chmod 777 -R'
 alias www="chown www-data:www-data * .* -R"
+alias mx='chmod u+x'
+
+# SSH helpers
+alias tunnel='ssh -f -N' ## Create a tunnel
+alias tunnel-list='ps aux | grep "ssh -f -N" | grep -v "grep"' ## List tunnels
 
 # Date & time helpers
 alias cal='cal -3'
@@ -181,6 +192,7 @@ alias week='date +%V'
 alias timer='echo "Timer started. Stop with Ctrl-D." && date && time cat && date'
 
 # Network & ISP tests
+alias httping='httping'
 alias myip='dig +short myip.opendns.com @resolver1.opendns.com'
 alias myips="ifconfig -a | grep -o 'inet6\? \(ad\?dr:\)\?\s\?\(\(\([0-9]\+\.\)\{3\}[0-9]\+\)\|[a-fA-F0-9:]\+\)' | awk '{ sub(/inet6? (addr:|adr:)? ?/, \"\"); print }' | grep -v '127.0.0.1' | grep -v '::1'"
 alias localip="ifconfig | grep -Eo 'inet (addr:|adr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*' | grep -v '127.0.0.1'"
@@ -190,11 +202,11 @@ alias ports="lsof -ni | grep LISTEN"
 alias ns="nslookup"
 
 for method in GET HEAD POST PUT DELETE PURGE TRACE OPTIONS; do
-    alias "$method"="http '$method'"
+	alias "$method"="http '$method'"
 done
 
 # Curl & web helpers
-alias dl='curl --continue-at - --location --progress-bar --remote-name --remote-time' # Download remote file
+alias dl='curl --continue-at - --location --progress-bar --remote-name --remote-time' ## download a file
 alias wget-site='wget --mirror -p --convert-links -P'
 alias header='curl-header'
 alias purge='curl-purge'
@@ -204,8 +216,8 @@ alias sprunge="curl -F 'sprunge=<-' http://sprunge.us"
 alias clbin="curl -F 'clbin=<-' https://clbin.com"
 
 # Because Oo
-alias tableflip="echo '(ノಠ益ಠ)ノ彡┻━┻'" # see https://gist.github.com/endolith/157796
-alias utf8test="wget -qO- http://8n1.org/utf8"
+alias tableflip="echo '(ノಠ益ಠ)ノ彡┻━┻'" ## see https://gist.github.com/endolith/157796
+alias utf8test="wget -qO- http://8n1.org/utf8" ## test terminal UTF8 capabilities
 
 # Record x11
 alias record="ffmpeg -f x11grab -s 1366x768 -an -r 16 -loglevel quiet -i :0.0 -b:v 5M -y" ## then pass a filename

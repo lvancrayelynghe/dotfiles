@@ -1,4 +1,4 @@
-if ! glances http >/dev/null 2>&1; then
+if ! hash glances >/dev/null 2>&1; then
 	echo ""
 	echo "You should consider installing Glances : http://nicolargo.github.io/glances/"
 	echo ""

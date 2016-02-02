@@ -1,0 +1,5 @@
+{
+    "enable_highlight": true,
+    "github_inject_header_ids": true,
+    "css": "markdown.css"
+}

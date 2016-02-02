@@ -1,0 +1,16 @@
+{
+	"color_scheme": "Packages/One Dark Color Scheme/One Dark.tmTheme",
+	"font_face": "Hack",
+	"font_size": 12,
+	"highlight_active_indent_guide": true,
+	"highlight_line": true,
+	"ignored_packages":
+	[
+		"Vintage"
+	],
+	"theme": "OneDarkMaterial.sublime-theme",
+	"trim_trailing_white_space_on_save": true,
+	"word_separators": "./\\()\"'-:,.;<>~!@#%^&*|+=[]{}`~?",
+	"word_wrap": false,
+	"wrap_width": 0
+}

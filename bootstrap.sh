@@ -22,9 +22,16 @@ declare -A SYMLINKS=(
     ['others/sshrc']='.sshrc'
     ['others/tmux.conf']='.tmux.conf'
     ['others/wgetrc']='.wgetrc'
-    ['others/zlogin']='.zlogin'
-    ['vim/vimrc']='.vimrc'
+    ['sublime-text-3/Packages/PHP']='.config/sublime-text-3/Packages/PHP'
+    ['sublime-text-3/Packages/User/anmol.tmTheme']='.config/sublime-text-3/Packages/User/anmol.tmTheme'
+    ['sublime-text-3/Packages/User/Default (Linux).sublime-keymap']='.config/sublime-text-3/Packages/User/Default (Linux).sublime-keymap'
+    ['sublime-text-3/Packages/User/Emmet.sublime-settings']='.config/sublime-text-3/Packages/User/Emmet.sublime-settings'
+    ['sublime-text-3/Packages/User/markdown.css']='.config/sublime-text-3/Packages/User/markdown.css'
+    ['sublime-text-3/Packages/User/MarkdownPreview.sublime-settings']='.config/sublime-text-3/Packages/User/MarkdownPreview.sublime-settings'
+    ['sublime-text-3/Packages/User/Package Control.sublime-settings']='.config/sublime-text-3/Packages/User/Package Control.sublime-settings'
+    ['sublime-text-3/Packages/User/Preferences.sublime-settings']='.config/sublime-text-3/Packages/User/Preferences.sublime-settings'
     ['vim/vim']='.vim'
+    ['vim/vimrc']='.vimrc'
     ['zsh/zlogin']='.zlogin'
     ['zsh/zshenv']='.zshenv'
     ['zsh/zshrc_brutus']='.zshrc_brutus'
@@ -41,8 +48,8 @@ DOTFILES_ROOT="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 user()    { printf "\r  [ \033[0;33m?\033[0m ] $1 " ; }
 success() { printf "\r\033[2K  [ \033[00;32mOK\033[0m ] $1\n" ; }
 fail()    { printf "\r\033[2K  [\033[0;31mFAIL\033[0m] $1\n" ; echo '' ; exit ; }
-link_file() { mkdir -p `dirname $2` ; ln -s $1 $2 ; success "linked $1 to $2" ; }
-copy_file() { mkdir -p `dirname $2` ; cp -r $1 $2 ; success "copied $1 to $2" ; }
+link_file() { mkdir -p "`dirname "$2"`" ; ln -s "$1" "$2" ; success "linked $1 to $2" ; }
+copy_file() { mkdir -p "`dirname "$2"`" ; cp -r "$1" "$2" ; success "copied $1 to $2" ; }
 
 echo 'Installing public dotfiles...'
 
@@ -59,11 +66,11 @@ do_symlinks() {
         source="${DOTFILES_ROOT}/${K}"
         dest="${HOME}/${SYMLINKS[$K]}"
 
-        if [ ! -f $source ] && [ ! -d $source ]; then
+        if [ ! -f "$source" ] && [ ! -d "$source" ]; then
             fail "File $source does not exists"
         fi
 
-        if [ -f $dest ] || [ -d $dest ]; then
+        if [ -f "$dest" ] || [ -d "$dest" ]; then
           overwrite=false
           backup=false
           skip=false
@@ -90,26 +97,26 @@ do_symlinks() {
           fi
 
           if [ "$overwrite" == "true" ] || [ "$overwrite_all" == "true" ]; then
-            rm -rf $dest
+            rm -rf "$dest"
             success "removed $dest"
           fi
 
           if [ "$backup" == "true" ] || [ "$backup_all" == "true" ]; then
-            mv $dest $dest\.backup
+            mv "$dest" "$dest\.backup"
             success "moved $dest to $dest.backup"
           fi
 
           if [ "$skip" == "false" ] && [ "$skip_all" == "false" ]; then
-            link_file $source $dest
+            link_file "$source" "$dest"
           else
             success "skipped $source"
           fi
 
         else
-          if [ -L $dest ]; then
-            rm $dest
+          if [ -L "$dest" ]; then
+            rm "$dest"
           fi
-          link_file $source $dest
+          link_file "$source" "$dest"
         fi
     done
 }
@@ -124,11 +131,11 @@ do_copies() {
         source="${DOTFILES_ROOT}/${K}"
         dest="${HOME}/${COPIES[$K]}"
 
-        if [ ! -f $source ] && [ ! -d $source ]; then
+        if [ ! -f "$source" ] && [ ! -d "$source" ]; then
             fail "File $source does not exists"
         fi
 
-        if [ -f $dest ] || [ -d $dest ]; then
+        if [ -f "$dest" ] || [ -d "$dest" ]; then
           overwrite=false
           backup=false
           skip=false
@@ -155,26 +162,26 @@ do_copies() {
           fi
 
           if [ "$overwrite" == "true" ] || [ "$overwrite_all" == "true" ]; then
-            rm -rf $dest
+            rm -rf "$dest"
             success "removed $dest"
           fi
 
           if [ "$backup" == "true" ] || [ "$backup_all" == "true" ]; then
-            mv $dest $dest\.backup
+            mv "$dest" "$dest\.backup"
             success "moved $dest to $dest.backup"
           fi
 
           if [ "$skip" == "false" ] && [ "$skip_all" == "false" ]; then
-            copy_file $source $dest
+            copy_file "$source" "$dest"
           else
             success "skipped $source"
           fi
 
         else
-          if [ -L $dest ]; then
-            rm $dest
+          if [ -L "$dest" ]; then
+            rm "$dest"
           fi
-          copy_file $source $dest
+          copy_file "$source" "$dest"
         fi
     done
 }
