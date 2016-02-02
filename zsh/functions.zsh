@@ -253,6 +253,34 @@ function unslowport {
   echo "Port succesfully un-slowed."
 }
 
+# Rename TV shows files
+function rename-tv-shows() {
+	if [ "$#" -lt 1 ]; then
+		echo "Missing TV show name"
+		echo "  Usage : rename-tv-shows Name of the TV show"
+	else
+		SHOWNAME=$@
+		SHOWNAME=${SHOWNAME/\%/\%\%} # Escape "%" for sprintf
+		RENAME="s/.*[s,S](\d{1,2}).*[e,E](\d{1,2}).*\.(.*)/sprintf '$SHOWNAME S%02dE%02d.%s', \$1, \$2, \$3/e"
+		COUNT=`rename -v -n "$RENAME" * | wc -l`
+		if [ "$COUNT" -lt 1 ]; then
+			echo "No file found"
+		else
+			rename -v -n "$RENAME" * | grep --color=auto " renamed as "
+			printf "\033[0;33mRename files ? [y/n] \033[0m"
+			if [ -n "$ZSH_VERSION" ]; then
+				read action
+			else
+				read -n 1 action
+			fi
+			if [ "$action" = "y" ] || [ "$action" = "Y" ]; then
+				rename "$RENAME" *
+			fi
+		fi
+		echo ""
+	fi
+}
+
 # Smart JPG / PNG images resize
 function smartresize() {
 	if [ "$1" == "" ]
