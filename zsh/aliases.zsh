@@ -185,6 +185,7 @@ alias mx='chmod u+x'
 # SSH helpers
 alias tunnel='ssh -f -N' ## Create a tunnel
 alias tunnel-list='ps aux | grep "ssh -f -N" | grep -v "grep"' ## List tunnels
+alias pubkey="more ~/.ssh/keys/perso.rsa.pub | xclip | echo '=> Public key copied to pasteboard'"
 
 # Date & time helpers
 alias cal='cal -3'
