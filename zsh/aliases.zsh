@@ -109,6 +109,7 @@ alias rd='rmdir'
 alias md='mkdir -p'
 alias mcd='mkdir-cd'
 alias mkcd='mkdir-cd'
+alias tr='trash-put'
 alias rmf="rm -rf"
 alias rmrf="rm -rf"
 alias bak='backup-file'

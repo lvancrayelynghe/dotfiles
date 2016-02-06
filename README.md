@@ -36,6 +36,7 @@ Because they're used in aliases & co
 - imagemagick (apt-get install imagemagick)
 - ffmpeg (apt-get install ffmpeg)
 - openssl (apt-get install openssl)
+- trash-cli (apt-get install trash-cli)
 - cowsay and fortune for the lulz (apt-get install cowsay fortune)
 
 
