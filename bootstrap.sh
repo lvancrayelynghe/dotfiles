@@ -2,6 +2,7 @@
 
 declare -A COPIES=(
     ['ssh/config']='.ssh/config'
+    ['tilda/config_0']='.config/tilda/config_0'
 )
 
 declare -A SYMLINKS=(
@@ -37,7 +38,6 @@ declare -A SYMLINKS=(
     ['zsh/zshrc_brutus']='.zshrc_brutus'
     ['zsh/zshrc_homestead']='.zshrc_homestead'
     ['zsh/zshrc']='.zshrc'
-    ['tilda/config_0']='.config/tilda/config_0'
 )
 
 ####################################################################################
