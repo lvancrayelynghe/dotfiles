@@ -35,6 +35,7 @@ declare -A SYMLINKS=(
     ['sublime-text-3/Packages/User/Preferences.sublime-settings']='.config/sublime-text-3/Packages/User/Preferences.sublime-settings'
     ['geany/geany.conf']='.config/geany/geany.conf'
     ['geany/keybindings.conf']='.config/geany/keybindings.conf'
+    ['geany/monokai.conf']='.config/geany/colorschemes/monokai.conf'
     ['vim/vim']='.vim'
     ['vim/vimrc']='.vimrc'
     ['zsh/zlogin']='.zlogin'
