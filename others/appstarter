@@ -1,0 +1,15 @@
+_Htop|gnome-terminal|--window --maximize -x htop
+_System Monitor|gnome-system-monitor|
+_Nvidia Settings|nvidia-settings|
+
+---
+
+folder:SSH
+SSH Connection|gnome-terminal|--window --maximize -x ssh user@exemple.com
+folder:
+
+folder:Dotfiles
+Atom ansible|atom|~/ansible
+Atom dotfiles public|atom|~/dotfiles/public
+Atom dotfiles private|atom|~/dotfiles/private
+folder:
