@@ -14,7 +14,7 @@ git config --local user.name "Benoth"
 # Clone & config the private repository
 mkdir -p ~/dotfiles/private
 cd ~/dotfiles/private
-print -n "To clone the private repository, you need to provide its address (just press Enter to abort) : "
+print -n "To clone the private repository, you need to provide its **HTTPS** address (just press Enter to abort) : "
 read repo
 if [[ -n "$repo" ]]; then
     git clone --recursive "$repo" .

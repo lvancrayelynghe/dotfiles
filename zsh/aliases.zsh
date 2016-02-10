@@ -95,6 +95,7 @@ alias e='open-with-vim'
 alias s='open-with-sublime-text'
 alias a='open-with-atom'
 alias n='nano'
+alias o='xdg-open'
 alias g='git'
 alias m='mutt'
 
@@ -108,6 +109,7 @@ alias rd='rmdir'
 alias md='mkdir -p'
 alias mcd='mkdir-cd'
 alias mkcd='mkdir-cd'
+alias tr='trash-put'
 alias rmf="rm -rf"
 alias rmrf="rm -rf"
 alias bak='backup-file'
@@ -185,6 +187,7 @@ alias mx='chmod u+x'
 # SSH helpers
 alias tunnel='ssh -f -N' ## Create a tunnel
 alias tunnel-list='ps aux | grep "ssh -f -N" | grep -v "grep"' ## List tunnels
+alias pubkey="more ~/.ssh/keys/perso.rsa.pub | xclip | echo '=> Public key copied to pasteboard'"
 
 # Date & time helpers
 alias cal='cal -3'

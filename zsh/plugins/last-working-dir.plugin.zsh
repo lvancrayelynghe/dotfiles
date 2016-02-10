@@ -15,7 +15,9 @@ function chpwd() {
 
 # Changes directory to the last working directory.
 function lwd() {
-	[[ ! -r "$cache_file" ]] || cd "`cat "$cache_file"`"
+	if [[ `pwd` = "$HOME" ]]; then
+		[[ ! -r "$cache_file" ]] || cd "`cat "$cache_file"`"
+	fi
 }
 
 # Automatically jump to last working directory unless this isn't the first time

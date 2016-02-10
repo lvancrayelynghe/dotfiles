@@ -49,6 +49,8 @@
     assume              = update-index --assume-unchanged
     unassume            = update-index --no-assume-unchanged
     assumed             = "!git ls-files -v | grep ^h | cut -c 3-"
+    # Ignore file mode changes
+    ignore-filemode     ="!git config --local core.filemode false"
     # Exactly match the remote branch
     full-reset          = "!git fetch origin && git reset --hard origin/master"
 

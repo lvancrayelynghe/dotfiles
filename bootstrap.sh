@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
 
 declare -A COPIES=(
+    ['others/appstarter']='.appstarter'
     ['ssh/config']='.ssh/config'
+    ['tilda/config_0']='.config/tilda/config_0'
 )
 
 declare -A SYMLINKS=(
@@ -22,6 +24,7 @@ declare -A SYMLINKS=(
     ['others/sshrc']='.sshrc'
     ['others/tmux.conf']='.tmux.conf'
     ['others/wgetrc']='.wgetrc'
+    ['scripts/app-starter.py']='bin/app-starter'
     ['sublime-text-3/Packages/PHP']='.config/sublime-text-3/Packages/PHP'
     ['sublime-text-3/Packages/User/anmol.tmTheme']='.config/sublime-text-3/Packages/User/anmol.tmTheme'
     ['sublime-text-3/Packages/User/Default (Linux).sublime-keymap']='.config/sublime-text-3/Packages/User/Default (Linux).sublime-keymap'
@@ -30,6 +33,9 @@ declare -A SYMLINKS=(
     ['sublime-text-3/Packages/User/MarkdownPreview.sublime-settings']='.config/sublime-text-3/Packages/User/MarkdownPreview.sublime-settings'
     ['sublime-text-3/Packages/User/Package Control.sublime-settings']='.config/sublime-text-3/Packages/User/Package Control.sublime-settings'
     ['sublime-text-3/Packages/User/Preferences.sublime-settings']='.config/sublime-text-3/Packages/User/Preferences.sublime-settings'
+    ['geany/geany.conf']='.config/geany/geany.conf'
+    ['geany/keybindings.conf']='.config/geany/keybindings.conf'
+    ['geany/monokai.conf']='.config/geany/colorschemes/monokai.conf'
     ['vim/vim']='.vim'
     ['vim/vimrc']='.vimrc'
     ['zsh/zlogin']='.zlogin'
@@ -75,7 +81,7 @@ do_symlinks() {
           backup=false
           skip=false
           if [ "$overwrite_all" == "false" ] && [ "$backup_all" == "false" ] && [ "$skip_all" == "false" ]; then
-            user "File already exists: `basename $dest`, what do you want to do? [s]kip, [S]kip all, [o]verwrite, [O]verwrite all, [b]ackup, [B]ackup all?"
+            user "File already exists: $dest, what do you want to do? [s]kip, [S]kip all, [o]verwrite, [O]verwrite all, [b]ackup, [B]ackup all?"
             read -n 1 action
 
             case "$action" in
@@ -140,7 +146,7 @@ do_copies() {
           backup=false
           skip=false
           if [ "$overwrite_all" == "false" ] && [ "$backup_all" == "false" ] && [ "$skip_all" == "false" ]; then
-            user "File already exists: `basename $dest`, what do you want to do? [s]kip, [S]kip all, [o]verwrite, [O]verwrite all, [b]ackup, [B]ackup all?"
+            user "File already exists: $dest, what do you want to do? [s]kip, [S]kip all, [o]verwrite, [O]verwrite all, [b]ackup, [B]ackup all?"
             read -n 1 action
 
             case "$action" in

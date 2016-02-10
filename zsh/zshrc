@@ -28,6 +28,10 @@ if hash npm >/dev/null 2>&1; then
     source $DOTFILES_DIR/zsh/plugins/gulp.plugin.zsh
 fi
 
+if hash composer >/dev/null 2>&1; then
+    source $DOTFILES_DIR/zsh/composer.zsh
+fi
+
 if hash fzf >/dev/null 2>&1; then
 	FZF_COMPLETION_TRIGGER='*'
 	source $DOTFILES_DIR/zsh/plugins/fzf-completion.plugin.zsh
