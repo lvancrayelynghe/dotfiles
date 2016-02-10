@@ -47,6 +47,7 @@
 	{ "keys": ["ctrl+up"], "command": "upper_case" },
 	{ "keys": ["ctrl+down"], "command": "lower_case" },
 
+	// Folding
 	{ "keys": ["alt+f1"], "command": "fold" },
 	{ "keys": ["alt+f2"], "command": "unfold" },
 	{ "keys": ["alt+f5"], "command": "fold_by_level", "args": {"level": 1} },
