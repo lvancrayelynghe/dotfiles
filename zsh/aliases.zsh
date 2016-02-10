@@ -112,6 +112,7 @@ alias mkcd='mkdir-cd'
 alias tr='trash-put'
 alias rmf="rm -rf"
 alias rmrf="rm -rf"
+alias cpr="cp -r"
 alias bak='backup-file'
 alias tailf='tail -f'
 alias less='less -r'
