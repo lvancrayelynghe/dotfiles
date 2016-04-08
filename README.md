@@ -40,6 +40,13 @@ Because they're used in aliases & co
 - cowsay and fortune for the lulz (apt-get install cowsay fortune)
 
 
+## Enable powerline theme and git status in prompt
+```
+echo "LC_POWERLINE=true" > ".zshrc_`hostname`"
+echo "ZSH_VCS_INFO=true" >> ".zshrc_`hostname`"
+```
+
+
 ## Sources of inspiration
 - [Github does dotfiles](http://dotfiles.github.io/)
 - [Most starred dotfiles repos](https://github.com/search?langOverride=&language=&o=desc&q=dotfiles&repo=&s=stars&start_value=1&type=Repositories&utf8=%E2%9C%93)
