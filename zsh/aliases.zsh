@@ -226,6 +226,12 @@ alias utf8test="wget -qO- http://8n1.org/utf8" ## test terminal UTF8 capabilitie
 # Record x11
 alias record="ffmpeg -f x11grab -s 1366x768 -an -r 16 -loglevel quiet -i :0.0 -b:v 5M -y" ## then pass a filename
 
+# Composer helpers
+alias cu="composer update"
+alias cr="composer require"
+alias ci="composer install"
+alias cda="composer dump-autoload"
+
 # Laravel helpers
 alias art='php artisan'
 alias mig-install='php artisan migrate:install'
