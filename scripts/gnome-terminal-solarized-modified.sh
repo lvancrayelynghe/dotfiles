@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 # Base16 - Gnome Terminal color scheme install script
+# Source - https://terminal.sexy/#ABgfk6GhADlF3DIvhZkAtYkAJovSbHHEKqGY_fbjZXuD3DIvhZkAtYkAJovSbHHEL7Op_fbj
 
 [[ -z "$PROFILE_NAME" ]] && PROFILE_NAME="terminal.benoth"
 [[ -z "$PROFILE_SLUG" ]] && PROFILE_SLUG="terminal-dot-benoth"
