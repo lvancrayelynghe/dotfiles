@@ -1,26 +1,17 @@
-# Description: ....
+PROJECT_PATH=$1
+PROJECT_DB=$2
+PROJECT_SQL=$3
+PROJECT_HOST=$4
 
-PROJECT_PATH=""
-PROJECT_DB="_db"
-PROJECT_SQL="${PROJECT_PATH}/sql/${PROJECT_DB}.sql"
 
-### DO NOT CHANGE ##############################
+alias dev-http="xdg-open http://${DESK_NAME}.dev/ > /dev/null"   # Open browser on dev server
 
-# Use a per project history file
-HISTFILE=$HOME/.cache/zsh-history-desk-${DESK_NAME}
+alias mysql="mysql ${PROJECT_DB}"                 # mysql alias with dbname inserted
+alias mysqldump="mysqldump --opt ${PROJECT_DB}"   # mysqldump alias with dbname inserted
 
-# Go in project home
-cd "$PROJECT_PATH"
+alias dumpdb="mysqldump > ${PROJECT_SQL}"   # Dump the database to sql file
+alias restoredb="\mysql -e \"DROP DATABASE ${PROJECT_DB}\" &>/dev/null ; \mysql -e \"CREATE DATABASE ${PROJECT_DB}\" ; mysql < ${PROJECT_SQL}"   # Restore the database using the sql file
 
-# Go in project home alias
-alias home="cd ${PROJECT_PATH}"
-
-# mysql alias with dbname inserted
-alias mysql="mysql ${PROJECT_DB}"
-# mysqldump alias with dbname inserted
-alias mysqldump="mysqldump --opt ${PROJECT_DB}"
-
-# Dump the database to sql file
-alias dumpdb="mysqldump > ${PROJECT_SQL}"
-# Restore the database using the sql file
-alias restoredb="\mysql -e \"DROP DATABASE ${PROJECT_DB}\" &>/dev/null ; \mysql -e \"CREATE DATABASE ${PROJECT_DB}\" ; mysql < ${PROJECT_SQL}"
+alias prod-http="xdg-open http://${PROJECT_HOST}/ > /dev/null"   # Open browser on dev server
+alias prod-ftp="filezilla -c 0/${PROJECT_HOST} &"                # Open Filezilla on dev server
+alias prod-ssh="ssh ${PROJECT_HOST}"                             # Open SSH on prod server

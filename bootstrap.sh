@@ -10,6 +10,7 @@ declare -A SYMLINKS=(
     ['bash/bashrc']='.bashrc'
     ['bash/inputrc']='.inputrc'
     ['bash/profile']='.profile'
+    ['desk/base-project.sh']='.desk/base-project.sh'
     ['desk/web-project.sh']='.desk/web-project.sh'
     ['mutt/muttrc']='.muttrc'
     ['others/ackrc']='.ackrc'
