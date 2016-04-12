@@ -21,7 +21,6 @@ source $DOTFILES_DIR/zsh/other-installs.zsh
 [[ -n $LOCAL_CONFIG_FILE && -e $LOCAL_CONFIG_FILE ]] && source $LOCAL_CONFIG_FILE || true
 
 source $DOTFILES_DIR/zsh/plugins/colored-man.plugin.zsh
-source $DOTFILES_DIR/zsh/plugins/last-working-dir.plugin.zsh
 
 if hash npm >/dev/null 2>&1; then
     source $DOTFILES_DIR/zsh/npm.zsh
@@ -46,3 +45,6 @@ fi
 
 # Hook for desk activation (must stay after every other scripts)
 [ -n "$DESK_ENV" ] && source "$DESK_ENV"
+
+# Only load last working directory plugin if not un a Desk
+[ -z "$DESK_ENV" ] && source $DOTFILES_DIR/zsh/plugins/last-working-dir.plugin.zsh
