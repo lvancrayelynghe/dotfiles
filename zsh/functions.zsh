@@ -51,6 +51,15 @@ function extract() {
     fi
 }
 
+# Find all git repositories in a path and run git pull
+function git-repositories-pull() {
+    if [ $# -eq 0 ]; then
+        find . -name "*.git" -print0 | xargs -0 -n1 dirname | xargs -I repodir sh -c 'cd repodir ; printf "repodir ... " ; git pull'
+    else
+        find "$@" -name "*.git" -print0 | xargs -0 -n1 dirname | xargs -I repodir sh -c 'cd repodir ; printf "repodir ... " ; git pull'
+    fi;
+}
+
 # compress a file or folder
 function compress() {
         case "$1" in
