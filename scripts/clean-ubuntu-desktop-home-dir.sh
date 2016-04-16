@@ -1,7 +1,7 @@
 #!/bin/sh
 
 cd ~
-rm -rf Documents Modèles Images Vidéos Musique Public Téléchargements
+rm -rf Documents Modèles Images Vidéos Musique Public Téléchargements examples.desktop
 xdg-user-dirs-update
 
 # Reassign path :
