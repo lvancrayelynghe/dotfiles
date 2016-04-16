@@ -110,9 +110,9 @@ function cheat-sheet() {
 # Opens the current directory in Sublime Text, otherwise opens the given location
 function open-with-sublime-text() {
     if [ $# -eq 0 ]; then
-        subl .;
+        subl -a .;
     else
-        subl "$@";
+        subl -a "$@";
     fi;
 }
 
