@@ -1,17 +1,17 @@
 [
-	// Shift + Mouse 2 Column select
+	// Shift + Mouse 1 Column select
 	{
-		"button": "button2", "modifiers": ["shift"],
+		"button": "button1", "modifiers": ["shift"],
 		"press_command": "drag_select",
 		"press_args": {"by": "columns"}
 	},
 	{
-		"button": "button2", "modifiers": ["shift", "ctrl"],
+		"button": "button1", "modifiers": ["shift", "ctrl"],
 		"press_command": "drag_select",
 		"press_args": {"by": "columns", "additive": true}
 	},
 	{
-		"button": "button2", "modifiers": ["shift", "alt"],
+		"button": "button1", "modifiers": ["shift", "alt"],
 		"press_command": "drag_select",
 		"press_args": {"by": "columns", "subtractive": true}
 	},
