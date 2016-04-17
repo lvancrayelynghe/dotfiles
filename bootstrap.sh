@@ -24,6 +24,7 @@ declare -A SYMLINKS=(
     ['others/sshrc']='.sshrc'
     ['others/tmux.conf']='.tmux.conf'
     ['others/wgetrc']='.wgetrc'
+    ['others/mimeapps.list']='.local/share/applications/mimeapps.list'
     ['remarkable/remarkable.settings']='.remarkable/remarkable.settings'
     ['scripts/app-starter.py']='bin/app-starter'
     ['sublime-text-3/Packages/PHP']='.config/sublime-text-3/Packages/PHP'
