@@ -1,0 +1,20 @@
+[Added Associations]
+application/x-php=sublime-text.desktop;
+application/x-yaml=gedit.desktop;sublime-text.desktop;
+text/plain=sublime-text.desktop;
+text/x-ms-regedit=sublime-text.desktop;
+audio/x-mpegurl=vlc.desktop;
+video/x-matroska=vlc.desktop;
+video/x-msvideo=vlc.desktop;
+
+[Default Applications]
+text/html=chromium-browser.desktop
+x-scheme-handler/http=chromium-browser.desktop
+x-scheme-handler/https=chromium-browser.desktop
+x-scheme-handler/about=chromium-browser.desktop
+x-scheme-handler/unknown=chromium-browser.desktop
+text/plain=sublime-text.desktop
+video/x-msvideo=vlc.desktop
+video/x-matroska=vlc.desktop
+audio/x-mpegurl=vlc.desktop
+application/x-yaml=sublime-text.desktop
