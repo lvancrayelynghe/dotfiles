@@ -1,5 +1,14 @@
 {
 	"color_scheme": "Packages/One Dark Color Scheme/One Dark.tmTheme",
+	"folder_exclude_patterns":
+	[
+		".svn",
+		".git",
+		".bundle",
+		".sass-cache",
+		"vendor",
+		"node_modules"
+	],
 	"font_face": "Hack",
 	"font_size": 12,
 	"highlight_active_indent_guide": true,
