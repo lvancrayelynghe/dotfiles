@@ -21,6 +21,7 @@
 		"QML",
 		"SCSS",
 		"StringUtilities",
-		"TrailingSpaces"
+		"TrailingSpaces",
+        "Vue Syntax Highlight"
 	]
 }
