@@ -28,6 +28,7 @@ declare -A SYMLINKS=(
     ['others/mimeapps.list']='.local/share/applications/mimeapps.list'
     ['others/remarkable.settings']='.remarkable/remarkable.settings'
     ['scripts/app-starter.py']='bin/app-starter'
+    ['scripts/chromium-focus-and-new-tab.sh']='bin/chromium-focus-and-new-tab'
     ['sublime-text-3/Packages/PHP']='.config/sublime-text-3/Packages/PHP'
     ['sublime-text-3/Packages/User/anmol.tmTheme']='.config/sublime-text-3/Packages/User/anmol.tmTheme'
     ['sublime-text-3/Packages/User/Default.sublime-keymap']='.config/sublime-text-3/Packages/User/Default.sublime-keymap'
