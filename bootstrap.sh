@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 declare -A COPIES=(
+    ['others/albert.conf']='.config/albert/albert.conf'
     ['others/appstarter']='.appstarter'
     ['ssh/config']='.ssh/config'
     ['tilda/config_0']='.config/tilda/config_0'
