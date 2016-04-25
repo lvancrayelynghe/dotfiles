@@ -3,8 +3,8 @@
 declare -A COPIES=(
     ['others/albert.conf']='.config/albert/albert.conf'
     ['others/appstarter']='.appstarter'
-    ['ssh/config']='.ssh/config'
-    ['tilda/config_0']='.config/tilda/config_0'
+    ['others/ssh_config']='.ssh/config'
+    ['others/tilda_config_0']='.config/tilda/config_0'
 )
 
 declare -A SYMLINKS=(
@@ -26,7 +26,7 @@ declare -A SYMLINKS=(
     ['others/tmux.conf']='.tmux.conf'
     ['others/wgetrc']='.wgetrc'
     ['others/mimeapps.list']='.local/share/applications/mimeapps.list'
-    ['remarkable/remarkable.settings']='.remarkable/remarkable.settings'
+    ['others/remarkable.settings']='.remarkable/remarkable.settings'
     ['scripts/app-starter.py']='bin/app-starter'
     ['sublime-text-3/Packages/PHP']='.config/sublime-text-3/Packages/PHP'
     ['sublime-text-3/Packages/User/anmol.tmTheme']='.config/sublime-text-3/Packages/User/anmol.tmTheme'
