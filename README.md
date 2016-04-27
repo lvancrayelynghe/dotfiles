@@ -37,6 +37,7 @@ Because they're used in aliases & co
 - ffmpeg (apt-get install ffmpeg)
 - openssl (apt-get install openssl)
 - trash-cli (apt-get install trash-cli)
+- play (apt-get install sox)
 - cowsay and fortune for the lulz (apt-get install cowsay fortune)
 
 
