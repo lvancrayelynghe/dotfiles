@@ -22,6 +22,7 @@ declare -A SYMLINKS=(
     ['others/gemrc']='.gemrc'
     ['others/gitattributes']='.gitattributes'
     ['others/gitconfig']='.gitconfig'
+    ['others/indicator-sysmonitor.json']='.indicator-sysmonitor.json'
     ['others/notify-osd']='.notify-osd'
     ['others/my.cnf']='.my.cnf'
     ['others/nanorc']='.nanorc'
