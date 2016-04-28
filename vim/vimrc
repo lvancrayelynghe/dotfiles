@@ -48,6 +48,7 @@ set sidescrolloff=3       " Start scrolling three columns before vertical border
 set statusline=%<%f\%h%m%r%=%-20.(line=%l\ \ col=%c%V\ \ totlin=%L%)\ \ \%h%m%r%=%-40(bytval=0x%B,%n%Y%)\%P
 
 " Use the Solarized Dark theme
+let g:solarized_termcolors=256
 set background=dark
 colorscheme solarized
 let g:solarized_termtrans=1
