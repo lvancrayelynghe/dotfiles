@@ -67,4 +67,13 @@ function! StripExtraWhiteSpace()
 endfunction
 noremap <leader>ss :call StripExtraWhiteSpace()<CR>
 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Custom keymaps                                                             "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+nnoremap <F2> :set number! number?<CR>
+imap <F2> <C-O><F2>
+set showmode
 
+nnoremap <F3> :set invpaste paste?<CR>
+set pastetoggle=<F3>
+set showmode
