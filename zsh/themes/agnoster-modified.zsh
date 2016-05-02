@@ -10,21 +10,6 @@
 ### SEGMENTS DRAWING ###################
 ### A few utility functions to make it easy and re-usable to draw segmented prompts
 
-# Base colors
-CURRENT_BG='NONE'
-PRIMARY_FG=black
-
-# Characters
-SEGMENT_SEPARATOR="\ue0b0"
-RSEGMENT_SEPARATOR="\ue0b2"
-SEGMENT_SMALL="\u25b6"
-PLUSMINUS="\u00b1"
-BRANCH="\ue0a0"
-DETACHED="\u27a6"
-CROSS="\u2297"
-LIGHTNING="\u221a"
-CLOCK="\u25d4"
-
 # Begin a left segment. Takes three arguments, background and foreground and content
 create_left_segment() {
   TRIMED="$(echo -e "${3}" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')" # trim
@@ -164,18 +149,18 @@ component_pwd() {
 
 # Left prompt
 prompt_left_part() {
-  create_left_segment $PRIMARY_FG default " $(component_user_and_host) "
-  create_left_segment blue $PRIMARY_FG    " $(component_pwd) "
-  create_left_segment green $PRIMARY_FG   " $(component_git) "
+  create_left_segment $PRIMARY_FG default      " $(component_user_and_host) "
+  create_left_segment $COLOR_BLUE $PRIMARY_FG  " $(component_pwd) "
+  create_left_segment $COLOR_GREEN $PRIMARY_FG " $(component_git) "
   end_left_prompt
 }
 
 # Right prompt
 prompt_right_part() {
-  create_right_segment green $PRIMARY_FG  " $(component_desk) "
-  create_right_segment yellow $PRIMARY_FG " $(component_jobs) "
-  create_right_segment cyan $PRIMARY_FG   " $(component_shell_level) "
-  create_right_segment white black        " %D{%T} "
+  create_right_segment $COLOR_GREEN $PRIMARY_FG  " $(component_desk) "
+  create_right_segment $COLOR_YELLOW $PRIMARY_FG " $(component_jobs) "
+  create_right_segment $COLOR_CYAN $PRIMARY_FG   " $(component_shell_level) "
+  create_right_segment $COLOR_WHITE $COLOR_BLACK " %D{%T} "
 }
 
 # Hook
@@ -202,3 +187,39 @@ prompt_setup() {
 }
 
 prompt_setup "$@"
+
+# Dump with: for code in {000..255}; do print -P -- "$code: %K{$code}          %k %F{$code}Foreground%f"; done
+if [[ $TERM == *"256"* ]]; then
+  COLOR_BLACK=233
+  COLOR_WHITE=255
+  COLOR_RED=1
+  COLOR_GREEN=2
+  COLOR_YELLOW=3
+  COLOR_BLUE=4
+  COLOR_MAGENTA=5
+  COLOR_CYAN=6
+else
+  COLOR_BLACK=black
+  COLOR_WHITE=white
+  COLOR_BLUE=blue
+  COLOR_CYAN=cyan
+  COLOR_GREEN=green
+  COLOR_YELLOW=yellow
+  COLOR_MAGENTA=magenta
+  COLOR_RED=red
+fi
+
+# Base colors
+CURRENT_BG='NONE'
+PRIMARY_FG=$COLOR_BLACK
+
+# Characters
+SEGMENT_SEPARATOR="\ue0b0"
+RSEGMENT_SEPARATOR="\ue0b2"
+SEGMENT_SMALL="\u25b6"
+PLUSMINUS="\u00b1"
+BRANCH="\ue0a0"
+DETACHED="\u27a6"
+CROSS="\u2297"
+LIGHTNING="\u221a"
+CLOCK="\u25d4"
