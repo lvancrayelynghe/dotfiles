@@ -63,7 +63,9 @@ end_left_prompt() {
 # Context: user@hostname (who am I and where am I)
 component_user_and_host() {
   local user=`whoami`
-  if [[ "$user" == "vagrant" ]]; then
+  if [[ "$user" == "benoth" || "$user" == "luc" ]]; then
+    print -n "\ue00d"
+  elif [[ "$user" == "vagrant" ]]; then
     print -n "$user"
   elif [[ "$user" != "$DEFAULT_USER" || -n "$SSH_CONNECTION" ]]; then
     print -n "$user@%m"
@@ -157,10 +159,9 @@ prompt_left_part() {
 
 # Right prompt
 prompt_right_part() {
-  create_right_segment $COLOR_GREEN $PRIMARY_FG  " $(component_desk) "
+  create_right_segment $COLOR_WHITE $COLOR_BLACK " $(component_desk) "
   create_right_segment $COLOR_YELLOW $PRIMARY_FG " $(component_jobs) "
   create_right_segment $COLOR_CYAN $PRIMARY_FG   " $(component_shell_level) "
-  create_right_segment $COLOR_WHITE $COLOR_BLACK " %D{%T} "
 }
 
 # Hook
