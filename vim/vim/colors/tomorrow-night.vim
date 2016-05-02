@@ -492,6 +492,8 @@ if has("gui_running") || &t_Co == 88 || &t_Co == 256
 	delf <SID>grey_colour
 	delf <SID>grey_level
 	delf <SID>grey_number
+else
+	exe "hi! CursorLine cterm=none ctermbg=8 ctermfg=NONE"
 endif
 
 set background=dark
