@@ -2,4 +2,4 @@
 
 WINDOWID=$(wmctrl -l | grep -e " – Chromium$" | awk -F ' ' '{print $1}')
 wmctrl -i -a $WINDOWID
-xdotool key --window $WINDOWID ctrl+t
+xdotool key ctrl+t
