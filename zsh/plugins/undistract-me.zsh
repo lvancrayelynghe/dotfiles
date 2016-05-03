@@ -1,5 +1,5 @@
 # commands to ignore
-cmdignore=(tmux htop top vim v desk dg)
+cmdignore=(tmux htop top vim v desk dg ssh mysql mysqldump)
 
 # set gt 0 to enable GNU units for time results
 gnuunits=0
