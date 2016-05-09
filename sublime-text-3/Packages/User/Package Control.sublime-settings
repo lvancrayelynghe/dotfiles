@@ -7,6 +7,7 @@
 	[
 		"Alignment",
 		"BracketHighlighter",
+		"Chmod",
 		"DocBlockr",
 		"EditorConfig",
 		"Emmet",
