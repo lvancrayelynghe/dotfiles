@@ -77,6 +77,9 @@ component_shell_level() {
   if [[ -n $DESK_NAME ]]; then
     local REALSHLVL=`echo "$SHLVL - 2" | bc`
     [[ $REALSHLVL -gt 1 ]] && print -n "$REALSHLVL"
+  elif [[ -n $TMUX ]]; then
+    local REALSHLVL=`echo "$SHLVL - 1" | bc`
+    [[ $REALSHLVL -gt 1 ]] && print -n "$REALSHLVL"
   else
     [[ $SHLVL -gt 1 ]] && print -n "$SHLVL"
   fi
