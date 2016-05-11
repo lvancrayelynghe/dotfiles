@@ -167,6 +167,7 @@ alias gss='git stash save'
 alias gsa='git stash apply'
 alias gsp='git stash pop'
 alias gsl='git stash list'
+alias ggc='git gc --aggressive'
 alias cgd='cdiff -s -w 0' ## columned & colored git diff
 
 # Local rsync
