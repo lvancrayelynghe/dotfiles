@@ -24,6 +24,8 @@ zplug "Russell91/sshrc", from:github, as:command, of:"sshrc"
 
 zplug "ymattw/cdiff", from:github, as:command, of:"cdiff.py", file:"cdiff", at:0.9.8
 
+zplug "0xAX/git-cheat", from:github, as:command, of:"git-cheat"
+
 # Actually doesn't work :( tested : master/1.3/1.3.1
 # zplug "vifon/deer", from:github, at:v1.3.1, of:deer
 
