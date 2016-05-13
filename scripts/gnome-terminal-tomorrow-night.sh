@@ -72,6 +72,10 @@ if which "$DCONF" > /dev/null 2>&1; then
         dset font "'Hack 10'"
         dset use-system-font "false"
 
+        # Add by Benoth - Force maximised
+        dset default-size-columns "256"
+        dset default-size-rows "256"
+
         unset PROFILE_NAME
         unset PROFILE_SLUG
         unset DCONF
@@ -125,6 +129,10 @@ gset bool   use_theme_background "false"
 # Add by Benoth - Change font to Hack
 gset string font "Hack 10"
 gset bool   use_system_font "false"
+
+# Add by Benoth - Force maximised
+gset string default-size-columns "256"
+gset string default-size-rows "256"
 
 unset PROFILE_NAME
 unset PROFILE_SLUG
