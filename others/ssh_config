@@ -1,6 +1,7 @@
 Host *
     ServerAliveInterval 60
     UseRoaming no
+    SendEnv LANG LC_*
 
 Host bitbucket.org
     HostName bitbucket.org

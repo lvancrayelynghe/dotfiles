@@ -43,8 +43,8 @@ Because they're used in aliases & co
 
 ## Enable powerline theme and git status in prompt
 ```
-echo "LC_POWERLINE=true" > ".zshrc_`hostname`"
-echo "ZSH_VCS_INFO=true" >> ".zshrc_`hostname`"
+echo "export LC_POWERLINE=true" > ".zshrc_`hostname`"
+echo "export ZSH_VCS_INFO=true" >> ".zshrc_`hostname`"
 ```
 
 
