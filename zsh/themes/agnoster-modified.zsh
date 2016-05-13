@@ -64,7 +64,7 @@ end_left_prompt() {
 component_user_and_host() {
   local user=`whoami`
   if [[ "$user" == "benoth" || "$user" == "luc" ]]; then
-    print -n "\ue00d"
+    [[ -z "$SSH_CONNECTION" ]] && print -n "\ue00d" || print -n "SSH"
   elif [[ "$user" == "vagrant" ]]; then
     print -n "$user"
   elif [[ "$user" != "$DEFAULT_USER" || -n "$SSH_CONNECTION" ]]; then
