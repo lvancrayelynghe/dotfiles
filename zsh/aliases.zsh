@@ -1,61 +1,61 @@
 # Global aliases only works with ZSH
 if [[ "$0" =~ 'zsh' ]]; then
-	# Global directories aliases
-	alias -g ..='..'
-	alias -g ...='../..'
-	alias -g ....='../../..'
-	alias -g .....='../../../..'
-	alias -g ......='../../../../..'
-	alias -g .......='../../../../../..'
+    # Global directories aliases
+    alias -g ..='..'
+    alias -g ...='../..'
+    alias -g ....='../../..'
+    alias -g .....='../../../..'
+    alias -g ......='../../../../..'
+    alias -g .......='../../../../../..'
 
-	# Global commands aliases
-	alias -g G='| grep'
-	alias -g N='| grep -v'
-	alias -g E='| grep-passthru'
-	alias -g HR='| highlight red'
-	alias -g HG='| highlight green'
-	alias -g HB='| highlight blue'
-	alias -g HM='| highlight magenta'
-	alias -g HC='| highlight cyan'
-	alias -g HY='| highlight yellow'
-	alias -g C='| wc -l'
-	alias -g S='| sort'
-	alias -g H='| head'
-	alias -g L="| less"
-	alias -g T='| tail'
-	alias -g P='| pygmentize -O style=monokai -f console256 -g'
+    # Global commands aliases
+    alias -g G='| grep'
+    alias -g N='| grep -v'
+    alias -g E='| grep-passthru'
+    alias -g HR='| highlight red'
+    alias -g HG='| highlight green'
+    alias -g HB='| highlight blue'
+    alias -g HM='| highlight magenta'
+    alias -g HC='| highlight cyan'
+    alias -g HY='| highlight yellow'
+    alias -g C='| wc -l'
+    alias -g S='| sort'
+    alias -g H='| head'
+    alias -g L="| less"
+    alias -g T='| tail'
+    alias -g P='| pygmentize -O style=monokai -f console256 -g'
 else
-	# Directories aliases
-	alias ..='cd ..'
-	alias ...='cd ../..'
-	alias ....='cd ../../..'
-	alias .....='cd ../../../..'
-	alias ......='cd ../../../../..'
-	alias .......='cd ../../../../../..'
+    # Directories aliases
+    alias ..='cd ..'
+    alias ...='cd ../..'
+    alias ....='cd ../../..'
+    alias .....='cd ../../../..'
+    alias ......='cd ../../../../..'
+    alias .......='cd ../../../../../..'
 fi
 
 # Aliases only for non root users
 if [[ $UID != 0 || $EUID != 0 ]]; then
-	alias sudo='sudo ' ## Allow aliases to be sudo’ed
-	alias halt='sudo shutdown -h now'
-	alias reboot='sudo shutdown -r now'
-	alias apt='sudo apt-get'
-	alias agi='sudo apt-get install'
-	alias agr='sudo apt-get remove'
-	alias agu='sudo apt-get update'
-	alias agg='sudo apt-get upgrade'
-	alias ags='sudo apt-cache search'
-	alias agall='sudo apt-get update && sudo apt-get -y upgrade && sudo apt-get -y autoremove'
+    alias sudo='sudo ' ## Allow aliases to be sudo’ed
+    alias halt='sudo shutdown -h now'
+    alias reboot='sudo shutdown -r now'
+    alias apt='sudo apt-get'
+    alias agi='sudo apt-get install'
+    alias agr='sudo apt-get remove'
+    alias agu='sudo apt-get update'
+    alias agg='sudo apt-get upgrade'
+    alias ags='sudo apt-cache search'
+    alias agall='sudo apt-get update && sudo apt-get -y upgrade && sudo apt-get -y autoremove'
 else
-	alias halt='shutdown -h now'
-	alias reboot='shutdown -r now'
-	alias apt='apt-get'
-	alias agi='apt-get install'
-	alias agr='apt-get remove'
-	alias agu='apt-get update'
-	alias agg='apt-get upgrade'
-	alias ags='apt-cache search'
-	alias agall='apt-get update && apt-get -y upgrade && apt-get -y autoremove'
+    alias halt='shutdown -h now'
+    alias reboot='shutdown -r now'
+    alias apt='apt-get'
+    alias agi='apt-get install'
+    alias agr='apt-get remove'
+    alias agu='apt-get update'
+    alias agg='apt-get upgrade'
+    alias ags='apt-cache search'
+    alias agall='apt-get update && apt-get -y upgrade && apt-get -y autoremove'
 fi
 
 # Directories working
@@ -158,8 +158,12 @@ alias gcm='git commit -m'
 alias gca='git commit -a'
 alias gcam='git commit -a -m'
 alias gb='git branch'
+alias gbr='git branch -r'
+alias gm='git merge'
+alias gmm='git merge -m'
 alias gt='git tag'
 alias gco='git checkout'
+alias gf='git fetch'
 alias gp='git pull'
 alias gpull='git pull'
 alias gpush='git push'
@@ -208,7 +212,7 @@ alias ports="lsof -ni | grep LISTEN"
 alias ns="nslookup"
 
 for method in GET HEAD POST PUT DELETE PURGE TRACE OPTIONS; do
-	alias "$method"="http '$method'"
+    alias "$method"="http '$method'"
 done
 
 # Curl & web helpers
