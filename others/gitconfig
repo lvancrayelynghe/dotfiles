@@ -53,6 +53,9 @@
     ignore-filemode     ="!git config --local core.filemode false"
     # Exactly match the remote branch
     full-reset          = "!git fetch origin && git reset --hard origin/master"
+    # Open changed files
+    subl                = !git-ls-files -m -z | xargs -0 subl
+    sublall             = !git-ls-files -m -o --exclude-standard -z | xargs -0 subl
 
 [push]
     default = current

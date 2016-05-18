@@ -60,6 +60,11 @@ function git-repositories-pull() {
     fi;
 }
 
+# Columns git show
+function columns-git-show() {
+    cdiff -s -w 0 "$1^" "$1"
+}
+
 # compress a file or folder
 function compress() {
         case "$1" in
