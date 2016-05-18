@@ -280,7 +280,7 @@ function rename-tv-shows() {
         if [ "$COUNT" -lt 1 ]; then
             echo "No file found"
         else
-            rename -v -n "$RENAME" * | grep --color=auto " renamed as "
+            rename -v -n "$RENAME" *
             printf "\033[0;33mRename files ? [y/n] \033[0m"
             if [ -n "$ZSH_VERSION" ]; then
                 read action
