@@ -36,6 +36,12 @@
 [status]
     showuntrackedfiles = all
 
+[push]
+    default = current
+
+[diff]
+    tool = meld
+
 [alias]
     # Log aliases
     tree                = log --graph --pretty=oneline --decorate
@@ -56,6 +62,3 @@
     # Open changed files
     subl                = !git-ls-files -m -z | xargs -0 subl
     sublall             = !git-ls-files -m -o --exclude-standard -z | xargs -0 subl
-
-[push]
-    default = current
