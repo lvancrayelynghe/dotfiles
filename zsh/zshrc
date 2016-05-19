@@ -21,7 +21,10 @@ source $DOTFILES_DIR/zsh/other-installs.zsh
 [[ -n $LOCAL_CONFIG_FILE && -e $LOCAL_CONFIG_FILE ]] && source $LOCAL_CONFIG_FILE || true
 
 source $DOTFILES_DIR/zsh/plugins/colored-man.plugin.zsh
-source $DOTFILES_DIR/zsh/plugins/undistract-me.zsh
+
+if notify-send npm >/dev/null 2>&1; then
+    source $DOTFILES_DIR/zsh/plugins/undistract-me.zsh
+fi
 
 if hash npm >/dev/null 2>&1; then
     source $DOTFILES_DIR/zsh/npm.zsh
