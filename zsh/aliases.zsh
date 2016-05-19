@@ -144,6 +144,7 @@ alias fn='glob-find-files-by-name' ## insensitive filename with zsh globbing
 alias fr='find-and-replace' ## find and replace in current dir
 
 # Git
+alias gcl='git clone'
 alias gs='git status'
 alias gst='git status-short'
 alias ga='git add'
@@ -167,6 +168,7 @@ alias gt='git tag'
 alias gco='git checkout'
 alias gf='git fetch'
 alias gp='git pull'
+alias gpr='git pull --rebase'
 alias gpull='git pull'
 alias gpush='git push'
 alias gss='git stash save'
