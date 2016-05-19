@@ -77,6 +77,15 @@ zstyle -e ':completion:*:hosts' hosts 'reply=(
   ${=${${${${(@M)${(f)"$(cat ~/.ssh/config 2>/dev/null)"}:#Host *}#Host }:#*\**}:#*\?*}}
 )'
 
+# Don't complete parameters...
+zstyle ':completion:*:*:*:parameters' ignored-patterns '*'
+
+# Don't complete uninteresting commands...
+zstyle ':completion:*:complete:-command-::commands' ignored-patterns \
+  gpu-manager \
+  ngettext \
+  serialver servertool
+
 # Don't complete uninteresting users...
 zstyle ':completion:*:*:*:users' ignored-patterns \
   adm amanda apache avahi beaglidx bin cacti canna clamav daemon \
