@@ -22,7 +22,7 @@ source $DOTFILES_DIR/zsh/other-installs.zsh
 
 source $DOTFILES_DIR/zsh/plugins/colored-man.plugin.zsh
 
-if notify-send npm >/dev/null 2>&1; then
+if hash notify-send >/dev/null 2>&1; then
     source $DOTFILES_DIR/zsh/plugins/undistract-me.zsh
 fi
 
