@@ -42,6 +42,12 @@
 [diff]
     tool = meld
 
+[merge]
+    tool = meld
+
+[mergetool "meld"]
+    trustExitCode = false
+
 [alias]
     # Log aliases
     tree                = log --graph --pretty=oneline --decorate
