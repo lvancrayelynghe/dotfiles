@@ -73,10 +73,45 @@ noremap <leader>ss :call StripExtraWhiteSpace()<CR>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Custom keymaps                                                             "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-nnoremap <F2> :set number! number?<CR>
+" Toggle lines number
+nmap <F2> :set number! number?<CR>
 imap <F2> <C-O><F2>
 set showmode
 
-nnoremap <F3> :set invpaste paste?<CR>
+" Toggle paste mode
+nmap <F3> :set invpaste paste?<CR>
 set pastetoggle=<F3>
 set showmode
+
+" File explorer
+nmap <F4> :Explore<CR>
+set showmode
+
+" Cut, Paste, Copy
+vmap <C-x> d
+vmap <C-c> y
+vmap <C-v> p
+
+" Undo, Redo
+nmap <C-z>  :undo<CR>
+imap <C-z>  <Esc>:undo<CR>
+nmap <C-y>  :redo<CR>
+imap <C-y>  <Esc>:redo<CR>
+
+" Find
+map <C-f> /
+
+" indend / deindent after selecting the text with (⇧ v), (.) to repeat.
+vmap <Tab> >
+vmap <S-Tab> <
+
+" Tabs handling
+nmap <C-t>  :tabnew<CR>
+imap <C-t>  <Esc>:tabnew<CR>i
+nmap <C-d>  :tabclose<CR>
+imap <C-d>  <Esc>:tabclose<CR>i
+nmap <C-g>  :tabnext<CR>
+imap <C-g>  <Esc>:tabnext<CR>i
+nmap <C-b>  :tabprevious<CR>
+imap <C-b>  <Esc>:tabprevious<CR>i
+
