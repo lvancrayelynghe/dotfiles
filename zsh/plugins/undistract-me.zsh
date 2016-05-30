@@ -4,6 +4,11 @@ cmdignore=(man su gl gll tmux htop top vim v desk dg ssh mysql mysqldump webpack
 # set gt 0 to enable GNU units for time results
 gnuunits=0
 
+# get the current active window id
+function active-window-id {
+    echo `xprop -root | awk '/_NET_ACTIVE_WINDOW\(WINDOW\)/{print $NF}'`
+}
+
 # end and compare timer, notify-send if needed
 function notifyosd-precmd() {
 	retval=$?
@@ -16,14 +21,14 @@ function notifyosd-precmd() {
         fi
         if [ $retval -gt 0 ]; then
 			cmdstat="with warning"
-			sndstat="/usr/share/sounds/ubuntu/notifications/Positive.ogg"
+			sndstat="/usr/share/sounds/ubuntu/notifications/Rhodes.ogg"
 			urgency="critical"
 		else
             cmdstat="successfully"
 			sndstat="/usr/share/sounds/ubuntu/notifications/Positive.ogg"
 			urgency="normal"
         fi
-        if [ ! -z "$cmd" -a $cmd_secs -gt 10 ]; then
+        if [ ! -z "$cmd" -a $cmd_secs -gt 10 -a "$window_id_before" != "$(active-window-id)" ]; then
 			if [ $gnuunits -gt 0 ]; then
 				cmd_time=$(units "$cmd_secs seconds" "centuries;years;months;weeks;days;hours;minutes;seconds" | sed -e 's/\ +/\,/g' -e s'/\t//')
 			else
@@ -46,6 +51,7 @@ precmd_functions+=( notifyosd-precmd )
 
 # get command name and start the timer
 function notifyosd-preexec() {
+    window_id_before=$(active-window-id)
     cmd=$1
     cmd_basename=${${cmd:s/sudo //}[(ws: :)1]}
     cmd_start=`date +%s`
