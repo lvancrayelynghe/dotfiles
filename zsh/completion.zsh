@@ -23,7 +23,7 @@ zstyle ':completion::complete:*' cache-path "$HOME/.cache/zsh-completion-cache"
 # setopt CASE_GLOB
 
 # Case-insensitive (all), partial-word, and then substring completion.
-zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
+zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'r:|=*'
 unsetopt CASE_GLOB
 
 # Group matches and describe.
