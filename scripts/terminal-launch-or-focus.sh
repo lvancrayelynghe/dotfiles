@@ -4,5 +4,5 @@ WINDOWID=$(wmctrl -l | grep -e "Terminal$" | awk -F ' ' '{print $1}')
 if [[ -n $WINDOWID ]]; then
     wmctrl -i -a $WINDOWID
 else
-    gnome-terminal
+    exec gnome-terminal
 fi
