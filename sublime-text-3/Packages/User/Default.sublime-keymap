@@ -38,7 +38,6 @@
 	{ "keys": ["ctrl+q"], "command": "toggle_comment", "args": { "block": false } },
 	{ "keys": ["ctrl+shift+q"], "command": "toggle_comment", "args": { "block": true } },
 	{ "keys": ["ctrl+d"], "command": "duplicate_line" },
-	{ "keys": ["ctrl+shift+d"], "command": "expand_selection", "args": {"to": "word"} },
 	{ "keys": ["ctrl+shift+d"], "command": "find_under_expand", "context":
 		[
 			{ "key": "selection_empty", "operator": "equal", "operand": false, "match_all": true }
