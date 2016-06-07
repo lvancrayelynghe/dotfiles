@@ -5,6 +5,7 @@ PROJECT_HOST=$4
 
 
 alias dev-http="xdg-open http://${DESK_NAME}.dev/ > /dev/null"      # Open browser on dev server
+alias dev-log="tail -f /var/log/nginx/${DESK_NAME}.dev-error.log"   # Tail nginx error log
 alias dev-mysql="mysql ${PROJECT_DB}"                               # mysql alias with dbname inserted
 alias dev-mysqldump="mysqldump --opt ${PROJECT_DB}"                 # mysqldump alias with dbname inserted
 alias dev-dumpdb="mysqldump --opt ${PROJECT_DB} > ${PROJECT_SQL}"   # Dump the database to sql file
