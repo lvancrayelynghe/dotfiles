@@ -244,7 +244,13 @@ function decrypt() {
 
 # Small calc function
 function calc() {
-    echo "scale=2;$@" | bc;
+    echo "scale=2;$@" | bc -l
+}
+
+# Shortcut calc function
+function = () {
+    # credit goes to arzzen/calc.plugin.zsh
+    echo "scale=2;$@" | bc -l
 }
 
 # Make a port (default 80) "real life" speeds
