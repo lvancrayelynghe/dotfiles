@@ -187,7 +187,8 @@ alias rsync-move="rsync -av --progress -h --remove-source-files"
 alias rsync-update="rsync -avu --progress -h"
 alias rsync-synchronize="rsync -avu --delete --progress -h"
 
-# Files rights
+# Files permissions
+alias 400='chmod 400 -R'
 alias 600='chmod 600 -R'
 alias 640='chmod 640 -R'
 alias 644='chmod 644 -R'
