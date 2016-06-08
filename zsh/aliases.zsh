@@ -199,6 +199,7 @@ alias mx='chmod u+x'
 
 # SSH helpers
 alias tunnel='ssh -f -N' ## Create a tunnel
+alias tunnel-socks='ssh -f -N -D 8080' ## SOCKS proxy
 alias tunnel-list='ps aux | grep "ssh -f -N" | grep -v "grep"' ## List tunnels
 alias pubkey="more ~/.ssh/keys/perso.rsa.pub | xclip | echo '=> Public key copied to pasteboard'"
 
