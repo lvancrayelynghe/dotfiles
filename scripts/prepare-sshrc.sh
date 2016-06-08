@@ -25,7 +25,9 @@ cat ~/dotfiles/public/zsh/functions.zsh \
 | perl -p0e 's/\n# Find and replace in current dir.*?}\n//s' \
 | perl -p0e 's/\n# Make a port .*?}\n//s' \
 | perl -p0e 's/\n# Restore ports speed.*?}\n//s' \
+| perl -p0e 's/\n# Rename TV shows files.*?}\n//s' \
 | perl -p0e 's/\n# Animated gifs from any video.*?}\n//s' \
+| perl -p0e 's/\n# Let.*s be corporate.*?}\n//s' \
 | perl -p0e 's/\n# Because Metroid.*?}\n//s' \
 >> ~/dotfiles/public/others/sshrc
 
