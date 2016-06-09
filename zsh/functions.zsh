@@ -221,11 +221,6 @@ function find-and-replace() {
     fi
 }
 
-# Find files using ZSH globbing
-function glob-find-files-by-name() {
-    ll **/*(#i)($1)*(.)
-}
-
 # Backup a file
 function backup-file() {
     cp -r "$1"{,.bak};

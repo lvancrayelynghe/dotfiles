@@ -140,7 +140,6 @@ alias dmesg="dmesg -T|sed -e 's|\(^.*'`date +%Y`']\)\(.*\)|\x1b[0;34m\1\x1b[0m -
 alias f='grep -rinw "." -e ' ## inside files
 alias fa='ack -Hir' ## inside files advanced
 alias ff='find . -type f -iname ' ## insensitive filename
-alias fn='glob-find-files-by-name' ## insensitive filename with zsh globbing
 alias fr='find-and-replace' ## find and replace in current dir
 
 # Git
