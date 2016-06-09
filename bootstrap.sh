@@ -13,6 +13,7 @@ declare -A SYMLINKS=(
     ['bash/profile']='.profile'
     ['desk']='.desk'
     ['mutt/muttrc']='.muttrc'
+    ['others/sshrc.d']='.sshrc.d'
     ['others/ackrc']='.ackrc'
     ['others/altyo_config.ini']='.config/altyo/config.ini'
     ['others/altyo_config-standalone.ini']='.config/altyo/config-standalone.ini'

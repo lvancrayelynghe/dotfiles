@@ -42,3 +42,8 @@ cat ~/dotfiles/public/bash/bashrc \
 | perl -p0e 's/\nif.*?fi\n//s' \
 | grep -v "mkdir" \
 >> ~/dotfiles/public/others/sshrc
+
+cat << 'EOF' >> ~/dotfiles/public/others/sshrc
+
+export VIMINIT="let \$MYVIMRC='$SSHHOME/.sshrc.d/.vimrc' | source \$MYVIMRC"
+EOF

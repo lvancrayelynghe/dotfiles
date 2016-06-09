@@ -443,3 +443,5 @@ export PS1="[${WHITE}\u${NONE}@${RED}\h${NONE} ${CYAN}\w${NONE}]\\$\[${RESET}\] 
 export VISUAL='vim'
 export EDITOR='vim'
 
+
+export VIMINIT="let \$MYVIMRC='$SSHHOME/.sshrc.d/.vimrc' | source \$MYVIMRC"
