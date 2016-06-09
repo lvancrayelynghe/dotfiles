@@ -126,7 +126,6 @@ alias dmesg="dmesg -T|sed -e 's|\(^.*'`date +%Y`']\)\(.*\)|\x1b[0;34m\1\x1b[0m -
 alias f='grep -rinw "." -e ' ## inside files
 alias fa='ack -Hir' ## inside files advanced
 alias ff='find . -type f -iname ' ## insensitive filename
-alias fn='glob-find-files-by-name' ## insensitive filename with zsh globbing
 
 # Git
 alias gcl='git clone'
@@ -505,6 +504,9 @@ function wgetall() {
 
 # BASHRC
 eval "`dircolors`"
+if [ -f "$HOME/dotfiles/public/zsh/functions.zsh" ]; then
+    source "$HOME/dotfiles/public/zsh/functions.zsh"
+fi
 
 shopt -s autocd                  # A command name that is the name of a directory is executed as if it were the argument to the cd command
 shopt -s dirspell                # Bash attempts spelling correction on directory names during word completion if the directory name initially supplied does not exist.
