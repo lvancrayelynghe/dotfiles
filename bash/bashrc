@@ -3,6 +3,9 @@ eval "`dircolors`"
 if [ -f "$HOME/dotfiles/public/zsh/aliases.zsh" ]; then
     source "$HOME/dotfiles/public/zsh/aliases.zsh"
 fi
+if [ -f "$HOME/dotfiles/public/zsh/functions.zsh" ]; then
+    source "$HOME/dotfiles/public/zsh/functions.zsh"
+fi
 
 shopt -s autocd                  # A command name that is the name of a directory is executed as if it were the argument to the cd command
 shopt -s dirspell                # Bash attempts spelling correction on directory names during word completion if the directory name initially supplied does not exist.
