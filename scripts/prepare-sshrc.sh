@@ -25,6 +25,7 @@ cat ~/dotfiles/public/zsh/functions.zsh \
 | perl -p0e 's/\n# Find and replace in current dir.*?}\n//s' \
 | perl -p0e 's/\n# Make a port .*?}\n//s' \
 | perl -p0e 's/\n# Restore ports speed.*?}\n//s' \
+| perl -p0e 's/\n# Show aliases and functions cheat-sheet.*?}\n//s' \
 | perl -p0e 's/\n# Rename TV shows file.*?}\n//s' \
 | perl -p0e 's/\n# Animated gifs from any video.*?}\n//s' \
 | perl -p0e 's/\n# Let.*s be corporate.*?}\n//s' \
