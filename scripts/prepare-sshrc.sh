@@ -39,5 +39,6 @@ echo "" >> ~/dotfiles/public/others/sshrc
 echo "# BASHRC" >> ~/dotfiles/public/others/sshrc
 cat ~/dotfiles/public/bash/bashrc \
 | perl -p0e 's/\nif.*?fi\n//s' \
+| perl -p0e 's/\nif.*?fi\n//s' \
 | grep -v "mkdir" \
 >> ~/dotfiles/public/others/sshrc
