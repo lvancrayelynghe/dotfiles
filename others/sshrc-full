@@ -1,11 +1,38 @@
 # ALIASES
-# Directories aliases
-alias ..='cd ..'
-alias ...='cd ../..'
-alias ....='cd ../../..'
-alias .....='cd ../../../..'
-alias ......='cd ../../../../..'
-alias .......='cd ../../../../../..'
+# Global aliases only works with ZSH
+if [[ "$0" =~ 'zsh' ]]; then
+    # Global directories aliases
+    alias -g ..='..'
+    alias -g ...='../..'
+    alias -g ....='../../..'
+    alias -g .....='../../../..'
+    alias -g ......='../../../../..'
+    alias -g .......='../../../../../..'
+
+    # Global commands aliases
+    alias -g G='| grep'
+    alias -g N='| grep -v'
+    alias -g E='| grep-passthru'
+    alias -g HR='| highlight red'
+    alias -g HG='| highlight green'
+    alias -g HB='| highlight blue'
+    alias -g HM='| highlight magenta'
+    alias -g HC='| highlight cyan'
+    alias -g HY='| highlight yellow'
+    alias -g C='| wc -l'
+    alias -g S='| sort'
+    alias -g H='| head'
+    alias -g L="| less"
+    alias -g T='| tail'
+else
+    # Directories aliases
+    alias ..='cd ..'
+    alias ...='cd ../..'
+    alias ....='cd ../../..'
+    alias .....='cd ../../../..'
+    alias ......='cd ../../../../..'
+    alias .......='cd ../../../../../..'
+fi
 
 # Aliases only for non root users
 if [[ $UID != 0 || $EUID != 0 ]]; then
@@ -54,9 +81,12 @@ alias p=' dirs -v | head -10' ## most used dirs for current session
 alias x=' exit'
 alias h='history'
 alias j='jobs'
-alias v='vim'
-alias e='vim'
+alias v='open-with-vim'
+alias e='open-with-vim'
+alias s='open-with-sublime-text'
+alias a='open-with-atom'
 alias n='nano'
+alias o='xdg-open'
 alias g='git'
 
 # Others commands shortcuts
@@ -66,6 +96,7 @@ alias rd='rmdir'
 alias md='mkdir -p'
 alias mcd='mkdir-cd'
 alias mkcd='mkdir-cd'
+alias tr='trash-put'
 alias rmf="rm -rf"
 alias rmrf="rm -rf"
 alias cpr="cp -r"
@@ -155,6 +186,7 @@ alias mx='chmod u+x'
 alias tunnel='ssh -f -N' ## Create a tunnel
 alias tunnel-socks='ssh -f -N -D 8080' ## SOCKS proxy
 alias tunnel-list='ps aux | grep "ssh -f -N" | grep -v "grep"' ## List tunnels
+alias pubkey="more ~/.ssh/keys/perso.rsa.pub | xclip | echo '=> Public key copied to pasteboard'"
 
 # Date & time helpers
 alias cal='cal -3'
@@ -184,6 +216,10 @@ alias purge='curl-purge'
 # Online pastebins
 alias sprunge="curl -F 'sprunge=<-' http://sprunge.us"
 alias clbin="curl -F 'clbin=<-' https://clbin.com"
+
+# Because Oo
+alias utf8test="wget -qO- http://8n1.org/utf8" ## test terminal UTF8 capabilities
+
 
 # Composer helpers
 alias cu="composer update"
@@ -292,6 +328,33 @@ function compress() {
         echo "tar.bz2, tar.gz, tar.gz, tar, bz2, gz, tbz2, tbz,"
         echo "tgz, lzo, rar, zip, 7z, xz and lzma." ;;
     esac
+}
+
+# Opens the current directory in Sublime Text, otherwise opens the given location
+function open-with-sublime-text() {
+    if [ $# -eq 0 ]; then
+        subl -a .;
+    else
+        subl -a "$@";
+    fi;
+}
+
+# Opens the current directory in Atom, otherwise opens the given location
+function open-with-atom() {
+    if [ $# -eq 0 ]; then
+        atom .;
+    else
+        atom "$@";
+    fi;
+}
+
+# Opens the current directory in Vim, otherwise opens the given location
+function open-with-vim() {
+    if [ $# -eq 0 ]; then
+        vim .;
+    else
+        vim "$@";
+    fi;
 }
 
 # Passthru grep
@@ -413,7 +476,6 @@ function wgetall() {
 
 # BASHRC
 eval "`dircolors`"
-
 shopt -s autocd                  # A command name that is the name of a directory is executed as if it were the argument to the cd command
 shopt -s dirspell                # Bash attempts spelling correction on directory names during word completion if the directory name initially supplied does not exist.
 shopt -s nocaseglob              # Bash matches filenames in a case-insensitive fashion when performing filename expansion.
