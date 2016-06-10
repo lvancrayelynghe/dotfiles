@@ -1,10 +1,10 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # Filename: install-adblocking-hosts
 # Description: Script to automate building an adblocking hosts file
 # Source: https://github.com/thuandt/dotfiles/blob/master/bin/install-adblocking-hosts
 # and: https://github.com/ObliviousGmn/Dotfiles/blob/master/Scripts/Hostupd
 
-# Need Root access 
+# Need Root access
 if [[ $EUID -ne 0 ]]; then
     echo
     echo "  Nah, Come on bro, Run on Root.." 1>&2

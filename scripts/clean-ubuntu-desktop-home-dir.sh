@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 cd ~
 rm -rf Documents Modèles Images Vidéos Musique Public Téléchargements examples.desktop

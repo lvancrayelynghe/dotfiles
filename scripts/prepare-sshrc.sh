@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 echo "# ALIASES" >| ~/dotfiles/public/others/sshrc
 cat ~/dotfiles/public/zsh/aliases.zsh \
