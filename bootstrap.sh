@@ -27,6 +27,7 @@ declare -A SYMLINKS=(
     ['others/notify-osd']='.notify-osd'
     ['others/my.cnf']='.my.cnf'
     ['others/nanorc']='.nanorc'
+    ['others/sift.conf']='.sift.conf'
     ['others/sshrc']='.sshrc'
     ['others/tmux.conf']='.tmux.conf'
     ['others/wgetrc']='.wgetrc'
