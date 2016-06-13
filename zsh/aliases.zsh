@@ -136,9 +136,10 @@ alias du1s='du --max-depth=1 | sort -h' ## sort by size
 alias iotop='iotop -Poa' ## iotop with only processes using i/o + accumulated i/o
 alias dmesg="dmesg -T|sed -e 's|\(^.*'`date +%Y`']\)\(.*\)|\x1b[0;34m\1\x1b[0m - \2|g'" ## dmesg with colored human-readable dates
 
-# Find things...
-alias f='grep -rinw "." -e ' ## inside files
-alias fa='ack -Hir' ## inside files advanced
+# Search & find
+alias sg='grep -rinw "." -e ' ## inside files
+alias sa='ack -Hir' ## with ack
+alias ss='sift -n' ## with sift
 alias ff='find . -type f -iname ' ## insensitive filename
 alias fr='find-and-replace' ## find and replace in current dir
 
