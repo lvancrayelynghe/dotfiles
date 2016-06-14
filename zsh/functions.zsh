@@ -51,20 +51,6 @@ function extract() {
     fi
 }
 
-# Find all git repositories in a path and run git pull
-function git-repositories-pull() {
-    if [ $# -eq 0 ]; then
-        find . -type d -name ".git" -print0 | xargs -0 -n1 dirname | grep -v -e "\(/.cache/\|/.config/\)" | xargs -I repodir sh -c 'cd repodir ; printf "repodir ... " ; git pull'
-    else
-        find "$@" -type d -name ".git" -print0 | xargs -0 -n1 dirname | grep -v -e "\(/.cache/\|/.config/\)" | xargs -I repodir sh -c 'cd repodir ; printf "repodir ... " ; git pull'
-    fi;
-}
-
-# Columns git show
-function columns-git-show() {
-    cdiff -s -w 0 "$1^" "$1"
-}
-
 # compress a file or folder
 function compress() {
         case "$1" in
@@ -119,6 +105,20 @@ function cheat-sheet() {
         sed -r 's/^function ([A-Za-z0-9_-]+)(.*) # (.*)/\x1b[36m\1\x1b[0m\t\x1b[33m\3\x1b[0m/g' |
         awk 'BEGIN { FS = "\t" } ; { printf "%-35s %s\n", $1, $2}'
     echo ""
+}
+
+# Find all git repositories in a path and run git pull
+function git-repositories-pull() {
+    if [ $# -eq 0 ]; then
+        find . -type d -name ".git" -print0 | xargs -0 -n1 dirname | grep -v -e "\(/.cache/\|/.config/\)" | xargs -I repodir sh -c 'cd repodir ; printf "repodir ... " ; git pull'
+    else
+        find "$@" -type d -name ".git" -print0 | xargs -0 -n1 dirname | grep -v -e "\(/.cache/\|/.config/\)" | xargs -I repodir sh -c 'cd repodir ; printf "repodir ... " ; git pull'
+    fi;
+}
+
+# Columns git show
+function columns-git-show() {
+    cdiff -s -w 0 "$1^" "$1"
 }
 
 # Opens the current directory in Sublime Text, otherwise opens the given location
