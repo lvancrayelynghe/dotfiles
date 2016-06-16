@@ -296,6 +296,15 @@ function rename-tv-shows() {
     fi
 }
 
+# Create a data URI from file
+function datauri() {
+    local mimeType=$(file -b --mime-type "$1");
+    if [[ $mimeType == text/* ]]; then
+        mimeType="${mimeType};charset=utf-8";
+    fi
+    echo "data:${mimeType};base64,$(openssl base64 -in "$1" | tr -d '\n')";
+}
+
 # Smart JPG / PNG images resize
 function smartresize() {
     if [ "$1" == "" ]
