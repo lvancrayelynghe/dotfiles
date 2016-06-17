@@ -19,6 +19,7 @@ declare -A SYMLINKS=(
     ['others/altyo_config-standalone.ini']='.config/altyo/config-standalone.ini'
     ['others/bcrc']='.bcrc'
     ['others/curlrc']='.curlrc'
+    ['others/cvsignore']='.cvsignore'
     ['others/dircolors']='.dircolors'
     ['others/gemrc']='.gemrc'
     ['others/gitattributes']='.gitattributes'
