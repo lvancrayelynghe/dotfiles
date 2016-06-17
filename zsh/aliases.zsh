@@ -181,11 +181,11 @@ alias ggc='git gc --aggressive'
 alias cgd='cdiff -s -w 0' ## columned & colored git diff
 alias cgs='columns-git-show' ## columned & colored git diff
 
-# Local rsync
-alias rsync-copy="rsync -av --progress -h"
-alias rsync-move="rsync -av --progress -h --remove-source-files"
-alias rsync-update="rsync -avu --progress -h"
-alias rsync-synchronize="rsync -avu --delete --progress -h"
+# rsync
+alias rsync-copy="rsync -av --progress -h --exclude-from=$HOME/.cvsignore"
+alias rsync-move="rsync -av --progress -h --remove-source-files --exclude-from=$HOME/.cvsignore"
+alias rsync-update="rsync -avu --progress -h --exclude-from=$HOME/.cvsignore"
+alias rsync-synchronize="rsync -avu --delete --progress -h --exclude-from=$HOME/.cvsignore"
 
 # Files permissions
 alias 400='chmod 400 -R'
