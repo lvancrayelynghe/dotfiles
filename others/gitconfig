@@ -30,6 +30,9 @@
     # Only use on Windows networks share : git config --local core.filemode false
     # filemode = false
 
+[init]
+    templatedir = ~/dotfiles/public/others/git-templates
+
 [apply]
     whitespace = nowarn
 

@@ -1,0 +1,14 @@
+#!/bin/bash
+
+USERNAME=$(git config --get user.name)
+USEREMAIL=$(git config --get user.email)
+
+if [ -z "${USERNAME}" ] || [ -z "${USEREMAIL}" ]; then
+	echo ""
+	echo "User name or email not set."
+	echo "Use :"
+	echo "  git config --local user.name NAME"
+	echo "  git config --local user.email EMAIL"
+	echo ""
+	exit 1
+fi
