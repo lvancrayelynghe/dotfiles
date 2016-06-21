@@ -49,22 +49,42 @@
     trustExitCode = false
 
 [alias]
-    # Log aliases
+    # Show defined aliases
+    aliases             = !"git config --get-regexp 'alias.*' | colrm 1 6 | sed 's/[ ]/ = /'"
+
+    # Do everything we can to synchronize all changes
+    get                 = !git pull --rebase && git submodule update --init --recursive
+    put                 = !git commit -am "$1" && git push
+    get-put             = !git commit -am "$1" && git pull --rebase && git push && git submodule update --init --recursive
+
+    # Log
     tree                = log --graph --pretty=oneline --decorate
-    pretty-log-nomerges = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative --no-merges
-    pretty-log-short    = log --pretty=oneline --abbrev-commit --graph --decorate
     pretty-log          = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
     change-log          = "!git log --graph --pretty=format:'%Cgreen%cd%Creset -%C(yellow)%d%Creset %s' --abbrev-commit --date=short"
-    # Status aliases
+
+    # Status
     status-short        = status -sb
+
     # Assume unchanged
     assume              = update-index --assume-unchanged
     unassume            = update-index --no-assume-unchanged
     assumed             = "!git ls-files -v | grep ^h | cut -c 3-"
+
+    # ls-ignored -  list files that git has ignored.
+    ls-ignored          = ls-files --others --i --exclude-standard
+    ls                  = ls-files
+
     # Ignore file mode changes
     ignore-filemode     ="!git config --local core.filemode false"
+
     # Exactly match the remote branch
     full-reset          = "!git fetch origin && git reset --hard origin/master"
+
+    # Publish the current branch to "origin" and set the current branch to track the upstream branch
+    publish = !"git push -u origin $(git branch-name)"
+    # Unpublish the current branch by deleting the remote version of the current branch on "origin"
+    unpublish = !"git push origin :$(git branch-name)"
+
     # Open changed files
     subl                = !git-ls-files -m -z | xargs -0 subl
     sublall             = !git-ls-files -m -o --exclude-standard -z | xargs -0 subl
