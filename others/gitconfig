@@ -57,7 +57,6 @@
 
     # Do everything we can to synchronize all changes
     get                 = !git pull --rebase && git submodule update --init --recursive
-    put                 = !git commit -a -m "$1" && git push
     put                 = "!put() { git commit -a -m \"$1\" && git push ; }; put"
     get-put             = "!getput() { git commit -a -m \"$1\" && git pull --rebase && git push && git submodule update --init --recursive ; }; getput"
 
