@@ -30,6 +30,10 @@
     # Only use on Windows networks share : git config --local core.filemode false
     # filemode = false
 
+[user]
+    # Don't guess the user's (os) identity
+    useConfigOnly = true
+
 [init]
     templatedir = ~/dotfiles/public/others/git-templates
 
