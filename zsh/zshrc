@@ -14,6 +14,7 @@ source $DOTFILES_DIR/zsh/key-bindings.zsh
 source $DOTFILES_DIR/zsh/git.zsh
 source $DOTFILES_DIR/zsh/aliases.zsh
 source $DOTFILES_DIR/zsh/functions.zsh
+source $DOTFILES_DIR/zsh/snippets.zsh
 source $DOTFILES_DIR/zsh/zplug.zsh
 source $DOTFILES_DIR/zsh/other-installs.zsh
 
