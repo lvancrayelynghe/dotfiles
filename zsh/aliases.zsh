@@ -228,6 +228,7 @@ alias speedtest="wget -O /dev/null http://speedtest.wdc01.softlayer.com/download
 alias ipstats="netstat -ntu | tail -n +3 | awk '{print $5}' | cut -d: -f1 | sort | uniq -c | sort -n"
 alias ports="lsof -ni | grep LISTEN"
 alias ns="nslookup"
+alias he="sudo $EDITOR /etc/hosts"
 
 for method in GET HEAD POST PUT DELETE PURGE TRACE OPTIONS; do
     alias "$method"="http '$method'"
