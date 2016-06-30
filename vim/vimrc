@@ -3,8 +3,9 @@
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let mapleader=":"                " Force default mapleader
 set nocompatible                 " Get rid of Vi compatibility mode. SET FIRST!
+set ttyfast                      " Faster refraw
 set encoding=utf-8 nobomb        " Use UTF-8 without BOM
-set mouse=v                      " Enable mouse in all modes
+set mouse=nv                     " Enable mouse in all modes
 set clipboard=unnamed            " Use the OS clipboard by default (on versions compiled with `+clipboard`)
 set wildmenu                     " Enhance command-line completion
 set nobackup                     " No backup
@@ -57,6 +58,65 @@ set statusline=%<%f\%h%m%r%=%-20.(line=%l\ \ col=%c%V\ \ totlin=%L%)\ \ \%h%m%r%
 colorscheme tomorrow-night
 
 autocmd BufRead,BufNew *.md set filetype=markdown
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""" Colors and Statusline                                                    "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let defaultAccentColor=5
+let colorsAndModes= {
+  \ 'i' : 12,
+  \ 'v' : 6,
+  \ 'V' : 3,
+  \ '' : 1,
+\}
+function! ChangeAccentColor()
+  let accentColor=get(g:colorsAndModes, mode(), g:defaultAccentColor)
+  execute 'hi User1 ctermfg=0 guifg=#000000 ctermbg=' . accentColor
+  execute 'hi User2 ctermbg=0 guibg=#2e3436 ctermfg=' . accentColor
+  execute 'hi User3 ctermfg=0 guifg=#000000 cterm=bold gui=bold ctermbg=' . accentColor
+  execute 'hi TabLineSel ctermfg=0 cterm=bold ctermbg=' . accentColor
+  execute 'hi TabLine ctermbg=0 ctermfg=' . accentColor
+  execute 'hi CursorLineNr ctermfg=' . accentColor
+  return ''
+endfunction
+function! ReadOnly()
+  return (&readonly || !&modifiable) ? 'Read Only ' : ''
+endfunction
+function! Modified()
+  return (&modified) ? 'Modified' : 'Not modified'
+endfunction
+let g:currentmode={
+    \ 'n'  : 'Normal',
+    \ 'no' : 'N·Operator Pending',
+    \ 'v'  : 'Visual',
+    \ 'V'  : 'V·Line',
+    \ '' : 'V·Block',
+    \ 's'  : 'Select',
+    \ 'S'  : 'S·Line',
+    \ '^S' : 'S·Block',
+    \ 'i'  : 'Insert',
+    \ 'R'  : 'Replace',
+    \ 'Rv' : 'VReplace',
+    \ 'c'  : 'Command',
+    \ 'cv' : 'Vim Ex',
+    \ 'ce' : 'Ex',
+    \ 'r'  : 'Prompt',
+    \ 'rm' : 'More',
+    \ 'r?' : 'Confirm',
+    \ '!'  : 'Shell',
+    \ 't'  : 'Terminal',
+\}
+set statusline=
+set statusline+=%{ChangeAccentColor()}
+set statusline+=%1*\ ***%{toupper(g:currentmode[mode()])}***\  " Current mode
+set statusline+=%2*\ %<%F\  " Filepath
+set statusline+=%2*\ %= " To the right
+set statusline+=%2*\ %{toupper((&fenc!=''?&fenc:&enc))}\[%{&ff}] " Encoding & Fileformat
+set statusline+=%2*\ %{Modified()}\ %{ReadOnly()} " Flags
+set statusline+=%1*\ \%l/%L(%P)-%c\  " Position
+" Speed up the redraw
+au InsertLeave * call ChangeAccentColor()
+au CursorHold * let &ro = &ro
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Special functions                                                          "
