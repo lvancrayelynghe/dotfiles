@@ -21,7 +21,9 @@ wget https://raw.githubusercontent.com/Benoth/dotfiles/master/install.zsh && chm
   - [sshrc](https://github.com/Russell91/sshrc) : Bring your dotfiles with you when you ssh
   - [cdiff](https://github.com/ymattw/cdiff) : Term based tool to view colored, incremental diff
   - [ZSH Syntax highlighting](https://github.com/zsh-users/zsh-syntax-highlighting)
+  - [git-cheat](https://github.com/0xBX/git-cheat)
 - [ack](http://beyondgrep.com/) : A tool like grep, optimized for programmers (require Perl 5)
+- [sift](https://sift-tool.org/) : A fast and powerful alternative to grep
 - A lot of [ZSH](https://github.com/Benoth/dotfiles/tree/master/zsh) (lightweight) customisations, without the use of any framework, but a lot of inspiration from OhMyZsh and Prezto
 - Various dotfiles for [Vim](https://github.com/Benoth/dotfiles/tree/master/vim), [Mutt](https://github.com/Benoth/dotfiles/tree/master/mutt) and [others](https://github.com/Benoth/dotfiles/tree/master/others)
 
@@ -55,4 +57,5 @@ echo "export ZSH_VCS_INFO=true" >> ".zshrc_`hostname`"
 - [Oh My ZSH](https://github.com/robbyrussell/oh-my-zsh)
 - [Oh My Git](https://github.com/arialdomartini/oh-my-git)
 - [Agnoster's ZSH theme](https://gist.github.com/agnoster/3712874)
+- [MiniVim](https://github.com/sd65/MiniVim)
 
