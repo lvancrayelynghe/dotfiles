@@ -13,11 +13,11 @@ git config --local user.name "Benoth"
 [[ -f ./bootstrap.sh ]] && ./bootstrap.sh || echo "No boostrap file found"
 
 # Clone & config the private repository
-mkdir -p ${DOTFILES_PATH}/../private
-cd ${DOTFILES_PATH}/../private
 print -n "To clone the private repository, you need to provide its **HTTPS** address (just press Enter to abort) : "
 read repo
 if [[ -n "$repo" ]]; then
+    mkdir -p ${DOTFILES_PATH}/../private
+    cd ${DOTFILES_PATH}/../private
     git clone --recursive "$repo" .
     chmod u+x *.sh
     echo ""
