@@ -7,6 +7,7 @@
 
 ## Installation
 ```
+export DOTFILES_PATH=~/.dotfiles/public
 wget https://raw.githubusercontent.com/Benoth/dotfiles/master/install.zsh && chmod u+x install.zsh && ./install.zsh && rm install.zsh
 ```
 
