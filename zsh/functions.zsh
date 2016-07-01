@@ -90,19 +90,19 @@ function cheat-sheet() {
         sed -r 's/## (.*)/\x1b[33m## \1\x1b[0m/' |
         sed -r 's/-- -/-/' |
         sed -r 's/alias -g/alias/' |
-        sed -r 's/^alias (-g )?([A-Za-z0-9.-]+)=(.*)/\x1b[36m\2\x1b[0m\t\3/g' |
+        sed -r 's/^alias (-g )?([A-Za-z0-9._-=]+)=(.*)/\x1b[36m\2\x1b[0m\t\3/g' |
         awk 'BEGIN { FS = "\t" } ; { printf "%-30s %s\n", $1, $2}' |
         sed -r "s/'(.*)'/\1/" |
         sed -r 's/"(.*)"/\1/'
     echo ""
-    echo "\x1b[32m\x1b[1m\nFunctions\x1b[0m"
+    echo "\x1b[32m\x1b[1m\n# Functions\x1b[0m"
 
     cat ~/dotfiles/public/zsh/functions.zsh |
         grep "^function" -B1 |
         grep -v "^--" |
         awk '{printf "%s%s",$0,NR%2?"\t":"\n" ; }' |
         awk -F'\t' '{ t = $1; $1 = $2; $2 = t; print; }' |
-        sed -r 's/^function ([A-Za-z0-9_-]+)(.*) # (.*)/\x1b[36m\1\x1b[0m\t\x1b[33m\3\x1b[0m/g' |
+        sed -r 's/^function ([A-Za-z0-9._-=]+)(.*) # (.*)/\x1b[36m\1\x1b[0m\t\x1b[33m\3\x1b[0m/g' |
         awk 'BEGIN { FS = "\t" } ; { printf "%-35s %s\n", $1, $2}'
     echo ""
 }
