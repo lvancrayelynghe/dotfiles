@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 
 declare -A COPIES=(
+    ['bash/bashrc']='.bashrc'
+    ['zsh/zshenv']='.zshenv'
     ['others/albert.conf']='.config/albert/albert.conf'
     ['others/appstarter']='.appstarter'
     ['others/ssh_config']='.ssh/config'
@@ -8,7 +10,6 @@ declare -A COPIES=(
 )
 
 declare -A SYMLINKS=(
-    ['bash/bashrc']='.bashrc'
     ['bash/inputrc']='.inputrc'
     ['bash/profile']='.profile'
     ['desk']='.desk'
@@ -24,6 +25,7 @@ declare -A SYMLINKS=(
     ['others/gemrc']='.gemrc'
     ['others/gitattributes']='.gitattributes'
     ['others/gitconfig']='.gitconfig'
+    ['others/git-templates']='.git-templates'
     ['others/indicator-sysmonitor.json']='.indicator-sysmonitor.json'
     ['others/notify-osd']='.notify-osd'
     ['others/my.cnf']='.my.cnf'
@@ -52,7 +54,6 @@ declare -A SYMLINKS=(
     ['vim/vim']='.vim'
     ['vim/vimrc']='.vimrc'
     ['zsh/zlogin']='.zlogin'
-    ['zsh/zshenv']='.zshenv'
     ['zsh/zshrc_brutus']='.zshrc_brutus'
     ['zsh/zshrc_homestead']='.zshrc_homestead'
     ['zsh/zshrc']='.zshrc'

@@ -123,8 +123,8 @@ alias vgrep='grep -v --color=auto'
 alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'
 alias zshrc='source ~/.zshrc' ## Reload config
-alias dotfiles='(cd ~/dotfiles/public && git pull) ; (cd ~/dotfiles/private && git pull) ; source ~/.zshrc' ## Pull dotfiles from repositories and reload config
-alias snippets="cat ~/dotfiles/public/zsh/snippets.zsh | sed -r 's/^function //g' | sed -r 's/^# (.*)/\x1b[32m\x1b[1m# \1\x1b[0m/'"
+alias dotfiles='(cd ${DOTFILES_PATH} && git pull) ; (cd ${DOTFILES_PATH}/../private && git pull) ; source ~/.zshrc' ## Pull dotfiles from repositories and reload config
+alias snippets="cat ${DOTFILES_PATH}/zsh/snippets.zsh | sed -r 's/^function //g' | sed -r 's/^# (.*)/\x1b[32m\x1b[1m# \1\x1b[0m/'"
 
 # System stats
 alias free='free -h'

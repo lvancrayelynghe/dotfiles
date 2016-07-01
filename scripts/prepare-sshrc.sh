@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-echo "# ALIASES" >| ~/dotfiles/public/others/sshrc
-cat ~/dotfiles/public/zsh/aliases.zsh \
+echo "# ALIASES" >| ${DOTFILES_PATH}/others/sshrc
+cat ${DOTFILES_PATH}/zsh/aliases.zsh \
 | grep -v "shutdown" \
 | grep -v "ffmpeg" \
 | grep -v "desk" \
@@ -12,14 +12,14 @@ cat ~/dotfiles/public/zsh/aliases.zsh \
 | grep -v "find-and-replace" \
 | grep -v "'k -" \
 | grep -v "# Record x11" \
->> ~/dotfiles/public/others/sshrc
+>> ${DOTFILES_PATH}/others/sshrc
 
-echo "" >> ~/dotfiles/public/others/sshrc
-echo "" >> ~/dotfiles/public/others/sshrc
-echo "" >> ~/dotfiles/public/others/sshrc
+echo "" >> ${DOTFILES_PATH}/others/sshrc
+echo "" >> ${DOTFILES_PATH}/others/sshrc
+echo "" >> ${DOTFILES_PATH}/others/sshrc
 
-echo "# FUNCTIONS" >> ~/dotfiles/public/others/sshrc
-cat ~/dotfiles/public/zsh/functions.zsh \
+echo "# FUNCTIONS" >> ${DOTFILES_PATH}/others/sshrc
+cat ${DOTFILES_PATH}/zsh/functions.zsh \
 | perl -p0e 's/\n# Commands usage statistics.*?}\n//s' \
 | perl -p0e 's/\n# Find files using ZSH globbing.*?}\n//s' \
 | perl -p0e 's/\n# Find and replace in current dir.*?}\n//s' \
@@ -30,20 +30,20 @@ cat ~/dotfiles/public/zsh/functions.zsh \
 | perl -p0e 's/\n# Animated gifs from any video.*?}\n//s' \
 | perl -p0e 's/\n# Let.*s be corporate.*?}\n//s' \
 | perl -p0e 's/\n# Because Metroid.*?}\n//s' \
->> ~/dotfiles/public/others/sshrc
+>> ${DOTFILES_PATH}/others/sshrc
 
-echo "" >> ~/dotfiles/public/others/sshrc
-echo "" >> ~/dotfiles/public/others/sshrc
-echo "" >> ~/dotfiles/public/others/sshrc
+echo "" >> ${DOTFILES_PATH}/others/sshrc
+echo "" >> ${DOTFILES_PATH}/others/sshrc
+echo "" >> ${DOTFILES_PATH}/others/sshrc
 
-echo "# BASHRC" >> ~/dotfiles/public/others/sshrc
-cat ~/dotfiles/public/bash/bashrc \
+echo "# BASHRC" >> ${DOTFILES_PATH}/others/sshrc
+cat ${DOTFILES_PATH}/bash/bashrc \
 | perl -p0e 's/\nif.*?fi\n//s' \
 | perl -p0e 's/\nif.*?fi\n//s' \
 | grep -v "mkdir" \
->> ~/dotfiles/public/others/sshrc
+>> ${DOTFILES_PATH}/others/sshrc
 
-cat << 'EOF' >> ~/dotfiles/public/others/sshrc
+cat << 'EOF' >> ${DOTFILES_PATH}/others/sshrc
 
 export VIMINIT="let \$MYVIMRC='$SSHHOME/.sshrc.d/.vimrc' | source \$MYVIMRC"
 EOF

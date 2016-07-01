@@ -1,5 +1,4 @@
 # Description: Public dotfiles management
 #
 
-source $HOME/.desk/base-project.sh ~/dotfiles/public
-
+source $HOME/.desk/base-project.sh ${DOTFILES_PATH}

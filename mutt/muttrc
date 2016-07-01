@@ -85,7 +85,7 @@ mailboxes !
 # Editor
 set edit_hdrs
 auto_view text/html
-set editor="vim -u ~/dotfiles/public/mutt/vimrc"
+set editor="vim -u ${DOTFILES_PATH}/mutt/vimrc"
 set pager_index_lines=7
 set pager_stop
 

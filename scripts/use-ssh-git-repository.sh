@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-cd ~/dotfiles/public
+cd ${DOTFILES_PATH}
 git remote rm origin
 git remote add origin git@github.com:Benoth/dotfiles.git
 git push origin master
@@ -13,4 +13,3 @@ echo "      HostName github.com"
 echo "      User git"
 echo "      IdentityFile ~/.ssh/keys/personnal-key.rsa"
 echo ""
-

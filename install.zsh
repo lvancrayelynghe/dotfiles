@@ -1,8 +1,9 @@
 #!/bin/zsh
+export DOTFILES_PATH=${DOTFILES_PATH:-~/dotfiles/public}
 
 # Clone & config the public repository
-mkdir -p ~/dotfiles/public
-cd ~/dotfiles/public
+mkdir -p ${DOTFILES_PATH}
+cd ${DOTFILES_PATH}
 git clone --recursive https://github.com/Benoth/dotfiles.git .
 chmod u+x *.sh
 git config --local user.email "benoth83@gmail.com"
@@ -12,8 +13,8 @@ git config --local user.name "Benoth"
 [[ -f ./bootstrap.sh ]] && ./bootstrap.sh || echo "No boostrap file found"
 
 # Clone & config the private repository
-mkdir -p ~/dotfiles/private
-cd ~/dotfiles/private
+mkdir -p ${DOTFILES_PATH}/../private
+cd ${DOTFILES_PATH}/../private
 print -n "To clone the private repository, you need to provide its **HTTPS** address (just press Enter to abort) : "
 read repo
 if [[ -n "$repo" ]]; then

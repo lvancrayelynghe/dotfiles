@@ -1,10 +1,12 @@
+export DOTFILES_PATH=${DOTFILES_PATH:-~/dotfiles/public}
+
 eval "`dircolors`"
 
-if [ -f "$HOME/dotfiles/public/zsh/aliases.zsh" ]; then
-    source "$HOME/dotfiles/public/zsh/aliases.zsh"
+if [ -f "${DOTFILES_PATH}/zsh/aliases.zsh" ]; then
+    source "${DOTFILES_PATH}/zsh/aliases.zsh"
 fi
-if [ -f "$HOME/dotfiles/public/zsh/functions.zsh" ]; then
-    source "$HOME/dotfiles/public/zsh/functions.zsh"
+if [ -f "${DOTFILES_PATH}/zsh/functions.zsh" ]; then
+    source "${DOTFILES_PATH}/zsh/functions.zsh"
 fi
 
 shopt -s autocd                  # A command name that is the name of a directory is executed as if it were the argument to the cd command
@@ -36,4 +38,3 @@ export MYSQL_HISTFILE=/dev/null
 export PS1="[${WHITE}\u${NONE}@${RED}\h${NONE} ${CYAN}\w${NONE}]\\$\[${RESET}\] "
 export VISUAL='vim'
 export EDITOR='vim'
-

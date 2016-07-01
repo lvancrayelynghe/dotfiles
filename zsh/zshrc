@@ -1,55 +1,55 @@
+DOTFILES_PATH=${DOTFILES_PATH:-~/dotfiles/public}
 HOSTNAME=`hostname`
-DOTFILES_DIR="$HOME/dotfiles/public"
 HOST_CONFIG_FILE="$HOME/.zshrc_$HOSTNAME"
 LOCAL_CONFIG_FILE="$HOME/.zshrc_local"
 
 mkdir -p "$HOME/.cache"
 
-source $DOTFILES_DIR/zsh/global.zsh
-source $DOTFILES_DIR/zsh/completion.zsh
-source $DOTFILES_DIR/zsh/correction.zsh
-source $DOTFILES_DIR/zsh/directories.zsh
-source $DOTFILES_DIR/zsh/history.zsh
-source $DOTFILES_DIR/zsh/key-bindings.zsh
-source $DOTFILES_DIR/zsh/git.zsh
-source $DOTFILES_DIR/zsh/aliases.zsh
-source $DOTFILES_DIR/zsh/functions.zsh
-source $DOTFILES_DIR/zsh/snippets.zsh
-source $DOTFILES_DIR/zsh/zplug.zsh
-source $DOTFILES_DIR/zsh/other-installs.zsh
+source ${DOTFILES_PATH}/zsh/global.zsh
+source ${DOTFILES_PATH}/zsh/completion.zsh
+source ${DOTFILES_PATH}/zsh/correction.zsh
+source ${DOTFILES_PATH}/zsh/directories.zsh
+source ${DOTFILES_PATH}/zsh/history.zsh
+source ${DOTFILES_PATH}/zsh/key-bindings.zsh
+source ${DOTFILES_PATH}/zsh/git.zsh
+source ${DOTFILES_PATH}/zsh/aliases.zsh
+source ${DOTFILES_PATH}/zsh/functions.zsh
+source ${DOTFILES_PATH}/zsh/snippets.zsh
+source ${DOTFILES_PATH}/zsh/zplug.zsh
+source ${DOTFILES_PATH}/zsh/other-installs.zsh
 
 [[ -n $HOST_CONFIG_FILE && -e $HOST_CONFIG_FILE ]] && source $HOST_CONFIG_FILE || true
 [[ -n $LOCAL_CONFIG_FILE && -e $LOCAL_CONFIG_FILE ]] && source $LOCAL_CONFIG_FILE || true
 
-source $DOTFILES_DIR/zsh/plugins/colored-man.plugin.zsh
+source ${DOTFILES_PATH}/zsh/plugins/colored-man.plugin.zsh
 
 if hash notify-send >/dev/null 2>&1; then
-    source $DOTFILES_DIR/zsh/plugins/undistract-me.zsh
+    source ${DOTFILES_PATH}/zsh/plugins/undistract-me.zsh
 fi
 
 if hash npm >/dev/null 2>&1; then
-    source $DOTFILES_DIR/zsh/npm.zsh
-    source $DOTFILES_DIR/zsh/plugins/gulp.plugin.zsh
+    source ${DOTFILES_PATH}/zsh/npm.zsh
+    source ${DOTFILES_PATH}/zsh/plugins/gulp.plugin.zsh
 fi
 
 if hash composer >/dev/null 2>&1; then
-    source $DOTFILES_DIR/zsh/composer.zsh
+    source ${DOTFILES_PATH}/zsh/composer.zsh
 fi
 
 if hash fzf >/dev/null 2>&1; then
 	FZF_COMPLETION_TRIGGER='*'
-	source $DOTFILES_DIR/zsh/plugins/fzf-completion.plugin.zsh
-	source $DOTFILES_DIR/zsh/plugins/fzf-key-bindings.plugin.zsh
+	source ${DOTFILES_PATH}/zsh/plugins/fzf-completion.plugin.zsh
+	source ${DOTFILES_PATH}/zsh/plugins/fzf-key-bindings.plugin.zsh
 fi
 
 if [[ -n $LC_POWERLINE && $LC_POWERLINE = 'true' && $TERM == *"256"* ]]; then
-	source $DOTFILES_DIR/zsh/themes/agnoster-modified.zsh
+	source ${DOTFILES_PATH}/zsh/themes/agnoster-modified.zsh
 else
-	source $DOTFILES_DIR/zsh/themes/gianu-modified.zsh
+	source ${DOTFILES_PATH}/zsh/themes/gianu-modified.zsh
 fi
 
 # Hook for desk activation (must stay after every other scripts)
 [ -n "$DESK_ENV" ] && source "$DESK_ENV"
 
 # Only load last working directory plugin if not un a Desk
-[ -z "$DESK_ENV" ] && source $DOTFILES_DIR/zsh/plugins/last-working-dir.plugin.zsh
+[ -z "$DESK_ENV" ] && source ${DOTFILES_PATH}/zsh/plugins/last-working-dir.plugin.zsh

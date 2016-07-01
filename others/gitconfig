@@ -35,10 +35,10 @@
     useConfigOnly = true
 
 [init]
-    templatedir = ~/dotfiles/public/others/git-templates
+    templatedir = ~/.git-templates
 
 [commit]
-    template = ~/dotfiles/public/others/git-commit-template
+    template = ~/.git-templates/git-commit
 
 [apply]
     whitespace = nowarn

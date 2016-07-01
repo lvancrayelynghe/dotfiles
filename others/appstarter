@@ -10,6 +10,6 @@ folder:
 
 folder:Dotfiles
 Atom ansible|atom|~/ansible
-Atom dotfiles public|atom|~/dotfiles/public
-Atom dotfiles private|atom|~/dotfiles/private
+Atom dotfiles public|atom|${DOTFILES_PATH}
+Atom dotfiles private|atom|${DOTFILES_PATH}/../private
 folder:
