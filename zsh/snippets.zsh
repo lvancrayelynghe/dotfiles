@@ -2,6 +2,7 @@
 function find:days()         { find . -type f -mtime -$1 | grep -v "/.git/" }
 function find:minutes()      { find . -type f -mmin -$1 | grep -v "/.git/" }
 function find:biggest()      { find . -type f -print0 | xargs -0 du | sort -n | tail -10 | cut -f2 | xargs -I{} du -sh {} }
+function find:content()      { grep --include=\*.php -rnw '.' -e "$1" }
 function find:duplicated()   { fdupes -r . }
 
 # MySQL snippets
