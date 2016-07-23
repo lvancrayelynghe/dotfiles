@@ -23,7 +23,7 @@
     </property>
   </property>
   <property name="splash" type="empty">
-    <property name="Engine" type="empty"/>
+    <property name="Engine" type="string" value=""/>
   </property>
   <property name="compat" type="empty">
     <property name="LaunchGNOME" type="empty"/>

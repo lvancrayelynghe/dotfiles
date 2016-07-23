@@ -31,7 +31,7 @@
     <property name="shadow_delta_y" type="empty"/>
     <property name="shadow_opacity" type="empty"/>
     <property name="show_app_icon" type="empty"/>
-    <property name="show_dock_shadow" type="empty"/>
+    <property name="show_dock_shadow" type="bool" value="true"/>
     <property name="show_frame_shadow" type="empty"/>
     <property name="show_popup_shadow" type="empty"/>
     <property name="snap_to_border" type="empty"/>
@@ -46,7 +46,7 @@
     <property name="title_vertical_offset_active" type="empty"/>
     <property name="title_vertical_offset_inactive" type="empty"/>
     <property name="urgent_blink" type="empty"/>
-    <property name="use_compositing" type="empty"/>
+    <property name="use_compositing" type="bool" value="true"/>
     <property name="workspace_count" type="int" value="4"/>
     <property name="workspace_names" type="empty"/>
     <property name="wrap_resistance" type="empty"/>
@@ -55,7 +55,7 @@
     <property name="borderless_maximize" type="bool" value="true"/>
     <property name="cycle_hidden" type="bool" value="true"/>
     <property name="cycle_minimum" type="bool" value="true"/>
-    <property name="cycle_preview" type="bool" value="true"/>
+    <property name="cycle_preview" type="bool" value="false"/>
     <property name="cycle_tabwin_mode" type="int" value="0"/>
     <property name="cycle_workspaces" type="bool" value="false"/>
     <property name="double_click_action" type="string" value="maximize"/>
