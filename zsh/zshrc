@@ -42,7 +42,7 @@ if hash fzf >/dev/null 2>&1; then
 	source ${DOTFILES_PATH}/zsh/plugins/fzf-key-bindings.plugin.zsh
 fi
 
-if [[ -n $LC_POWERLINE && $LC_POWERLINE = 'true' && $TERM == *"256"* ]]; then
+if [[ -n $LC_POWERLINE && $LC_POWERLINE = 'true' ]]; then
 	source ${DOTFILES_PATH}/zsh/themes/agnoster-modified.zsh
 else
 	source ${DOTFILES_PATH}/zsh/themes/gianu-modified.zsh
