@@ -32,7 +32,7 @@ command-menueditor=menulibre
 show-command-menueditor=true
 command-profile=mugshot
 show-command-profile=true
-search-actions=4
+search-actions=7
 
 [action0]
 name=Pages de manuel
@@ -42,8 +42,8 @@ regex=false
 
 [action1]
 name=Wikipédia
-pattern=!w
-command=exo-open --launch WebBrowser https://en.wikipedia.org/wiki/%u
+pattern=w
+command=exo-open --launch WebBrowser https://fr.wikipedia.org/wiki/%u
 regex=false
 
 [action2]
@@ -57,4 +57,22 @@ name=Ouvrir l’emplacement
 pattern=^(file|http|https):\\/\\/(.*)$
 command=exo-open \\0
 regex=true
+
+[action4]
+name=Google
+pattern=g
+command=exo-open --launch WebBrowser https://www.google.fr/search?q=%u
+regex=false
+
+[action5]
+name=DuckDuckGo
+pattern=d
+command=exo-open --launch WebBrowser https://duckduckgo.com/?q=%u
+regex=false
+
+[action6]
+name=Google Trad
+pattern=tr
+command=exo-open --launch WebBrowser http://translate.google.fr/?source=osdd#auto|auto|%u
+regex=false
 
