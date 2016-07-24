@@ -1,19 +1,11 @@
 export ZPLUG_HOME=~/.zplug
 if [ ! -f ~/.zplug/zplug ]; then
-    echo "$fg_bold[yellow]Installing zplug...$reset_color"
-    mkdir -p ~/.zplug
-    git clone https://github.com/zplug/zplug $ZPLUG_HOME
-    source $ZPLUG_HOME/init.zsh
-    chmod u+x ~/.zplug/zplug
-    echo "$fg_bold[yellow]Done ! $reset_color\n"
-    source ~/.zplug/zplug
-    zplug update --self
-else
-    source ~/.zplug/zplug
+    curl -sL zplug.sh/installer | zsh
 fi
 
-ZPLUG_VERSION=`zplug --version`
+source ~/.zplug/zplug
 
+ZPLUG_VERSION=`zplug --version`
 if [[ $ZPLUG_VERSION == 2* ]]; then
     zplug "b4b4r07/zplug", from:github
     zplug "rimraf/k", from:github, as:plugin
