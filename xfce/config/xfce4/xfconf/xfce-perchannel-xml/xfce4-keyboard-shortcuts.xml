@@ -64,10 +64,7 @@
       <property name="override" type="bool" value="true"/>
       <property name="&lt;Super&gt;l" type="string" value="xflock4"/>
       <property name="&lt;Shift&gt;Print" type="string" value="xfce4-screenshooter -r"/>
-      <property name="&lt;Super&gt;ampersand" type="empty">
-        <property name="startup-notify" type="bool" value="true"/>
-      </property>
-      <property name="&lt;Super&gt;eacute" type="empty">
+      <property name="&lt;Super&gt;eacute" type="string" value="bash /home/benoth/bin/switch-app Chromium chromium-browser">
         <property name="startup-notify" type="bool" value="true"/>
       </property>
       <property name="&lt;Primary&gt;eacute" type="empty">
@@ -87,6 +84,12 @@
       </property>
       <property name="&lt;Super&gt;t" type="string" value="bash /home/benoth/bin/switch-app Terminal xfce4-terminal"/>
       <property name="&lt;Super&gt;e" type="string" value="bash /home/benoth/bin/switch-app Thunar thunar"/>
+      <property name="&lt;Super&gt;ampersand" type="string" value="bash /home/benoth/bin/switch-app Thunar thunar">
+        <property name="startup-notify" type="bool" value="true"/>
+      </property>
+      <property name="&lt;Super&gt;apostrophe" type="string" value="bash /home/benoth/bin/switch-app Terminal xfce4-terminal"/>
+      <property name="&lt;Super&gt;quotedbl" type="string" value="bash /home/benoth/bin/switch-app Sublime subl"/>
+      <property name="&lt;Super&gt;s" type="string" value="bash /home/benoth/bin/switch-app Sublime subl"/>
     </property>
   </property>
   <property name="xfwm4" type="empty">

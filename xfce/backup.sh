@@ -4,6 +4,7 @@ mkdir -p config/xfce4
 rsync -av --progress -h --exclude-from=$HOME/.cvsignore \
   --exclude=desktop \
   --exclude=displays.xml \
+  --exclude=parole.xml \
   --exclude=xfce4-screenshooter \
   $HOME/.config/xfce4/* \
   config/xfce4
