@@ -4,12 +4,8 @@
   <property name="commands" type="empty">
     <property name="default" type="empty">
       <property name="&lt;Alt&gt;F1" type="empty"/>
-      <property name="&lt;Alt&gt;F2" type="empty">
-        <property name="startup-notify" type="empty"/>
-      </property>
-      <property name="&lt;Alt&gt;F3" type="empty">
-        <property name="startup-notify" type="empty"/>
-      </property>
+      <property name="&lt;Alt&gt;F2" type="empty"/>
+      <property name="&lt;Alt&gt;F3" type="empty"/>
       <property name="&lt;Primary&gt;&lt;Alt&gt;Delete" type="empty"/>
       <property name="&lt;Primary&gt;&lt;Alt&gt;l" type="empty"/>
       <property name="XF86Display" type="empty"/>
@@ -43,9 +39,6 @@
       <property name="&lt;Primary&gt;&lt;Alt&gt;Delete" type="string" value="xflock4"/>
       <property name="XF86Explorer" type="string" value="exo-open --launch FileManager"/>
       <property name="&lt;Super&gt;p" type="string" value="xfce4-display-settings --minimal"/>
-      <property name="&lt;Alt&gt;F2" type="string" value="xfrun4">
-        <property name="startup-notify" type="bool" value="true"/>
-      </property>
       <property name="&lt;Super&gt;m" type="string" value="exo-open --launch MailReader"/>
       <property name="&lt;Primary&gt;&lt;Alt&gt;t" type="string" value="exo-open --launch TerminalEmulator"/>
       <property name="&lt;Primary&gt;Escape" type="string" value="xfce4-popup-whiskermenu"/>
@@ -61,37 +54,22 @@
       <property name="override" type="bool" value="true"/>
       <property name="&lt;Super&gt;l" type="string" value="xflock4"/>
       <property name="&lt;Shift&gt;Print" type="string" value="xfce4-screenshooter -r"/>
-      <property name="&lt;Primary&gt;eacute" type="empty">
-        <property name="startup-notify" type="bool" value="true"/>
-      </property>
-      <property name="&lt;Shift&gt;&lt;Super&gt;1" type="empty">
-        <property name="startup-notify" type="bool" value="true"/>
-      </property>
-      <property name="&lt;Super&gt;j" type="empty">
-        <property name="startup-notify" type="bool" value="true"/>
-      </property>
-      <property name="&lt;Super&gt;w" type="string" value="bash /home/benoth/bin/switch-app Chromium chromium-browser">
-        <property name="startup-notify" type="bool" value="true"/>
-      </property>
-      <property name="&lt;Super&gt;eacute" type="string" value="bash /home/benoth/bin/switch-app Chromium chromium-browser">
-        <property name="startup-notify" type="bool" value="true"/>
-      </property>
-      <property name="&lt;Super&gt;s" type="string" value="bash /home/benoth/bin/switch-app Sublime subl"/>
-      <property name="&lt;Super&gt;quotedbl" type="string" value="bash /home/benoth/bin/switch-app Sublime subl"/>
-      <property name="&lt;Super&gt;t" type="string" value="bash /home/benoth/bin/switch-app Terminal xfce4-terminal"/>
-      <property name="&lt;Super&gt;apostrophe" type="string" value="bash /home/benoth/bin/switch-app Terminal xfce4-terminal"/>
-      <property name="&lt;Super&gt;ampersand" type="string" value="bash /home/benoth/bin/switch-app Thunar thunar">
-        <property name="startup-notify" type="bool" value="true"/>
-      </property>
-      <property name="&lt;Super&gt;e" type="string" value="bash /home/benoth/bin/switch-app Thunar thunar"/>
-      <property name="&lt;Super&gt;parenleft" type="string" value="bash /home/benoth/bin/switch-app Thunderbird thunderbird"/>
-      <property name="&lt;Super&gt;f" type="string" value="bash /home/benoth/bin/switch-app Thunderbird thunderbird"/>
-      <property name="&lt;Super&gt;r" type="string" value="bash /home/benoth/bin/switch-app &quot;xfce4-appfinder.Xfce4-appfinder&quot; xfce4-appfinder">
-        <property name="startup-notify" type="bool" value="true"/>
-      </property>
-      <property name="&lt;Alt&gt;F3" type="string" value="bash /home/benoth/bin/switch-app &quot;xfce4-appfinder.Xfce4-appfinder&quot; xfce4-appfinder">
-        <property name="startup-notify" type="bool" value="true"/>
-      </property>
+      <property name="&lt;Primary&gt;eacute" type="empty"/>
+      <property name="&lt;Shift&gt;&lt;Super&gt;1" type="empty"/>
+      <property name="&lt;Super&gt;j" type="empty"/>
+      <property name="&lt;Super&gt;s" type="string" value="bash /home/benoth/bin/switch-app &quot;sublime_text.Sublime_text&quot; subl"/>
+      <property name="&lt;Super&gt;quotedbl" type="string" value="bash /home/benoth/bin/switch-app &quot;sublime_text.Sublime_text&quot; subl"/>
+      <property name="&lt;Super&gt;t" type="string" value="bash /home/benoth/bin/switch-app &quot;xfce4-terminal.Xfce4-terminal&quot; xfce4-terminal"/>
+      <property name="&lt;Super&gt;apostrophe" type="string" value="bash /home/benoth/bin/switch-app &quot;xfce4-terminal.Xfce4-terminal&quot; xfce4-terminal"/>
+      <property name="&lt;Super&gt;e" type="string" value="bash /home/benoth/bin/switch-app &quot;Thunar.Thunar&quot; thunar"/>
+      <property name="&lt;Super&gt;parenleft" type="string" value="bash /home/benoth/bin/switch-app &quot;Mail.Thunderbird&quot; thunderbird"/>
+      <property name="&lt;Super&gt;f" type="string" value="bash /home/benoth/bin/switch-app &quot;Mail.Thunderbird&quot; thunderbird"/>
+      <property name="&lt;Alt&gt;F3" type="string" value="bash /home/benoth/bin/switch-app &quot;xfce4-appfinder.Xfce4-appfinder&quot; xfce4-appfinder"/>
+      <property name="&lt;Super&gt;r" type="string" value="bash /home/benoth/bin/switch-app &quot;xfce4-appfinder.Xfce4-appfinder&quot; xfce4-appfinder"/>
+      <property name="&lt;Super&gt;ampersand" type="string" value="bash /home/benoth/bin/switch-app &quot;Thunar.Thunar&quot; thunar"/>
+      <property name="&lt;Super&gt;eacute" type="string" value="bash /home/benoth/bin/switch-app &quot;chromium-browser.chromium-browser&quot; chromium-browser"/>
+      <property name="&lt;Super&gt;w" type="string" value="bash /home/benoth/bin/switch-app &quot;chromium-browser.chromium-browser&quot; chromium-browser"/>
+      <property name="&lt;Alt&gt;F2" type="string" value="xfrun4"/>
     </property>
   </property>
   <property name="xfwm4" type="empty">
