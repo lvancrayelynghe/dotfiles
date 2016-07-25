@@ -38,7 +38,6 @@ declare -A SYMLINKS=(
     ['others/remarkable.settings']='.remarkable/remarkable.settings'
     ['scripts/app-starter.py']='bin/app-starter'
     ['scripts/chromium-focus-and-new-tab.sh']='bin/chromium-focus-and-new-tab'
-    ['scripts/terminal-launch-or-focus.sh']='bin/terminal-launch-or-focus'
     ['scripts/switch-app.sh']='bin/switch-app'
     ['sublime-text-3/Packages/PHP']='.config/sublime-text-3/Packages/PHP'
     ['sublime-text-3/Packages/User/anmol.tmTheme']='.config/sublime-text-3/Packages/User/anmol.tmTheme'
