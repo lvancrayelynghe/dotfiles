@@ -12,6 +12,8 @@
     <value type="int" value="3"/>
     <value type="int" value="2"/>
     <value type="int" value="1"/>
+    <value type="int" value="6"/>
+    <value type="int" value="7"/>
     <property name="action-5" type="empty">
       <property name="type" type="int" value="0"/>
       <property name="pattern" type="string" value="/"/>
@@ -26,8 +28,8 @@
     </property>
     <property name="action-3" type="empty">
       <property name="type" type="int" value="0"/>
-      <property name="pattern" type="string" value="!w"/>
-      <property name="command" type="string" value="exo-open --launch WebBrowser http://en.wikipedia.org/wiki/%s"/>
+      <property name="pattern" type="string" value="w "/>
+      <property name="command" type="string" value="exo-open --launch WebBrowser http://fr.wikipedia.org/wiki/%s"/>
       <property name="save" type="bool" value="false"/>
     </property>
     <property name="action-2" type="empty">
@@ -41,6 +43,14 @@
       <property name="pattern" type="string" value="^(file|http|https):\/\/(.*)$"/>
       <property name="command" type="string" value="exo-open \0"/>
       <property name="save" type="bool" value="false"/>
+    </property>
+    <property name="action-6" type="empty">
+      <property name="pattern" type="string" value="g "/>
+      <property name="command" type="string" value="exo-open --launch WebBrowser https://www.google.fr/search?q=%s"/>
+    </property>
+    <property name="action-7" type="empty">
+      <property name="pattern" type="string" value="tr"/>
+      <property name="command" type="string" value="exo-open --launch WebBrowser http://translate.google.fr/?source=osdd#auto|auto|%s"/>
     </property>
   </property>
 </channel>
