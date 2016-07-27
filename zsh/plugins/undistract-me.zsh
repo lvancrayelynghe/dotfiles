@@ -7,7 +7,7 @@ gnuunits=0
 # get the current active window id
 function active-window-id {
     if [[ -n $DISPLAY ]]; then
-        echo `xprop -root | awk '/_NET_ACTIVE_WINDOW\(WINDOW\)/{print $NF}'`
+        echo `xprop -root _NET_ACTIVE_WINDOW`
     else
         echo nowindowid
     fi
@@ -32,10 +32,7 @@ function notifyosd-precmd() {
 			sndstat="/usr/share/sounds/ubuntu/notifications/Positive.ogg"
 			urgency="normal"
         fi
-        if [ "$window_id_before" = "0x0" ]; then
-            window_id_before="nope"
-        fi
-        if [ ! -z "$cmd" -a $cmd_secs -gt 10 -a "$window_id_before" != "$(active-window-id)" ]; then
+        if [ ! -z "$cmd" -a $cmd_secs -gt 1 -a "$window_id_before" != "$(active-window-id)" ]; then
 			if [ $gnuunits -gt 0 ]; then
 				cmd_time=$(units "$cmd_secs seconds" "centuries;years;months;weeks;days;hours;minutes;seconds" | sed -e 's/\ +/\,/g' -e s'/\t//')
 			else
