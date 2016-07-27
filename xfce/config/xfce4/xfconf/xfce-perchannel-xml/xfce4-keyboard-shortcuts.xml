@@ -57,18 +57,18 @@
       <property name="&lt;Primary&gt;eacute" type="empty"/>
       <property name="&lt;Shift&gt;&lt;Super&gt;1" type="empty"/>
       <property name="&lt;Super&gt;j" type="empty"/>
-      <property name="&lt;Super&gt;s" type="string" value="bash /home/benoth/bin/switch-app &quot;sublime_text.Sublime_text&quot; subl"/>
-      <property name="&lt;Super&gt;quotedbl" type="string" value="bash /home/benoth/bin/switch-app &quot;sublime_text.Sublime_text&quot; subl"/>
-      <property name="&lt;Super&gt;t" type="string" value="bash /home/benoth/bin/switch-app &quot;xfce4-terminal.Xfce4-terminal&quot; xfce4-terminal"/>
-      <property name="&lt;Super&gt;apostrophe" type="string" value="bash /home/benoth/bin/switch-app &quot;xfce4-terminal.Xfce4-terminal&quot; xfce4-terminal"/>
-      <property name="&lt;Super&gt;e" type="string" value="bash /home/benoth/bin/switch-app &quot;Thunar.Thunar&quot; thunar"/>
-      <property name="&lt;Super&gt;parenleft" type="string" value="bash /home/benoth/bin/switch-app &quot;Mail.Thunderbird&quot; thunderbird"/>
-      <property name="&lt;Super&gt;f" type="string" value="bash /home/benoth/bin/switch-app &quot;Mail.Thunderbird&quot; thunderbird"/>
-      <property name="&lt;Alt&gt;F3" type="string" value="bash /home/benoth/bin/switch-app &quot;xfce4-appfinder.Xfce4-appfinder&quot; xfce4-appfinder"/>
-      <property name="&lt;Super&gt;r" type="string" value="bash /home/benoth/bin/switch-app &quot;xfce4-appfinder.Xfce4-appfinder&quot; xfce4-appfinder"/>
-      <property name="&lt;Super&gt;ampersand" type="string" value="bash /home/benoth/bin/switch-app &quot;Thunar.Thunar&quot; thunar"/>
-      <property name="&lt;Super&gt;eacute" type="string" value="bash /home/benoth/bin/switch-app &quot;chromium-browser.chromium-browser&quot; chromium-browser"/>
-      <property name="&lt;Super&gt;w" type="string" value="bash /home/benoth/bin/switch-app &quot;chromium-browser.chromium-browser&quot; chromium-browser"/>
+      <property name="&lt;Super&gt;s" type="string" value="bash /home/luc/bin/switch-or-run &quot;sublime_text.Sublime_text&quot; subl"/>
+      <property name="&lt;Super&gt;quotedbl" type="string" value="bash /home/luc/bin/switch-or-run &quot;sublime_text.Sublime_text&quot; subl"/>
+      <property name="&lt;Super&gt;t" type="string" value="bash /home/luc/bin/switch-or-run &quot;xfce4-terminal.Xfce4-terminal&quot; xfce4-terminal"/>
+      <property name="&lt;Super&gt;apostrophe" type="string" value="bash /home/luc/bin/switch-or-run &quot;xfce4-terminal.Xfce4-terminal&quot; xfce4-terminal"/>
+      <property name="&lt;Super&gt;e" type="string" value="bash /home/luc/bin/switch-or-run &quot;Thunar.Thunar&quot; thunar"/>
+      <property name="&lt;Super&gt;f" type="string" value="bash /home/luc/bin/switch-or-run &quot;([A-Za-z0-9]*)\.Thunderbird&quot; thunderbird"/>
+      <property name="&lt;Super&gt;parenleft" type="string" value="bash /home/luc/bin/switch-or-run &quot;([A-Za-z0-9]*)\.Thunderbird&quot; thunderbird"/>
+      <property name="&lt;Alt&gt;F3" type="string" value="bash /home/luc/bin/switch-or-run &quot;xfce4-appfinder.Xfce4-appfinder&quot; xfce4-appfinder"/>
+      <property name="&lt;Super&gt;r" type="string" value="bash /home/luc/bin/switch-or-run &quot;xfce4-appfinder.Xfce4-appfinder&quot; xfce4-appfinder"/>
+      <property name="&lt;Super&gt;ampersand" type="string" value="bash /home/luc/bin/switch-or-run &quot;Thunar.Thunar&quot; thunar"/>
+      <property name="&lt;Super&gt;eacute" type="string" value="bash /home/luc/bin/switch-or-run &quot;chromium-browser.chromium-browser&quot; chromium-browser"/>
+      <property name="&lt;Super&gt;w" type="string" value="bash /home/luc/bin/switch-or-run &quot;chromium-browser.chromium-browser&quot; chromium-browser"/>
       <property name="&lt;Alt&gt;F2" type="string" value="xfrun4"/>
     </property>
   </property>
