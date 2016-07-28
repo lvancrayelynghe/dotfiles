@@ -32,7 +32,7 @@ function notifyosd-precmd() {
 			sndstat="/usr/share/sounds/ubuntu/notifications/Positive.ogg"
 			urgency="normal"
         fi
-        if [ ! -z "$cmd" -a $cmd_secs -gt 1 -a "$window_id_before" != "$(active-window-id)" ]; then
+        if [ ! -z "$cmd" -a $cmd_secs -gt 10 -a "$window_id_before" != "$(active-window-id)" ]; then
 			if [ $gnuunits -gt 0 ]; then
 				cmd_time=$(units "$cmd_secs seconds" "centuries;years;months;weeks;days;hours;minutes;seconds" | sed -e 's/\ +/\,/g' -e s'/\t//')
 			else
