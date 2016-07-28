@@ -36,17 +36,12 @@
     <property name="custom" type="empty">
       <property name="Print" type="string" value="xfce4-screenshooter -f"/>
       <property name="&lt;Alt&gt;Print" type="string" value="xfce4-screenshooter -w"/>
-      <property name="&lt;Primary&gt;&lt;Alt&gt;Delete" type="string" value="xflock4"/>
       <property name="XF86Explorer" type="string" value="exo-open --launch FileManager"/>
-      <property name="&lt;Super&gt;p" type="string" value="xfce4-display-settings --minimal"/>
       <property name="&lt;Super&gt;m" type="string" value="exo-open --launch MailReader"/>
       <property name="&lt;Primary&gt;&lt;Alt&gt;t" type="string" value="exo-open --launch TerminalEmulator"/>
-      <property name="&lt;Primary&gt;Escape" type="string" value="xfce4-popup-whiskermenu"/>
       <property name="XF86Display" type="string" value="xfce4-display-settings --minimal"/>
-      <property name="&lt;Alt&gt;F1" type="string" value="xfce4-popup-applicationsmenu"/>
       <property name="XF86WWW" type="string" value="exo-open --launch WebBrowser"/>
       <property name="XF86Mail" type="string" value="exo-open --launch MailReader"/>
-      <property name="&lt;Primary&gt;&lt;Alt&gt;Escape" type="string" value="xkill"/>
       <property name="XF86Messenger" type="string" value="pidgin"/>
       <property name="XF86Calculator" type="string" value="gnome-calculator"/>
       <property name="XF86Music" type="string" value="parole"/>
@@ -61,16 +56,23 @@
       <property name="&lt;Super&gt;quotedbl" type="string" value="bash /home/benoth/bin/switch-or-run &quot;sublime_text.Sublime_text&quot; subl"/>
       <property name="&lt;Super&gt;t" type="string" value="bash /home/benoth/bin/switch-or-run &quot;xfce4-terminal.Xfce4-terminal&quot; xfce4-terminal"/>
       <property name="&lt;Super&gt;apostrophe" type="string" value="bash /home/benoth/bin/switch-or-run &quot;xfce4-terminal.Xfce4-terminal&quot; xfce4-terminal"/>
-      <property name="&lt;Super&gt;e" type="string" value="bash /home/benoth/bin/switch-or-run &quot;Thunar.Thunar&quot; thunar"/>
       <property name="&lt;Alt&gt;F3" type="string" value="bash /home/benoth/bin/switch-or-run &quot;xfce4-appfinder.Xfce4-appfinder&quot; xfce4-appfinder"/>
       <property name="&lt;Super&gt;r" type="string" value="bash /home/benoth/bin/switch-or-run &quot;xfce4-appfinder.Xfce4-appfinder&quot; xfce4-appfinder"/>
-      <property name="&lt;Super&gt;ampersand" type="string" value="bash /home/benoth/bin/switch-or-run &quot;Thunar.Thunar&quot; thunar"/>
       <property name="&lt;Super&gt;eacute" type="string" value="bash /home/benoth/bin/switch-or-run &quot;chromium-browser.chromium-browser&quot; chromium-browser"/>
-      <property name="&lt;Super&gt;w" type="string" value="bash /home/benoth/bin/switch-or-run &quot;chromium-browser.chromium-browser&quot; chromium-browser"/>
-      <property name="&lt;Alt&gt;F2" type="string" value="xfrun4"/>
       <property name="&lt;Super&gt;parenleft" type="string" value="bash /home/benoth/bin/switch-or-run &quot;([A-Za-z0-9]*)\.Thunderbird&quot; thunderbird"/>
-      <property name="&lt;Super&gt;f" type="string" value="bash /home/benoth/bin/switch-or-run &quot;([A-Za-z0-9]*)\.Thunderbird&quot; thunderbird"/>
       <property name="&lt;Primary&gt;&lt;Alt&gt;s" type="string" value="bash /home/benoth/bin/move-to-next-monitor"/>
+      <property name="&lt;Super&gt;g" type="string" value="bash /home/benoth/bin/switch-or-run &quot;chromium-browser.chromium-browser&quot; chromium-browser"/>
+      <property name="&lt;Super&gt;e" type="string" value="bash /home/benoth/bin/switch-or-run &quot;nemo.Nemo&quot; nemo"/>
+      <property name="&lt;Super&gt;ampersand" type="string" value="bash /home/benoth/bin/switch-or-run &quot;nemo.Nemo&quot; nemo"/>
+      <property name="&lt;Super&gt;b" type="string" value="bash /home/benoth/bin/switch-or-run &quot;([A-Za-z0-9]*)\.Thunderbird&quot; thunderbird"/>
+      <property name="&lt;Super&gt;f" type="string" value="bash /home/benoth/bin/switch-or-run &quot;filezilla.Filezilla&quot; filezilla"/>
+      <property name="&lt;Super&gt;Escape" type="string" value="xfce4-popup-whiskermenu"/>
+      <property name="&lt;Super&gt;F1" type="string" value="xfce4-popup-applicationsmenu"/>
+      <property name="&lt;Super&gt;F2" type="string" value="xfrun4"/>
+      <property name="&lt;Primary&gt;&lt;Alt&gt;Delete" type="string" value="xkill"/>
+      <property name="&lt;Super&gt;Pause" type="string" value="xfce4-display-settings --minimal"/>
+      <property name="&lt;Super&gt;v" type="string" value="bash /home/benoth/bin/switch-or-run &quot;vlc.vlc&quot; vlc"/>
+      <property name="&lt;Super&gt;c" type="string" value="bash /home/benoth/bin/switch-or-run &quot;gnome-calculator.Gnome-calculator&quot; gnome-calculator"/>
     </property>
   </property>
   <property name="xfwm4" type="empty">
@@ -135,7 +137,6 @@
       <property name="&lt;Alt&gt;Tab" type="string" value="cycle_windows_key"/>
       <property name="&lt;Alt&gt;&lt;Shift&gt;Tab" type="string" value="cycle_reverse_windows_key"/>
       <property name="&lt;Primary&gt;F6" type="string" value="workspace_6_key"/>
-      <property name="&lt;Alt&gt;F11" type="string" value="fullscreen_key"/>
       <property name="Escape" type="string" value="cancel_key"/>
       <property name="&lt;Super&gt;Tab" type="string" value="switch_window_key"/>
       <property name="&lt;Primary&gt;F10" type="string" value="workspace_10_key"/>
@@ -163,6 +164,7 @@
       <property name="&lt;Primary&gt;&lt;Alt&gt;f" type="string" value="maximize_window_key"/>
       <property name="&lt;Primary&gt;&lt;Alt&gt;c" type="string" value="close_window_key"/>
       <property name="&lt;Primary&gt;&lt;Alt&gt;d" type="string" value="show_desktop_key"/>
+      <property name="&lt;Primary&gt;&lt;Alt&gt;g" type="string" value="fullscreen_key"/>
     </property>
   </property>
   <property name="providers" type="array">
