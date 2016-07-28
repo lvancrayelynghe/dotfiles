@@ -84,7 +84,7 @@ alias kk='k -Ah'
 alias kkl='k -Ah --no-vcs'
 
 # 1 letter commands shortcuts
-alias c=" clear && printf '\033[3J'"
+alias c=" clear && echo -ne '\033c'"
 alias p=' dirs -v | head -10' ## most used dirs for current session
 alias x=' exit'
 alias d='desk'
