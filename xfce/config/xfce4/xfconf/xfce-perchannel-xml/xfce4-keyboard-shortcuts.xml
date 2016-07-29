@@ -162,9 +162,17 @@
       <property name="&lt;Primary&gt;&lt;Alt&gt;Left" type="string" value="left_workspace_key"/>
       <property name="&lt;Primary&gt;&lt;Alt&gt;Right" type="string" value="right_workspace_key"/>
       <property name="&lt;Primary&gt;&lt;Alt&gt;f" type="string" value="maximize_window_key"/>
-      <property name="&lt;Primary&gt;&lt;Alt&gt;c" type="string" value="close_window_key"/>
-      <property name="&lt;Primary&gt;&lt;Alt&gt;d" type="string" value="show_desktop_key"/>
       <property name="&lt;Primary&gt;&lt;Alt&gt;g" type="string" value="fullscreen_key"/>
+      <property name="&lt;Super&gt;d" type="string" value="show_desktop_key"/>
+      <property name="&lt;Primary&gt;&lt;Alt&gt;r" type="string" value="close_window_key"/>
+      <property name="&lt;Primary&gt;&lt;Alt&gt;z" type="string" value="tile_up_key"/>
+      <property name="&lt;Primary&gt;&lt;Alt&gt;x" type="string" value="tile_down_key"/>
+      <property name="&lt;Primary&gt;&lt;Alt&gt;q" type="string" value="tile_left_key"/>
+      <property name="&lt;Primary&gt;&lt;Alt&gt;d" type="string" value="tile_right_key"/>
+      <property name="&lt;Primary&gt;&lt;Alt&gt;a" type="string" value="tile_up_left_key"/>
+      <property name="&lt;Primary&gt;&lt;Alt&gt;e" type="string" value="tile_up_right_key"/>
+      <property name="&lt;Primary&gt;&lt;Alt&gt;w" type="string" value="tile_down_left_key"/>
+      <property name="&lt;Primary&gt;&lt;Alt&gt;c" type="string" value="tile_down_right_key"/>
     </property>
   </property>
   <property name="providers" type="array">
