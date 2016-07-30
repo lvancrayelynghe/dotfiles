@@ -12,12 +12,10 @@
         <value type="int" value="3"/>
         <value type="int" value="2"/>
         <value type="int" value="4"/>
-        <value type="int" value="10"/>
-        <value type="int" value="7"/>
-        <value type="int" value="8"/>
         <value type="int" value="9"/>
+        <value type="int" value="8"/>
       </property>
-      <property name="background-style" type="uint" value="0"/>
+      <property name="background-style" type="uint" value="1"/>
       <property name="background-alpha" type="uint" value="80"/>
       <property name="size" type="uint" value="36"/>
       <property name="length-adjust" type="bool" value="true"/>
@@ -26,6 +24,13 @@
       <property name="leave-opacity" type="uint" value="100"/>
       <property name="mode" type="uint" value="2"/>
       <property name="autohide-behavior" type="uint" value="0"/>
+      <property name="background-color" type="array">
+        <value type="uint" value="12079"/>
+        <value type="uint" value="12079"/>
+        <value type="uint" value="12079"/>
+        <value type="uint" value="65535"/>
+      </property>
+      <property name="disable-struts" type="bool" value="false"/>
     </property>
   </property>
   <property name="plugins" type="empty">
@@ -40,73 +45,42 @@
       <property name="names-visible" type="array">
         <value type="string" value="gigolo"/>
         <value type="string" value="applet networkmanager"/>
-        <value type="string" value="notificateur de mises à jour"/>
+        <value type="string" value="nemo"/>
+        <value type="string" value="blueman-applet"/>
         <value type="string" value="réseau"/>
         <value type="string" value="notes"/>
       </property>
       <property name="names-hidden" type="array">
-        <value type="string" value="blueman-applet"/>
+        <value type="string" value="notificateur de mises à jour"/>
       </property>
     </property>
-    <property name="plugin-7" type="string" value="separator">
-      <property name="style" type="uint" value="0"/>
-      <property name="expand" type="bool" value="false"/>
-    </property>
     <property name="plugin-8" type="string" value="clock">
-      <property name="digital-format" type="string" value="%R"/>
+      <property name="digital-format" type="string" value="%H%M"/>
       <property name="mode" type="uint" value="2"/>
     </property>
     <property name="plugin-9" type="string" value="actions">
-      <property name="appearance" type="uint" value="1"/>
+      <property name="appearance" type="uint" value="0"/>
       <property name="ask-confirmation" type="bool" value="true"/>
       <property name="items" type="array">
-        <value type="string" value="+lock-screen"/>
-        <value type="string" value="+switch-user"/>
-        <value type="string" value="+separator"/>
-        <value type="string" value="+suspend"/>
+        <value type="string" value="-lock-screen"/>
+        <value type="string" value="-switch-user"/>
+        <value type="string" value="-separator"/>
+        <value type="string" value="-suspend"/>
         <value type="string" value="-hibernate"/>
         <value type="string" value="-separator"/>
-        <value type="string" value="+shutdown"/>
-        <value type="string" value="+restart"/>
-        <value type="string" value="+separator"/>
+        <value type="string" value="-shutdown"/>
+        <value type="string" value="-restart"/>
+        <value type="string" value="-separator"/>
         <value type="string" value="+logout"/>
         <value type="string" value="-logout-dialog"/>
       </property>
+      <property name="invert-orientation" type="bool" value="true"/>
     </property>
-    <property name="plugin-10" type="string" value="indicator">
-      <property name="known-indicators" type="array">
-        <value type="string" value="libappmenu.so"/>
-        <value type="string" value="libapplication.so"/>
-        <value type="string" value="libprintersmenu.so"/>
-        <value type="string" value="com.canonical.indicator.messages"/>
-        <value type="string" value="com.canonical.indicator.power"/>
-        <value type="string" value="com.canonical.indicator.keyboard"/>
-        <value type="string" value="com.canonical.indicator.datetime"/>
-        <value type="string" value="com.canonical.indicator.bluetooth"/>
-        <value type="string" value="com.canonical.indicator.sound"/>
-        <value type="string" value="com.canonical.indicator.session"/>
-      </property>
-      <property name="blacklist" type="array">
-        <value type="string" value="com.canonical.indicator.session"/>
-        <value type="string" value="com.canonical.indicator.sound"/>
-        <value type="string" value="com.canonical.indicator.keyboard"/>
-        <value type="string" value="com.canonical.indicator.messages"/>
-        <value type="string" value="libappmenu.so"/>
-        <value type="string" value="com.canonical.indicator.bluetooth"/>
-        <value type="string" value="com.canonical.indicator.datetime"/>
-        <value type="string" value="com.canonical.indicator.power"/>
-        <value type="string" value="libprintersmenu.so"/>
-      </property>
-      <property name="mode-whitelist" type="bool" value="true"/>
-      <property name="whitelist" type="array">
-        <value type="string" value="libapplication.so"/>
-      </property>
-    </property>
-    <property name="plugin-5" type="string" value="dockbarx"/>
     <property name="plugin-2" type="string" value="pager">
       <property name="rows" type="uint" value="2"/>
       <property name="miniature-view" type="bool" value="false"/>
     </property>
+    <property name="plugin-5" type="string" value="dockbarx"/>
   </property>
   <property name="configver" type="int" value="2"/>
 </channel>
