@@ -73,6 +73,7 @@
       <property name="&lt;Super&gt;Pause" type="string" value="xfce4-display-settings --minimal"/>
       <property name="&lt;Super&gt;v" type="string" value="bash /home/benoth/bin/switch-or-run &quot;vlc.vlc&quot; vlc"/>
       <property name="&lt;Super&gt;c" type="string" value="bash /home/benoth/bin/switch-or-run &quot;gnome-calculator.Gnome-calculator&quot; gnome-calculator"/>
+      <property name="&lt;Super&gt;a" type="string" value="xfce4-popup-notes"/>
     </property>
   </property>
   <property name="xfwm4" type="empty">
