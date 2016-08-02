@@ -1,0 +1,34 @@
+style "clock-plugin"{
+    xthickness = 0
+    font_name="DejaVu Sans Mono 8"
+}
+widget_class "*XfcePanel*ClockPlugin*" style "clock-plugin"
+
+
+style "terminal-notebook"
+{
+  fg[NORMAL] = "#ffffff"
+}
+widget "*TerminalWindow.*.GtkNotebook*" style "terminal-notebook"
+
+
+style "terminal-tab"
+{
+  bg[NORMAL] = "#2f2f2f"
+  bg[ACTIVE] = "#282828"
+  fg[NORMAL] = "#ffffff"
+
+  engine "murrine" {
+    contrast = 0.0
+    glazestyle = 0
+    glow_shade = 1.0
+    gradient_shades = {1.0,1.0,1.0,1.0}
+    highlight_shade = 1.0
+    reliefstyle = 0
+    roundness = 0
+    text_shade = 0.2
+    textstyle = 5
+  }
+}
+
+widget_class "TerminalWindow*GtkNotebook" style "terminal-tab"

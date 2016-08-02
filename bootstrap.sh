@@ -26,6 +26,7 @@ declare -A SYMLINKS=(
     ['others/gitattributes']='.gitattributes'
     ['others/gitconfig']='.gitconfig'
     ['others/git-templates']='.git-templates'
+    ['others/gtkrc-2.0']='.gtkrc-2.0'
     ['others/indicator-sysmonitor.json']='.indicator-sysmonitor.json'
     ['others/notify-osd']='.notify-osd'
     ['others/my.cnf']='.my.cnf'
