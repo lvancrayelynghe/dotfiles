@@ -12,6 +12,7 @@ if [[ "$0" =~ 'zsh' ]]; then
     alias -g G='| grep'
     alias -g N='| grep -v'
     alias -g E='| grep-passthru'
+    alias -g CC='| xclip -selection clipboard'
     alias -g HR='| highlight red'
     alias -g HG='| highlight green'
     alias -g HB='| highlight blue'
