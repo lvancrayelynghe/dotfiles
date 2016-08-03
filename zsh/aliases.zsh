@@ -61,6 +61,7 @@ fi
 
 # Directories working
 alias pwd=' pwd'
+alias pwdc=' pwd | tr -d "\n" | xclip -selection clipboard'
 alias cd=' cd'
 alias cdg=' cd "$(git rev-parse --show-toplevel)"' ## git root
 alias -- -=' cd -'
