@@ -1,0 +1,9 @@
+{
+    "alias": {
+        "h": "~/",
+        "df": "~/.dotfiles"
+    },
+    "ignore_case": true,
+    "completion_type": "nix",
+    "vcs_management": true,
+}

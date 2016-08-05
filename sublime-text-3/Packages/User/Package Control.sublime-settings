@@ -5,6 +5,7 @@
 	],
 	"installed_packages":
 	[
+		"AdvancedNewFile",
 		"Alignment",
 		"BracketHighlighter",
 		"Chmod",

@@ -43,6 +43,7 @@ declare -A SYMLINKS=(
     ['scripts/switch-or-run.sh']='bin/switch-or-run'
     ['sublime-text-3/Packages/PHP']='.config/sublime-text-3/Packages/PHP'
     ['sublime-text-3/Packages/User/anmol.tmTheme']='.config/sublime-text-3/Packages/User/anmol.tmTheme'
+    ['sublime-text-3/Packages/User/AdvancedNewFile.sublime-settings']='.config/sublime-text-3/Packages/User/AdvancedNewFile.sublime-settings'
     ['sublime-text-3/Packages/User/Default.sublime-keymap']='.config/sublime-text-3/Packages/User/Default.sublime-keymap'
     ['sublime-text-3/Packages/User/Default.sublime-mousemap']='.config/sublime-text-3/Packages/User/Default.sublime-mousemap'
     ['sublime-text-3/Packages/User/Emmet.sublime-settings']='.config/sublime-text-3/Packages/User/Emmet.sublime-settings'
