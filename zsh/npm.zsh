@@ -6,5 +6,6 @@ PATH="$NPM_PACKAGES/bin:$PATH"
 unset MANPATH # delete if you already modified MANPATH elsewhere in your config
 export MANPATH="$NPM_PACKAGES/share/man:$(manpath)"
 
-npm config set prefix $NPM_PACKAGES
-
+if [[ ! -f ~/.npmrc ]]; then
+    echo "prefix=${NPM_PACKAGES}" > ~/.npmrc
+fi
