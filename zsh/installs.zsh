@@ -51,7 +51,7 @@ if [[ ! -f ~/.cache/zsh-plugins/k/k.sh ]]; then
     mkdir -p ~/.cache/zsh-plugins/k
     git clone https://github.com/supercrabtree/k.git ~/.cache/zsh-plugins/k
 fi
-[[ $DEBUG ]] && echo "Loading k ...                                   `date +%H:%M:%S.%N`"
+[[ $DEBUG ]] && echo "Loading external plugin k ...                   `date +%H:%M:%S.%N`"
 source ~/.cache/zsh-plugins/k/k.sh
 
 
@@ -60,16 +60,8 @@ if [[ ! -f ~/.fzf.zsh ]]; then
     git clone --depth 1 https://github.com/junegunn/fzf.git ~/.cache/zsh-plugins/fzf
     ~/.cache/zsh-plugins/fzf/install --no-key-bindings --no-update-rc --completion
 fi
-[[ $DEBUG ]] && echo "Loading fzf ...                                 `date +%H:%M:%S.%N`"
+[[ $DEBUG ]] && echo "Loading external plugin fzf ...                 `date +%H:%M:%S.%N`"
 source ~/.fzf.zsh
-
-
-
-# compsys initialization
-[[ $DEBUG ]] && echo "Running compinit ...                            `date +%H:%M:%S.%N`"
-autoload -U compinit
-compinit
-
 
 
 # Tracks your most used directories, based on "frecency"
@@ -77,7 +69,7 @@ if [[ ! -f ~/.cache/zsh-plugins/z/z.sh ]]; then
     mkdir -p ~/.cache/zsh-plugins/z
     git clone https://github.com/rupa/z.git ~/.cache/zsh-plugins/z
 fi
-[[ $DEBUG ]] && echo "Loading z ...                                   `date +%H:%M:%S.%N`"
+[[ $DEBUG ]] && echo "Loading external plugin z ...                   `date +%H:%M:%S.%N`"
 source ~/.cache/zsh-plugins/z/z.sh
 _Z_DATA="$HOME/.cache/z-directories-trackfile" # Source after compinit to enable completion
 
@@ -87,5 +79,5 @@ if [[ ! -f ~/.cache/zsh-plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.
     mkdir -p ~/.cache/zsh-plugins/zsh-syntax-highlighting
     git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.cache/zsh-plugins/zsh-syntax-highlighting
 fi
-[[ $DEBUG ]] && echo "Loading zsh-syntax-highlighting ...             `date +%H:%M:%S.%N`"
+[[ $DEBUG ]] && echo "Loading external plugin syntax-highlight ...    `date +%H:%M:%S.%N`"
 source ~/.cache/zsh-plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh

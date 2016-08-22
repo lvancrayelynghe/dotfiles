@@ -11,6 +11,9 @@ mkdir -p "$HOME/.cache"
 [[ $DEBUG ]] && echo "Loading global.zsh ...                          `date +%H:%M:%S.%N`"
 source ${DOTFILES_PATH}/zsh/global.zsh
 
+[[ $DEBUG ]] && echo "Loading installs.zsh ...                        `date +%H:%M:%S.%N`"
+source ${DOTFILES_PATH}/zsh/installs.zsh
+
 [[ $DEBUG ]] && echo "Loading completions.zsh ...                     `date +%H:%M:%S.%N`"
 source ${DOTFILES_PATH}/zsh/completion.zsh
 
@@ -37,9 +40,6 @@ source ${DOTFILES_PATH}/zsh/functions.zsh
 
 [[ $DEBUG ]] && echo "Loading snippets.zsh ...                        `date +%H:%M:%S.%N`"
 source ${DOTFILES_PATH}/zsh/snippets.zsh
-
-[[ $DEBUG ]] && echo "Loading installs.zsh ...                        `date +%H:%M:%S.%N`"
-source ${DOTFILES_PATH}/zsh/installs.zsh
 
 [[ -n $HOST_CONFIG_FILE && -e $HOST_CONFIG_FILE ]] && source $HOST_CONFIG_FILE || true
 [[ -n $LOCAL_CONFIG_FILE && -e $LOCAL_CONFIG_FILE ]] && source $LOCAL_CONFIG_FILE || true
