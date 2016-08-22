@@ -15,8 +15,7 @@ source ${DOTFILES_PATH}/zsh/git.zsh
 source ${DOTFILES_PATH}/zsh/aliases.zsh
 source ${DOTFILES_PATH}/zsh/functions.zsh
 source ${DOTFILES_PATH}/zsh/snippets.zsh
-source ${DOTFILES_PATH}/zsh/zplug.zsh
-source ${DOTFILES_PATH}/zsh/other-installs.zsh
+source ${DOTFILES_PATH}/zsh/installs.zsh
 
 [[ -n $HOST_CONFIG_FILE && -e $HOST_CONFIG_FILE ]] && source $HOST_CONFIG_FILE || true
 [[ -n $LOCAL_CONFIG_FILE && -e $LOCAL_CONFIG_FILE ]] && source $LOCAL_CONFIG_FILE || true

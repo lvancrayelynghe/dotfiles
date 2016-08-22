@@ -56,7 +56,7 @@ bindkey '\C-R' fzf-history-widget
 
 # CTRL-Z - Z integration
 fzf-z-widget() {
-  cd "$(_z_cmd -l 2>&1 | fzf +s --tac | sed 's/^[0-9,.]* *//')"
+  cd "$(z -l 2>&1 | tail -50 | fzf +s --tac | sed 's/^[0-9,.]* *//')"
   zle accept-line
 }
 zle -N fzf-z-widget
