@@ -65,9 +65,6 @@ if hash composer >/dev/null 2>&1; then
 fi
 
 if hash fzf >/dev/null 2>&1; then
-	FZF_COMPLETION_TRIGGER='*'
-    [[ $DEBUG ]] && echo "Loading plugins/fzf-completion.plugin.zsh ...   `date +%H:%M:%S.%N`"
-    source ${DOTFILES_PATH}/zsh/plugins/fzf-completion.plugin.zsh
     [[ $DEBUG ]] && echo "Loading plugins/fzf-key-bindings.plugin.zsh ... `date +%H:%M:%S.%N`"
     source ${DOTFILES_PATH}/zsh/plugins/fzf-key-bindings.plugin.zsh
 fi
@@ -79,7 +76,6 @@ else
     [[ $DEBUG ]] && echo "Loading themes/gianu-modified.zsh ...           `date +%H:%M:%S.%N`"
 	source ${DOTFILES_PATH}/zsh/themes/gianu-modified.zsh
 fi
-
 
 # Hook for desk activation (must stay after every other scripts)
 if [[ -n "$DESK_ENV" ]]; then
