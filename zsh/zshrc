@@ -1,5 +1,22 @@
 # DEBUG=true
-[[ -n "$DEBUG" ]] && echo "Loading dotfiles ...                            `date +%H:%M:%S.%N`"
+function trace-time() {
+    if [ -n "$TT_START" ]; then
+        TT_END=$(date +%s.%N)
+        # Subtraction won't read scale variable
+        TT_DIFF=$(echo "scale=4; ($TT_END - $TT_START)/1" | bc -l)
+        echo -e "------------------------------------------------------------- ${TT_DIFF}\r${TT_MSG} "
+        TT_START=""
+        TT_MSG=""
+    fi
+
+    if [ ! $# -eq 0 ]; then
+        TT_START=$(date +%s.%N)
+        TT_MSG="$@"
+    fi
+}
+
+
+[[ -n "$DEBUG" ]] && trace-time "Initializing dotfiles"
 
 DOTFILES_PATH=${DOTFILES_PATH:-~/dotfiles/public}
 HOSTNAME=`hostname`
@@ -8,83 +25,86 @@ LOCAL_CONFIG_FILE="$HOME/.zshrc_local"
 
 mkdir -p "$HOME/.cache"
 
-[[ -n "$DEBUG" ]] && echo "Loading global.zsh ...                          `date +%H:%M:%S.%N`"
+[[ -n "$DEBUG" ]] && trace-time "Loading global.zsh"
 source ${DOTFILES_PATH}/zsh/global.zsh
 
-[[ -n "$DEBUG" ]] && echo "Loading installs.zsh ...                        `date +%H:%M:%S.%N`"
+[[ -n "$DEBUG" ]] && trace-time "Loading installs.zsh"
 source ${DOTFILES_PATH}/zsh/installs.zsh
 
-[[ -n "$DEBUG" ]] && echo "Loading completions.zsh ...                     `date +%H:%M:%S.%N`"
+[[ -n "$DEBUG" ]] && trace-time "Loading completions.zsh"
 source ${DOTFILES_PATH}/zsh/completion.zsh
 
-[[ -n "$DEBUG" ]] && echo "Loading correction.zsh ...                      `date +%H:%M:%S.%N`"
+[[ -n "$DEBUG" ]] && trace-time "Loading correction.zsh"
 source ${DOTFILES_PATH}/zsh/correction.zsh
 
-[[ -n "$DEBUG" ]] && echo "Loading directories.zsh ...                     `date +%H:%M:%S.%N`"
+[[ -n "$DEBUG" ]] && trace-time "Loading directories.zsh"
 source ${DOTFILES_PATH}/zsh/directories.zsh
 
-[[ -n "$DEBUG" ]] && echo "Loading history.zsh ...                         `date +%H:%M:%S.%N`"
+[[ -n "$DEBUG" ]] && trace-time "Loading history.zsh"
 source ${DOTFILES_PATH}/zsh/history.zsh
 
-[[ -n "$DEBUG" ]] && echo "Loading key-bindings.zsh ...                    `date +%H:%M:%S.%N`"
+[[ -n "$DEBUG" ]] && trace-time "Loading key-bindings.zsh"
 source ${DOTFILES_PATH}/zsh/key-bindings.zsh
 
-[[ -n "$DEBUG" ]] && echo "Loading git.zsh ...                             `date +%H:%M:%S.%N`"
+[[ -n "$DEBUG" ]] && trace-time "Loading git.zsh"
 source ${DOTFILES_PATH}/zsh/git.zsh
 
-[[ -n "$DEBUG" ]] && echo "Loading aliases.zsh ...                         `date +%H:%M:%S.%N`"
+[[ -n "$DEBUG" ]] && trace-time "Loading aliases.zsh"
 source ${DOTFILES_PATH}/zsh/aliases.zsh
 
-[[ -n "$DEBUG" ]] && echo "Loading functions.zsh ...                       `date +%H:%M:%S.%N`"
+[[ -n "$DEBUG" ]] && trace-time "Loading functions.zsh"
 source ${DOTFILES_PATH}/zsh/functions.zsh
 
-[[ -n "$DEBUG" ]] && echo "Loading snippets.zsh ...                        `date +%H:%M:%S.%N`"
+[[ -n "$DEBUG" ]] && trace-time "Loading snippets.zsh"
 source ${DOTFILES_PATH}/zsh/snippets.zsh
 
 [[ -n $HOST_CONFIG_FILE && -e $HOST_CONFIG_FILE ]] && source $HOST_CONFIG_FILE || true
 [[ -n $LOCAL_CONFIG_FILE && -e $LOCAL_CONFIG_FILE ]] && source $LOCAL_CONFIG_FILE || true
 
-[[ -n "$DEBUG" ]] && echo "Loading plugins/colored-man.plugin.zsh ...      `date +%H:%M:%S.%N`"
+[[ -n "$DEBUG" ]] && trace-time "Loading plugins/colored-man.plugin.zsh"
 source ${DOTFILES_PATH}/zsh/plugins/colored-man.plugin.zsh
 
 if hash notify-send >/dev/null 2>&1; then
-    [[ -n "$DEBUG" ]] && echo "Loading plugins/undistract-me.zsh ...           `date +%H:%M:%S.%N`"
+    [[ -n "$DEBUG" ]] && trace-time "Loading plugins/undistract-me.zsh"
     source ${DOTFILES_PATH}/zsh/plugins/undistract-me.zsh
 fi
 
-if hash npm >/dev/null 2>&1; then
-    [[ -n "$DEBUG" ]] && echo "Loading npm.zsh ...                             `date +%H:%M:%S.%N`"
-    source ${DOTFILES_PATH}/zsh/npm.zsh
-    [[ -n "$DEBUG" ]] && echo "Loading plugins/gulp.plugin.zsh ...             `date +%H:%M:%S.%N`"
-    source ${DOTFILES_PATH}/zsh/plugins/gulp.plugin.zsh
-fi
-
-if hash composer >/dev/null 2>&1; then
-    [[ -n "$DEBUG" ]] && echo "Loading plugins/composer.zsh ...                `date +%H:%M:%S.%N`"
-    source ${DOTFILES_PATH}/zsh/composer.zsh
-fi
-
 if hash fzf >/dev/null 2>&1; then
-    [[ -n "$DEBUG" ]] && echo "Loading plugins/fzf-key-bindings.plugin.zsh ... `date +%H:%M:%S.%N`"
+    [[ -n "$DEBUG" ]] && trace-time "Loading plugins/fzf-key-bindings.plugin.zsh"
     source ${DOTFILES_PATH}/zsh/plugins/fzf-key-bindings.plugin.zsh
 fi
 
+if hash npm >/dev/null 2>&1; then
+    [[ -n "$DEBUG" ]] && trace-time "Loading plugins/gulp.plugin.zsh"
+    source ${DOTFILES_PATH}/zsh/plugins/gulp.plugin.zsh
+    [[ -n "$DEBUG" ]] && trace-time "Loading npm.zsh"
+    source ${DOTFILES_PATH}/zsh/npm.zsh
+fi
+
+if hash composer >/dev/null 2>&1; then
+    [[ -n "$DEBUG" ]] && trace-time "Loading composer.zsh"
+    source ${DOTFILES_PATH}/zsh/composer.zsh
+fi
+
 if [[ -n $LC_POWERLINE && $LC_POWERLINE = 'true' ]]; then
-    [[ -n "$DEBUG" ]] && echo "Loading themes/agnoster-modified.zsh ...        `date +%H:%M:%S.%N`"
+    [[ -n "$DEBUG" ]] && trace-time "Loading themes/agnoster-modified.zsh"
     source ${DOTFILES_PATH}/zsh/themes/agnoster-modified.zsh
 else
-    [[ -n "$DEBUG" ]] && echo "Loading themes/gianu-modified.zsh ...           `date +%H:%M:%S.%N`"
+    [[ -n "$DEBUG" ]] && trace-time "Loading themes/gianu-modified.zsh"
 	source ${DOTFILES_PATH}/zsh/themes/gianu-modified.zsh
 fi
 
 # Hook for desk activation (must stay after every other scripts)
 if [[ -n "$DESK_ENV" ]]; then
-    [[ -n "$DEBUG" ]] && echo "Loading desk file ...                           `date +%H:%M:%S.%N`"
-    source "$DESK_ENV"
+    [[ -n "$DEBUG" ]] && trace-time "Loading desk file"
+    source ${DESK_ENV}
 fi
 
 # Only load last working directory plugin if not in a Desk
 if [[ -z "$DESK_ENV" ]]; then
-    [[ -n "$DEBUG" ]] && echo "Loading plugins/last-working-dir ...            `date +%H:%M:%S.%N`"
+    [[ -n "$DEBUG" ]] && trace-time "Loading plugins/last-working-dir"
     source ${DOTFILES_PATH}/zsh/plugins/last-working-dir.plugin.zsh
 fi
+
+trace-time
+

@@ -51,7 +51,7 @@ if [[ ! -f ~/.cache/zsh-plugins/k/k.sh ]]; then
     mkdir -p ~/.cache/zsh-plugins/k
     git clone https://github.com/supercrabtree/k.git ~/.cache/zsh-plugins/k
 fi
-[[ -n "$DEBUG" ]] && echo "Loading external plugin k ...                   `date +%H:%M:%S.%N`"
+[[ -n "$DEBUG" ]] && trace-time "Loading external plugin k"
 source ~/.cache/zsh-plugins/k/k.sh
 
 
@@ -60,7 +60,7 @@ if [[ ! -f ~/.fzf.zsh ]]; then
     git clone --depth 1 https://github.com/junegunn/fzf.git ~/.cache/zsh-plugins/fzf
     ~/.cache/zsh-plugins/fzf/install --no-key-bindings --no-update-rc --completion
 fi
-[[ -n "$DEBUG" ]] && echo "Loading external plugin fzf ...                 `date +%H:%M:%S.%N`"
+[[ -n "$DEBUG" ]] && trace-time "Loading external plugin fzf"
 source ~/.fzf.zsh
 
 
@@ -69,7 +69,7 @@ if [[ ! -f ~/.cache/zsh-plugins/z/z.sh ]]; then
     mkdir -p ~/.cache/zsh-plugins/z
     git clone https://github.com/rupa/z.git ~/.cache/zsh-plugins/z
 fi
-[[ -n "$DEBUG" ]] && echo "Loading external plugin z ...                   `date +%H:%M:%S.%N`"
+[[ -n "$DEBUG" ]] && trace-time "Loading external plugin z"
 source ~/.cache/zsh-plugins/z/z.sh
 _Z_DATA="$HOME/.cache/z-directories-trackfile" # Source after compinit to enable completion
 
@@ -79,5 +79,5 @@ if [[ ! -f ~/.cache/zsh-plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.
     mkdir -p ~/.cache/zsh-plugins/zsh-syntax-highlighting
     git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.cache/zsh-plugins/zsh-syntax-highlighting
 fi
-[[ -n "$DEBUG" ]] && echo "Loading external plugin syntax-highlight ...    `date +%H:%M:%S.%N`"
+[[ -n "$DEBUG" ]] && trace-time "Loading external plugin zsh-syntax-highlighting"
 source ~/.cache/zsh-plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
