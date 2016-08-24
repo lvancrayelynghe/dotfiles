@@ -6,7 +6,6 @@
 		".git",
 		".bundle",
 		".sass-cache",
-		"vendor",
 		"node_modules"
 	],
 	"font_face": "Hack",
