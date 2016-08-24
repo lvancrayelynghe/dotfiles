@@ -9,10 +9,12 @@ if [[ "$0" =~ 'zsh' ]]; then
     alias -g .......='../../../../../..'
 
     # Global commands aliases
+    alias -g X='| xargs'
     alias -g G='| grep'
     alias -g N='| grep -v'
     alias -g E='| grep-passthru'
     alias -g CC='| xclip -selection clipboard'
+    alias -g XS='| xargs subl'
     alias -g HR='| highlight red'
     alias -g HG='| highlight green'
     alias -g HB='| highlight blue'
