@@ -1,0 +1,11 @@
+{
+	"commands":
+	{
+		"(.*)\\.php":
+		[
+			"xdotool search --onlyvisible --class \"Chromium\" windowfocus key --clearmodifiers F5",
+			"sleep 0.05 ; xdotool search --onlyvisible --class \"Sublime\" windowfocus"
+		]
+	},
+	"enabled": false
+}

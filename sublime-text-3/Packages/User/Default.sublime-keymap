@@ -58,6 +58,7 @@
     { "keys": ["alt+f12"], "command": "unfold_all" },
 
     // Plugins
+    { "keys": ["ctrl+shift+e"], "command": "toggle_command_on_save" },
     { "keys": ["ctrl+shift+a"], "command": "alignment" },
     { "keys": ["ctrl+shift+t"], "command": "delete_trailing_spaces" },
     { "keys": ["ctrl+f1"], "command": "goto_documentation" },
