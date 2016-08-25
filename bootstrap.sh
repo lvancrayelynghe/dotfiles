@@ -39,6 +39,7 @@ declare -A SYMLINKS=(
     ['others/remarkable.settings']='.remarkable/remarkable.settings'
     ['ranger/commands.py']='.config/ranger/commands.py'
     ['ranger/rc.conf']='.config/ranger/rc.conf'
+    ['luakit']='.config/luakit'
     ['scripts/app-starter.py']='bin/app-starter'
     ['scripts/chromium-focus-and-new-tab.sh']='bin/chromium-focus-and-new-tab'
     ['scripts/move-to-next-monitor.sh']='bin/move-to-next-monitor'
