@@ -86,7 +86,7 @@ if hash composer >/dev/null 2>&1; then
     source ${DOTFILES_PATH}/zsh/composer.zsh
 fi
 
-if [[ -n $LC_POWERLINE && $LC_POWERLINE = 'true' ]]; then
+if [[ -n $LC_POWERLINE && $LC_POWERLINE = 'true' && $TERM != "linux" ]]; then
     [[ -n "$DEBUG" ]] && trace-time "Loading themes/agnoster-modified.zsh"
     source ${DOTFILES_PATH}/zsh/themes/agnoster-modified.zsh
 else
