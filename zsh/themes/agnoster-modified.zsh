@@ -72,19 +72,6 @@ component_user_and_host() {
   fi
 }
 
-# Shell lvl
-component_shell_level() {
-  if [[ -n $DESK_NAME ]]; then
-    local REALSHLVL=`echo "$SHLVL - 2" | bc`
-    [[ $REALSHLVL -gt 1 ]] && print -n "$REALSHLVL"
-  elif [[ -n $TMUX ]]; then
-    local REALSHLVL=`echo "$SHLVL - 1" | bc`
-    [[ $REALSHLVL -gt 1 ]] && print -n "$REALSHLVL"
-  else
-    [[ $SHLVL -gt 1 ]] && print -n "$SHLVL"
-  fi
-}
-
 # Desk name
 component_desk() {
   [[ -n $DESK_NAME ]] && print -n "$DESK_NAME"
@@ -165,7 +152,6 @@ prompt_right_part() {
   echo -n " "
   create_right_segment $COLOR_WHITE $COLOR_BLACK " $(component_desk) "
   create_right_segment $COLOR_YELLOW $PRIMARY_FG " $(component_jobs) "
-  create_right_segment $COLOR_CYAN $PRIMARY_FG   " $(component_shell_level) "
 }
 
 # Hook
