@@ -81,3 +81,12 @@ if [[ ! -f ~/.cache/zsh-plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.
 fi
 [[ -n "$DEBUG" ]] && trace-time "Loading external plugin zsh-syntax-highlighting"
 source ~/.cache/zsh-plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+
+# Fish shell-like fast/unobtrusive autosuggestions for zsh.
+if [[ ! -f ~/.cache/zsh-plugins/zsh-autosuggestions/zsh-autosuggestions.zsh ]]; then
+    mkdir -p ~/.cache/zsh-plugins/zsh-autosuggestions
+    git clone https://github.com/zsh-users/zsh-autosuggestions.git ~/.cache/zsh-plugins/zsh-autosuggestions
+fi
+[[ -n "$DEBUG" ]] && trace-time "Loading external plugin zsh-autosuggestions"
+source ~/.cache/zsh-plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
