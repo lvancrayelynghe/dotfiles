@@ -42,6 +42,13 @@ URxvt.keysym.C-V:           perl:clipboard:paste
 URxvt.keysym.C-A-V:         perl:clipboard:paste_escaped
 
 
+! ** Transparency and blur
+! URxvt*transparent: true
+! URxvt*shading:     20
+! URxvt*blurRadius:  10
+! URxvt*fading:      20
+
+
 ! ** Term colours
 URxvt.depth:       32
 URxvt*scrollColor: #282828
