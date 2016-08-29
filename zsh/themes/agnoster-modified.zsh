@@ -64,7 +64,7 @@ end_left_prompt() {
 component_user_and_host() {
   local user=`whoami`
   if [[ "$user" == "benoth" || "$user" == "luc" ]]; then
-    [[ -z "$SSH_CONNECTION" ]] && print -n "\ue00d" || print -n "SSH"
+    [[ -z "$SSH_CONNECTION" ]] && print -n "$SELF" || print -n "SSH"
   elif [[ "$user" == "vagrant" ]]; then
     print -n "$user"
   elif [[ "$user" != "$DEFAULT_USER" || -n "$SSH_CONNECTION" ]]; then
@@ -165,6 +165,7 @@ prompt_right_part() {
   create_right_segment $COLOR_WHITE $COLOR_BLACK " $(component_desk) "
   create_right_segment $COLOR_YELLOW $PRIMARY_FG " $(component_jobs) "
   create_right_segment $COLOR_CYAN $PRIMARY_FG   " $(component_shell_level) "
+
 }
 
 # Hook
@@ -227,3 +228,4 @@ DETACHED="\u27a6"
 CROSS="\u2297"
 LIGHTNING="\u221a"
 CLOCK="\u25d4"
+SELF="\u25c8"
