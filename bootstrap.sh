@@ -37,6 +37,7 @@ declare -A SYMLINKS=(
     ['others/wgetrc']='.wgetrc'
     ['others/mimeapps.list']='.local/share/applications/mimeapps.list'
     ['others/remarkable.settings']='.remarkable/remarkable.settings'
+    ['others/Xresources']='.Xresources'
     ['ranger/commands.py']='.config/ranger/commands.py'
     ['ranger/rc.conf']='.config/ranger/rc.conf'
     ['luakit']='.config/luakit'

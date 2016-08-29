@@ -1,0 +1,74 @@
+! ** Test settings running :
+! xrdb ~/.Xresources && urxvt &
+
+! ** Add in ~/.xinit
+! [[ -f ~/.Xresources ]] && xrdb -merge ~/.Xresources
+
+! ** Settings
+URxvt.saveLines:            10000
+URxvt.scrollBar:            true
+URxvt.scrollBar_right:      true
+URxvt.scrollBar_floating:   true
+URxvt.scrollstyle:          plain
+URxvt.cursorUnderline:      false
+URxvt.cursorBlink:          false
+URxvt.font:                 xft:Hack-Regular:pixelsize=13,xft:Symbola
+URxvt.boldFont:             xft:Hack-Bold:pixelsize=13:weight=bold,xft:Symbola
+URxvt.italicFont:           xft:Hack-RegularOblique:pixelsize=13:slant=italic,xft:Symbola
+URxvt.letterSpace:          -2
+
+! ** For the Ctrl+Shift bindings to work
+URxvt.iso14755:             false
+URxvt.iso14755_52:          false
+
+! ** Fix keybindings
+URxvt.keysym.Home:          \033[1~
+URxvt.keysym.End:           \033[4~
+URxvt.keysym.Control-Up:    \033[1;5A
+URxvt.keysym.Control-Down:  \033[1;5B
+URxvt.keysym.Control-Left:  \033[1;5D
+URxvt.keysym.Control-Right: \033[1;5C
+
+! ** Perls (https://github.com/muennich/urxvt-perls)
+URxvt.perl-ext-common:      default,clipboard,selection-to-clipboard,keyboard-select
+URxvt.clipboard.autocopy:   true
+URxvt.clipboard.copycmd:    xclip -i -selection clipboard
+URxvt.clipboard.pastecmd:   xclip -o -selection clipboard
+URxvt.keysym.M-s:           perl:keyboard-select:activate
+URxvt.keysym.M-f:           perl:keyboard-select:search
+URxvt.keysym.M-Escape:      perl:keyboard-select:activate
+URxvt.keysym.C-C:           perl:clipboard:copy
+URxvt.keysym.C-V:           perl:clipboard:paste
+URxvt.keysym.C-A-V:         perl:clipboard:paste_escaped
+
+
+! ** Term colours
+URxvt.depth:       32
+URxvt*scrollColor: #282828
+! Background, Foreground
+URxvt.background:  #2F2F2F
+URxvt.foreground:  #C5C8C6
+! Black, DarkGrey
+URxvt.color0:      #000000
+URxvt.color8:      #555555
+! DarkRed, Red
+URxvt.color1:      #CC6666
+URxvt.color9:      #CC6666
+! DarkGreen, Green
+URxvt.color2:      #B5BD68
+URxvt.color10:     #B5BD68
+! DarkYellow, Yellow
+URxvt.color3:      #F0C674
+URxvt.color11:     #F0C674
+! DarkBlue, Blue
+URxvt.color4:      #81A2BE
+URxvt.color12:     #81A2BE
+! DarkMagenta, Magenta
+URxvt.color5:      #B294BB
+URxvt.color13:     #B294BB
+! DarkCyan, Cyan
+URxvt.color6:      #8ABEB7
+URxvt.color14:     #8ABEB7
+! LightGrey, White
+URxvt.color7:      #AAAAAA
+URxvt.color15:     #FFFFFF
