@@ -157,7 +157,10 @@ prompt_right_part() {
 # Hook
 prompt_precmd_hook() {
   PROMPT='%{%f%b%k%}$(prompt_left_part) '
-  RPROMPT='%{%f%b%k%}$(prompt_right_part)'
+  TRIMED="$(echo -e "$(prompt_right_part)" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')" # trim
+  if [[ -n $TRIMED ]]; then
+    RPROMPT=$TRIMED
+  fi
 }
 
 # Setup
