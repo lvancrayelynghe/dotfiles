@@ -162,10 +162,10 @@ prompt_left_part() {
 
 # Right prompt
 prompt_right_part() {
+  echo -n " "
   create_right_segment $COLOR_WHITE $COLOR_BLACK " $(component_desk) "
   create_right_segment $COLOR_YELLOW $PRIMARY_FG " $(component_jobs) "
   create_right_segment $COLOR_CYAN $PRIMARY_FG   " $(component_shell_level) "
-
 }
 
 # Hook
