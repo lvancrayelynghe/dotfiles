@@ -79,3 +79,13 @@ URxvt.color14:     #8ABEB7
 ! LightGrey, White
 URxvt.color7:      #AAAAAA
 URxvt.color15:     #FFFFFF
+
+
+! ** YeahConsole
+yeahconsole*restart:       1
+yeahconsole*aniDelay:      0
+yeahconsole*term:          urxvt
+yeahconsole*toggleKey:     Alt+F12
+yeahconsole*screenWidth:   1920
+yeahconsole*xOffset:       1920
+yeahconsole*consoleHeight: 70
