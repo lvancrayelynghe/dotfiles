@@ -100,7 +100,7 @@ alias e='open-with-vim'
 alias s='open-with-sublime-text'
 alias a='open-with-atom'
 alias n='nano'
-alias o='xdg-open'
+alias o='xdg-open 2>/dev/null'
 alias g='git'
 alias m='mutt'
 
