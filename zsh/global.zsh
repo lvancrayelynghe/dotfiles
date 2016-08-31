@@ -16,8 +16,11 @@ setopt extended_glob        # Treat the ‘#’, ‘~’ and ‘^’ characters 
 autoload -Uz url-quote-magic
 zle -N self-insert url-quote-magic
 
+# If we don't have a local bin, add it
+[[ ! -d "$BIN_PATH" ]] && mkdir $BIN_PATH
+
 # add bin in path
-export PATH=~/bin:$PATH
+export PATH=$BIN_PATH:$PATH
 
 # Default editor
 export VISUAL='vim'
@@ -25,9 +28,6 @@ export EDITOR='vim'
 
 # bc (math lib) default config
 export BC_ENV_ARGS=~/.bcrc
-
-# If we have a local bin, add it
-[[ -d "$HOME/bin" ]] && PATH="$PATH:$HOME/bin"
 
 # Load directories colors in "ls" command
 [[ -e ~/.dircolors ]] && eval `dircolors ~/.dircolors`

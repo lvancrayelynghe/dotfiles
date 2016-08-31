@@ -1,4 +1,4 @@
-mkdir -p "$HOME/bin"
+mkdir -p "$BIN_PATH"
 mkdir -p "$HOME/.cache/zsh-plugins"
 
 # Remove zplug, not used anymore
@@ -8,32 +8,32 @@ fi
 
 
 # A tool like grep, optimized for programmers
-if [[ ! -e ~/bin/ack ]]; then
-    curl -s http://beyondgrep.com/ack-2.14-single-file > ~/bin/ack && chmod 0755 ~/bin/ack
+if [[ ! -e ${BIN_PATH}/ack ]]; then
+    curl -s http://beyondgrep.com/ack-2.14-single-file > ${BIN_PATH}/ack && chmod 0755 ${BIN_PATH}/ack
 fi
 
 
 # A collection of simplified and community-driven man pages
-if [[ ! -e ~/bin/tldr ]]; then
-    curl -s https://raw.githubusercontent.com/raylee/tldr/master/tldr > ~/bin/tldr && chmod 0755 ~/bin/tldr
+if [[ ! -e ${BIN_PATH}/tldr ]]; then
+    curl -s https://raw.githubusercontent.com/raylee/tldr/master/tldr > ${BIN_PATH}/tldr && chmod 0755 ${BIN_PATH}/tldr
 fi
 
 
 # sshrc works just like ssh, but it also sources the ~/.sshrc on your local computer after logging in remotely
-if [[ ! -e ~/bin/sshrc ]]; then
-    curl -s https://raw.githubusercontent.com/Russell91/sshrc/master/sshrc > ~/bin/sshrc && chmod 0755 ~/bin/sshrc
+if [[ ! -e ${BIN_PATH}/sshrc ]]; then
+    curl -s https://raw.githubusercontent.com/Russell91/sshrc/master/sshrc > ${BIN_PATH}/sshrc && chmod 0755 ${BIN_PATH}/sshrc
 fi
 
 
 # Term based tool to view colored, incremental diff in a Git/Mercurial/Svn workspace or from stdin, with side by side and auto pager support
-if [[ ! -e ~/bin/cdiff ]]; then
-    curl -s https://raw.githubusercontent.com/ymattw/cdiff/0.9.8/cdiff.py > ~/bin/cdiff && chmod 0755 ~/bin/cdiff
+if [[ ! -e ${BIN_PATH}/cdiff ]]; then
+    curl -s https://raw.githubusercontent.com/ymattw/cdiff/0.9.8/cdiff.py > ${BIN_PATH}/cdiff && chmod 0755 ${BIN_PATH}/cdiff
 fi
 
 
 # git-cheat is a dependency free git helper in your command-line
-if [[ ! -e ~/bin/git-cheat ]]; then
-    curl -s https://raw.githubusercontent.com/0xAX/git-cheat/master/git-cheat > ~/bin/git-cheat && chmod 0755 ~/bin/git-cheat
+if [[ ! -e ${BIN_PATH}/git-cheat ]]; then
+    curl -s https://raw.githubusercontent.com/0xAX/git-cheat/master/git-cheat > ${BIN_PATH}/git-cheat && chmod 0755 ${BIN_PATH}/git-cheat
 fi
 
 
@@ -41,7 +41,7 @@ fi
 if [[ ! -f ~/.cache/zsh-plugins/desk/desk ]]; then
     mkdir -p ~/.cache/zsh-plugins/desk
     git clone https://github.com/jamesob/desk.git ~/.cache/zsh-plugins/desk
-    cp ~/.cache/zsh-plugins/desk/desk ~/bin/desk
+    cp ~/.cache/zsh-plugins/desk/desk ${BIN_PATH}/desk
 fi
 fpath=(~/.cache/zsh-plugins/desk/shell_plugins/zsh $fpath)
 

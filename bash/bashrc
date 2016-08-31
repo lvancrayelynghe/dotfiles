@@ -1,4 +1,5 @@
 export DOTFILES_PATH=${DOTFILES_PATH:-~/dotfiles/public}
+export BIN_PATH=${BIN_PATH:-~/bin}
 
 eval "`dircolors`"
 

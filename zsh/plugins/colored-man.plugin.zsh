@@ -1,9 +1,7 @@
-if [ "$OSTYPE[0,7]" = "solaris" ]
-then
-	if [ ! -x ${HOME}/bin/nroff ]
-	then
-		mkdir -p ${HOME}/bin
-		cat > ${HOME}/bin/nroff <<EOF
+if [ "$OSTYPE[0,7]" = "solaris" ]; then
+	if [ ! -x ${BIN_PATH}/nroff ]; 	then
+		mkdir -p ${BIN_PATH}
+		cat > ${BIN_PATH}/nroff <<EOF
 #!/bin/sh
 if [ -n "\$_NROFF_U" -a "\$1,\$2,\$3" = "-u0,-Tlp,-man" ]; then
 	shift
@@ -12,7 +10,7 @@ fi
 #-- Some other invocation of nroff
 exec /usr/bin/nroff "\$@"
 EOF
-	chmod +x ${HOME}/bin/nroff
+	chmod +x ${BIN_PATH}/nroff
 	fi
 fi
 
@@ -27,6 +25,6 @@ man() {
 	  LESS_TERMCAP_us=$(printf "\e[1;32m") \
 	  PAGER=/usr/bin/less \
 	  _NROFF_U=1 \
-	  PATH=${HOME}/bin:${PATH} \
+	  PATH=${BIN_PATH}:${PATH} \
 	  			   man "$@"
 }

@@ -19,6 +19,7 @@ function trace-time() {
 [[ -n "$DEBUG" ]] && trace-time "Initializing dotfiles"
 
 DOTFILES_PATH=${DOTFILES_PATH:-~/dotfiles/public}
+BIN_PATH=${BIN_PATH:-~/bin}
 HOSTNAME=`hostname`
 HOST_CONFIG_FILE="$HOME/.zshrc_$HOSTNAME"
 LOCAL_CONFIG_FILE="$HOME/.zshrc_local"
