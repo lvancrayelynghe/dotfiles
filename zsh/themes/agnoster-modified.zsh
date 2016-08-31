@@ -94,6 +94,11 @@ component_jobs() {
 
 # Git: branch/detached head, dirty status
 component_git() {
+  # Do not check git status if in a mount point
+  if [ `stat -fc%t:%T .` != `stat -fc%t:%T "$HOME"` ]; then
+    return 0
+  fi
+
   if [[ -n $ZSH_VCS_INFO ]]; then
     vcs_info
   fi
