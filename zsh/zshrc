@@ -74,6 +74,11 @@ if hash fzf >/dev/null 2>&1; then
     source ${DOTFILES_PATH}/zsh/plugins/fzf-key-bindings.plugin.zsh
 fi
 
+if hash php >/dev/null 2>&1; then
+    [[ -n "$DEBUG" ]] && trace-time "Loading plugins/laravel.plugin.zsh"
+    source ${DOTFILES_PATH}/zsh/plugins/laravel.plugin.zsh
+fi
+
 if hash npm >/dev/null 2>&1; then
     [[ -n "$DEBUG" ]] && trace-time "Loading plugins/gulp.plugin.zsh"
     source ${DOTFILES_PATH}/zsh/plugins/gulp.plugin.zsh
