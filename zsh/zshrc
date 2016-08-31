@@ -46,9 +46,6 @@ source ${DOTFILES_PATH}/zsh/history.zsh
 [[ -n "$DEBUG" ]] && trace-time "Loading key-bindings.zsh"
 source ${DOTFILES_PATH}/zsh/key-bindings.zsh
 
-[[ -n "$DEBUG" ]] && trace-time "Loading git.zsh"
-source ${DOTFILES_PATH}/zsh/git.zsh
-
 [[ -n "$DEBUG" ]] && trace-time "Loading aliases.zsh"
 source ${DOTFILES_PATH}/zsh/aliases.zsh
 
@@ -64,6 +61,11 @@ source ${DOTFILES_PATH}/zsh/snippets.zsh
 [[ -n "$DEBUG" ]] && trace-time "Loading plugins/colored-man.plugin.zsh"
 source ${DOTFILES_PATH}/zsh/plugins/colored-man.plugin.zsh
 
+if hash git >/dev/null 2>&1; then
+    [[ -n "$DEBUG" ]] && trace-time "Loading plugins/git.plugin.zsh"
+    source ${DOTFILES_PATH}/zsh/plugins/git.plugin.zsh
+fi
+
 if hash notify-send >/dev/null 2>&1; then
     [[ -n "$DEBUG" ]] && trace-time "Loading plugins/undistract-me.zsh"
     source ${DOTFILES_PATH}/zsh/plugins/undistract-me.zsh
@@ -77,18 +79,17 @@ fi
 if hash php >/dev/null 2>&1; then
     [[ -n "$DEBUG" ]] && trace-time "Loading plugins/laravel.plugin.zsh"
     source ${DOTFILES_PATH}/zsh/plugins/laravel.plugin.zsh
+    if hash composer >/dev/null 2>&1; then
+        [[ -n "$DEBUG" ]] && trace-time "Loading plugins/composer.plugin.zsh"
+        source ${DOTFILES_PATH}/zsh/plugins/composer.plugin.zsh
+    fi
 fi
 
 if hash npm >/dev/null 2>&1; then
     [[ -n "$DEBUG" ]] && trace-time "Loading plugins/gulp.plugin.zsh"
     source ${DOTFILES_PATH}/zsh/plugins/gulp.plugin.zsh
-    [[ -n "$DEBUG" ]] && trace-time "Loading npm.zsh"
-    source ${DOTFILES_PATH}/zsh/npm.zsh
-fi
-
-if hash composer >/dev/null 2>&1; then
-    [[ -n "$DEBUG" ]] && trace-time "Loading composer.zsh"
-    source ${DOTFILES_PATH}/zsh/composer.zsh
+    [[ -n "$DEBUG" ]] && trace-time "Loading plugins/npm.plugin.zsh"
+    source ${DOTFILES_PATH}/zsh/plugins/npm.plugin.zsh
 fi
 
 if [[ -n $LC_POWERLINE && $LC_POWERLINE = 'true' && $TERM != "linux" ]]; then
@@ -112,4 +113,3 @@ if [[ -z "$DESK_ENV" ]]; then
 fi
 
 trace-time
-
