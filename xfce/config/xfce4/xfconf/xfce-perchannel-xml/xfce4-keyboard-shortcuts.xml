@@ -70,7 +70,7 @@
       <property name="&lt;Super&gt;c" type="string" value="bash /home/benoth/bin/switch-or-run &quot;gnome-calculator.Gnome-calculator&quot; gnome-calculator"/>
       <property name="&lt;Super&gt;a" type="string" value="xfce4-popup-notes"/>
       <property name="&lt;Primary&gt;&lt;Alt&gt;v" type="string" value="bash -c &apos;sleep 0.25 ; xdotool click 2&apos;"/>
-      <property name="&lt;Super&gt;z" type="string" value="bash /home/benoth/bin/switch-or-run &quot;min.min&quot; min"/>
+      <property name="&lt;Super&gt;z" type="string" value="bash /home/benoth/bin/switch-or-run &quot;qutebrowser.qutebrowser&quot; qutebrowser"/>
     </property>
   </property>
   <property name="xfwm4" type="empty">
