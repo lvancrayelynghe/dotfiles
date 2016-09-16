@@ -113,3 +113,8 @@ rofi.kb-remove-word-back:        Control+w
 rofi.kb-clear-line:              Control+Alt+w
 rofi.kb-toggle-case-sensitivity: Control+Alt+c
 rofi.kb-toggle-sort:             Control+Alt+s
+
+
+! ** dzen2 config
+
+dzen2.font:                 xft:Hack-Regular:pixelsize=13,xft:Symbola
