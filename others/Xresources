@@ -97,12 +97,19 @@ yeahconsole*consoleHeight: 70
 ! xrdb ~/.Xresources && rofi -show window
 ! ** Dump vars :
 ! rofi -dump-Xresources
+! ** Full screen test :
+! rofi -show run -width 100 -padding 285 -bw 100 -line-padding 20 -hide-scrollbar true -font "Hack 12"
 
-rofi.color-enabled:   true
-rofi.font:            Hack 10
-rofi.opacity:         80
-rofi.color-window:    #2F2F2F, #2F2F2F, #282828
-rofi.color-normal:    #2F2F2F, #C1C1C1, #2F2F2F, #282828, #FFFFFF
-rofi.color-active:    #2F2F2F, #B5BD68, #2F2F2F, #282828, #B5BD68
-rofi.color-urgent:    #2F2F2F, #CC6666, #2F2F2F, #282828, #CC6666
-rofi.separator-style: solid
+rofi.color-enabled:              true
+rofi.font:                       Hack 10
+rofi.opacity:                    90
+rofi.bw:                         10
+rofi.color-window:               #2F2F2F, #2F2F2F, #282828
+rofi.color-normal:               #2F2F2F, #C1C1C1, #2F2F2F, #282828, #FFFFFF
+rofi.color-active:               #2F2F2F, #B5BD68, #2F2F2F, #282828, #B5BD68
+rofi.color-urgent:               #2F2F2F, #CC6666, #2F2F2F, #282828, #CC6666
+rofi.separator-style:            solid
+rofi.kb-remove-word-back:        Control+w
+rofi.kb-clear-line:              Control+Alt+w
+rofi.kb-toggle-case-sensitivity: Control+Alt+c
+rofi.kb-toggle-sort:             Control+Alt+s
