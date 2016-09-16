@@ -53,32 +53,32 @@ URxvt.keysym.C-A-V:         perl:clipboard:paste_escaped
 URxvt.depth:       32
 URxvt*scrollColor: #282828
 ! Background, Foreground
-URxvt.background:  #2F2F2F
-URxvt.foreground:  #C5C8C6
+*background:  #2F2F2F
+*foreground:  #C5C8C6
 ! Black, DarkGrey
-URxvt.color0:      #000000
-URxvt.color8:      #555555
+*color0:      #000000
+*color8:      #555555
 ! DarkRed, Red
-URxvt.color1:      #CC6666
-URxvt.color9:      #CC6666
+*color1:      #CC6666
+*color9:      #CC6666
 ! DarkGreen, Green
-URxvt.color2:      #B5BD68
-URxvt.color10:     #B5BD68
+*color2:      #B5BD68
+*color10:     #B5BD68
 ! DarkYellow, Yellow
-URxvt.color3:      #F0C674
-URxvt.color11:     #F0C674
+*color3:      #F0C674
+*color11:     #F0C674
 ! DarkBlue, Blue
-URxvt.color4:      #81A2BE
-URxvt.color12:     #81A2BE
+*color4:      #81A2BE
+*color12:     #81A2BE
 ! DarkMagenta, Magenta
-URxvt.color5:      #B294BB
-URxvt.color13:     #B294BB
+*color5:      #B294BB
+*color13:     #B294BB
 ! DarkCyan, Cyan
-URxvt.color6:      #8ABEB7
-URxvt.color14:     #8ABEB7
+*color6:      #8ABEB7
+*color14:     #8ABEB7
 ! LightGrey, White
-URxvt.color7:      #AAAAAA
-URxvt.color15:     #FFFFFF
+*color7:      #AAAAAA
+*color15:     #FFFFFF
 
 
 ! ** YeahConsole
