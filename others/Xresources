@@ -4,57 +4,12 @@
 ! ** Add in ~/.xinit
 ! [[ -f ~/.Xresources ]] && xrdb -merge ~/.Xresources
 
-! ** Settings
-URxvt.saveLines:            10000
-URxvt.scrollBar:            true
-URxvt.scrollBar_right:      true
-URxvt.scrollBar_floating:   true
-URxvt.scrollstyle:          plain
-URxvt.cursorUnderline:      false
-URxvt.cursorBlink:          false
-URxvt.font:                 xft:Hack-Regular:pixelsize=13,xft:Symbola
-URxvt.boldFont:             xft:Hack-Bold:pixelsize=13:weight=bold,xft:Symbola
-URxvt.italicFont:           xft:Hack-RegularOblique:pixelsize=13:slant=italic,xft:Symbola
-URxvt.letterSpace:          -2
 
-! ** For the Ctrl+Shift bindings to work
-URxvt.iso14755:             false
-URxvt.iso14755_52:          false
-
-! ** Fix keybindings
-URxvt.keysym.Home:          \033[1~
-URxvt.keysym.End:           \033[4~
-URxvt.keysym.Control-Up:    \033[1;5A
-URxvt.keysym.Control-Down:  \033[1;5B
-URxvt.keysym.Control-Left:  \033[1;5D
-URxvt.keysym.Control-Right: \033[1;5C
-
-! ** Perls (https://github.com/muennich/urxvt-perls)
-URxvt.perl-ext-common:      default,clipboard,selection-to-clipboard,keyboard-select
-URxvt.clipboard.autocopy:   true
-URxvt.clipboard.copycmd:    xclip -i -selection clipboard
-URxvt.clipboard.pastecmd:   xclip -o -selection clipboard
-URxvt.keysym.M-s:           perl:keyboard-select:activate
-URxvt.keysym.M-f:           perl:keyboard-select:search
-URxvt.keysym.M-Escape:      perl:keyboard-select:activate
-URxvt.keysym.C-C:           perl:clipboard:copy
-URxvt.keysym.C-V:           perl:clipboard:paste
-URxvt.keysym.C-A-V:         perl:clipboard:paste_escaped
-
-
-! ** Transparency and blur
-! URxvt*transparent: true
-! URxvt*shading:     20
-! URxvt*blurRadius:  10
-! URxvt*fading:      20
-
-
-! ** Term colours
-URxvt.depth:       32
-URxvt*scrollColor: #282828
+! ** Term colours (Tomorrow Night "almost" Eighties)
 ! Background, Foreground
-*background:  #2F2F2F
-*foreground:  #C5C8C6
+*background:  #2D2D2D
+*foreground:  #CCCCCC
+*scrollColor: #393939
 ! Black, DarkGrey
 *color0:      #000000
 *color8:      #555555
@@ -77,8 +32,49 @@ URxvt*scrollColor: #282828
 *color6:      #8ABEB7
 *color14:     #8ABEB7
 ! LightGrey, White
-*color7:      #AAAAAA
+*color7:      #999999
 *color15:     #FFFFFF
+
+
+! ** URxvt
+URxvt.saveLines:            10000
+URxvt.scrollBar:            true
+URxvt.scrollBar_right:      true
+URxvt.scrollBar_floating:   true
+URxvt.scrollstyle:          plain
+URxvt.cursorUnderline:      false
+URxvt.cursorBlink:          false
+URxvt.font:                 xft:Hack-Regular:pixelsize=13,xft:Symbola
+URxvt.boldFont:             xft:Hack-Bold:pixelsize=13:weight=bold,xft:Symbola
+URxvt.italicFont:           xft:Hack-RegularOblique:pixelsize=13:slant=italic,xft:Symbola
+URxvt.depth:                32
+URxvt.letterSpace:          -2
+! ** For the Ctrl+Shift bindings to work
+URxvt.iso14755:             false
+URxvt.iso14755_52:          false
+! ** Fix keybindings
+URxvt.keysym.Home:          \033[1~
+URxvt.keysym.End:           \033[4~
+URxvt.keysym.Control-Up:    \033[1;5A
+URxvt.keysym.Control-Down:  \033[1;5B
+URxvt.keysym.Control-Left:  \033[1;5D
+URxvt.keysym.Control-Right: \033[1;5C
+! ** Perls (https://github.com/muennich/urxvt-perls)
+URxvt.perl-ext-common:      default,clipboard,selection-to-clipboard,keyboard-select
+URxvt.clipboard.autocopy:   true
+URxvt.clipboard.copycmd:    xclip -i -selection clipboard
+URxvt.clipboard.pastecmd:   xclip -o -selection clipboard
+URxvt.keysym.M-s:           perl:keyboard-select:activate
+URxvt.keysym.M-f:           perl:keyboard-select:search
+URxvt.keysym.M-Escape:      perl:keyboard-select:activate
+URxvt.keysym.C-C:           perl:clipboard:copy
+URxvt.keysym.C-V:           perl:clipboard:paste
+URxvt.keysym.C-A-V:         perl:clipboard:paste_escaped
+! ** Transparency and blur
+! URxvt*transparent: true
+! URxvt*shading:     20
+! URxvt*blurRadius:  10
+! URxvt*fading:      20
 
 
 ! ** YeahConsole
@@ -104,10 +100,10 @@ rofi.color-enabled:              true
 rofi.font:                       Hack 10
 rofi.opacity:                    90
 rofi.bw:                         10
-rofi.color-window:               #2F2F2F, #2F2F2F, #282828
-rofi.color-normal:               #2F2F2F, #C1C1C1, #2F2F2F, #282828, #FFFFFF
-rofi.color-active:               #2F2F2F, #B5BD68, #2F2F2F, #282828, #B5BD68
-rofi.color-urgent:               #2F2F2F, #CC6666, #2F2F2F, #282828, #CC6666
+rofi.color-window:               #2D2D2D, #2D2D2D, #393939
+rofi.color-normal:               #2D2D2D, #C1C1C1, #2D2D2D, #393939, #FFFFFF
+rofi.color-active:               #2D2D2D, #B5BD68, #2D2D2D, #393939, #B5BD68
+rofi.color-urgent:               #2D2D2D, #CC6666, #2D2D2D, #393939, #CC6666
 rofi.separator-style:            solid
 rofi.kb-remove-word-back:        Control+w
 rofi.kb-clear-line:              Control+Alt+w
