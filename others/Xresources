@@ -7,7 +7,7 @@
 
 ! ** Term colours (Tomorrow Night "almost" Eighties)
 ! Background, Foreground, Selection
-*background:  #2D2D2D
+*background:  #2F2F2F
 *foreground:  #CCCCCC
 *selection:   #393939
 *scrollColor: #393939
