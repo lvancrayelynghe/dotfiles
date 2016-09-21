@@ -1,0 +1,64 @@
+#!/bin/sh
+
+if xdo id -a "$PANEL_WM_NAME" > /dev/null ; then
+	printf "%s\n" "The panel is already running." >&2
+	exit 1
+fi
+
+panelBspcReport() {
+	bspc subscribe report > "$PANEL_FIFO" &
+}
+
+panelXTitle() {
+	xtitle -sf 'T%s' -t 40 > "$PANEL_FIFO" &
+}
+
+panelConky() {
+    conky -u 1 -t '
+C${time %d/%m %H:%M}
+L${loadavg 1}
+' > "$PANEL_FIFO" &
+}
+
+panelCompile() {
+	panelBspcReport
+	panelXTitle
+	panelConky
+}
+
+############################################################
+
+trap 'trap - TERM; kill 0' INT TERM QUIT EXIT
+
+[ -e "$PANEL_FIFO" ] && rm "$PANEL_FIFO"
+mkfifo "$PANEL_FIFO"
+
+bspc config top_padding $PANEL_HEIGHT
+
+panelCompile
+
+COLOR_BG=$(xrdb -query | grep background | cut -f2 | head -1)
+COLOR_FG=$(xrdb -query | grep foreground | cut -f2 | head -1)
+panel_bar < "$PANEL_FIFO" | lemonbar \
+	-a 32 \
+	-n "$PANEL_WM_NAME" \
+	-g x$PANEL_HEIGHT \
+	-o 1 -f "$PANEL_FONT_TEXT" \
+	-o -1 -f "$PANEL_FONT_SYMBOLS" \
+	-u 2 \
+	-F "$COLOR_FG" \
+	-U "$COLOR_FG" \
+	-B "$COLOR_BG" \
+	| sh &
+
+wid=$(xdo id -a "$PANEL_WM_NAME")
+tries_left=20
+while [ -z "$wid" -a "$tries_left" -gt 0 ] ; do
+	sleep 0.1
+	wid=$(xdo id -a "$PANEL_WM_NAME")
+	tries_left=$((tries_left - 1))
+done
+
+[ -n "$wid" ] && xdo above -t "$(xdo id -N Bspwm -n root | sort | head -n 1)" "$wid"
+
+wait

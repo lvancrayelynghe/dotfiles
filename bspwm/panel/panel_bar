@@ -1,0 +1,109 @@
+#!/bin/bash
+
+SEPARATOR="§"
+PADDING="  "
+COLOR_FOCUS=$(xrdb -query | grep scrollColor | cut -f2 | head -1)
+COLOR_BG=$(xrdb -query | grep background | cut -f2 | head -1)
+COLOR_FG=$(xrdb -query | grep foreground | cut -f2 | head -1)
+COLOR_RED=$(xrdb -query | grep color1 | cut -f2 | head -1)
+COLOR_LGREY=$(xrdb -query | grep color7 | cut -f2 | head -1)
+
+num_mon=$(bspc query -M | wc -l)
+
+while read -r line ; do
+	case $line in
+		W*)
+			# bspwm's state
+			wm=""
+			IFS=':'
+			set -- ${line#?}
+			while [ $# -gt 0 ] ; do
+				item=$1
+				name=${item#?}
+				case $item in
+					[mM]*)
+						[ $num_mon -lt 2 ] && shift && continue
+						case $item in
+							m*)
+								# monitor
+								FG=$COLOR_FG
+								BG=$COLOR_BG
+								UL="-"
+								;;
+							M*)
+								# focused monitor
+								FG=$COLOR_FG
+								BG=$COLOR_FOCUS
+								UL="+"
+								;;
+						esac
+						wm="${wm}§%{F${FG}}%{B${BG}}%{${UL}u}%{A:bspc monitor -f ${name}:}${PADDING}${PADDING}%{A}%{B-}%{F-}%{-u}"
+						;;
+					[fFoOuU]*)
+						case $item in
+							f*)
+								# free desktop
+								FG=$COLOR_FG
+								BG=$COLOR_BG
+								;;
+							F*)
+								# focused free desktop
+								FG=$COLOR_FG
+								BG=$COLOR_FOCUS
+								;;
+							o*)
+								# occupied desktop
+								FG=$COLOR_FG
+								BG=$COLOR_BG
+								;;
+							O*)
+								# focused occupied desktop
+								FG=$COLOR_FG
+								BG=$COLOR_FOCUS
+								;;
+							u*)
+								# urgent desktop
+								FG=$COLOR_RED
+								BG=$COLOR_BG
+								;;
+							U*)
+								# focused urgent desktop
+								FG=$COLOR_RED
+								BG=$COLOR_BG
+								;;
+						esac
+						wm="${wm}%{F${FG}}%{B${BG}}%{A:bspc desktop -f ${name}:}${PADDING}${name}${PADDING}%{A}%{B-}%{F-}"
+						;;
+					[LTG]*)
+						# layout, state and flags
+						# wm="${wm}%{F$COLOR_FG}%{B$COLOR_BG}${PADDING}${name}${PADDING}%{B-}%{F-}" ;;
+				esac
+				shift
+			done
+			;;
+		C*)
+			clock="${PADDING} ${line#?}${PADDING}" ;;
+        L*)
+            load="%{A:urxvt -name htop -e htop:}${PADDING} ${line#?}${PADDING}%{A}" ;;
+        T*)
+            title="%{A:rofi -show window:}${PADDING}${line#?}${PADDING}%{A}" ;;
+	esac
+    if [ $num_mon -gt 1 ]; then
+        wm=$(echo "${wm}" | sed 's/^§//g')
+        wmleft=$(echo "${wm}" | tr  '§' '\n' | head -1)
+        wmright=$(echo "${wm}" | tr  '§' '\n' | tail -1)
+        echo "%{S0}" \
+             "%{l}${wmleft}" \
+             "%{c}${title}" \
+             "%{r}${load}${clock}" \
+             "%{S1}" \
+             "%{l}${wmright}" \
+             "%{c}${title}" \
+             "%{r}${load}${clock}"
+    else
+        wm=$(echo "${wm}" | sed 's/§//g')
+        echo "%{l}${wm}" \
+             "%{c}${title}" \
+             "%{r}${load}${clock}"
+    fi
+done
