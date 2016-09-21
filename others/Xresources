@@ -110,6 +110,9 @@ rofi.kb-remove-word-back:        Control+w
 rofi.kb-clear-line:              Control+Alt+w
 rofi.kb-toggle-case-sensitivity: Control+Alt+c
 rofi.kb-toggle-sort:             Control+Alt+s
+rofi.kb-row-tab:                 Tab
+rofi.kb-row-down:                Down,Alt+Tab
+rofi.kb-row-up:                  Up,Shift+Tab
 
 
 ! ** dzen2 config
