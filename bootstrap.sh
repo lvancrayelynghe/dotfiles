@@ -4,7 +4,6 @@ declare -A COPIES=(
     ['bash/bashrc']='.bashrc'
     ['zsh/zshenv']='.zshenv'
     ['others/albert.conf']='.config/albert/albert.conf'
-    ['others/appstarter']='.appstarter'
     ['others/ssh_config']='.ssh/config'
     ['others/tilda_config_0']='.config/tilda/config_0'
 )
@@ -43,7 +42,6 @@ declare -A SYMLINKS=(
     ['luakit']='.config/luakit'
     ['qutebrowser/qutebrowser.conf']='.config/qutebrowser/qutebrowser.conf'
     ['qutebrowser/keys.conf']='.config/qutebrowser/keys.conf'
-    ['scripts/app-starter.py']='bin/app-starter'
     ['scripts/chromium-focus-and-new-tab.sh']='bin/chromium-focus-and-new-tab'
     ['scripts/move-to-next-monitor.sh']='bin/move-to-next-monitor'
     ['scripts/screenlock.sh']='bin/screenlock'
