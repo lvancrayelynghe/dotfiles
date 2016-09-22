@@ -9,6 +9,7 @@ else
 	bspc monitor HDMI-0 -d work mail music others
 fi
 
+
 bspc config window_gap           10
 bspc config border_width         2
 bspc config normal_border_color  $(xrdb -query | grep background | cut -f2 | head -1)
@@ -19,14 +20,12 @@ bspc config split_ratio          0.50
 bspc config borderless_monocle   true
 bspc config gapless_monocle      true
 
-bspc rule -a chromium-browser    desktop='^1'
-bspc rule -a Sublime_text        desktop='^3'
-bspc rule -a Thunderbird         desktop='^4'
-bspc rule -a mplayer2            state=floating
-bspc rule -a Tilda               state=floating focus=on locked=on border=off
-bspc rule -a "*:libreoffice"     state=tiled focus=on
-
-# urxvt -name htop -e htop
-# bspc rule -a URxvt:htop state=floating
+bspc config external_rules_command   ~/.config/bspwm/external-rules.sh
+bspc rule -a chromium-browser        desktop='^1'
+bspc rule -a Sublime_text            desktop='^3'
+bspc rule -a Thunderbird             desktop='^4'
+bspc rule -a mplayer2                state=floating
+bspc rule -a Tilda                   state=floating focus=on locked=on border=off
+bspc rule -a "*:libreoffice"         state=tiled focus=on
 
 panel &

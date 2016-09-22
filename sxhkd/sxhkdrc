@@ -41,6 +41,9 @@ super + {_,alt + }z
 super + {_,alt + }z
 	{switch-or-run "gnome-calculator.Gnome-calculator" ,_} gnome-calculator
 
+super + F12
+    switch-or-run "popup-calendar.URxvt" popup-calendar
+
 super + l
 	screenlock
 

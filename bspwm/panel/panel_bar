@@ -1,6 +1,5 @@
 #!/bin/bash
 
-SEPARATOR="§"
 PADDING="  "
 COLOR_FOCUS=$(xrdb -query | grep scrollColor | cut -f2 | head -1)
 COLOR_BG=$(xrdb -query | grep background | cut -f2 | head -1)
@@ -8,100 +7,137 @@ COLOR_FG=$(xrdb -query | grep foreground | cut -f2 | head -1)
 COLOR_RED=$(xrdb -query | grep color1 | cut -f2 | head -1)
 COLOR_LGREY=$(xrdb -query | grep color7 | cut -f2 | head -1)
 
-num_mon=$(bspc query -M | wc -l)
+mon_count=$(bspc query -M | wc -l)
 
 while read -r line ; do
-	case $line in
-		W*)
-			# bspwm's state
-			wm=""
-			IFS=':'
-			set -- ${line#?}
-			while [ $# -gt 0 ] ; do
-				item=$1
-				name=${item#?}
-				case $item in
-					[mM]*)
-						[ $num_mon -lt 2 ] && shift && continue
-						case $item in
-							m*)
-								# monitor
-								FG=$COLOR_FG
-								BG=$COLOR_BG
-								UL="-"
-								;;
-							M*)
-								# focused monitor
-								FG=$COLOR_FG
-								BG=$COLOR_FOCUS
-								UL="+"
-								;;
-						esac
-						wm="${wm}§%{F${FG}}%{B${BG}}%{${UL}u}%{A:bspc monitor -f ${name}:}${PADDING}${PADDING}%{A}%{B-}%{F-}%{-u}"
-						;;
-					[fFoOuU]*)
-						case $item in
-							f*)
-								# free desktop
-								FG=$COLOR_FG
-								BG=$COLOR_BG
-								;;
-							F*)
-								# focused free desktop
-								FG=$COLOR_FG
-								BG=$COLOR_FOCUS
-								;;
-							o*)
-								# occupied desktop
-								FG=$COLOR_FG
-								BG=$COLOR_BG
-								;;
-							O*)
-								# focused occupied desktop
-								FG=$COLOR_FG
-								BG=$COLOR_FOCUS
-								;;
-							u*)
-								# urgent desktop
-								FG=$COLOR_RED
-								BG=$COLOR_BG
-								;;
-							U*)
-								# focused urgent desktop
-								FG=$COLOR_RED
-								BG=$COLOR_BG
-								;;
-						esac
-						wm="${wm}%{F${FG}}%{B${BG}}%{A:bspc desktop -f ${name}:}${PADDING}${name}${PADDING}%{A}%{B-}%{F-}"
-						;;
-					[LTG]*)
-						# layout, state and flags
-						# wm="${wm}%{F$COLOR_FG}%{B$COLOR_BG}${PADDING}${name}${PADDING}%{B-}%{F-}" ;;
-				esac
-				shift
-			done
-			;;
-		C*)
-			clock="${PADDING} ${line#?}${PADDING}" ;;
+    case $line in
+        W*)
+            # bspwm's state
+            parsed_mon_num="0"
+            cur_focused="0"
+            mon_name=""
+            mon_name_left=""
+            mon_name_right=""
+            workspaces=""
+            workspaces_left=""
+            workspaces_right=""
+            state=""
+            state_left=""
+            state_right=""
+            flag=""
+            flag_left=""
+            flag_right=""
+            layout=""
+            layout_left=""
+            layout_right=""
+            IFS=':'
+            set -- ${line#?}
+            while [ $# -gt 0 ] ; do
+                item=$1
+                name=${item#?}
+                case $item in
+                    [mM]*)
+                        parsed_mon_num=$(($parsed_mon_num + 1))
+                        case $item in
+                            M*)
+                                # focused monitor
+                                cur_focused=$parsed_mon_num
+                                ;;
+                        esac
+                        mon_name=${name}
+                        [ $parsed_mon_num = 1 ] && mon_name_left=${name}
+                        [ $parsed_mon_num = 2 ] && mon_name_right=${name}
+                        ;;
+                    [fFoOuU]*)
+                        case $item in
+                            f*)
+                                # free desktop
+                                FG=$COLOR_FG
+                                BG=$COLOR_BG
+                                ;;
+                            F*)
+                                # focused free desktop
+                                FG=$COLOR_FG
+                                BG=$COLOR_FOCUS
+                                ;;
+                            o*)
+                                # occupied desktop
+                                FG=$COLOR_FG
+                                BG=$COLOR_BG
+                                ;;
+                            O*)
+                                # focused occupied desktop
+                                FG=$COLOR_FG
+                                BG=$COLOR_FOCUS
+                                ;;
+                            u*)
+                                # urgent desktop
+                                FG=$COLOR_RED
+                                BG=$COLOR_BG
+                                ;;
+                            U*)
+                                # focused urgent desktop
+                                FG=$COLOR_RED
+                                BG=$COLOR_BG
+                                ;;
+                        esac
+                        workspaces="${workspaces}%{F${FG}}%{B${BG}}%{A:bspc desktop -f ${name}:}${PADDING}${name}${PADDING}%{A}%{B-}%{F-}"
+                        [ $parsed_mon_num = 1 ] && workspaces_left="${workspaces_left}%{F${FG}}%{B${BG}}%{A:bspc desktop -f ${name}:}${PADDING}${name}${PADDING}%{A}%{B-}%{F-}"
+                        [ $parsed_mon_num = 2 ] && workspaces_right="${workspaces_right}%{F${FG}}%{B${BG}}%{A:bspc desktop -f ${name}:}${PADDING}${name}${PADDING}%{A}%{B-}%{F-}"
+                        ;;
+                    [L]*)
+                        # layout (M:monocle, T:tiled)
+                        layout="${name}"
+                        [ $parsed_mon_num = 1 ] && layout_left="${name}"
+                        [ $parsed_mon_num = 2 ] && layout_right="${name}"
+                        ;;
+                    [T]*)
+                        # state (T:tiled, P:pseudo_tiled, F:floating, =:fullscreen, @:???)
+                        state="${name}"
+                        [ $parsed_mon_num = 1 ] && state_left="${name}"
+                        [ $parsed_mon_num = 2 ] && state_right="${name}"
+                        ;;
+                    [G]*)
+                        # flag (hidden|sticky|private|locked|urgent)
+                        flag="${name}"
+                        [ $parsed_mon_num = 1 ] && flag_left="${name}"
+                        [ $parsed_mon_num = 2 ] && flag_right="${name}"
+                        ;;
+                esac
+                shift
+            done
+            ;;
+        C*)
+            clock="%{A:switch-or-run \"popup-calendar.URxvt\" popup-calendar:}${PADDING} ${line#?}${PADDING}%{A}" ;;
         L*)
             load="%{A:urxvt -name htop -e htop:}${PADDING} ${line#?}${PADDING}%{A}" ;;
         T*)
             title="%{A:rofi -show window:}${PADDING}${line#?}${PADDING}%{A}" ;;
-	esac
-    if [ $num_mon -gt 1 ]; then
-        wm=$(echo "${wm}" | sed 's/^§//g')
-        wmleft=$(echo "${wm}" | tr  '§' '\n' | head -1)
-        wmright=$(echo "${wm}" | tr  '§' '\n' | tail -1)
+    esac
+    if [ $mon_count -gt 1 ]; then
+
+        icon_left=$([[ $layout_left = "M" ]] && echo "" || echo "")
+        active_left=$([[ $cur_focused = "1" ]] && echo "+" || echo "-")
+        wm_left="%{${active_left}u}%{A:bspc monitor -f ${mon_name_left}:}${PADDING}${icon_left}${PADDING}%{A}%{-u}"
+        wm_left="${wm_left}${PADDING}${workspaces_left}${PADDING}"
+
+        icon_right=$([[ $layout_right = "M" ]] && echo "" || echo "")
+        active_right=$([[ $cur_focused = "2" ]] && echo "+" || echo "-")
+        wm_right="%{${active_right}u}%{A:bspc monitor -f ${mon_name_right}:}${PADDING}${icon_right}${PADDING}%{A}%{-u}"
+        wm_right="${wm_right}${PADDING}${workspaces_right}${PADDING}"
+
         echo "%{S0}" \
-             "%{l}${wmleft}" \
+             "%{l}${wm_left}" \
              "%{c}${title}" \
              "%{r}${load}${clock}" \
              "%{S1}" \
-             "%{l}${wmright}" \
+             "%{l}${wm_right}" \
              "%{c}${title}" \
              "%{r}${load}${clock}"
     else
-        wm=$(echo "${wm}" | sed 's/§//g')
+        icon=$([[ $layout = "M" ]] && echo "" || echo "")
+        wm="%{+u}${PADDING}${icon}${PADDING}%{-u}"
+        wm="${wm}${PADDING}${workspaces}${PADDING}"
         echo "%{l}${wm}" \
              "%{c}${title}" \
              "%{r}${load}${clock}"
