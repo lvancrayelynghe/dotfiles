@@ -211,9 +211,13 @@ super + p ; {ampersand,eacute,quotedbl,apostrophe,parenleft,minus,egrave,undersc
 
 ### MOVE/RESIZE ###
 
-# move a floating window
+# resize a tiled node
+super + ctrl + {z,q,s,d}
+    ~/.config/bspwm/resize-node.sh {north,west,south,east}
+
+# move a floating node
 super + {Left,Down,Up,Right}
-	bspc node -v {-20 0,0 20,0 -20,20 0}
+    bspc node -v {-20 0,0 20,0 -20,20 0}
 
 # expand a window by moving one of its side outward
 super + alt + {Left,Down,Up,Right}
