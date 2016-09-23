@@ -10,13 +10,15 @@ panelBspcReport() {
 }
 
 panelXTitle() {
-    length="120"
     screen_width=$(bspc query -T -m | jq .rectangle.width)
-    if [ $screen_width -lt 1920]; then
+    if [ $screen_width -le 800 ]; then
+        length="30"
+    elif [ $screen_width -le 1024]; then
         length="60"
-    fi
-    if [ $screen_width -lt 1024]; then
-        length="40"
+    elif [ $screen_width -le 1280]; then
+        length="90"
+    else
+        length="120"
     fi
 	xtitle -sf 'T%s' -t $length > "$PANEL_FIFO" &
 }
