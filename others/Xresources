@@ -49,7 +49,7 @@ URxvt.font:                 xft:Hack:style=Regular:pixelsize=13
 URxvt.boldFont:             xft:Hack:style=Bold:pixelsize=13:weight=bold
 URxvt.italicFont:           xft:Hack:style=Italic:pixelsize=13:slant=italic
 URxvt.depth:                32
-URxvt.letterSpace:          0
+URxvt.letterSpace:          -1
 ! ** For the Ctrl+Shift bindings to work
 URxvt.iso14755:             false
 URxvt.iso14755_52:          false
