@@ -10,7 +10,15 @@ panelBspcReport() {
 }
 
 panelXTitle() {
-	xtitle -sf 'T%s' -t 40 > "$PANEL_FIFO" &
+    length="120"
+    screen_width=$(bspc query -T -m | jq .rectangle.width)
+    if [ $screen_width -lt 1920]; then
+        length="60"
+    fi
+    if [ $screen_width -lt 1024]; then
+        length="40"
+    fi
+	xtitle -sf 'T%s' -t $length > "$PANEL_FIFO" &
 }
 
 panelConky() {
@@ -43,8 +51,8 @@ panel_bar < "$PANEL_FIFO" | lemonbar \
 	-a 32 \
 	-n "$PANEL_WM_NAME" \
 	-g x$PANEL_HEIGHT \
-	-o 1 -f "$PANEL_FONT_TEXT" \
-	-o -1 -f "$PANEL_FONT_SYMBOLS" \
+	-f "$PANEL_FONT_TEXT" \
+	-f "$PANEL_FONT_SYMBOLS" \
 	-u 2 \
 	-F "$COLOR_FG" \
 	-U "$COLOR_FG" \

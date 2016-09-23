@@ -1,6 +1,6 @@
 #!/bin/bash
 
-PADDING="  "
+PADDING="   "
 COLOR_FOCUS=$(xrdb -query | grep scrollColor | cut -f2 | head -1)
 COLOR_BG=$(xrdb -query | grep background | cut -f2 | head -1)
 COLOR_FG=$(xrdb -query | grep foreground | cut -f2 | head -1)
