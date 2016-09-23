@@ -117,4 +117,4 @@ rofi.kb-row-up:                  Up,Shift+Tab
 
 ! ** dzen2 config
 
-dzen2.font:                 xft:Hack-Regular:pixelsize=13,xft:Symbola
+dzen2.font:                 xft:Hack:pixelsize=13,xft:Symbola
