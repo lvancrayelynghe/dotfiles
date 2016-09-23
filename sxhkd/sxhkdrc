@@ -86,11 +86,11 @@ ctrl + alt + shift + v
     bspc query -N -n .hidden | xargs -I winID bspc node winID -g hidden=off
 
 # balance tree
-ctrl + alt + b
+ctrl + alt + shift + b
     bspc node @/ {-B,-E}
 
 # swap the current node and the biggest node
-ctrl + alt + u
+ctrl + alt + b
     bspc node -s biggest.local
 
 # if the current node is automatic, send it to the last manual, otherwise pull the last leaf
