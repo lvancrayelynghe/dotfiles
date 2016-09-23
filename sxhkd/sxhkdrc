@@ -3,87 +3,87 @@
 ### WM INDEPENDENT HOTKEYS ###
 
 super + space
-	rofi -show drun
+    rofi -show drun
 
 super + F1
-	rofi -show window
+    rofi -show window
 
 super + F2
-	rofi -show run
+    rofi -show run
 
 super + F3
-	rofi -show ssh
+    rofi -show ssh
 
 super + {_,alt + }Return
-	{switch-or-run "urxvt.URxvt" ,_} urxvt
+    {switch-or-run "urxvt.URxvt" ,_} urxvt
 
 super + {_,alt + }t
-	{switch-or-run "urxvt.URxvt" ,_} urxvt
+    {switch-or-run "urxvt.URxvt" ,_} urxvt
 
 super + {_,alt + }s
-	{switch-or-run "sublime_text.Sublime_text" ,_}subl
+    {switch-or-run "sublime_text.Sublime_text" ,_}subl
 
 super + {_,alt + }b
-	{switch-or-run "([A-Za-z0-9]*)\.Thunderbird" ,_}thunderbird
+    {switch-or-run "([A-Za-z0-9]*)\.Thunderbird" ,_}thunderbird
 
 super + {_,alt + }e
-	{switch-or-run "nemo.Nemo" ,_} nemo
+    {switch-or-run "nemo.Nemo" ,_} nemo
 
 super + {_,alt + }f
-	{switch-or-run "filezilla.Filezilla" ,_} filezilla
+    {switch-or-run "filezilla.Filezilla" ,_} filezilla
 
 super + {_,alt + }g
-	{switch-or-run "chromium-browser.chromium-browser" ,_} chromium-browser
+    {switch-or-run "chromium-browser.chromium-browser" ,_} chromium-browser
 
 super + {_,alt + }z
-	{switch-or-run "qutebrowser.qutebrowser" ,_} qutebrowser
+    {switch-or-run "qutebrowser.qutebrowser" ,_} qutebrowser
 
 super + {_,alt + }z
-	{switch-or-run "gnome-calculator.Gnome-calculator" ,_} gnome-calculator
+    {switch-or-run "gnome-calculator.Gnome-calculator" ,_} gnome-calculator
 
 super + F12
     switch-or-run "popup-calendar.URxvt" popup-calendar
 
 super + l
-	screenlock
+    screenlock
 
 Print
-	scrot /tmp/scrot.png && xclip -selection clipboard -t image/png /tmp/scrot.png && rm /tmp/scrot.png
+    scrot /tmp/scrot.png && xclip -selection clipboard -t image/png /tmp/scrot.png && rm /tmp/scrot.png
 
 shift + Print
-	sleep 0.2 ; scrot -s /tmp/scrot.png && xclip -selection clipboard -t image/png /tmp/scrot.png && rm /tmp/scrot.png
+    sleep 0.2 ; scrot -s /tmp/scrot.png && xclip -selection clipboard -t image/png /tmp/scrot.png && rm /tmp/scrot.png
 
 alt + Print
-	sleep 0.2 ; scrot -u /tmp/scrot.png && xclip -selection clipboard -t image/png /tmp/scrot.png && rm /tmp/scrot.png
+    sleep 0.2 ; scrot -u /tmp/scrot.png && xclip -selection clipboard -t image/png /tmp/scrot.png && rm /tmp/scrot.png
 
 ctrl + alt + Delete
-	xkill
+    xkill
 
 alt + space
-	$HOME/projects/benoth/i3-hud-menu/i3-hud-menu-rofi.py
+    $HOME/projects/benoth/i3-hud-menu/i3-hud-menu-rofi.py
 
 # make sxhkd reload its configuration files
 super + Escape
-	~/.config/sxhkd/rofi-system-menu.sh
+    ~/.config/sxhkd/rofi-system-menu.sh
 
 
 ### BSPWM HOTKEYS ###
 
 # close and kill
 ctrl + alt + {_,shift + }x
-	bspc node {-c,-k}
+    bspc node {-c,-k}
 
 # alternate between the tiled and monocle (maximized) layout
 ctrl + alt + f
-	bspc desktop -l next
+    bspc desktop -l next
 
 # hide current node
 ctrl + alt + v
-	bspc node -g hidden
+    bspc node -g hidden
 
 # un-hide all nodes
 ctrl + alt + shift + v
-	bspc query -N -n .hidden | xargs -I winID bspc node winID -g hidden=off
+    bspc query -N -n .hidden | xargs -I winID bspc node winID -g hidden=off
 
 # balance tree
 ctrl + alt + b
@@ -91,57 +91,57 @@ ctrl + alt + b
 
 # swap the current node and the biggest node
 ctrl + alt + u
-	bspc node -s biggest.local
+    bspc node -s biggest.local
 
 # if the current node is automatic, send it to the last manual, otherwise pull the last leaf
 ctrl + alt + y
-	bspc query -N -n focused.automatic && bspc node -n last.!automatic || bspc node last.leaf -n focused
+    bspc query -N -n focused.automatic && bspc node -n last.!automatic || bspc node last.leaf -n focused
 
 
 ### FOCUS/SWAP ###
 
 # focus or send to the given desktop
 super + {_,alt + }{ampersand,eacute,quotedbl,apostrophe,parenleft,minus,egrave,underscore,ccedilla,agrave}
-	bspc {desktop -f,node -d} '^{1,2,3,4,5,6,7,8,9,10}'
+    bspc {desktop -f,node -d} '^{1,2,3,4,5,6,7,8,9,10}'
 
 # switch screen, keep monocle state
 ctrl + alt + a
-	CUR_NODE=$(bspc query -N -n) ; \
-	IS_MONOCLE=$(bspc query -T -d | grep '"layout":"monocle"' | wc -l) ; \
-	bspc node -m next ; \
-	[[ $IS_MONOCLE == "1" ]] && bspc desktop -l tiled ; \
-	bspc node -f $CUR_NODE ; \
-	[[ $IS_MONOCLE == "1" ]] && bspc desktop -l monocle
+    CUR_NODE=$(bspc query -N -n) ; \
+    IS_MONOCLE=$(bspc query -T -d | grep '"layout":"monocle"' | wc -l) ; \
+    bspc node -m next ; \
+    [[ $IS_MONOCLE == "1" ]] && bspc desktop -l tiled ; \
+    bspc node -f $CUR_NODE ; \
+    [[ $IS_MONOCLE == "1" ]] && bspc desktop -l monocle
 
 # focus the next monitor
 ctrl + alt + e
-	bspc monitor -f next
+    bspc monitor -f next
 
 # rotate the nodes (split horizontally)
 ctrl + alt + r
-	bspc node @/ -R 90
+    bspc node @/ -R 90
 
 # focus the next/previous local desktop
 ctrl + alt + shift + {Left,Right}
-	node=$(bspc query -N -n) ; \
-	dir='{prev,next}' ; \
-	bspc node -d ${dir}.local ; \
-	bspc desktop -f ${dir}.local ; \
-	bspc node -f ${node}
+    node=$(bspc query -N -n) ; \
+    dir='{prev,next}' ; \
+    bspc node -d ${dir}.local ; \
+    bspc desktop -f ${dir}.local ; \
+    bspc node -f ${node}
 
 # focus the node in the given direction
 ctrl + alt + {z,q,s,d}
-	bspc node -f {north,west,south,east}
+    bspc node -f {north,west,south,east}
 
 # switch the node in the given direction
 ctrl + alt + shift + {z,q,s,d}
-	node=$(bspc query -N -n) ; \
-	bspc node -s {north,west,south,east} ; \
-	bspc node -f ${node}
+    node=$(bspc query -N -n) ; \
+    bspc node -s {north,west,south,east} ; \
+    bspc node -f ${node}
 
 # focus the next/previous local node
 alt + {_,shift + }Tab
-	bspc node -f {next,prev}.local
+    bspc node -f {next,prev}.local
 
 # focus the next/previous node
 ctrl + alt + {_,shift + }Tab
@@ -157,7 +157,7 @@ ctrl + alt + {Up,Down}
 
 # focus the next/previous desktop
 alt + super + {_,shift + }Tab
-	bspc desktop -f {prev,next}
+    bspc desktop -f {prev,next}
 
 # focus the next/previous local desktop
 ctrl + alt + {w,c}
@@ -169,9 +169,9 @@ ctrl + alt + {Left,Right}
 
 # focus the older or newer node in the focus history
 super + {o,i}
-	bspc wm -h off; \
-	bspc node {older,newer} -f; \
-	bspc wm -h on
+    bspc wm -h off; \
+    bspc node {older,newer} -f; \
+    bspc wm -h on
 
 # Update node layer
 super + Page_Up
@@ -188,29 +188,29 @@ super + Page_Down
 
 # set the window state
 ctrl + alt + {t,y,g,h}
-	bspc node -t {tiled,pseudo_tiled,fullscreen,floating}
+    bspc node -t {tiled,pseudo_tiled,fullscreen,floating}
 
 # set the node flags
 ctrl + shift + alt + {w,x,c}
-	bspc node -g {locked,sticky,private}
+    bspc node -g {locked,sticky,private}
 
 super + alt + p
-	bspc config focus_follows_pointer {true,false}
+    bspc config focus_follows_pointer {true,false}
 
 
 ### PRESELECT ###
 
 # preselect or cancel the direction
 super + p ; {z,q,s,d, space}
-	bspc node -p {north,west,south,east,cancel}
+    bspc node -p {north,west,south,east,cancel}
 
 # cancel the preselection for the focused desktop
 super + p ; super + space
-	bspc query -N -d | xargs -I id -n 1 bspc node id -p cancel
+    bspc query -N -d | xargs -I id -n 1 bspc node id -p cancel
 
 # preselect the ratio
 super + p ; {ampersand,eacute,quotedbl,apostrophe,parenleft,minus,egrave,underscore,ccedilla}
-	bspc node -o 0.{1,2,3,4,5,6,7,8,9}
+    bspc node -o 0.{1,2,3,4,5,6,7,8,9}
 
 
 ### MOVE/RESIZE ###
@@ -225,16 +225,24 @@ super + {Left,Down,Up,Right}
 
 # expand a window by moving one of its side outward
 super + alt + {Left,Down,Up,Right}
-	bspc node -z {left -20 0,bottom 0 20,top 0 -20,right 20 0}
+    bspc node -z {left -20 0,bottom 0 20,top 0 -20,right 20 0}
 
 # contract a window by moving one of its side inward
 super + ctrl + alt + {Left,Down,Up,Right}
-	bspc node -z {right -20 0,top 0 20,bottom 0 -20,left 20 0}
+    bspc node -z {right -20 0,top 0 20,bottom 0 -20,left 20 0}
+
+
+### SCRATCHPAD ###
+super + alt + n
+    ~/.config/bspwm/scratchpad.sh toggle-flag
+
+super + n
+    ~/.config/bspwm/scratchpad.sh switch-app
 
 
 ### SPECIAL KEYS ###
 XF86Music
-	mpc
+    mpc
 
 XF86Audio{Prev,Next}
     mpc -q {prev,next}
@@ -249,40 +257,40 @@ XF86AudioMute
     amixer -q set Master toggle
 
 XF86Calculator
-	gnome-calculator
+    gnome-calculator
 
 XF86Display
-	urxvt
+    urxvt
 
 XF86Explorer
-	nemo
+    nemo
 
 XF86HomePage
-	chromium-browser
+    chromium-browser
 
 XF86WWW
-	chromium-browser
+    chromium-browser
 
 XF86Mail
-	thunderbird
+    thunderbird
 
 XF86Messenger
-	pidgin
+    pidgin
 
 
 ### MOUSE ###
 
 # focus
 ~button{1-3}
-	; bspc node pointed -f
+    ; bspc node pointed -f
 
 # Resize is now handled directly in bspwm with pointer_modifer and pointer_action
 # # start move/resize
 # super + button{1-3}
-# 	; bspc node pointed -g {move,resize_side,resize_corner}
+#   ; bspc node pointed -g {move,resize_side,resize_corner}
 # # end move/resize
 # super + @button{1-3}
-# 	bspc node pointed -u
+#   bspc node pointed -u
 
 
 # Remove receptacles :
