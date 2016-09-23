@@ -122,14 +122,6 @@ ctrl + alt + r
 	bspc node @/ -R 90
 
 # focus the next/previous local desktop
-ctrl + alt + {w,c}
-	bspc desktop -f {prev,next}.local
-
-# focus the next/previous local desktop
-ctrl + alt + {Left,Right}
-	bspc desktop -f {prev,next}.local
-
-# focus the next/previous local desktop
 ctrl + alt + shift + {Left,Right}
 	node=$(bspc query -N -n) ; \
 	dir='{prev,next}' ; \
@@ -153,15 +145,27 @@ alt + {_,shift + }Tab
 
 # focus the next/previous node
 ctrl + alt + {_,shift + }Tab
-	bspc node -f {next,prev}
+    bspc node -f {next,prev}
+
+# focus the next monitor
+super + Tab
+    bspc monitor -f next
+
+# focus the next/previous monitor
+ctrl + alt + {Up,Down}
+    bspc monitor -f {west,east}
 
 # focus the next/previous desktop
 alt + super + {_,shift + }Tab
 	bspc desktop -f {prev,next}
 
-# focus the next/previous monitor
-ctrl + alt + {Up,Down}
-	bspc monitor -f {west,east}
+# focus the next/previous local desktop
+ctrl + alt + {w,c}
+    bspc desktop -f {prev,next}.local
+
+# focus the next/previous local desktop
+ctrl + alt + {Left,Right}
+    bspc desktop -f {prev,next}.local
 
 # focus the older or newer node in the focus history
 super + {o,i}
