@@ -32,9 +32,88 @@
     { "keys": ["ctrl+shift+m"], "command": "expand_selection", "args": {"to": "brackets"} },
 
     // Sidebar & minimap
+    { "keys": ["ctrl+,"], "command": "toggle_minimap" },
     { "keys": ["ctrl+b"], "command": "toggle_side_bar" },
     { "keys": ["ctrl+shift+b"], "command": "focus_side_bar" },
-    { "keys": ["ctrl+m"], "command": "toggle_minimap" },
+
+    // Tabs
+    { "keys": ["ctrl+tab"], "command": "next_view" },
+    { "keys": ["ctrl+shift+tab"], "command": "prev_view" },
+    { "keys": ["ctrl+&"], "command": "select_by_index", "args": { "index": 0 } },
+    { "keys": ["ctrl+é"], "command": "select_by_index", "args": { "index": 1 } },
+    { "keys": ["ctrl+\""], "command": "select_by_index", "args": { "index": 2 } },
+    { "keys": ["ctrl+'"], "command": "select_by_index", "args": { "index": 3 } },
+    { "keys": ["ctrl+("], "command": "select_by_index", "args": { "index": 4 } },
+    { "keys": ["ctrl+-"], "command": "select_by_index", "args": { "index": 5 } },
+    { "keys": ["ctrl+è"], "command": "select_by_index", "args": { "index": 6 } },
+    { "keys": ["ctrl+_"], "command": "select_by_index", "args": { "index": 7 } },
+    { "keys": ["ctrl+ç"], "command": "select_by_index", "args": { "index": 8 } },
+    { "keys": ["ctrl+à"], "command": "select_by_index", "args": { "index": 9 } },
+
+    // Layouts
+    { "keys": ["ctrl+alt+&"], "command": "set_layout", "args": {
+            "cols": [0.0, 1.0],
+            "rows": [0.0, 1.0],
+            "cells": [[0, 0, 1, 1]]
+        }
+    },
+    { "keys": ["ctrl+alt+é"], "command": "set_layout", "args": {
+            "cols": [0.0, 0.5, 1.0],
+            "rows": [0.0, 1.0],
+            "cells": [[0, 0, 1, 1], [1, 0, 2, 1]]
+        }
+    },
+    { "keys": ["ctrl+alt+\""], "command": "set_layout", "args": {
+            "cols": [0.0, 0.33, 0.66, 1.0],
+            "rows": [0.0, 1.0],
+            "cells": [[0, 0, 1, 1], [1, 0, 2, 1], [2, 0, 3, 1]]
+        }
+    },
+    { "keys": ["ctrl+alt+'"], "command": "set_layout", "args": {
+            "cols": [0.0, 0.25, 0.5, 0.75, 1.0],
+            "rows": [0.0, 1.0],
+            "cells": [[0, 0, 1, 1], [1, 0, 2, 1], [2, 0, 3, 1], [3, 0, 4, 1]]
+        }
+    },
+    { "keys": ["ctrl+alt+("], "command": "set_layout", "args": {
+            "cols": [0.0, 0.5, 1.0],
+            "rows": [0.0, 0.5, 1.0],
+            "cells": [
+                [0, 0, 1, 1], [1, 0, 2, 1],
+                [0, 1, 1, 2], [1, 1, 2, 2]
+            ]
+        }
+    },
+    { "keys": ["ctrl+alt+-"], "command": "set_layout", "args": {
+            "cols": [0.0, 1.0],
+            "rows": [0.0, 0.5, 1.0],
+            "cells": [[0, 0, 1, 1], [0, 1, 1, 2]]
+        }
+    },
+    { "keys": ["ctrl+alt+è"], "command": "set_layout", "args": {
+            "cols": [0.0, 1.0],
+            "rows": [0.0, 0.33, 0.66, 1.0],
+            "cells": [[0, 0, 1, 1], [0, 1, 1, 2], [0, 2, 1, 3]]
+        }
+    },
+    { "keys": ["alt+&"], "command": "focus_group", "args": { "group": 0 } },
+    { "keys": ["alt+é"], "command": "focus_group", "args": { "group": 1 } },
+    { "keys": ["alt+\""], "command": "focus_group", "args": { "group": 2 } },
+    { "keys": ["alt+'"], "command": "focus_group", "args": { "group": 3 } },
+    { "keys": ["alt+("], "command": "focus_group", "args": { "group": 4 } },
+    { "keys": ["alt+-"], "command": "focus_group", "args": { "group": 5 } },
+    { "keys": ["alt+è"], "command": "focus_group", "args": { "group": 6 } },
+    { "keys": ["alt+_"], "command": "focus_group", "args": { "group": 7 } },
+    { "keys": ["alt+ç"], "command": "focus_group", "args": { "group": 8 } },
+    { "keys": ["ctrl+shift+&"], "command": "move_to_group", "args": { "group": 0 } },
+    { "keys": ["ctrl+shift+é"], "command": "move_to_group", "args": { "group": 1 } },
+    { "keys": ["ctrl+shift+\""], "command": "move_to_group", "args": { "group": 2 } },
+    { "keys": ["ctrl+shift+'"], "command": "move_to_group", "args": { "group": 3 } },
+    { "keys": ["ctrl+shift+("], "command": "move_to_group", "args": { "group": 4 } },
+    { "keys": ["ctrl+shift+-"], "command": "move_to_group", "args": { "group": 5 } },
+    { "keys": ["ctrl+shift+è"], "command": "move_to_group", "args": { "group": 6 } },
+    { "keys": ["ctrl+shift+_"], "command": "move_to_group", "args": { "group": 7 } },
+    { "keys": ["ctrl+shift+ç"], "command": "move_to_group", "args": { "group": 8 } },
 
     // Shortcuts from Notepad++
     { "keys": ["ctrl+q"], "command": "toggle_comment", "args": { "block": false } },
@@ -64,5 +143,7 @@
     { "keys": ["ctrl+f1"], "command": "goto_documentation" },
     { "keys": ["shift+f1"], "command": "goto_definition" },
     { "keys": ["ctrl+alt+m"], "command": "markdown_preview", "args": {"target": "browser", "parser":"markdown"} },
-    { "keys": ["ctrl+alt+t"], "command": "open_terminal_project_folder" }
+    { "keys": ["ctrl+alt+t"], "command": "open_terminal_project_folder" },
+    { "keys": ["ctrl+<"], "command": "move_tab", "args": {"position": "-1"} },
+    { "keys": ["ctrl+>"], "command": "move_tab", "args": {"position": "+1"} }
 ]
