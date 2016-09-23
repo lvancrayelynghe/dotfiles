@@ -237,10 +237,10 @@ XF86Music
 	mpc
 
 XF86Audio{Prev,Next}
-     mpc -q {prev,next}
+    mpc -q {prev,next}
 
 XF86AudioPlay
-     mpc -q toggle
+    mpc -q toggle
 
 XF86Audio{LowerVolume,RaiseVolume}
     amixer -q sset Master 5%{-,+}
