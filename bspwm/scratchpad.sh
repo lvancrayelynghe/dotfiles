@@ -21,7 +21,8 @@ switch_app() {
         xdotool windowunmap $id
     fi
 
-    id=$(
+    sid=$(
+        id=$(bspc query -N -n "focused");
         for w in $(xwininfo -root -children | grep -e "^\s*0x[0-9a-f]\+" -o); do
             if [ "$w" != "$id" ]; then
                 t=$(xprop -id $w _SCRATCH_ORDER | grep ' = \(.*\)')
@@ -31,11 +32,13 @@ switch_app() {
             fi
         done | sort -n | head -n1 | cut -d" " -f 5
     );
-    if [ -n "$id" ]; then
-        xprop -id $id -f _SCRATCH_ORDER 32ii -set _SCRATCH_ORDER $(date +%s,%N)
-        xprop -id $id -f _SCRATCH_VISIBILITY 8i -set _SCRATCH_VISIBILITY 1
-        xdotool windowmap $id
-        bspc node -f $id
+
+    if [ -n "$sid" ] && [ "$(printf "%04d" $sid)" != "$(printf "%04d" $id)" ]; then
+    echo "$sid" != "$id"
+        xprop -id $sid -f _SCRATCH_ORDER 32ii -set _SCRATCH_ORDER $(date +%s,%N)
+        xprop -id $sid -f _SCRATCH_VISIBILITY 8i -set _SCRATCH_VISIBILITY 1
+        xdotool windowmap $sid
+        bspc node -f $sid
     fi
 }
 
