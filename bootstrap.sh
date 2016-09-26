@@ -11,7 +11,6 @@ declare -A COPIES=(
 declare -A SYMLINKS=(
     ['bash/inputrc']='.inputrc'
     ['bash/profile']='.profile'
-    ['zsh/zlogin']='.zlogin'
     ['zsh/zshrc']='.zshrc'
     ['zsh/zshrc_brutus']='.zshrc_brutus'
     ['zsh/zshrc_homestead']='.zshrc_homestead'
