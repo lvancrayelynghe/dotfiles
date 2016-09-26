@@ -139,13 +139,13 @@ ctrl + alt + shift + {z,q,s,d}
     bspc node -s {north,west,south,east} ; \
     bspc node -f ${node}
 
-# focus the next/previous local node
+# focus the next/previous "active monitor" node
 alt + {_,shift + }Tab
-    bspc node -f {next,prev}.local
+    bspc node -f {next,prev}.active
 
-# focus the next/previous node
+# focus the next/previous local node
 ctrl + alt + {_,shift + }Tab
-    bspc node -f {next,prev}
+    bspc node -f {next,prev}.local
 
 # focus the next monitor
 super + Tab
