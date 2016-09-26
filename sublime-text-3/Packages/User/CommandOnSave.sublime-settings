@@ -3,8 +3,9 @@
 	{
 		"(.*)\\.php":
 		[
-			"xdotool search --onlyvisible --class \"Chromium\" windowfocus key --clearmodifiers F5",
-			"sleep 0.05 ; xdotool search --onlyvisible --class \"Sublime\" windowfocus"
+			"switch-or-run \"chromium-browser.chromium-browser\" chromium-browser",
+			"sleep 0.05 && xdotool key --clearmodifiers ctrl+r",
+			"sleep 0.05 && switch-or-run \"sublime_text.Sublime_text\" subl"
 		]
 	},
 	"enabled": false

@@ -38,6 +38,7 @@ class CommandOnSave(sublime_plugin.EventListener):
                     for command in commands:
                         p = subprocess.Popen([command], shell=True, stdout=subprocess.PIPE)
                         out, err = p.communicate()
+                        print (command)
                         print (out.decode('utf-8'))
                         self.start_timer()
 
