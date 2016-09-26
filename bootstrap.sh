@@ -16,6 +16,7 @@ declare -A SYMLINKS=(
     ['zsh/zshrc_homestead']='.zshrc_homestead'
     ['scripts/chromium-focus-and-new-tab.sh']='bin/chromium-focus-and-new-tab'
     ['scripts/move-to-next-monitor.sh']='bin/move-to-next-monitor'
+    ['scripts/numlock.sh']='bin/numlock'
     ['scripts/popup-calendar.sh']='bin/popup-calendar'
     ['scripts/screenlock.sh']='bin/screenlock'
     ['scripts/switch-or-run.sh']='bin/switch-or-run'

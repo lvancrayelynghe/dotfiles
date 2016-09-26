@@ -21,6 +21,7 @@ fi
 # Prepare env
 sxhkd -m 1 &
 xsetroot -cursor_name left_ptr &
+numlock &
 
 if [ -e ~/.Xresources ]; then
     xrdb -merge ~/.Xresources &
