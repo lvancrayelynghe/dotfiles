@@ -82,6 +82,7 @@ alias ll='ls -lhA --group-directories-first'
 alias llm='ls -lhAt --group-directories-first' ## "m" for sort by last modified date
 alias llc='ls -lhAU --group-directories-first' ## "c" for sort by creation date
 alias lls='ls -lhAS --group-directories-first' ## "s" for sort by size
+alias lla='ll-archive' ## "a" for archive
 alias k='k -h'
 alias kl='k -h --no-vcs'
 alias kk='k -Ah'
