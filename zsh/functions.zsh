@@ -248,6 +248,17 @@ function = () {
     echo "scale=2;$@" | bc -l
 }
 
+# Notes tool
+function note() {
+    case $@ in
+        "-s") subl ~/.note.md;;
+        "-e") vim  ~/.note.md;;
+          "") cat  ~/.note.md | less;;
+           *) echo -e "$@\n" >> ~/.note.md
+              echo -e "\033[0;37m\"$@\" \033[1;30madded to your notes.\033[0m\n";;
+    esac
+}
+
 # Make a port (default 80) "real life" speeds
 function slowport {
     if [ -z "$1" ]; then
