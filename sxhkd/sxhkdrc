@@ -48,13 +48,13 @@ super + l
     screenlock
 
 Print
-    scrot /tmp/scrot.png && xclip -selection clipboard -t image/png /tmp/scrot.png && rm /tmp/scrot.png
+    copyq && maim --format png /dev/stdout | copyq copy image/png -
 
 shift + Print
-    sleep 0.2 ; scrot -s /tmp/scrot.png && xclip -selection clipboard -t image/png /tmp/scrot.png && rm /tmp/scrot.png
+    copyq && maim -s --format png /dev/stdout | copyq copy image/png -
 
 alt + Print
-    sleep 0.2 ; scrot -u /tmp/scrot.png && xclip -selection clipboard -t image/png /tmp/scrot.png && rm /tmp/scrot.png
+    copyq && maim -s --format png /dev/stdout | copyq copy image/png -
 
 ctrl + alt + Delete
     xkill

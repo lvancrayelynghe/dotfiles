@@ -25,6 +25,7 @@ bspc rule -a chromium-browser        desktop='^1'
 bspc rule -a Sublime_text            desktop='^3'
 bspc rule -a Thunderbird             desktop='^4'
 bspc rule -a mplayer2                state=floating
+bspc rule -a Copyq                   state=floating focus=off hidden=on
 bspc rule -a Tilda                   state=floating focus=on locked=on border=off
 bspc rule -a "*:libreoffice"         state=tiled focus=on
 
