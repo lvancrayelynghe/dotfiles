@@ -113,6 +113,8 @@ while read -r line ; do
             load="%{A:urxvt -name htop -e htop:}${PADDING} ${line#?}${PADDING}%{A}" ;;
         T*)
             title="%{A:rofi -show window:}${PADDING}${line#?}${PADDING}%{A}" ;;
+        E*)
+            email="%{A:switch-or-run \"([A-Za-z0-9]*)\.Thunderbird\" thunderbird:} ${line#?}${PADDING}%{A}"
     esac
     if [ $mon_count -gt 1 ]; then
 
@@ -129,17 +131,17 @@ while read -r line ; do
         echo "%{S0}" \
              "%{l}${wm_left}" \
              "%{c}${title}" \
-             "%{r}${load}${clock}" \
+             "%{r}${email}${load}${clock}" \
              "%{S1}" \
              "%{l}${wm_right}" \
              "%{c}${title}" \
-             "%{r}${load}${clock}"
+             "%{r}${email}${load}${clock}"
     else
         icon=$([[ $layout = "M" ]] && echo "" || echo "")
         wm="%{+u}${PADDING}${icon}${PADDING}%{-u}"
         wm="${wm}${PADDING}${workspaces}${PADDING}"
         echo "%{l}${wm}" \
              "%{c}${title}" \
-             "%{r}${load}${clock}"
+             "%{r}${email}${load}${clock}"
     fi
 done

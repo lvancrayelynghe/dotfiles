@@ -30,10 +30,23 @@ L${loadavg 1}
 ' > "$PANEL_FIFO" &
 }
 
+panelThunderbird() {
+    # Require https://github.com/teleshoes/thunderbird-unread-count
+    while true; do
+        count="$(cat ~/.thunderbird/*.default/unread-counts | grep -v "Dossiers locaux" | cut -d: -f1)"
+        if [ -z $count ]; then
+            exit 1
+        fi
+        echo "E${count}"
+        sleep 60
+    done > "$PANEL_FIFO" &
+}
+
 panelCompile() {
 	panelBspcReport
 	panelXTitle
 	panelConky
+    panelThunderbird
 }
 
 ############################################################
@@ -53,8 +66,8 @@ panel_bar < "$PANEL_FIFO" | lemonbar \
 	-a 32 \
 	-n "$PANEL_WM_NAME" \
 	-g x$PANEL_HEIGHT \
-	-f "$PANEL_FONT_TEXT" \
-	-f "$PANEL_FONT_SYMBOLS" \
+	-o 0 -f "$PANEL_FONT_TEXT" \
+	-o -1 -f "$PANEL_FONT_SYMBOLS" \
 	-u 2 \
 	-F "$COLOR_FG" \
 	-U "$COLOR_FG" \
