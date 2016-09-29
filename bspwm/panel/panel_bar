@@ -9,14 +9,19 @@ COLOR_FG=$(xrdb -query | grep foreground | cut -f2 | head -1)
 COLOR_RED=$(xrdb -query | grep color1 | cut -f2 | head -1)
 COLOR_LGREY=$(xrdb -query | grep color7 | cut -f2 | head -1)
 
+source "${DIR}/scripts/functions.sh"
 source "${DIR}/scripts/bspc-subscribe-parser.sh"
+source "${DIR}/scripts/bspc-nodes.sh"
 
+bspcSubscribe=""
 monitorsCount="1"
 declare -a monitorsContent
+declare -a titlesContent
 
 while read -r line ; do
     case $line in
         W*)
+            bspcSubscribe="$line"
             monitorsCount=$(countMonitors "$line")
             focusedMonitor=$(getFocusedMonitor "$line")
             for ((monitorIndex=0 ; monitorIndex<=(${monitorsCount}-1) ; monitorIndex++ )); do
@@ -51,7 +56,28 @@ while read -r line ; do
         L*)
             load="%{A:urxvt -name htop -e htop:}${PADDING} ${line#?}${PADDING}%{A}" ;;
         T*)
-            title="%{A:rofi -show window:}${PADDING}${line#?}${PADDING}%{A}" ;;
+            focusedNode=$(getFocusedNodeId)
+            for ((monitorIndex=0 ; monitorIndex<=(${monitorsCount}-1) ; monitorIndex++ )); do
+                monitorState=$(getMonitorState "$monitorIndex" "$bspcSubscribe")
+                monitorName=$(getMonitorName "$monitorState")
+                nodes=$(getMonitorNodesIds "$monitorName")
+
+                result=""
+                pad=15
+                for node in $nodes; do
+                    class="$(getNodePrimaryClass "$node")"
+                    action="wmctrl -ia $node"
+                    if [ "$node" = "$focusedNode" ]; then
+                        result="${result}%{+u}${PADDING}$(stringPad "$class" $pad)${PADDING}%{-u}"
+                    else
+                        result="${result}%{A:${action}:}${PADDING}$(stringPad "$class" $pad)${PADDING}%{A}"
+                    fi
+                done
+
+                titlesContent["$monitorIndex"]="$result"
+            done
+            # title="%{A:rofi -show window:}${PADDING}${line#?}${PADDING}%{A}"
+            ;;
         E*)
             email="%{A:switch-or-run \"([A-Za-z0-9]*)\.Thunderbird\" thunderbird:} ${line#?}${PADDING}%{A}" ;;
     esac
@@ -60,7 +86,7 @@ while read -r line ; do
     for ((monitorIndex=0 ; monitorIndex<=(${monitorsCount}-1) ; monitorIndex++ )); do
         content="${content}%{S${monitorIndex}}"
         content="${content}%{l}${monitorsContent[$monitorIndex]}"
-        content="${content}%{c}${title}"
+        content="${content}%{c}${titlesContent[$monitorIndex]}"
         content="${content}%{r}${email}${load}${clock}"
     done
 
