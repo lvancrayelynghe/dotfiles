@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 if xdo id -a "$PANEL_WM_NAME" > /dev/null ; then
 	printf "%s\n" "The panel is already running." >&2
@@ -11,11 +11,11 @@ panelBspcReport() {
 
 panelXTitle() {
     screen_width=$(bspc query -T -m | jq .rectangle.width)
-    if [ $screen_width -le 800 ]; then
+    if [ "$screen_width" -le 800 ]; then
         length="30"
-    elif [ $screen_width -le 1024]; then
+    elif [ "$screen_width" -le 1024 ]; then
         length="60"
-    elif [ $screen_width -le 1280]; then
+    elif [ "$screen_width" -le 1280 ]; then
         length="90"
     else
         length="120"

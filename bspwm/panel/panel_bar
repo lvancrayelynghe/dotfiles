@@ -1,5 +1,7 @@
 #!/bin/bash
 
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
 PADDING="   "
 COLOR_FOCUS=$(xrdb -query | grep scrollColor | cut -f2 | head -1)
 COLOR_BG=$(xrdb -query | grep background | cut -f2 | head -1)
@@ -7,104 +9,41 @@ COLOR_FG=$(xrdb -query | grep foreground | cut -f2 | head -1)
 COLOR_RED=$(xrdb -query | grep color1 | cut -f2 | head -1)
 COLOR_LGREY=$(xrdb -query | grep color7 | cut -f2 | head -1)
 
-mon_count=$(bspc query -M | wc -l)
+source "${DIR}/scripts/bspc-subscribe-parser.sh"
+
+monitorsCount="1"
+declare -a monitorsContent
 
 while read -r line ; do
     case $line in
         W*)
-            # bspwm's state
-            parsed_mon_num="0"
-            cur_focused="0"
-            mon_name=""
-            mon_name_left=""
-            mon_name_right=""
-            workspaces=""
-            workspaces_left=""
-            workspaces_right=""
-            state=""
-            state_left=""
-            state_right=""
-            flag=""
-            flag_left=""
-            flag_right=""
-            layout=""
-            layout_left=""
-            layout_right=""
-            IFS=':'
-            set -- ${line#?}
-            while [ $# -gt 0 ] ; do
-                item=$1
-                name=${item#?}
-                case $item in
-                    [mM]*)
-                        parsed_mon_num=$(($parsed_mon_num + 1))
-                        case $item in
-                            M*)
-                                # focused monitor
-                                cur_focused=$parsed_mon_num
-                                ;;
-                        esac
-                        mon_name=${name}
-                        [ $parsed_mon_num = 1 ] && mon_name_left=${name}
-                        [ $parsed_mon_num = 2 ] && mon_name_right=${name}
-                        ;;
-                    [fFoOuU]*)
-                        case $item in
-                            f*)
-                                # free desktop
-                                FG=$COLOR_FG
-                                BG=$COLOR_BG
-                                ;;
-                            F*)
-                                # focused free desktop
-                                FG=$COLOR_FG
-                                BG=$COLOR_FOCUS
-                                ;;
-                            o*)
-                                # occupied desktop
-                                FG=$COLOR_FG
-                                BG=$COLOR_BG
-                                ;;
-                            O*)
-                                # focused occupied desktop
-                                FG=$COLOR_FG
-                                BG=$COLOR_FOCUS
-                                ;;
-                            u*)
-                                # urgent desktop
-                                FG=$COLOR_RED
-                                BG=$COLOR_BG
-                                ;;
-                            U*)
-                                # focused urgent desktop
-                                FG=$COLOR_RED
-                                BG=$COLOR_BG
-                                ;;
-                        esac
-                        workspaces="${workspaces}%{F${FG}}%{B${BG}}%{A:bspc desktop -f ${name}:}${PADDING}${name}${PADDING}%{A}%{B-}%{F-}"
-                        [ $parsed_mon_num = 1 ] && workspaces_left="${workspaces_left}%{F${FG}}%{B${BG}}%{A:bspc desktop -f ${name}:}${PADDING}${name}${PADDING}%{A}%{B-}%{F-}"
-                        [ $parsed_mon_num = 2 ] && workspaces_right="${workspaces_right}%{F${FG}}%{B${BG}}%{A:bspc desktop -f ${name}:}${PADDING}${name}${PADDING}%{A}%{B-}%{F-}"
-                        ;;
-                    [L]*)
-                        # layout (M:monocle, T:tiled)
-                        layout="${name}"
-                        [ $parsed_mon_num = 1 ] && layout_left="${name}"
-                        [ $parsed_mon_num = 2 ] && layout_right="${name}"
-                        ;;
-                    [T]*)
-                        # state (T:tiled, P:pseudo_tiled, F:floating, =:fullscreen, @:???)
-                        state="${name}"
-                        [ $parsed_mon_num = 1 ] && state_left="${name}"
-                        [ $parsed_mon_num = 2 ] && state_right="${name}"
-                        ;;
-                    [G]*)
-                        # flag (hidden|sticky|private|locked|urgent)
-                        flag="${name}"
-                        [ $parsed_mon_num = 1 ] && flag_left="${name}"
-                        [ $parsed_mon_num = 2 ] && flag_right="${name}"
-                        ;;
-                esac
-                shift
+            monitorsCount=$(countMonitors "$line")
+            focusedMonitor=$(getFocusedMonitor "$line")
+            for ((monitorIndex=0 ; monitorIndex<=(${monitorsCount}-1) ; monitorIndex++ )); do
+                monitorState=$(getMonitorState "$monitorIndex" "$line")
+                monitorName=$(getMonitorName "$monitorState")
+                desktops=$(getDesktops "$monitorState")
+                activeDesktop=$(getActiveDesktop "$monitorState")
+                layout=$(getDesktopLayout "$activeDesktop" "$monitorState")
+                # activeWindowState=$(getDesktopActiveWindowState "$activeDesktop" "$monitorState")
+                # activeWindowFlags=$(getDesktopActiveWindowFlags "$activeDesktop" "$monitorState")
+
+                workspaces=""
+                for desktop in $desktops; do
+                    FG=$COLOR_FG
+                    if [ "$desktop" = "$activeDesktop" ]; then
+                        BG=$COLOR_FOCUS
+                    else
+                        BG=$COLOR_BG
+                    fi
+                    workspaces="${workspaces}%{F${FG}}%{B${BG}}%{A:bspc desktop -f ${desktop}:}${PADDING}${desktop}${PADDING}%{A}%{B-}%{F-}"
+                done
+
+                monitorIcon=$([[ "$layout" = "monocle" ]] && echo "" || echo "")
+                monitorIsActive=$([[ "$focusedMonitor" = "$monitorName" ]] && echo "+" || echo "-")
+                monitor="%{${monitorIsActive}u}%{A:bspc monitor -f ${monitorName}:}${PADDING}${monitorIcon}${PADDING}%{A}%{-u}"
+
+                monitorsContent["$monitorIndex"]="${monitor}${workspaces}"
             done
             ;;
         C*)
@@ -114,34 +53,19 @@ while read -r line ; do
         T*)
             title="%{A:rofi -show window:}${PADDING}${line#?}${PADDING}%{A}" ;;
         E*)
-            email="%{A:switch-or-run \"([A-Za-z0-9]*)\.Thunderbird\" thunderbird:} ${line#?}${PADDING}%{A}"
+            email="%{A:switch-or-run \"([A-Za-z0-9]*)\.Thunderbird\" thunderbird:} ${line#?}${PADDING}%{A}" ;;
     esac
-    if [ $mon_count -gt 1 ]; then
 
-        icon_left=$([[ $layout_left = "M" ]] && echo "" || echo "")
-        active_left=$([[ $cur_focused = "1" ]] && echo "+" || echo "-")
-        wm_left="%{${active_left}u}%{A:bspc monitor -f ${mon_name_left}:}${PADDING}${icon_left}${PADDING}%{A}%{-u}"
-        wm_left="${wm_left}${PADDING}${workspaces_left}${PADDING}"
+    content=""
+    for ((monitorIndex=0 ; monitorIndex<=(${monitorsCount}-1) ; monitorIndex++ )); do
+        content="${content}%{S${monitorIndex}}"
+        content="${content}%{l}${monitorsContent[$monitorIndex]}"
+        content="${content}%{c}${title}"
+        content="${content}%{r}${email}${load}${clock}"
+    done
 
-        icon_right=$([[ $layout_right = "M" ]] && echo "" || echo "")
-        active_right=$([[ $cur_focused = "2" ]] && echo "+" || echo "-")
-        wm_right="%{${active_right}u}%{A:bspc monitor -f ${mon_name_right}:}${PADDING}${icon_right}${PADDING}%{A}%{-u}"
-        wm_right="${wm_right}${PADDING}${workspaces_right}${PADDING}"
+    # >&2 echo -e "\n\n\n${content}"
+    echo "${content}"
 
-        echo "%{S0}" \
-             "%{l}${wm_left}" \
-             "%{c}${title}" \
-             "%{r}${email}${load}${clock}" \
-             "%{S1}" \
-             "%{l}${wm_right}" \
-             "%{c}${title}" \
-             "%{r}${email}${load}${clock}"
-    else
-        icon=$([[ $layout = "M" ]] && echo "" || echo "")
-        wm="%{+u}${PADDING}${icon}${PADDING}%{-u}"
-        wm="${wm}${PADDING}${workspaces}${PADDING}"
-        echo "%{l}${wm}" \
-             "%{c}${title}" \
-             "%{r}${email}${load}${clock}"
-    fi
+    sleep 0.05
 done
