@@ -41,12 +41,23 @@ while read -r line ; do
                     else
                         BG=$COLOR_BG
                     fi
-                    workspaces="${workspaces}%{F${FG}}%{B${BG}}%{A:bspc desktop -f ${desktop}:}${PADDING}${desktop}${PADDING}%{A}%{B-}%{F-}"
+                    workspace="${PADDING}${desktop}${PADDING}"
+                    workspace="%{A:bspc desktop -f ${desktop}:}${workspace}%{A}"
+                    workspace="%{A3:bspc node -d ${desktop}:}${workspace}%{A}"
+                    workspace="%{F${FG}}%{B${BG}}${workspace}%{B-}%{F-}"
+
+                    workspaces="${workspaces}${workspace}"
                 done
 
                 monitorIcon=$([[ "$layout" = "monocle" ]] && echo "" || echo "")
                 monitorIsActive=$([[ "$focusedMonitor" = "$monitorName" ]] && echo "+" || echo "-")
-                monitor="%{${monitorIsActive}u}%{A:bspc monitor -f ${monitorName}:}${PADDING}${monitorIcon}${PADDING}%{A}%{-u}"
+
+                monitor="${PADDING}${monitorIcon}${PADDING}"
+                monitor="%{A:bspc monitor -f ${monitorName}:}${monitor}%{A}"
+                monitor="%{A3:rofi -show drun:}${monitor}%{A}"
+                monitor="%{A4:systray run:}${monitor}%{A}"
+                monitor="%{A5:systray stop:}${monitor}%{A}"
+                monitor="%{${monitorIsActive}u}${monitor}%{-u}"
 
                 monitorsContent["$monitorIndex"]="${monitor}${workspaces}"
             done
@@ -65,12 +76,15 @@ while read -r line ; do
                 result=""
                 pad=15
                 for node in $nodes; do
-                    class="$(getNodePrimaryClass "$node")"
-                    action="wmctrl -ia $node"
+                    class="$(getNodePrimaryClass "${node}")"
+                    current="${PADDING}$(stringPad "$class" $pad)${PADDING}"
+                    current="%{A:bspc node ${node} -g hidden=off -f:}${current}%{A}"
+                    current="%{A2:bspc node ${node} -c:}${current}%{A}"
+                    current="%{A3:bspc node ${node} -g hidden=on:}${current}%{A}"
                     if [ "$node" = "$focusedNode" ]; then
-                        result="${result}%{+u}${PADDING}$(stringPad "$class" $pad)${PADDING}%{-u}"
+                        result="${result}%{+u}${current}%{-u}"
                     else
-                        result="${result}%{A:${action}:}${PADDING}$(stringPad "$class" $pad)${PADDING}%{A}"
+                        result="${result}${current}"
                     fi
                 done
 
@@ -80,6 +94,13 @@ while read -r line ; do
             ;;
         E*)
             email="%{A:switch-or-run \"([A-Za-z0-9]*)\.Thunderbird\" thunderbird:} ${line#?}${PADDING}%{A}" ;;
+        P*)
+            if [ "${line#?}" != "0" ]; then
+                placeholder="%{O${line#?}}"
+            else
+                placeholder=""
+            fi
+            ;;
     esac
 
     content=""
@@ -87,7 +108,7 @@ while read -r line ; do
         content="${content}%{S${monitorIndex}}"
         content="${content}%{l}${monitorsContent[$monitorIndex]}"
         content="${content}%{c}${titlesContent[$monitorIndex]}"
-        content="${content}%{r}${email}${load}${clock}"
+        content="${content}%{r}${email}${load}${clock}${placeholder}"
     done
 
     # >&2 echo -e "\n\n\n${content}"

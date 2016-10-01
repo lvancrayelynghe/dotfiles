@@ -33,6 +33,13 @@ L${loadavg 1}
 panelThunderbird() {
     # Require https://github.com/teleshoes/thunderbird-unread-count
     while true; do
+        if [ ! -d "~/.thunderbird" ]; then
+            exit 1
+        fi
+        if [ $(find ~/.thunderbird -name unread-count | wc -l) = "0" ]; then
+            exit 1
+        fi
+
         count="$(cat ~/.thunderbird/*.default/unread-counts | grep -v "Dossiers locaux" | cut -d: -f1)"
         if [ -z $count ]; then
             exit 1
@@ -42,11 +49,31 @@ panelThunderbird() {
     done > "$PANEL_FIFO" &
 }
 
+panelTrayerPlaceHolder() {
+    if ! command -v trayer > /dev/null 2>&1 ; then
+        exit 1
+    fi
+    while true; do
+        size="$(xprop -name panel -f WM_SIZE_HINTS 32i ' $5\n' WM_NORMAL_HINTS | grep -o '[0-9]*')"
+        if [ -z "$size" ]; then
+            echo "P0"
+        else
+            echo "P${size}"
+        fi
+        sleep 2.5
+    done > "$PANEL_FIFO" &
+}
+
 panelCompile() {
 	panelBspcReport
 	panelXTitle
 	panelConky
-    panelThunderbird
+    if command -v thunderbird > /dev/null 2>&1 ; then
+        panelThunderbird
+    fi
+    if command -v trayer > /dev/null 2>&1 ; then
+        panelTrayerPlaceHolder
+    fi
 }
 
 ############################################################

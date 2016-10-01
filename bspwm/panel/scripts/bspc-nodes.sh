@@ -6,7 +6,7 @@ function getFocusedNodeId() {
 
 function getMonitorNodesIds() {
     monitorName="$1"
-    echo "$(bspc query -N -d $monitorName:focused -n .window.\!hidden)"
+    echo "$(bspc query -N -d $monitorName:focused -n .window)"
 }
 
 function getNodePrimaryClass() {
