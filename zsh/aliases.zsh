@@ -40,6 +40,7 @@ fi
 # Aliases only for non root users
 if [[ $UID != 0 || $EUID != 0 ]]; then
     alias sudo='sudo ' ## Allow aliases to be sudo’ed
+    alias watch='watch ' ## Allow aliases to be watched
     alias halt='sudo shutdown -h now'
     alias reboot='sudo shutdown -r now'
     alias apt='sudo apt-get'
