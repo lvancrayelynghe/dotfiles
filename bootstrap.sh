@@ -20,6 +20,7 @@ declare -A SYMLINKS=(
     ['scripts/popup-calendar.sh']='bin/popup-calendar'
     ['scripts/screenlock.sh']='bin/screenlock'
     ['scripts/switch-or-run.sh']='bin/switch-or-run'
+    ['scripts/systray.sh']='bin/systray'
     ['vim/vim']='.vim'
     ['vim/vimrc']='.vimrc'
     ['bspwm']='.config/bspwm'
