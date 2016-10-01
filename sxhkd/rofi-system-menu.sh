@@ -19,9 +19,9 @@ case $selection in
     $reload)
         pkill -USR1 -x sxhkd ;;
     $restartpan)
-        pkill panel ; panel & ;;
+        pkill panel ; pkill trayer ; panel & ;;
     $quit)
-        [[ $(confirm) = 1 ]] && (pkill panel ; (for win in $(bspc query -N); do bspc node $win -c ; done;) ; bspc quit) ;;
+        [[ $(confirm) = 1 ]] && (pkill panel ; pkill trayer ; (for win in $(bspc query -N); do bspc node $win -c ; done;) ; bspc quit) ;;
     $suspend)
         [[ $(confirm) = 1 ]] && (systemctl suspend -i) ;;
     $reboot)

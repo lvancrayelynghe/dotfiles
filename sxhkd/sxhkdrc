@@ -201,16 +201,20 @@ super + alt + p
 ### PRESELECT ###
 
 # preselect or cancel the direction
-super + p ; {z,q,s,d, space}
+super + p ; {z,q,s,d,space}
     bspc node -p {north,west,south,east,cancel}
 
 # cancel the preselection for the focused desktop
-super + p ; super + space
+super + p ; Escape
     bspc query -N -d | xargs -I id -n 1 bspc node id -p cancel
 
 # preselect the ratio
 super + p ; {ampersand,eacute,quotedbl,apostrophe,parenleft,minus,egrave,underscore,ccedilla}
     bspc node -o 0.{1,2,3,4,5,6,7,8,9}
+
+# Toggle tray visibility
+super + p ; {super + ,_}t
+    systray {stop,run}
 
 
 ### MOVE/RESIZE ###
