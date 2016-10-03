@@ -33,10 +33,10 @@ L${loadavg 1}
 panelThunderbird() {
     # Require https://github.com/teleshoes/thunderbird-unread-count
     while true; do
-        if [ ! -d "~/.thunderbird" ]; then
+        if [ ! -d ~/.thunderbird ]; then
             exit 1
         fi
-        if [ $(find ~/.thunderbird -name unread-count | wc -l) = "0" ]; then
+        if [ $(find ~/.thunderbird -name unread-counts | wc -l) = "0" ]; then
             exit 1
         fi
 
@@ -90,7 +90,7 @@ panelCompile
 COLOR_BG=$(xrdb -query | grep background | cut -f2 | head -1)
 COLOR_FG=$(xrdb -query | grep foreground | cut -f2 | head -1)
 panel_bar < "$PANEL_FIFO" | lemonbar \
-	-a 32 \
+	-a 128 \
 	-n "$PANEL_WM_NAME" \
 	-g x$PANEL_HEIGHT \
 	-o 0 -f "$PANEL_FONT_TEXT" \
