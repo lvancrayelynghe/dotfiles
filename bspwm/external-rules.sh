@@ -20,6 +20,7 @@ if [ "$instance" = "copyq" ] ; then
     echo "focus=off"
     echo "$wid" > /tmp/copyq-wid
     xdotool windowunmap $wid
+    exit 0
 fi
 
 if [ "$instance" = "popup-calendar" ] ; then
