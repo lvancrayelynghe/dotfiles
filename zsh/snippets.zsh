@@ -17,13 +17,13 @@ function ssh:combine()       { cp ~/.ssh/config ~/.ssh/config.bak && cat ~/.ssh/
 function ssh:keygen()        { ssh-keygen -t rsa -b 4096 -C "$1"}
 function ssh:mount()         { mkdir -p "$2" 2> /dev/null ; sshfs "$1" "$2" } # $1: [user@]host:[dir] / $2: mountpoint
 function ssh:mounts()        { \ps x | grep sshfs | grep -v " grep " | awk '{$1=$2=$3=$4="";print $0}' | xargs }
-function ssh:unmount()       { fusermount -u "$1" ; rmdir "$1" 2> /dev/null } # $1: mountpoint
+function ssh:unmount()       { fusermount -u "$1" && rmdir "$1" 2> /dev/null } # $1: mountpoint
 
 # Samba shares
 function smb:all()           { smbtree -b -N }
 function smb:list()          { smbclient -L "$1" -U "$2" } # $1: IP / $2: username
 function smb:mount()         { mkdir -p "$2" 2> /dev/null ; sudo mount.cifs $@ } # $1: //host/sharename / $2: mountpoint
-function smb:unmount()       { sudo umount "$1" ; rmdir "$1" 2> /dev/null  } # $1: mountpoint
+function smb:unmount()       { sudo umount "$1" && rmdir "$1" 2> /dev/null  } # $1: mountpoint
 
 # Terminal snippets
 function term:test256()      { for code in $(seq -w 0 255); do for attr in 0 1; do printf "%s-%03s %bTest%b\n" "${attr}" "${code}" "\e[${attr};38;05;${code}m" "\e[m"; done; done | column -c $((COLUMNS*2)) }
