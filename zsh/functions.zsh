@@ -1,3 +1,5 @@
+#!/usr/bin/env zsh
+
 # List content of archive but don't extract
 function ll-archive() {
     if [ -f "$1" ]; then

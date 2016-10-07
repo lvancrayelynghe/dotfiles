@@ -1,3 +1,5 @@
+#!/usr/bin/env zsh
+
 # List of all options http://zsh.sourceforge.net/Doc/Release/Options-Index.html
 # List of all functions http://zsh.sourceforge.net/Doc/Release/Functions-Index.html
 

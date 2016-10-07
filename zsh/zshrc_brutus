@@ -1,3 +1,5 @@
+#!/usr/bin/env zsh
+
 # Enable prompt Git infos
 ZSH_VCS_INFO=true
 

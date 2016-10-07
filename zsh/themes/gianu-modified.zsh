@@ -1,3 +1,5 @@
+#!/usr/bin/env zsh
+
 # Load colors vars http://zsh.sourceforge.net/Doc/Release/User-Contributions.html#index-colors
 autoload -U colors && colors
 

@@ -1,3 +1,5 @@
+#!/usr/bin/env zsh
+
 # Reworked agnoster's Theme - https://gist.github.com/3712874
 # Based on https://gist.github.com/rjorgenson/83094662ace4d3b82b95
 #

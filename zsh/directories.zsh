@@ -1,3 +1,5 @@
+#!/usr/bin/env zsh
+
 setopt auto_pushd        # Make cd push the old directory onto the directory stack.
 setopt pushd_ignore_dups # don't push multiple copies of the same directory onto the directory stack
 setopt pushdminus        # Reverts the +/- operators (for cd +<TAB> and cd -<TAB>)

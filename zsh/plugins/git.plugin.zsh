@@ -1,3 +1,5 @@
+#!/usr/bin/env zsh
+
 # get the name of the branch we are on
 function git_prompt_info() {
   if [[ "$(command git config --get oh-my-zsh.hide-status 2>/dev/null)" != "1" ]]; then
@@ -40,7 +42,7 @@ git_remote_status() {
         then
             git_remote_status="$ZSH_THEME_GIT_PROMPT_AHEAD_REMOTE"
             git_remote_status_detailed="$ZSH_THEME_GIT_PROMPT_AHEAD_REMOTE_COLOR$ZSH_THEME_GIT_PROMPT_AHEAD_REMOTE$((ahead))%{$reset_color%}"
-        elif [ $behind -gt 0 ] && [ $ahead -eq 0 ] 
+        elif [ $behind -gt 0 ] && [ $ahead -eq 0 ]
         then
             git_remote_status="$ZSH_THEME_GIT_PROMPT_BEHIND_REMOTE"
             git_remote_status_detailed="$ZSH_THEME_GIT_PROMPT_BEHIND_REMOTE_COLOR$ZSH_THEME_GIT_PROMPT_BEHIND_REMOTE$((behind))%{$reset_color%}"

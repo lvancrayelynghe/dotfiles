@@ -1,3 +1,5 @@
+#!/usr/bin/env zsh
+
 # Key bindings
 # ------------
 if [[ $- == *i* ]]; then

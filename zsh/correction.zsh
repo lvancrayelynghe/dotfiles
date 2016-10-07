@@ -1,3 +1,5 @@
+#!/usr/bin/env zsh
+
 if [[ "$ENABLE_CORRECTION" == "true" ]]; then
   alias ebuild='nocorrect ebuild'
   alias gist='nocorrect gist'

@@ -1,3 +1,5 @@
+#!/usr/bin/env zsh
+
 ## Command history configuration
 if [ -z "$HISTFILE" ]; then
     HISTFILE=$HOME/.cache/zsh-history

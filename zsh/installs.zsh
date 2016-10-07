@@ -1,3 +1,5 @@
+#!/usr/bin/env zsh
+
 mkdir -p "$BIN_PATH"
 mkdir -p "$HOME/.cache/zsh-plugins"
 

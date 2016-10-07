@@ -1,3 +1,5 @@
+#!/usr/bin/env zsh
+
 # commands to ignore
 cmdignore=(man su htop top vim v desk dg)
 

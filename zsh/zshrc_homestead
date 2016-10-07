@@ -1,3 +1,5 @@
+#!/usr/bin/env zsh
+
 export LANG=fr_FR.utf8
 
 # Homestead host creation

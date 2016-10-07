@@ -1,3 +1,5 @@
+#!/usr/bin/env zsh
+
 skip_global_compinit=1
 export DOTFILES_PATH=${DOTFILES_PATH:-~/dotfiles/public}
 export LESSHISTFILE=-

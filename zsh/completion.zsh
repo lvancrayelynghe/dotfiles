@@ -1,3 +1,5 @@
+#!/usr/bin/env zsh
+
 ZSH_COMPDUMP="$HOME/.cache/zsh-completion-dump"
 
 # Load and run compinit (autocompletion)

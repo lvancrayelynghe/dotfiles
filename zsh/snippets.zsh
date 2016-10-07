@@ -1,3 +1,5 @@
+#!/usr/bin/env zsh
+
 # Find snippets
 function find:days()         { find . -type f -mtime -$1 | grep -v "/.git/" }
 function find:minutes()      { find . -type f -mmin -$1 | grep -v "/.git/" }

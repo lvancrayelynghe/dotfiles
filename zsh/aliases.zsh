@@ -1,4 +1,6 @@
-# Global aliases only works with ZSH
+#!/usr/bin/env zsh
+
+## Global aliases only works with ZSH
 if [[ "$0" =~ 'zsh' ]]; then
     # Global directories aliases
     alias -g ..='..'

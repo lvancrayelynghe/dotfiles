@@ -1,3 +1,5 @@
+#!/usr/bin/env zsh
+
 # DEBUG=true
 function trace-time() {
     if [ -n "$TT_START" ]; then

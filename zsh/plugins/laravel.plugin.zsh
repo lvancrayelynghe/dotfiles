@@ -1,3 +1,5 @@
+#!/usr/bin/env zsh
+
 #compdef artisan
 # ------------------------------------------------------------------------------
 # Copyright (c) 2011 Github zsh-users - http://github.com/zsh-users
