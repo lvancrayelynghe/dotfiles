@@ -19,7 +19,7 @@ autoload -Uz url-quote-magic
 zle -N self-insert url-quote-magic
 
 # If we don't have a local bin, add it
-[[ ! -d "$BIN_PATH" ]] && mkdir $BIN_PATH
+[[ ! -d "$BIN_PATH" ]] && mkdir "$BIN_PATH"
 
 # add bin in path
 export PATH=$BIN_PATH:$PATH

@@ -56,7 +56,7 @@ _artisan () {
     if [ -f artisan ]; then
         local -a commands
         IFS=$'\n'
-        commands=(`_artisan_get_command_list`)
+        commands=($(_artisan_get_command_list))
         _describe 'commands' commands
     fi
 }

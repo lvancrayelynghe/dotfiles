@@ -83,7 +83,7 @@ function compress() {
 
 # Show aliases and functions cheat-sheet
 function cheat-sheet() {
-    cat ${DOTFILES_PATH}/zsh/aliases.zsh |
+    cat "${DOTFILES_PATH}/zsh/aliases.zsh" |
         perl -p0e 's/\nelse\n.*?\nfi\n/\n/sg' |
         perl -p0e 's/\nfor .*?done\n//sg' |
         grep -v "^if " |
@@ -99,7 +99,7 @@ function cheat-sheet() {
     echo ""
     echo "\x1b[32m\x1b[1m\n# Functions\x1b[0m"
 
-    cat ${DOTFILES_PATH}/zsh/functions.zsh |
+    cat "${DOTFILES_PATH}/zsh/functions.zsh" |
         grep "^function" -B1 |
         grep -v "^--" |
         awk '{printf "%s%s",$0,NR%2?"\t":"\n" ; }' |

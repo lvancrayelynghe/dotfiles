@@ -9,7 +9,7 @@ gnuunits=0
 # get the current active window id
 function active-window-id {
     if [[ -n $DISPLAY ]]; then
-        echo `xprop -root _NET_ACTIVE_WINDOW`
+        xprop -root _NET_ACTIVE_WINDOW
     else
         echo nowindowid
     fi
@@ -18,12 +18,12 @@ function active-window-id {
 # end and compare timer, notify-send if needed
 function notifyosd-precmd() {
 	retval=$?
-    if [[ ${cmdignore[(r)$cmd_basename]} == $cmd_basename ]]; then
+    if [[ ${cmdignore[(r)$cmd_basename]} == "$cmd_basename" ]]; then
         return
     else
         if [ ! -z "$cmd" ]; then
-            cmd_end=`date +%s`
-            ((cmd_secs=$cmd_end - $cmd_start))
+            cmd_end=$(date +%s)
+            ((cmd_secs=cmd_end - cmd_start))
         fi
         if [ $retval -gt 0 ]; then
 			cmdstat="with warning"
@@ -40,8 +40,8 @@ function notifyosd-precmd() {
 			else
 				cmd_time="$cmd_secs seconds"
 			fi
-            if [ ! -z $SSH_TTY ] ; then
-                notify-send -i utilities-terminal -u $urgency "$cmd_basename on `hostname` completed $cmdstat" "\"$cmd\" took $cmd_time"
+            if [ ! -z "$SSH_TTY" ] ; then
+                notify-send -i utilities-terminal -u $urgency "$cmd_basename on $(hostname) completed $cmdstat" "\"$cmd\" took $cmd_time"
 				play -q $sndstat &>/dev/null
             else
                 notify-send -i utilities-terminal -u $urgency "$cmd_basename completed $cmdstat" "\"$cmd\" took $cmd_time"
@@ -60,7 +60,7 @@ function notifyosd-preexec() {
     window_id_before=$(active-window-id)
     cmd=$1
     cmd_basename=${${cmd:s/sudo //}[(ws: :)1]}
-    cmd_start=`date +%s`
+    cmd_start=$(date +%s)
 }
 
 # make sure this plays nicely with any existing preexec
