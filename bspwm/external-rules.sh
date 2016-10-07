@@ -14,15 +14,6 @@ eval $(xwininfo -id $wid | \
        -e "s/^ \+Width: \+\([0-9]\+\).*/w=\1/p" \
        -e "s/^ \+Height: \+\([0-9]\+\).*/h=\1/p" )
 
-
-if [ "$instance" = "copyq" ] ; then
-    echo "state=floating"
-    echo "focus=off"
-    echo "$wid" > /tmp/copyq-wid
-    xdotool windowunmap $wid
-    exit 0
-fi
-
 if [ "$instance" = "popup-calendar" ] ; then
     echo "state=floating"
     echo "focus=on"
