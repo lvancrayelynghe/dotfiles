@@ -55,7 +55,10 @@ set statusline=%<%f\%h%m%r%=%-20.(line=%l\ \ col=%c%V\ \ totlin=%L%)\ \ \%h%m%r%
 "let g:solarized_termtrans=1
 
 " Use the Tomorrow Night theme
-colorscheme tomorrow-night
+" colorscheme tomorrow-night
+
+" Use the Tomorrow Night theme
+colorscheme gruvbox
 
 autocmd BufRead,BufNew *.md set filetype=markdown
 
