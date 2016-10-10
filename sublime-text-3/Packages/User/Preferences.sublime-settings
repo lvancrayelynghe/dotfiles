@@ -11,6 +11,7 @@
 	"font_face": "Hack",
 	"font_size": 12,
 	"gruvbox_accent_orange": true,
+	"gruvbox_folder_icons_spacegray": true,
 	"gruvbox_tabs_xs": true,
 	"highlight_active_indent_guide": true,
 	"highlight_line": true,
