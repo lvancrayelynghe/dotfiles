@@ -111,7 +111,7 @@ done
 
 if [ -n "$wid" ]; then
     for id in $(xdo id -N Bspwm -n root | sort); do
-        xdo above -t "$id" "$wid"
+        xdo above -t "$wid" "$id"
     done
 fi
 wait
