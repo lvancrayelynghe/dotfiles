@@ -10,6 +10,8 @@
 	],
 	"font_face": "Hack",
 	"font_size": 12,
+	"gruvbox_accent_orange": true,
+	"gruvbox_tabs_xs": true,
 	"highlight_active_indent_guide": true,
 	"highlight_line": true,
 	"ignored_packages":
@@ -20,7 +22,5 @@
 	"trim_trailing_white_space_on_save": true,
 	"word_separators": "./\\()\"'-:,.;<>~!@#%^&*|+=[]{}`~?",
 	"word_wrap": false,
-	"wrap_width": 0,
-	"gruvbox_accent_orange": true,
-	"gruvbox_tabs_xs": true
+	"wrap_width": 0
 }

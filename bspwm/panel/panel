@@ -54,7 +54,7 @@ panelTrayerPlaceHolder() {
         exit 1
     fi
     while true; do
-        size="$(xprop -name panel -f WM_SIZE_HINTS 32i ' $5\n' WM_NORMAL_HINTS | grep -o '[0-9]*')"
+        size="$(xprop -name $PANEL_WM_NAME -f WM_SIZE_HINTS 32i ' $5\n' WM_NORMAL_HINTS | grep -o '[0-9]*')"
         if [ -z "$size" ]; then
             echo "P0"
         else
@@ -109,6 +109,9 @@ while [ -z "$wid" -a "$tries_left" -gt 0 ] ; do
 	tries_left=$((tries_left - 1))
 done
 
-[ -n "$wid" ] && xdo above -t "$(xdo id -N Bspwm -n root | sort | head -n 1)" "$wid"
-
+if [ -n "$wid" ]; then
+    for id in $(xdo id -N Bspwm -n root | sort); do
+        xdo above -t "$id" "$wid"
+    done
+fi
 wait
