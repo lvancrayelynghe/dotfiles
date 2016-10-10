@@ -38,7 +38,7 @@ super + {_,alt + }g
 super + {_,alt + }z
     {switch-or-run "qutebrowser.qutebrowser" ,_} qutebrowser
 
-super + {_,alt + }z
+super + {_,alt + }c
     {switch-or-run "gnome-calculator.Gnome-calculator" ,_} gnome-calculator
 
 super + F12
