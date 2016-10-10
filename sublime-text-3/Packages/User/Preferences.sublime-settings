@@ -1,5 +1,5 @@
 {
-	"color_scheme": "Packages/One Dark Color Scheme/One Dark.tmTheme",
+	"color_scheme": "Packages/gruvbox/gruvbox (Dark) (Hard) NDC.tmTheme",
 	"folder_exclude_patterns":
 	[
 		".svn",
@@ -16,9 +16,11 @@
 	[
 		"Vintage"
 	],
-	"theme": "OneDarkMaterial.sublime-theme",
+	"theme": "gruvbox (Dark) (Hard).sublime-theme",
 	"trim_trailing_white_space_on_save": true,
 	"word_separators": "./\\()\"'-:,.;<>~!@#%^&*|+=[]{}`~?",
 	"word_wrap": false,
-	"wrap_width": 0
+	"wrap_width": 0,
+	"gruvbox_accent_orange": true,
+	"gruvbox_tabs_xs": true
 }

@@ -6,7 +6,7 @@
 
 
 ! ** Colorscheme
-#include ".config/xresources/tomorrow-night"
+#include ".config/xresources/gruvbox"
 
 
 ! ** Term colours

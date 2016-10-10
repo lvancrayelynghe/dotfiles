@@ -1,0 +1,24 @@
+! ** Gruvbox
+
+#define BACKGROUND    #282828
+#define FOREGROUND    #EBDBB2
+#define SELECTION     #32302F
+
+#define BLACK         #282828
+#define DARKGREY      #928374
+#define LIGHTGREY     #A89984
+#define WHITE         #EBDBB2
+
+#define BLUE          #83A598
+#define CYAN          #8EC07C
+#define GREEN         #B8BB26
+#define MAGENTA       #D3869B
+#define RED           #FB4934
+#define YELLOW        #FABD2F
+
+#define DARKBLUE      #458588
+#define DARKCYAN      #689D6A
+#define DARKGREEN     #98971A
+#define DARKMAGENTA   #B16286
+#define DARKRED       #CC241D
+#define DARKYELLOW    #D79921
