@@ -38,6 +38,7 @@ declare -A SYMLINKS=(
     ['others/altyo_config-standalone.ini']='.config/altyo/config-standalone.ini'
     ['others/altyo_config.ini']='.config/altyo/config.ini'
     ['others/bcrc']='.bcrc'
+    ['others/compton.conf']='.config/compton.conf'
     ['others/curlrc']='.curlrc'
     ['others/cvsignore']='.cvsignore'
     ['others/dircolors']='.dircolors'
