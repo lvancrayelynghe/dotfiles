@@ -1,0 +1,24 @@
+! ** Tomorrow Night "almost" Eighties
+
+#define BACKGROUND    #2F2F2F
+#define FOREGROUND    #CCCCCC
+#define SELECTION     #393939
+
+#define BLACK         #000000
+#define DARKGREY      #555555
+#define LIGHTGREY     #999999
+#define WHITE         #FFFFFF
+
+#define BLUE          #81A2BE
+#define CYAN          #8ABEB7
+#define GREEN         #B5BD68
+#define MAGENTA       #B294BB
+#define RED           #CC6666
+#define YELLOW        #F0C674
+
+#define DARKBLUE      #81A2BE
+#define DARKCYAN      #8ABEB7
+#define DARKGREEN     #B5BD68
+#define DARKMAGENTA   #B294BB
+#define DARKRED       #CC6666
+#define DARKYELLOW    #F0C674

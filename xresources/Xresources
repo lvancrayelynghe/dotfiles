@@ -5,36 +5,40 @@
 ! [[ -f ~/.Xresources ]] && xrdb -merge ~/.Xresources
 
 
-! ** Term colours (Tomorrow Night "almost" Eighties)
+! ** Colorscheme
+#include ".config/xresources/tomorrow-night"
+
+
+! ** Term colours
 ! Background, Foreground, Selection
-*background:  #2F2F2F
-*foreground:  #CCCCCC
-*selection:   #393939
-*scrollColor: #393939
+*background:  BACKGROUND
+*foreground:  FOREGROUND
+*selection:   SELECTION
+*scrollColor: SELECTION
 ! Black, DarkGrey
-*color0:      #000000
-*color8:      #555555
+*color0:      BLACK
+*color8:      DARKGREY
 ! DarkRed, Red
-*color1:      #CC6666
-*color9:      #CC6666
+*color1:      DARKRED
+*color9:      RED
 ! DarkGreen, Green
-*color2:      #B5BD68
-*color10:     #B5BD68
+*color2:      DARKGREEN
+*color10:     GREEN
 ! DarkYellow, Yellow
-*color3:      #F0C674
-*color11:     #F0C674
+*color3:      DARKYELLOW
+*color11:     YELLOW
 ! DarkBlue, Blue
-*color4:      #81A2BE
-*color12:     #81A2BE
+*color4:      DARKBLUE
+*color12:     BLUE
 ! DarkMagenta, Magenta
-*color5:      #B294BB
-*color13:     #B294BB
+*color5:      DARKMAGENTA
+*color13:     MAGENTA
 ! DarkCyan, Cyan
-*color6:      #8ABEB7
-*color14:     #8ABEB7
+*color6:      DARKCYAN
+*color14:     CYAN
 ! LightGrey, White
-*color7:      #999999
-*color15:     #FFFFFF
+*color7:      LIGHTGREY
+*color15:     WHITE
 
 
 ! ** URxvt
@@ -101,10 +105,10 @@ rofi.color-enabled:              true
 rofi.font:                       Hack 10
 rofi.opacity:                    90
 rofi.bw:                         10
-rofi.color-window:               #2D2D2D, #2D2D2D, #393939
-rofi.color-normal:               #2D2D2D, #C1C1C1, #2D2D2D, #393939, #FFFFFF
-rofi.color-active:               #2D2D2D, #B5BD68, #2D2D2D, #393939, #B5BD68
-rofi.color-urgent:               #2D2D2D, #CC6666, #2D2D2D, #393939, #CC6666
+rofi.color-window:               BACKGROUND, BACKGROUND, SELECTION
+rofi.color-normal:               BACKGROUND, FOREGROUND, BACKGROUND, SELECTION, WHITE
+rofi.color-active:               BACKGROUND, DARKGREEN,  BACKGROUND, SELECTION, DARKGREEN
+rofi.color-urgent:               BACKGROUND, DARKRED,    BACKGROUND, SELECTION, DARKRED
 rofi.separator-style:            solid
 rofi.kb-remove-word-back:        Control+w
 rofi.kb-clear-line:              Control+Alt+w
