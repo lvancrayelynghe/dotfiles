@@ -53,8 +53,10 @@ panelTrayerPlaceHolder() {
     if ! command -v trayer > /dev/null 2>&1 ; then
         exit 1
     fi
+
+    # panel here is for trayer
     while true; do
-        size="$(xprop -name $PANEL_WM_NAME -f WM_SIZE_HINTS 32i ' $5\n' WM_NORMAL_HINTS | grep -o '[0-9]*')"
+        size="$(xprop -name panel -f WM_SIZE_HINTS 32i ' $5\n' WM_NORMAL_HINTS | grep -o '[0-9]*')"
         if [ -z "$size" ]; then
             echo "P0"
         else
