@@ -41,8 +41,11 @@ super + {_,alt + }z
 super + {_,alt + }c
     {switch-or-run "gnome-calculator.Gnome-calculator" ,_} gnome-calculator
 
+super + {_,alt + }m
+    {switch-or-run "cmus.URxvt" ,_} cmus-window
+
 super + F12
-    switch-or-run "popup-calendar.URxvt" popup-calendar
+    {switch-or-run "popup-calendar.URxvt" ,_} popup-calendar
 
 super + l
     screenlock
