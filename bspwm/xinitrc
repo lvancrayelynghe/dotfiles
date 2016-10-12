@@ -23,6 +23,9 @@ sxhkd -m 1 &
 xsetroot -cursor_name left_ptr &
 numlock &
 
+# DPMS monitor setting (standby -> suspend -> off) (in seconds)
+xset dpms 300 600 900 &
+
 if [ -e ~/.Xresources ]; then
     xrdb -merge ~/.Xresources &
 fi
