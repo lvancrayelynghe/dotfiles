@@ -49,6 +49,7 @@ declare -A SYMLINKS=(
     ['others/gitconfig']='.gitconfig'
     ['others/gtkrc-2.0']='.gtkrc-2.0'
     ['others/indicator-sysmonitor.json']='.indicator-sysmonitor.json'
+    ['others/lesskey']='.lesskey'
     ['others/mimeapps.list']='.local/share/applications/mimeapps.list'
     ['others/my.cnf']='.my.cnf'
     ['others/nanorc']='.nanorc'

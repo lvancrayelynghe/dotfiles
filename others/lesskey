@@ -1,0 +1,8 @@
+z    back-line
+Z    back-line 10
+s    forw-line
+S    forw-line 10
+r    goto-line 0
+R    goto-end
+x    quit
+
