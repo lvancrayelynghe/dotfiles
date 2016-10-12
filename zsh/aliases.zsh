@@ -247,6 +247,7 @@ done
 
 # Curl & web helpers
 alias dl='curl --continue-at - --location --progress-bar --remote-name --remote-time' ## download a file
+alias weather='curl -A curl wttr.in'
 alias wget-site='wget --mirror -p --convert-links -P'
 alias header='curl-header'
 alias purge='curl-purge'
