@@ -30,9 +30,9 @@ if [ -e ~/.Xresources ]; then
     xrdb -merge ~/.Xresources &
 fi
 if [ -e ~/.wallpaper.jpg ] && hash feh > /dev/null 2>&1 ; then
-    feh --bg-scale ~/.wallpaper.jpg &
+    feh --bg-fill ~/.wallpaper.jpg &
 elif [ -e ~/.wallpaper.png ] && hash feh > /dev/null 2>&1 ; then
-    feh --bg-scale ~/.wallpaper.png &
+    feh --bg-fill ~/.wallpaper.png &
 fi
 if [ -e ~/bin/screenlock ] && hash xautolock > /dev/null 2>&1 ; then
     xautolock -time 5 -locker 'screenlock' &
