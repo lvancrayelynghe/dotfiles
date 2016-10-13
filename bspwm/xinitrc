@@ -37,6 +37,12 @@ fi
 if [ -e ~/bin/screenlock ] && hash xautolock > /dev/null 2>&1 ; then
     xautolock -time 5 -locker 'screenlock' &
 fi
+if [ -f /usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1 ] ; then
+    /usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1 &
+fi
+if hash pcmanfm > /dev/null 2>&1 ; then
+    dbus-launch pcmanfm -d &
+fi
 if hash udiskie > /dev/null 2>&1 ; then
     udiskie &
 fi
