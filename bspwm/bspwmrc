@@ -1,7 +1,9 @@
 #! /bin/sh
 
 # Get monitors list with "xrandr -q"
-if [ `systemd-detect-virt` = 'oracle' ]; then
+if [ "$(bspc query -M | wc -l)" = "1" ]; then
+	bspc monitor DVI-I-1 -d web misc work mail music others
+elif [ $(systemd-detect-virt) = 'oracle' ]; then
 	bspc monitor VGA-1 -d web misc
 	bspc monitor VGA-2 -d work mail music others
 else
