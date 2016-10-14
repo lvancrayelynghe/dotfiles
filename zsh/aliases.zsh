@@ -40,6 +40,7 @@ else
 fi
 
 # Aliases only for non root users
+alias apt-installed="aptitude search '~i!~M'"
 if [[ $UID != 0 || $EUID != 0 ]]; then
     alias sudo='sudo ' ## Allow aliases to be sudo’ed
     alias watch='watch ' ## Allow aliases to be watched
