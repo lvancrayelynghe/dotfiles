@@ -43,6 +43,7 @@ declare -A SYMLINKS=(
     ['others/curlrc']='.curlrc'
     ['others/cvsignore']='.cvsignore'
     ['others/dircolors']='.dircolors'
+    ['others/dunstrc']='.config/dunst/dunstrc'
     ['others/gemrc']='.gemrc'
     ['others/git-templates']='.git-templates'
     ['others/gitattributes']='.gitattributes'
