@@ -27,7 +27,7 @@ super + {_,alt + }b
     {switch-or-run "([A-Za-z0-9]*)\.Thunderbird" ,_}thunderbird
 
 super + {_,alt + }e
-    {switch-or-run "nemo.Nemo" ,_} nemo
+    {switch-or-run "pcmanfm.Pcmanfm" ,_} pcmanfm
 
 super + {_,alt + }f
     {switch-or-run "filezilla.Filezilla" ,_} filezilla
