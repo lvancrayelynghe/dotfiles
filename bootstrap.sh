@@ -20,6 +20,7 @@ declare -A SYMLINKS=(
     ['scripts/move-to-next-monitor.sh']='bin/move-to-next-monitor'
     ['scripts/numlock.sh']='bin/numlock'
     ['scripts/popup-calendar.sh']='bin/popup-calendar'
+    ['scripts/rec-gif.sh']='bin/rec-gif'
     ['scripts/screenlock.sh']='bin/screenlock'
     ['scripts/switch-or-run.sh']='bin/switch-or-run'
     ['scripts/systray.sh']='bin/systray'
