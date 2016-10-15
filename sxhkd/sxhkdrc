@@ -249,13 +249,16 @@ super + n
 
 ### SPECIAL KEYS ###
 XF86Music
-    mpc
+    {switch-or-run "cmus.URxvt" ,_} cmus-window
+
+XF86AudioMedia
+    {switch-or-run "cmus.URxvt" ,_} cmus-window
 
 XF86Audio{Prev,Next}
-    mpc -q {prev,next}
+    cmus-remote --{prev,next}
 
 XF86AudioPlay
-    mpc -q toggle
+    cmus-remote --pause
 
 XF86Audio{LowerVolume,RaiseVolume}
     amixer -q sset Master 5%{-,+}
@@ -264,22 +267,25 @@ XF86AudioMute
     amixer -q set Master toggle
 
 XF86Calculator
-    gnome-calculator
+    {switch-or-run "gnome-calculator.Gnome-calculator" ,_} gnome-calculator
 
 XF86Display
-    urxvt
+    {switch-or-run "urxvt.URxvt" ,_} urxvt
 
 XF86Explorer
-    nemo
+    {switch-or-run "pcmanfm.Pcmanfm" ,_} pcmanfm
 
 XF86HomePage
-    chromium-browser
+    {switch-or-run "chromium-browser.chromium-browser" ,_} chromium-browser
 
 XF86WWW
-    chromium-browser
+    {switch-or-run "chromium-browser.chromium-browser" ,_} chromium-browser
+
+XF86Search
+    {switch-or-run "chromium-browser.chromium-browser" ,_} chromium-browser
 
 XF86Mail
-    thunderbird
+    {switch-or-run "([A-Za-z0-9]*)\.Thunderbird" ,_}thunderbird
 
 XF86Messenger
     pidgin
