@@ -6,13 +6,14 @@ confirm() {
 
 reload="Reload sxhkd configuration"
 restartpan="Restart panel"
+quitpan="Quit panel"
 quit="Quit bspwm"
 suspend="Suspend"
 reboot="Reboot"
 shutdown="Shutdown"
 
 
-content="$reload\n$restartpan\n$quit\n$suspend\n$reboot\n$shutdown"
+content="$reload\n$restartpan\n$quitpan\n$quit\n$suspend\n$reboot\n$shutdown"
 
 selection=$(echo -e $content | rofi -dmenu -i -markup-rows -p "Action: ")
 case $selection in
@@ -20,6 +21,8 @@ case $selection in
         pkill -USR1 -x sxhkd ;;
     $restartpan)
         pkill panel ; pkill trayer ; panel & ;;
+    $quitpan)
+        pkill panel ; pkill trayer ; bspc config top_padding 0 ;;
     $quit)
         [[ $(confirm) = 1 ]] && (pkill panel ; pkill trayer ; (for win in $(bspc query -N); do bspc node $win -c ; done;) ; bspc quit) ;;
     $suspend)
