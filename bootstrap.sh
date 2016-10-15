@@ -4,6 +4,7 @@ declare -A COPIES=(
     ['bash/bashrc']='.bashrc'
     ['zsh/zshenv']='.zshenv'
     ['others/albert.conf']='.config/albert/albert.conf'
+    ['others/cmus_autosave']='.config/cmus/autosave'
     ['others/ssh_config']='.ssh/config'
     ['others/tilda_config_0']='.config/tilda/config_0'
 )
