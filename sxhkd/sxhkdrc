@@ -54,10 +54,10 @@ Print
     copyq && maim --format png /dev/stdout | copyq copy image/png -
 
 shift + Print
-    copyq && maim -s --format png /dev/stdout | copyq copy image/png -
+    copyq && maim -s -l -c 0.3,0.4,0.6,0.4 --format png /dev/stdout | copyq copy image/png -
 
 alt + Print
-    copyq && maim -s --format png /dev/stdout | copyq copy image/png -
+    maim -s -l -c 0.3,0.4,0.6,0.4 ~/screen-$(date +%F-%T).png
 
 ctrl + alt + Delete
     xkill
