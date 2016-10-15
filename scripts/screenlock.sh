@@ -4,7 +4,7 @@
 icon="$HOME/.config/xlock/icon.png"
 tmpbg='/tmp/screenlock.png'
 
-[[ $(hash maim > /dev/null 2>&1) ]] && maim "$tmpbg" || scrot "$tmpbg"
+hash maim > /dev/null 2>&1 && maim "$tmpbg" || scrot "$tmpbg"
 convert "$tmpbg" -scale 10% -scale 1000% "$tmpbg"
 [[ -e $icon ]] && convert "$tmpbg" "$icon" -gravity center -composite -matte "$tmpbg"
 i3lock -u -i "$tmpbg"
