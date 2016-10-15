@@ -111,9 +111,6 @@ while [ -z "$wid" -a "$tries_left" -gt 0 ] ; do
 	tries_left=$((tries_left - 1))
 done
 
-if [ -n "$wid" ]; then
-    for id in $(xdo id -N Bspwm -n root | sort); do
-        xdo above -t "$wid" "$id"
-    done
-fi
+xdo above -t $(xwininfo -root -children | egrep -o "0x[[:xdigit:]]+" | tail -1) "$wid"
+
 wait
