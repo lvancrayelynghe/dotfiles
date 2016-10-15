@@ -21,13 +21,13 @@ super + {_,alt + }t
     {switch-or-run "urxvt.URxvt" ,_} urxvt
 
 super + {_,alt + }s
-    {switch-or-run "sublime_text.Sublime_text" ,_}subl
+    {switch-or-run "sublime_text.Sublime_text" ,_} subl
 
 super + {_,alt + }b
-    {switch-or-run "([A-Za-z0-9]*)\.Thunderbird" ,_}thunderbird
+    {switch-or-run "([A-Za-z0-9]*)\.Thunderbird" ,_} thunderbird
 
 super + {_,alt + }e
-    {switch-or-run "pcmanfm.Pcmanfm" ,_} pcmanfm
+    {switch-or-run "pcmanfm.Pcmanfm" ,_} "pcmanfm $HOME"
 
 super + {_,alt + }f
     {switch-or-run "filezilla.Filezilla" ,_} filezilla

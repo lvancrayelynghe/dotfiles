@@ -56,6 +56,7 @@ declare -A SYMLINKS=(
     ['others/my.cnf']='.my.cnf'
     ['others/nanorc']='.nanorc'
     ['others/notify-osd']='.notify-osd'
+    ['others/pcmanfm.conf']='.config/pcmanfm/default/pcmanfm.conf'
     ['others/remarkable.settings']='.remarkable/remarkable.settings'
     ['others/sift.conf']='.sift.conf'
     ['others/sshrc']='.sshrc'
