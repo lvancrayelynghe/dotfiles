@@ -5,7 +5,7 @@ let mapleader=":"                " Force default mapleader
 set nocompatible                 " Get rid of Vi compatibility mode. SET FIRST!
 set ttyfast                      " Faster refraw
 set encoding=utf-8 nobomb        " Use UTF-8 without BOM
-set mouse=nv                     " Enable mouse in all modes
+set mouse=                       " Enable mouse in all modes
 set clipboard=unnamed            " Use the OS clipboard by default (on versions compiled with `+clipboard`)
 set wildmenu                     " Enhance command-line completion
 set nobackup                     " No backup
