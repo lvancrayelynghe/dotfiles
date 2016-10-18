@@ -151,3 +151,37 @@ set showmode
 " File explorer
 nmap <F4> :Explore<CR>
 set showmode
+
+" Tabs
+nnoremap th  :tabprev<CR>
+nnoremap tj  :tabfirst<CR>
+nnoremap tk  :tablast<CR>
+nnoremap tl  :tabprev<CR>
+nnoremap tt  :tabnew<CR>
+nnoremap tn  :tabnew<CR>
+nnoremap tm  :tabm<Space>
+nnoremap td  :tabclose<CR>
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Plugins                                                                    "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+if !empty(glob('~/.vim/autoload/plug.vim'))
+    " Install with :
+    " curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    call plug#begin('~/.vim/plugged')
+    Plug 'ctrlpvim/ctrlp.vim'
+    Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+    Plug 'tomtom/tcomment_vim'
+    Plug 'airblade/vim-gitgutter'
+    Plug 'ervandew/supertab'
+    Plug 'terryma/vim-multiple-cursors'
+    call plug#end()
+    " Options
+    let g:SuperTabMappingTabLiteral = '<s-tab>'
+    let g:SuperTabMappingBackward = '<c-s-a-tab>'
+    " Keybindings
+    map <C-b> :NERDTreeToggle<CR>
+    map <C-p> :FZF<CR>
+endif
+
