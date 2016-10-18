@@ -182,6 +182,5 @@ if !empty(glob('~/.vim/autoload/plug.vim'))
     let g:SuperTabMappingBackward = '<c-s-a-tab>'
     " Keybindings
     map <C-b> :NERDTreeToggle<CR>
-    map <C-p> :FZF<CR>
 endif
 
