@@ -5,6 +5,11 @@
     { "keys": ["ctrl+s"], "command": "save" },
     { "keys": ["ctrl+shift+s"], "command": "save_all" },
     { "keys": ["ctrl+w"], "command": "close" },
+    { "keys": ["ctrl+x"], "command": "cut" },
+    { "keys": ["ctrl+c"], "command": "copy" },
+    { "keys": ["ctrl+shift+c"], "command": "copy_path" },
+    { "keys": ["ctrl+v"], "command": "paste" },
+    { "keys": ["ctrl+shift+v"], "command": "paste_and_indent" },
 
     { "keys": ["f11"], "command": "toggle_full_screen" },
     { "keys": ["ctrl+f2"], "command": "show_panel", "args": {"panel": "console", "toggle": true} },
