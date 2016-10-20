@@ -23,6 +23,9 @@ super + {_,alt + }t
 super + {_,alt + }s
     {switch-or-run "sublime_text.Sublime_text" ,_} subl
 
+super + {_,alt + }a
+    {switch-or-run "atom.Atom" ,_} atom
+
 super + {_,alt + }b
     {switch-or-run "([A-Za-z0-9]*)\.Thunderbird" ,_} thunderbird
 
@@ -36,7 +39,10 @@ super + {_,alt + }g
     {switch-or-run "chromium-browser.chromium-browser" ,_} chromium-browser
 
 super + {_,alt + }z
-    {switch-or-run "qutebrowser.qutebrowser" ,_} qutebrowser
+    {switch-or-run "mail.google.com.chromium-browser" ,_} "chromium-browser --app=https://mail.google.com/"
+
+super + {_,alt + }p
+    {switch-or-run "([A-Za-z0-9]*).slack.com.chromium-browser" ,_} "chromium-browser --app=https://pimenteo.slack.com/"
 
 super + {_,alt + }c
     {switch-or-run "gnome-calculator.Gnome-calculator" ,_} gnome-calculator
