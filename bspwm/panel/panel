@@ -40,7 +40,7 @@ panelThunderbird() {
             exit 1
         fi
 
-        count="$(cat ~/.thunderbird/*.default/unread-counts | grep -v "Dossiers locaux" | cut -d: -f1)"
+        count="$(cat ~/.thunderbird/*.default/unread-counts | grep -v "Dossiers locaux" | grep -v "Count Reset" | cut -d: -f1)"
         if [ -z $count ]; then
             exit 1
         fi
