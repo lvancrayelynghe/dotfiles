@@ -200,7 +200,7 @@ ctrl + alt + {t,y,g,h}
     bspc node -t {tiled,pseudo_tiled,fullscreen,floating}
 
 # set the node flags
-ctrl + shift + alt + {w,x,c}
+ctrl + alt + {j,k,l}
     bspc node -g {locked,sticky,private}
 
 super + alt + p
