@@ -201,7 +201,7 @@ ctrl + alt + {t,y,g,h}
 
 # set the node flags
 ctrl + alt + {j,k,l}
-    bspc node -g {locked,sticky,private}
+    bspc node -g {private,sticky,locked}
 
 super + alt + p
     bspc config focus_follows_pointer {true,false}
