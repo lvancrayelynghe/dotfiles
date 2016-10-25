@@ -179,6 +179,7 @@ alias gcam='git commit -a -m'
 alias gb='git branch'
 alias gbm='git branch --merged'
 alias gbr='git branch -r'
+alias gbu='git remote update origin --prune' ## update remote list
 alias gm='git merge'
 alias gms='git merge --squash'
 alias gmm='git merge -m'
