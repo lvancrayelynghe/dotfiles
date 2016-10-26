@@ -24,6 +24,11 @@ zle -N self-insert url-quote-magic
 # add bin in path
 export PATH=$BIN_PATH:$PATH
 
+# .local bin
+if [ -d ~/.local/bin ]; then
+    export PATH="$HOME/.local/bin:$PATH"
+fi
+
 # Default editor
 export VISUAL='vim'
 export EDITOR='vim'
