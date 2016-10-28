@@ -111,6 +111,13 @@ while [ -z "$wid" -a "$tries_left" -gt 0 ] ; do
 	tries_left=$((tries_left - 1))
 done
 
-xdo above -t $(xwininfo -root -children | egrep -o "0x[[:xdigit:]]+" | tail -1) "$wid"
+# https://github.com/baskerville/bspwm/issues/484#issuecomment-241258204
+# https://github.com/LemonBoy/bar/commit/d680ea4256637bc89d59342cf6ac6c6f5fe62dec
+if [ -n "$wid" ]; then
+    for id in $(xdo id -N Bspwm -n root); do
+        echo "AA $id"
+        xdo below -t $id $wid
+    done
+fi
 
 wait
