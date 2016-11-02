@@ -11,6 +11,10 @@ function run() {
       --transparent true \
       --alpha 0 \
       --tint 0x$(xrdb -query | grep background | cut -f2 | head -1 | sed 's/#//g') &
+
+    for id in $(xdo id -N Bspwm -n root); do
+        xdo below -t $id $(xdo id -a "panel")
+    done
 }
 
 function stop() {
