@@ -61,6 +61,7 @@ declare -A SYMLINKS=(
     ['others/pcmanfm.conf']='.config/pcmanfm/default/pcmanfm.conf'
     ['others/remarkable.settings']='.remarkable/remarkable.settings'
     ['others/sift.conf']='.sift.conf'
+    ['others/spacemacs']='.spacemacs'
     ['others/sshrc']='.sshrc'
     ['others/sshrc.d']='.sshrc.d'
     ['others/tmux.conf']='.tmux.conf'
