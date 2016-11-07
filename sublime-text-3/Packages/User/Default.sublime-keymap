@@ -25,11 +25,14 @@
     { "keys": ["ctrl+alt+p"], "command": "prompt_select_project" },
 
     // Standard search
+    { "keys": ["ctrl+i"], "command": "show_panel", "args": {"panel": "incremental_find", "reverse": false} },
+    { "keys": ["ctrl+shift+i"], "command": "show_panel", "args": {"panel": "incremental_find", "reverse": true} },
     { "keys": ["ctrl+f"], "command": "show_panel", "args": {"panel": "find"} },
     { "keys": ["ctrl+shift+f"], "command": "show_panel", "args": {"panel": "replace"} },
     { "keys": ["ctrl+alt+shift+f"], "command": "show_panel", "args": {"panel": "find_in_files"} },
     { "keys": ["f3"], "command": "find_next" },
     { "keys": ["shift+f3"], "command": "find_prev" },
+    { "keys": ["alt+f3"], "command": "find_all_under" },
 
     // Brackets
     { "keys": ["ctrl+m"], "command": "move_to", "args": {"to": "brackets"} },
@@ -122,6 +125,12 @@
     // Misc
     { "keys": ["ctrl+q"], "command": "toggle_comment", "args": { "block": false } },
     { "keys": ["ctrl+shift+q"], "command": "toggle_comment", "args": { "block": true } },
+    { "keys": ["ctrl+/"], "command": "toggle_comment", "args": { "block": false } },
+    { "keys": ["ctrl+shift+/"], "command": "toggle_comment", "args": { "block": true } },
+    { "keys": ["ctrl+shift+i"], "command": "expand_selection", "args": {"to": "indentation"} },
+    { "keys": ["ctrl+shift+space"], "command": "expand_selection", "args": {"to": "scope"} },
+    // { "keys": ["ctrl+shift+l"], "command": "expand_selection", "args": {"to": "line"} },
+    { "keys": ["ctrl+shift+l"], "command": "split_selection_into_lines" },
     { "keys": ["ctrl+d"], "command": "duplicate_line" },
     { "keys": ["ctrl+shift+d"], "command": "expand_selection", "args": {"to": "word"} },
     { "keys": ["ctrl+shift+d"], "command": "find_under_expand", "context":
@@ -131,8 +140,9 @@
     },
     { "keys": ["alt+up"], "command": "upper_case" },
     { "keys": ["alt+down"], "command": "lower_case" },
-    { "keys": ["ctrl+up"], "command": "scroll_lines", "args": {"amount": 5.0 } },
-    { "keys": ["ctrl+down"], "command": "scroll_lines", "args": {"amount": -5.0 } },
+    { "keys": ["ctrl+up"], "command": "scroll_lines", "args": {"amount": 10.0 } },
+    { "keys": ["ctrl+down"], "command": "scroll_lines", "args": {"amount": -10.0 } },
+
     { "keys": ["ctrl+h"], "command": "jump_back" },
     { "keys": ["ctrl+l"], "command": "jump_forward" },
     { "keys": ["ctrl+j"], "command": "select_lines", "args": {"forward": true} },
@@ -159,5 +169,64 @@
     { "keys": ["ctrl+alt+m"], "command": "markdown_preview", "args": {"target": "browser", "parser":"markdown"} },
     { "keys": ["ctrl+alt+t"], "command": "open_terminal_project_folder" },
     { "keys": ["ctrl+<"], "command": "move_tab", "args": {"position": "-1"} },
-    { "keys": ["ctrl+>"], "command": "move_tab", "args": {"position": "+1"} }
+    { "keys": ["ctrl+>"], "command": "move_tab", "args": {"position": "+1"} },
+
+    // HTML, XML close tag
+    { "keys": ["/"], "command": "close_tag", "args": { "insert_slash": true }, "context":
+        [
+            { "key": "selector", "operator": "equal", "operand": "(text.html, text.xml) - string - comment", "match_all": true },
+            { "key": "preceding_text", "operator": "regex_match", "operand": ".*<$", "match_all": true },
+            { "key": "setting.auto_close_tags" }
+        ]
+    },
+
+    // Widget context
+    { "keys": ["alt+c"], "command": "toggle_case_sensitive", "context":
+        [{ "key": "setting.is_widget", "operator": "equal", "operand": true }]
+    },
+    { "keys": ["alt+r"], "command": "toggle_regex", "context":
+        [{ "key": "setting.is_widget", "operator": "equal", "operand": true }]
+    },
+    { "keys": ["alt+w"], "command": "toggle_whole_word", "context":
+        [{ "key": "setting.is_widget", "operator": "equal", "operand": true }]
+    },
+    { "keys": ["alt+a"], "command": "toggle_preserve_case", "context":
+        [{ "key": "setting.is_widget", "operator": "equal", "operand": true }]
+    },
+
+    // Find panel key bindings
+    { "keys": ["enter"], "command": "find_next", "context":
+        [{"key": "panel", "operand": "find"}, {"key": "panel_has_focus"}]
+    },
+    { "keys": ["shift+enter"], "command": "find_prev", "context":
+        [{"key": "panel", "operand": "find"}, {"key": "panel_has_focus"}]
+    },
+    { "keys": ["alt+enter"], "command": "find_all", "args": {"close_panel": true},
+         "context": [{"key": "panel", "operand": "find"}, {"key": "panel_has_focus"}]
+    },
+
+    // Replace panel key bindings
+    { "keys": ["enter"], "command": "find_next", "context":
+        [{"key": "panel", "operand": "replace"}, {"key": "panel_has_focus"}]
+    },
+    { "keys": ["shift+enter"], "command": "find_prev", "context":
+        [{"key": "panel", "operand": "replace"}, {"key": "panel_has_focus"}]
+    },
+    { "keys": ["alt+enter"], "command": "find_all", "args": {"close_panel": true},
+        "context": [{"key": "panel", "operand": "replace"}, {"key": "panel_has_focus"}]
+    },
+    { "keys": ["ctrl+alt+enter"], "command": "replace_all", "args": {"close_panel": true},
+         "context": [{"key": "panel", "operand": "replace"}, {"key": "panel_has_focus"}]
+    },
+
+    // Incremental find panel key bindings
+    { "keys": ["enter"], "command": "hide_panel", "context":
+        [{"key": "panel", "operand": "incremental_find"}, {"key": "panel_has_focus"}]
+    },
+    { "keys": ["shift+enter"], "command": "find_prev", "context":
+        [{"key": "panel", "operand": "incremental_find"}, {"key": "panel_has_focus"}]
+    },
+    { "keys": ["alt+enter"], "command": "find_all", "args": {"close_panel": true},
+        "context": [{"key": "panel", "operand": "incremental_find"}, {"key": "panel_has_focus"}]
+    }
 ]
