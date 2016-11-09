@@ -36,6 +36,9 @@ export EDITOR='vim'
 # bc (math lib) default config
 export BC_ENV_ARGS=~/.bcrc
 
+# Fix bspwm java apps handling
+export _JAVA_AWT_WM_NONREPARENTING=1
+
 # Load directories colors in "ls" command
 [[ -e ~/.dircolors ]] && eval `dircolors ~/.dircolors`
 
