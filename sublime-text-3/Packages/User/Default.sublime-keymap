@@ -79,11 +79,11 @@
     { "keys": ["ctrl+shift+i"], "command": "show_panel", "args": {"panel": "incremental_find", "reverse": true} },
     { "keys": ["f1"], "command": "goto_documentation" },
     { "keys": ["f2"], "command": "goto_definition" },
+    { "keys": ["ctrl+f2"], "command": "find_all_under" },
     { "keys": ["f3"], "command": "find_next" },
     { "keys": ["shift+f3"], "command": "find_prev" },
     { "keys": ["ctrl+f3"], "command": "find_under" },
     { "keys": ["ctrl+shift+f3"], "command": "find_under_prev" },
-    { "keys": ["alt+f3"], "command": "find_all_under" },
 
     // Comments
     { "keys": ["ctrl+q"], "command": "toggle_comment", "args": { "block": false } },
