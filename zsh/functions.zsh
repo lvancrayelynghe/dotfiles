@@ -217,9 +217,18 @@ function mkdir-cd() {
 function find-and-replace() {
     if [ ${#} -ne 2 ]; then
         echo 'Find and replace in current dir'
-        echo 'Usage: find-and-replace "pattern1" "pattern2"'
+        echo 'Usage: find-and-replace "find_this" "replace_with"'
     else
-        \ack -l "$1" | xargs sed -i "s/$1/$2/g"
+        find_this="$1"
+        replace_with="$2"
+        shift 2
+
+        items=$(ag -l --nocolor "$find_this" "$@")
+        temp="${TMPDIR:-/tmp}/replace_temp.$$"
+        IFS=$'\n'
+        for item in $items; do
+          sed "s/$find_this/$replace_with/g" "$item" > "$temp" && mv "$temp" "$item"
+        done
     fi
 }
 
