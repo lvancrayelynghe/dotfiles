@@ -173,6 +173,7 @@ alias gw='git whatchanged'
 alias gg='git grep -n -C2 -E'
 alias gc='git commit -v'
 alias gc!='git commit -v --amend'
+alias gcu='git reset --soft HEAD~' ## undo commit
 alias gcm='git commit -m'
 alias gca='git commit -a'
 alias gcam='git commit -a -m'
