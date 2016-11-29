@@ -156,8 +156,12 @@ alt + {_,shift + }Tab
 ctrl + alt + {_,shift + }Tab
     bspc node -f {next,prev}.local
 
-# focus the next monitor
+# focus the last node
 super + Tab
+    bspc node -f last
+
+# focus the next monitor
+super + alt + Tab
     bspc monitor -f next
 
 # focus the next/previous monitor
