@@ -32,19 +32,20 @@ L${loadavg 1}
 
 panelThunderbird() {
     # Require https://github.com/teleshoes/thunderbird-unread-count
-    if [ ! -d ~/.thunderbird ]; then
-        exit 1
-    fi
-    if [ $(find ~/.thunderbird -name unread-counts | wc -l) = "0" ]; then
-        exit 1
-    fi
+    while true; do
+        if [ ! -d ~/.thunderbird ]; then
+            sleep 60
+        fi
+        if [ $(find ~/.thunderbird -name unread-counts | wc -l) = "0" ]; then
+            sleep 60
+        fi
 
-    while notify=$(inotifywait ~/.thunderbird/*.default/unread-counts > /dev/null 2>&1); do
         count="$(cat ~/.thunderbird/*.default/unread-counts | grep -v "Dossiers locaux" | grep -v "Count Reset" | cut -d: -f1)"
         if [ -z $count ]; then
             exit 1
         fi
         echo "E${count}"
+        sleep 10
     done > "$PANEL_FIFO" &
 }
 
