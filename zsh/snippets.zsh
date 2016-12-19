@@ -15,6 +15,9 @@ function mysql:create()      { mysql -e "create database \`$1\`;" }
 function mysql:drop()        { mysql -e "drop database \`$1\`;" }
 function mysql:drop-tables() { mysqldump --add-drop-table --no-data $1 | grep -e "^DROP \| FOREIGN_KEY_CHECKS" | mysql $1 }
 
+# Docker snippers
+function docker:clean()      { docker rmi -f $(docker images | grep "<none>" | awk "{print \$3}") }
+
 # SSH snippets
 function ssh:list()          { cat ~/.ssh/config | grep "Host " | grep -v "Host \*" | sed 's/Host //g' | sort }
 function ssh:combine()       { cp ~/.ssh/config ~/.ssh/config.bak && cat ~/.ssh/config.d/* > ~/.ssh/config } # allow for multiple ssh config files
