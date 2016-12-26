@@ -18,7 +18,7 @@ workspace_number=`wmctrl -d | grep '\*' | cut -d' ' -f 1`
 # win_list=`wmctrl -lx | grep $app_name | grep " $workspace_number " | tac | awk '{print $1}'`
 
 # Switch from all workspace
-win_list=`wmctrl -lx | grep -E " $app_name " | tac | awk '{print $1}'`
+win_list=`wmctrl -lx | grep -Ei " $app_name " | tac | awk '{print $1}'`
 
 active_win_id=`xprop -root | grep '^_NET_ACTIVE_W' | awk -F'# 0x' '{print $2}' | awk -F', ' '{print $1}'`
 if [ "$active_win_id" == "0" ]; then
