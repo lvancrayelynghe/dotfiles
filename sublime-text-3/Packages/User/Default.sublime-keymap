@@ -17,8 +17,7 @@
     { "keys": ["ctrl+u"], "command": "soft_undo" },
     { "keys": ["ctrl+shift+u"], "command": "soft_redo" },
 
-    // Standard select / Copy / Cut (destroy) / Paste
-    { "keys": ["ctrl+a"], "command": "select_all" },
+    // Copy / Cut (destroy) / Paste
     { "keys": ["ctrl+x"], "command": "cut" },
     { "keys": ["ctrl+shift+x"], "command": "run_macro_file", "args": {"file": "res://Packages/Default/Delete Line.sublime-macro"} },
     { "keys": ["ctrl+c"], "command": "copy" },
@@ -42,8 +41,6 @@
     { "keys": ["ctrl+alt+right"], "command": "move", "args": {"by": "subword_ends", "forward": true} },
 
     // Movements (ctrl) | Selections (ctrl + shift), swaps, duplicates...
-    { "keys": ["ctrl+e"], "command": "jump_back" },
-    { "keys": ["ctrl+shift+e"], "command": "jump_forward" },
     { "keys": ["ctrl+j"], "command": "jump_back" },
     { "keys": ["ctrl+k"], "command": "jump_forward" },
     { "keys": ["ctrl+shift+j"], "command": "select_lines", "args": {"forward": true} },
@@ -54,8 +51,10 @@
     { "keys": ["ctrl+shift+end"], "command": "move_to", "args": {"to": "eof", "extend": true} },
     { "keys": ["ctrl+m"], "command": "move_to", "args": {"to": "brackets"} },
     { "keys": ["ctrl+shift+m"], "command": "expand_selection", "args": {"to": "brackets"} },
-    { "keys": ["ctrl+d"], "command": "duplicate_line" },
-    { "keys": ["ctrl+shift+d"], "command": "find_under_expand" },
+    { "keys": ["ctrl+d"], "command": "find_under_expand" },
+    { "keys": ["ctrl+shift+d"], "command": "duplicate_line" },
+    { "keys": ["ctrl+a"], "command": "select_all" },
+    { "keys": ["ctrl+shift+a"], "command": "expand_selection", "args": {"to": "tag"} },
     { "keys": ["ctrl+l"], "command": "split_selection_into_lines" },
     { "keys": ["ctrl+shift+l"], "command": "expand_selection", "args": {"to": "line"} },
     { "keys": ["ctrl+shift+t"], "command": "expand_selection", "args": {"to": "indentation"} },
@@ -73,8 +72,8 @@
     { "keys": ["ctrl+shift+f"], "command": "show_panel", "args": {"panel": "find_in_files"} },
     { "keys": ["ctrl+h"], "command": "show_panel", "args": {"panel": "replace"} },
     { "keys": ["ctrl+shift+h"], "command": "show_panel", "args": {"panel": "find_in_files"} },
-    { "keys": ["ctrl+i"], "command": "show_panel", "args": {"panel": "incremental_find", "reverse": false} },
-    { "keys": ["ctrl+shift+i"], "command": "show_panel", "args": {"panel": "incremental_find", "reverse": true} },
+    { "keys": ["ctrl+e"], "command": "show_panel", "args": {"panel": "incremental_find", "reverse": false} },
+    { "keys": ["ctrl+shift+e"], "command": "show_panel", "args": {"panel": "incremental_find", "reverse": true} },
     { "keys": ["f1"], "command": "goto_documentation" },
     { "keys": ["f2"], "command": "goto_definition" },
     { "keys": ["ctrl+f2"], "command": "find_all_under" },
@@ -125,6 +124,11 @@
             }
         ]
     },
+    { "keys": ["ctrl+b", "\""], "command": "convert_single_quotes_to_double" },
+    { "keys": ["ctrl+b", "'"], "command": "convert_double_quotes_to_single" },
+    { "keys": ["ctrl+b", "é"], "command": "convert_chars_to_html" },
+    { "keys": ["ctrl+b", "ctrl+tab"], "command": "convert_spaces_to_tabs" },
+    { "keys": ["ctrl+b", "ctrl+space"], "command": "convert_tabs_to_spaces" },
 
     // Build
     { "keys": ["f7"], "command": "build" },
@@ -311,7 +315,6 @@
     // { "keys": [], "command": "slurp_find_string" },
     // { "keys": [], "command": "slurp_replace_string" },
     // { "keys": [], "command": "wrap_lines" },
-    // { "keys": [], "command": "expand_selection", "args": {"to": "tag"} },
     // { "keys": [], "command": "yank" },
     // { "keys": [], "command": "insert_snippet", "args": { "name": "Packages/XML/Snippets/long-tag.sublime-snippet" } },
 
