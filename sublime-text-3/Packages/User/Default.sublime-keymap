@@ -63,10 +63,8 @@
     { "keys": ["ctrl+shift+space"], "command": "expand_selection", "args": {"to": "scope"} },
 
     // Deletions
-    { "keys": ["delete"], "command": "right_delete" },
     { "keys": ["ctrl+delete"], "command": "delete_word", "args": { "forward": true } },
     { "keys": ["ctrl+shift+delete"], "command": "run_macro_file", "args": {"file": "res://Packages/Default/Delete to Hard EOL.sublime-macro"} },
-    { "keys": ["backspace"], "command": "left_delete" },
     { "keys": ["ctrl+backspace"], "command": "delete_word", "args": { "forward": false } },
     { "keys": ["ctrl+shift+backspace"], "command": "run_macro_file", "args": {"file": "res://Packages/Default/Delete to Hard BOL.sublime-macro"} },
 
