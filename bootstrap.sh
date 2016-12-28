@@ -70,6 +70,7 @@ declare -A SYMLINKS=(
     ['qutebrowser/qutebrowser.conf']='.config/qutebrowser/qutebrowser.conf'
     ['ranger/commands.py']='.config/ranger/commands.py'
     ['ranger/rc.conf']='.config/ranger/rc.conf'
+    ['sublime-text-3/Packages/ChromeRemoteReload.py']='.config/sublime-text-3/Packages/ChromeRemoteReload.py'
     ['sublime-text-3/Packages/CommandOnSave']='.config/sublime-text-3/Packages/CommandOnSave'
     ['sublime-text-3/Packages/PHP']='.config/sublime-text-3/Packages/PHP'
     ['sublime-text-3/Packages/User/AdvancedNewFile.sublime-settings']='.config/sublime-text-3/Packages/User/AdvancedNewFile.sublime-settings'

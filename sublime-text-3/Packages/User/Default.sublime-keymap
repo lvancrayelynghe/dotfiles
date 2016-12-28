@@ -92,8 +92,8 @@
     { "keys": ["ctrl+r"], "command": "show_overlay", "args": {"overlay": "goto", "text": "@"} },
     { "keys": ["ctrl+p"], "command": "show_overlay", "args": {"overlay": "goto", "show_files": true} },
     { "keys": ["ctrl+g"], "command": "show_overlay", "args": {"overlay": "goto", "text": ":"} },
-    { "keys": ["ctrl+t"], "command": "show_overlay", "args": {"overlay": "goto", "text": "#"} },
-    { "keys": ["ctrl+shift+r"], "command": "goto_symbol_in_project" },
+    { "keys": ["ctrl+shift+i"], "command": "goto_symbol_in_project" },
+    { "keys": ["ctrl+shift+r"], "command": "show_overlay", "args": {"overlay": "goto", "text": "#"} },
     { "keys": ["ctrl+shift+g"], "command": "show_overlay", "args": {"overlay": "command_palette"} },
     { "keys": ["ctrl+alt+p"], "command": "prompt_select_project" },
 
@@ -105,6 +105,7 @@
     { "keys": ["shift+f5"], "command": "prev_bookmark" },
 
     // Sidebar, minimap, plugins & specials commands
+    { "keys": ["ctrl+i"], "command": "chrome_remote_reload" },
     { "keys": ["ctrl+b", "ctrl+b"], "command": "toggle_side_bar" },
     { "keys": ["ctrl+b", "ctrl+p"], "command": "close_folder_list" },
     { "keys": ["ctrl+b", "ctrl+f"], "command": "focus_side_bar" },
