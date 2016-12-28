@@ -17,6 +17,7 @@ function mysql:drop-tables() { mysqldump --add-drop-table --no-data $1 | grep -e
 
 # Docker snippers
 function docker:clean()      { docker rmi -f $(docker images | grep "<none>" | awk "{print \$3}") }
+function docker:killall()    { docker kill $(docker ps -q) }
 
 # SSH snippets
 function ssh:list()          { cat ~/.ssh/config | grep "Host " | grep -v "Host \*" | sed 's/Host //g' | sort }
