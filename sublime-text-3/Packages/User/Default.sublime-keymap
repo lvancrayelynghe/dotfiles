@@ -23,8 +23,10 @@
     { "keys": ["ctrl+c"], "command": "copy" },
     { "keys": ["ctrl+shift+c"], "command": "copy_path" },
     { "keys": ["ctrl+v"], "command": "paste" },
+    { "keys": ["shift+delete"], "command": "cut" },
+    { "keys": ["ctrl+insert"], "command": "copy" },
+    { "keys": ["shift+insert"], "command": "paste", "args": {"clipboard": "selection"} },
     { "keys": ["ctrl+shift+v"], "command": "paste_and_indent" },
-    { "keys": ["ctrl+shift+alt+v"], "command": "paste_from_history" },
 
     // Arrow movements
     { "keys": ["ctrl+up"], "command": "scroll_lines", "args": {"amount": 10.0 } },
@@ -51,6 +53,7 @@
     { "keys": ["ctrl+shift+end"], "command": "move_to", "args": {"to": "eof", "extend": true} },
     { "keys": ["ctrl+m"], "command": "move_to", "args": {"to": "brackets"} },
     { "keys": ["ctrl+shift+m"], "command": "expand_selection", "args": {"to": "brackets"} },
+    // if you start with an empty selection, then cmd+d (find_under_expand) will search by whole words automatically. If you start with a non-empty selection, then it will search for any instance of the text.
     { "keys": ["ctrl+d"], "command": "find_under_expand" },
     { "keys": ["ctrl+shift+d"], "command": "duplicate_line" },
     { "keys": ["ctrl+a"], "command": "select_all" },
@@ -108,6 +111,7 @@
     { "keys": ["ctrl+i"], "command": "chrome_remote_reload" },
     { "keys": ["ctrl+b", "ctrl+b"], "command": "toggle_side_bar" },
     { "keys": ["ctrl+b", "ctrl+p"], "command": "close_folder_list" },
+    { "keys": ["ctrl+b", "ctrl+v"], "command": "paste_from_history" },
     { "keys": ["ctrl+b", "ctrl+f"], "command": "focus_side_bar" },
     { "keys": ["ctrl+b", "ctrl+,"], "command": "toggle_minimap" },
     { "keys": ["ctrl+b", "ctrl+u"], "command": "upper_case" },
