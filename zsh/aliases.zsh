@@ -204,6 +204,19 @@ alias ggc='git gc --aggressive'
 alias cgd='cdiff -s -w 0' ## columned & colored git diff
 alias cgs='columns-git-show' ## columned & colored git diff
 
+# Docker
+alias doi="docker images"
+alias dov="docker volume"
+alias doe="docker exec"
+alias dok="docker kill"
+alias dops="docker ps"
+alias dorm="docker rm"
+alias dormi="docker rmi"
+alias dcb="docker-compose build"
+alias dcr="docker-compose run"
+alias dcup="docker-compose up"
+alias dcrm="docker-compose rm"
+
 # rsync
 alias rsync-copy="rsync -av --progress -h --exclude-from=$HOME/.cvsignore"
 alias rsync-move="rsync -av --progress -h --remove-source-files --exclude-from=$HOME/.cvsignore"
