@@ -29,8 +29,8 @@
     { "keys": ["ctrl+shift+v"], "command": "paste_and_indent" },
 
     // Arrow movements
-    { "keys": ["ctrl+up"], "command": "scroll_lines", "args": {"amount": 10.0 } },
-    { "keys": ["ctrl+down"], "command": "scroll_lines", "args": {"amount": -10.0 } },
+    { "keys": ["ctrl+up"], "command": "move", "args": {"by": "stops", "empty_line": true, "forward": false} },
+    { "keys": ["ctrl+down"], "command": "move", "args": {"by": "stops", "empty_line": true, "forward": true} },
     { "keys": ["ctrl+left"], "command": "move", "args": {"by": "words", "forward": false} },
     { "keys": ["ctrl+right"], "command": "move", "args": {"by": "word_ends", "forward": true} },
     { "keys": ["ctrl+shift+up"], "command": "swap_line_up" },
@@ -95,7 +95,7 @@
     { "keys": ["ctrl+r"], "command": "show_overlay", "args": {"overlay": "goto", "text": "@"} },
     { "keys": ["ctrl+p"], "command": "show_overlay", "args": {"overlay": "goto", "show_files": true} },
     { "keys": ["ctrl+g"], "command": "show_overlay", "args": {"overlay": "goto", "text": ":"} },
-    { "keys": ["ctrl+shift+i"], "command": "goto_symbol_in_project" },
+    { "keys": ["ctrl+t"], "command": "goto_symbol_in_project" },
     { "keys": ["ctrl+shift+r"], "command": "show_overlay", "args": {"overlay": "goto", "text": "#"} },
     { "keys": ["ctrl+shift+g"], "command": "show_overlay", "args": {"overlay": "command_palette"} },
     { "keys": ["ctrl+alt+p"], "command": "prompt_select_project" },
