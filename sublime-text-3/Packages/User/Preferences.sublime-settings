@@ -1,5 +1,6 @@
 {
 	"color_scheme": "Packages/gruvbox/gruvbox (Dark) (Hard) NDC.tmTheme",
+    "dictionary": "Packages/Language - French - Français/fr_FR.dic",
 	"folder_exclude_patterns":
 	[
 		".svn",
