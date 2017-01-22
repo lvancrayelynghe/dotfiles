@@ -1,8 +1,8 @@
 <snippet>
-    <content><![CDATA[function __construct() {
-	parent::__construct();$0
+    <content><![CDATA[public function __construct() {
+	$0
 }]]></content>
-    <tabTrigger>c</tabTrigger>
+    <tabTrigger>__</tabTrigger>
     <scope>source.php</scope>
     <description>function __construct</description>
 </snippet>
