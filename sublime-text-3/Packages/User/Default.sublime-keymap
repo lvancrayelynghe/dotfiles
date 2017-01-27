@@ -102,10 +102,10 @@
 
     // Bookmarks
     { "keys": ["f4"], "command": "toggle_bookmark" },
-    { "keys": ["ctrl+f4"], "command": "clear_bookmarks" },
-    { "keys": ["shift+f4"], "command": "select_all_bookmarks" },
-    { "keys": ["f5"], "command": "next_bookmark" },
-    { "keys": ["shift+f5"], "command": "prev_bookmark" },
+    { "keys": ["ctrl+f4"], "command": "next_bookmark" },
+    { "keys": ["shift+f4"], "command": "prev_bookmark" },
+    { "keys": ["ctrl+alt+f4"], "command": "clear_bookmarks" },
+    { "keys": ["ctrl+shift+f4"], "command": "select_all_bookmarks" },
 
     // Sidebar, minimap, plugins & specials commands
     { "keys": ["ctrl+i"], "command": "chrome_remote_reload" },
