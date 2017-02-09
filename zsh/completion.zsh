@@ -9,6 +9,7 @@ compinit -i -d "${ZSH_COMPDUMP}"
 unsetopt flowcontrol     # output flow control via start/stop characters (usually assigned to ^S/^Q) is disabled in the shell’s editor
 setopt menu_complete     # autoselect the first completion entry
 setopt auto_menu         # show completion menu on succesive tab press
+setopt complete_aliases  # complete aliases
 setopt complete_in_word  # allow completion in word
 setopt always_to_end     # if a completion is performed with the cursor within a word, and a full completion is inserted, the cursor is moved to the end of the word
 
@@ -116,11 +117,17 @@ zstyle ':completion:*:*:kill:*' insert-ids single
 zstyle ':completion:*:manuals' separate-sections true
 zstyle ':completion:*:manuals.(^1*)' insert-sections true
 
-# Media Players
-zstyle ':completion:*:*:mpg123:*' file-patterns '*.(mp3|MP3):mp3\ files *(-/):directories'
-zstyle ':completion:*:*:mpg321:*' file-patterns '*.(mp3|MP3):mp3\ files *(-/):directories'
-zstyle ':completion:*:*:ogg123:*' file-patterns '*.(ogg|OGG|flac):ogg\ files *(-/):directories'
-zstyle ':completion:*:*:mocp:*' file-patterns '*.(wav|WAV|mp3|MP3|ogg|OGG|flac):ogg\ files *(-/):directories'
+# Files types completions
+zstyle ':completion:*:*:php:*'    file-patterns '*.(#i)php:php(-.) *(-/):directories' '*:all-files'
+zstyle ':completion:*:*:perl:*'   file-patterns '*.(#i)pl:perl(-.) *(-/):directories' '*:all-files'
+zstyle ':completion:*:*:python:*' file-patterns '*.(#i)py:python(-.) *(-/):directories' '*:all-files'
+zstyle ':completion:*:*:ruby:*'   file-patterns '*.(#i)rb:ruby(-.) *(-/):directories' '*:all-files'
+zstyle ':completion:*:*:mpv:*'    file-patterns '*.(#i)(avi|mkv|mp4|flac|m4a):medias(-.) *(-/):directories' '*:all-files'
+zstyle ':completion:*:*:pinta:*'  file-patterns '*.(#i)(jpg|png|gif):images(-.) *(-/):directories' '*:all-files'
+zstyle ':completion:*:*:wine:*'   file-patterns '*.(#i)exe:exe(-.) *(-/):directories' '*:all-files'
+
+# Ignored patterns
+zstyle ':completion:*:*:(subl|vim|nvim|vi|emacs|nano|e|v|s):*:*files' ignored-patterns '*.(#i)(wav|mp3|flac|ogg|mp4|avi|mkv|webm|iso|dmg|so|o|a|bin|exe|dll|pcap|7z|zip|tar|gz|bz2|rar|deb|pkg|gzip|pdf|mobi|epub|png|jpeg|jpg|gif)'
 
 # Mutt
 if [[ -s "$HOME/.mutt/aliases" ]]; then
