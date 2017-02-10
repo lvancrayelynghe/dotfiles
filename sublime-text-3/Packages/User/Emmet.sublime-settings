@@ -1,6 +1,6 @@
 {
 	"preferences": {
-		"css.valueSeparator": ":",
-		"css.propertyEnd": "; "
+		"css.valueSeparator": ": ",
+		"css.propertyEnd": ";"
 	}
 }
