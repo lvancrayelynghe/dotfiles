@@ -46,9 +46,6 @@ fi
 if hash udiskie > /dev/null 2>&1 ; then
     udiskie &
 fi
-if hash copyq > /dev/null 2>&1 ; then
-    copyq &
-fi
 if hash tilda > /dev/null 2>&1 ; then
     tilda &
 fi

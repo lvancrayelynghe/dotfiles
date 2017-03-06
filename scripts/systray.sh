@@ -15,10 +15,15 @@ function run() {
     for id in $(xdo id -N Bspwm -n root); do
         xdo below -t $id $(xdo id -a "panel")
     done
+
+    if hash copyq > /dev/null 2>&1 ; then
+        copyq &
+    fi
 }
 
 function stop() {
     pkill trayer
+    pkill copyq
 }
 
 if [ "$1" = "run" ]; then
