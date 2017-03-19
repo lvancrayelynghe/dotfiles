@@ -15,7 +15,11 @@ if [[ "$0" =~ 'zsh' ]]; then
     alias -g G='| grep'
     alias -g N='| grep -v'
     alias -g E='| grep-passthru'
-    alias -g CC='| xclip -selection clipboard'
+    if [[ "$OSTYPE" == "darwin"* ]]; then
+        alias -g CC='| pbcopy'
+    else
+        alias -g CC='| xclip -selection clipboard'
+    fi
     alias -g XS='| xargs subl'
     alias -g HR='| highlight red'
     alias -g HG='| highlight green'
@@ -41,7 +45,11 @@ fi
 
 # Aliases only for non root users
 alias apt-installed="aptitude search '~i!~M'"
-if [[ $UID != 0 || $EUID != 0 ]]; then
+if [[ "$OSTYPE" == "darwin"* ]]; then
+    alias sudo='sudo ' ## Allow aliases to be sudo’ed
+    alias watch='watch ' ## Allow aliases to be watched
+    alias agall='brew update ; brew upgrade ; brew prune ; brew cleanup ; brew doctor'
+elif [[ $UID != 0 || $EUID != 0 ]]; then
     alias sudo='sudo ' ## Allow aliases to be sudo’ed
     alias watch='watch ' ## Allow aliases to be watched
     alias halt='sudo shutdown -h now'
@@ -67,7 +75,11 @@ fi
 
 # Directories working
 alias pwd=' pwd'
-alias pwdc=' pwd | tr -d "\n" | xclip -selection clipboard'
+if [[ "$OSTYPE" == "darwin"* ]]; then
+    alias pwdc=' pwd | tr -d "\n" | pbcopy'
+else
+    alias pwdc=' pwd | tr -d "\n" | xclip -selection clipboard'
+fi
 alias cd=' cd'
 alias cdg=' cd "$(git rev-parse --show-toplevel)"' ## git root
 alias -- -=' cd -'
@@ -80,7 +92,12 @@ alias 6=' cd -6'
 alias 7=' cd -7'
 alias 8=' cd -8'
 alias 9=' cd -9'
-alias ls='ls --color=auto'
+
+if [[ "$OSTYPE" == "darwin"* ]]; then
+    alias ls='\gls --color=auto'
+else
+    alias ls='\ls --color=auto'
+fi
 alias l='ls -lh --group-directories-first'
 alias ll='ls -lhA --group-directories-first'
 alias llm='ls -lhAt --group-directories-first' ## "m" for sort by last modified date
@@ -93,7 +110,6 @@ alias kk='k -Ah'
 alias kkl='k -Ah --no-vcs'
 
 # 1 letter commands shortcuts
-alias c=" clear && echo -ne '\033c'"
 alias p=' dirs -v | head -10' ## most used dirs for current session
 alias x=' exit'
 alias d='desk'
@@ -105,9 +121,15 @@ alias e='open-with-vim'
 alias s='open-with-sublime-text'
 alias a='open-with-atom'
 alias n='nano'
-alias o='xdg-open 2>/dev/null'
 alias g='git'
 alias m='mutt'
+if [[ "$OSTYPE" == "darwin"* ]]; then
+    alias c=" clear && printf '\e[3J'"
+    alias o='open'
+else
+    alias c=" clear && echo -ne '\033c'"
+    alias o='xdg-open 2>/dev/null'
+fi
 
 # Others commands shortcuts
 alias dg='desk go'
@@ -122,6 +144,7 @@ alias mkcd='mkdir-cd'
 alias trm='trash-put'
 alias rmf="rm -rf"
 alias rmrf="rm -rf"
+alias rmds="find . -type f -name '*.DS_Store' -ls -delete"
 alias cpr="cp -r"
 alias bak='backup-file'
 alias tailf='tail -f'
@@ -220,6 +243,31 @@ alias dcrm="docker-compose rm"
 alias dcr="docker-compose run"
 alias dcsa="docker-compose start"
 alias dcso="docker-compose stop"
+alias dsss="docker-sync-stack start"
+
+# OS Specific
+if [[ "$OSTYPE" == "darwin"* ]]; then
+    # Show/hide hidden files in Finder
+    alias show="defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder"
+    alias hide="defaults write com.apple.finder AppleShowAllFiles -bool false && killall Finder"
+
+    # Hide/show all desktop icons (useful when presenting)
+    alias hidedesktop="defaults write com.apple.finder CreateDesktop -bool false && killall Finder"
+    alias showdesktop="defaults write com.apple.finder CreateDesktop -bool true && killall Finder"
+
+    # Stuff I never really use but cannot delete either because of http://xkcd.com/530/
+    alias stfu="osascript -e 'set volume output muted true'"
+
+    # Kill all the tabs in Chrome to free up memory
+    # [C] explained: http://www.commandlinefu.com/commands/view/402/exclude-grep-from-your-grepped-output-of-ps-alias-included-in-description
+    alias chromekill="ps ux | grep '[C]hrome Helper --type=renderer' | grep -v extension-process | tr -s ' ' | cut -d ' ' -f2 | xargs kill"
+
+    # Lock the screen (when going AFK)
+    alias afk="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend"
+else
+    # Record x11
+    alias record="ffmpeg -f x11grab -s 1366x768 -an -r 16 -loglevel quiet -i :0.0 -b:v 5M -y" ## then pass a filename
+fi
 
 # rsync
 alias rsync-copy="rsync -av --progress -h --exclude-from=$HOME/.cvsignore"
@@ -243,15 +291,22 @@ alias tunnel='ssh -f -N' ## Create a tunnel
 alias tunnel-mysql='ssh -f -N -L 3307:localhost:3306' ## Create a MySQL tunnel
 alias tunnel-socks='ssh -f -N -D 8080' ## SOCKS proxy
 alias tunnel-list='ps aux | grep "ssh -f -N" | grep -v "grep"' ## List tunnels
-alias pubkey="more ~/.ssh/keys/perso.rsa.pub | xclip | echo '=> Public key copied to pasteboard'"
+if [[ "$OSTYPE" == "darwin"* ]]; then
+    alias pubkey="more ~/.ssh/keys/perso.rsa.pub | pbcopy | echo '=> Public key copied to pasteboard'"
+else
+    alias pubkey="more ~/.ssh/keys/perso.rsa.pub | xclip | echo '=> Public key copied to pasteboard'"
+fi
 
 # Date & time helpers
-alias cal='cal -3'
+if [[ "$OSTYPE" == "darwin"* ]]; then
+    alias cal='cal'
+else
+    alias cal='cal -3'
+fi
 alias week='date +%V'
 alias timer='echo "Timer started. Stop with Ctrl-D." && date && time cat && date'
 
 # Network & ISP tests
-alias httping='httping'
 alias myip='dig +short myip.opendns.com @resolver1.opendns.com'
 alias myips="ifconfig -a | grep -o 'inet6\? \(ad\?dr:\)\?\s\?\(\(\([0-9]\+\.\)\{3\}[0-9]\+\)\|[a-fA-F0-9:]\+\)' | awk '{ sub(/inet6? (addr:|adr:)? ?/, \"\"); print }' | grep -v '127.0.0.1' | grep -v '::1'"
 alias localip="ifconfig | grep -Eo 'inet (addr:|adr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*' | grep -v '127.0.0.1'"
@@ -279,9 +334,6 @@ alias clbin="curl -F 'clbin=<-' https://clbin.com"
 # Because Oo
 alias tableflip="echo '(ノಠ益ಠ)ノ彡┻━┻'" ## see https://gist.github.com/endolith/157796
 alias utf8test="wget -qO- http://8n1.org/utf8" ## test terminal UTF8 capabilities
-
-# Record x11
-alias record="ffmpeg -f x11grab -s 1366x768 -an -r 16 -loglevel quiet -i :0.0 -b:v 5M -y" ## then pass a filename
 
 # Composer helpers
 alias cu="composer update"

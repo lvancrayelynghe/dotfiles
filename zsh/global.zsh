@@ -40,7 +40,13 @@ export BC_ENV_ARGS=~/.bcrc
 export _JAVA_AWT_WM_NONREPARENTING=1
 
 # Load directories colors in "ls" command
-[[ -e ~/.dircolors ]] && eval `dircolors ~/.dircolors`
+if whence dircolors >/dev/null; then
+  [[ -e ~/.dircolors ]] && eval `dircolors ~/.dircolors`
+  zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
+else
+  export CLICOLOR=1
+  zstyle ':completion:*:default' list-colors ''
+fi
 
 # Command not found helper
 [[ -e /etc/zsh_command_not_found ]] && source /etc/zsh_command_not_found

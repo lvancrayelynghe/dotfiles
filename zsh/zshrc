@@ -116,3 +116,5 @@ if [[ -z "$DESK_ENV" ]]; then
 fi
 
 trace-time
+export PATH="/usr/local/opt/gnu-getopt/bin:$PATH"
+export PATH="/usr/local/sbin:$PATH"
