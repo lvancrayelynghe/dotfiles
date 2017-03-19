@@ -13,6 +13,14 @@
 # Docker sync (https://docker-sync.io/) -- sudo gem install docker-sync
 
 
+########################################
+# Manual uninstalls                    #
+########################################
+
+# GarageBand
+# iTunes
+# iMovie
+
 
 ########################################
 # Installs brew                        #
@@ -59,7 +67,6 @@ fi
 # brew cask install atom
 # brew cask install firefox
 # brew cask install hammerspoon
-# brew cask install geekbench
 # brew cask install google-drive
 # brew cask install qlmarkdown
 # brew cask install quicklook-json
