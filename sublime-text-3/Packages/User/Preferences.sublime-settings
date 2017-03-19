@@ -1,6 +1,6 @@
 {
 	"color_scheme": "Packages/gruvbox/gruvbox (Dark) (Hard) NDC.tmTheme",
-    "dictionary": "Packages/Language - French - Français/fr_FR.dic",
+	"dictionary": "Packages/Language - French - Français/fr_FR.dic",
 	"folder_exclude_patterns":
 	[
 		".svn",
@@ -24,7 +24,9 @@
 	[
 		"Vintage"
 	],
+	"scroll_past_end": true,
 	"theme": "gruvbox (Dark) (Hard).sublime-theme",
+	"trim_automatic_white_space": true,
 	"trim_trailing_white_space_on_save": true,
 	"word_separators": "./\\()\"'-:,.;<>~!@#%^&*|+=[]{}`~?",
 	"word_wrap": false,
