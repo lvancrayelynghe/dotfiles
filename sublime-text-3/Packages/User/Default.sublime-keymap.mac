@@ -185,8 +185,8 @@
     { "keys": ["super+keypad_minus"], "command": "decrease_font_size" },
 
     // Tabs
-    { "keys": ["alt+tab"], "command": "next_view" },
-    { "keys": ["alt+shift+tab"], "command": "prev_view" },
+    { "keys": ["ctrl+tab"], "command": "next_view" },
+    { "keys": ["ctrl+shift+tab"], "command": "prev_view" },
     { "keys": ["super+<"], "command": "move_tab", "args": {"position": "-1"} },
     { "keys": ["super+>"], "command": "move_tab", "args": {"position": "+1"} },
     { "keys": ["super+&"], "command": "select_by_index", "args": { "index": 0 } },
