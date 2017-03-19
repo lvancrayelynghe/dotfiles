@@ -48,7 +48,10 @@ alias apt-installed="aptitude search '~i!~M'"
 if [[ "$OSTYPE" == "darwin"* ]]; then
     alias sudo='sudo ' ## Allow aliases to be sudo’ed
     alias watch='watch ' ## Allow aliases to be watched
+    alias halt="osascript -e 'tell app \"System Events\" to shut down'"
+    alias reboot="osascript -e 'tell app \"System Events\" to restart'"
     alias agall='brew update ; brew upgrade ; brew prune ; brew cleanup ; brew doctor'
+    alias brewall='brew update ; brew upgrade ; brew prune ; brew cleanup ; brew doctor'
 elif [[ $UID != 0 || $EUID != 0 ]]; then
     alias sudo='sudo ' ## Allow aliases to be sudo’ed
     alias watch='watch ' ## Allow aliases to be watched
@@ -122,7 +125,6 @@ alias s='open-with-sublime-text'
 alias a='open-with-atom'
 alias n='nano'
 alias g='git'
-alias m='mutt'
 if [[ "$OSTYPE" == "darwin"* ]]; then
     alias c=" clear && printf '\e[3J'"
     alias o='open'
@@ -135,6 +137,7 @@ fi
 alias dg='desk go'
 alias co='pygmentize -O style=monokai -f console256 -g'
 alias zd='z --del'
+alias mu='mutt'
 alias mf='mutt -F'
 alias k9='kill -9'
 alias rd='rmdir'
@@ -262,8 +265,19 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     # [C] explained: http://www.commandlinefu.com/commands/view/402/exclude-grep-from-your-grepped-output-of-ps-alias-included-in-description
     alias chromekill="ps ux | grep '[C]hrome Helper --type=renderer' | grep -v extension-process | tr -s ' ' | cut -d ' ' -f2 | xargs kill"
 
-    # Lock the screen (when going AFK)
     alias afk="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend"
+
+    # Ignore macos files
+    alias zip="zip -x *.DS_Store -x *__MACOSX* -x *.AppleDouble*"
+
+    # Flush DNS
+    alias flushdns="dscacheutil -flushcache && killall -HUP mDNSResponder"
+
+    # Quick-Look preview files from the command line
+    alias ql="qlmanage -p &>/dev/null"
+
+    # Reload native apps
+    alias killos="killfinder && killdock && killmenubar"
 else
     # Record x11
     alias record="ffmpeg -f x11grab -s 1366x768 -an -r 16 -loglevel quiet -i :0.0 -b:v 5M -y" ## then pass a filename

@@ -95,12 +95,14 @@ if hash npm >/dev/null 2>&1; then
     source ${DOTFILES_PATH}/zsh/plugins/npm.plugin.zsh
 fi
 
-if [[ -n $LC_POWERLINE && $LC_POWERLINE = 'true' && $TERM != "linux" ]]; then
-    [[ -n "$DEBUG" ]] && trace-time "Loading themes/agnoster-modified.zsh"
-    source ${DOTFILES_PATH}/zsh/themes/agnoster-modified.zsh
-else
-    [[ -n "$DEBUG" ]] && trace-time "Loading themes/gianu-modified.zsh"
-	source ${DOTFILES_PATH}/zsh/themes/gianu-modified.zsh
+if [[ ! -d ~/.cache/zsh-plugins/pure ]]; then
+    if [[ -n $LC_POWERLINE && $LC_POWERLINE = 'true' && $TERM != "linux" ]]; then
+        [[ -n "$DEBUG" ]] && trace-time "Loading themes/agnoster-modified.zsh"
+        source ${DOTFILES_PATH}/zsh/themes/agnoster-modified.zsh
+    else
+        [[ -n "$DEBUG" ]] && trace-time "Loading themes/gianu-modified.zsh"
+    	source ${DOTFILES_PATH}/zsh/themes/gianu-modified.zsh
+    fi
 fi
 
 # Hook for desk activation (must stay after every other scripts)

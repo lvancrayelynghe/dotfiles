@@ -1,7 +1,7 @@
 #/bin/bash
 
 
-# cask microsoft-office / openoffice
+# cask microsoft-office ?
 
 
 
@@ -11,7 +11,6 @@
 
 # Docker for mac (https://docs.docker.com/docker-for-mac/install/)
 # Docker sync (https://docker-sync.io/) -- sudo gem install docker-sync
-# Gruvbox for iterm (https://github.com/morhetz/gruvbox-contrib/blob/master/iterm2/gruvbox-dark.itermcolors)
 
 
 
@@ -45,6 +44,7 @@ fi
 
 # brew install bash
 # brew install zsh
+# brew install m-cli
 # sudo dscl . -create /Users/$USER UserShell /usr/local/bin/zsh
 
 # brew install p7zip
@@ -52,17 +52,20 @@ fi
 # brew cask install google-chrome
 # brew cask install firefox
 # brew cask install sublime-text
+# brew cask install libreoffice libreoffice-language-pack
 # brew cask install sequel-pro
 # brew cask install filezilla
 # brew cask install vlc
 # brew cask install atom
 # brew cask install firefox
+# brew cask install hammerspoon
 # brew cask install geekbench
 # brew cask install google-drive
 # brew cask install qlmarkdown
 # brew cask install quicklook-json
 # brew cask install quicklook-csv
 # brew cask install font-hack
+# brew install ccat
 
 # brew install node
 # brew install npm
@@ -79,8 +82,9 @@ fi
 # PHP + PHAR TOOLS
 
 
-# mas install 803453959 ; # Slack
 
+# mas install 803453959 ; # Slack
+# mas install 402592703 ; # Dejal timeout
 
 
 
@@ -102,6 +106,11 @@ sudo scutil --set HostName mbp-luc
 # Disable the sound effects on boot
 sudo nvram SystemAudioVolume=" "
 
+# Disable guest access
+sudo defaults write /Library/Preferences/com.apple.AppleFileServer guestAccess -bool NO
+sudo defaults write /Library/Preferences/SystemConfiguration/com.apple.smb.server AllowGuestAccess -bool NO
+sudo defaults write /Library/Preferences/com.apple.loginwindow GuestEnabled -bool NO
+
 # Set highlight color to green
 defaults write NSGlobalDomain AppleHighlightColor -string "0.764700 0.976500 0.568600"
 
@@ -114,15 +123,6 @@ defaults write NSGlobalDomain AppleShowScrollBars -string "WhenScrolling"
 
 # Disable automatic termination of inactive apps
 defaults write NSGlobalDomain NSDisableAutomaticTermination -bool true
-
-# Show hidden files
-defaults write com.apple.finder AppleShowAllFiles YES
-
-# Show path bar
-defaults write com.apple.finder ShowPathbar -bool true
-
-# Show status bar
-defaults write com.apple.finder ShowStatusBar -bool true
 
 # Expand save panel by default
 defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode -bool true
@@ -265,7 +265,7 @@ defaults write com.apple.NetworkBrowser BrowseAllInterfaces 1
 defaults write com.apple.Finder FXPreferredViewStyle Nlsv
 
 # Show hidden files by default
-defaults write com.apple.finder AppleShowAllFiles -bool true
+defaults write com.apple.finder AppleShowAllFiles -bool false
 
 # Show all filename extensions
 defaults write NSGlobalDomain AppleShowAllExtensions -bool true

@@ -10,7 +10,11 @@ git config --local user.email "benoth83@gmail.com"
 git config --local user.name "Benoth"
 
 # Bootstrap (create symlinks, etc) the public repository
-[[ -f ./bootstrap.sh ]] && ./bootstrap.sh || echo "No boostrap file found"
+if [[ "$OSTYPE" == "darwin"* ]]; then
+    [[ -f ./bootstrap-macos.sh ]] && ./bootstrap-macos.sh || echo "No boostrap file found"
+else
+    [[ -f ./bootstrap-linux.sh ]] && ./bootstrap-linux.sh || echo "No boostrap file found"
+fi
 
 # Clone & config the private repository
 print -n "To clone the private repository, you need to provide its **HTTPS** address (just press Enter to abort) : "
@@ -27,7 +31,11 @@ if [[ -n "$repo" ]]; then
     echo ""
 
     # Bootstrap (create symlinks, etc) the public repository
-    [[ -f ./bootstrap.sh ]] && ./bootstrap.sh || echo "No boostrap file found"
+    if [[ "$OSTYPE" == "darwin"* ]]; then
+        [[ -f ./bootstrap-macos.sh ]] && ./bootstrap-macos.sh || echo "No boostrap file found"
+    else
+        [[ -f ./bootstrap-linux.sh ]] && ./bootstrap-linux.sh || echo "No boostrap file found"
+    fi
 fi
 
 echo "All done. Re-run your session to finish the installation :)"
