@@ -48,6 +48,7 @@ declare -A SYMLINKS=(
     ['others/gemrc']='.gemrc'
     ['others/git-templates']='.git-templates'
     ['others/gitattributes']='.gitattributes'
+    ['others/gitignore-global']='.gitignore-global'
     ['others/gitconfig']='.gitconfig'
     ['others/gtkrc-2.0']='.gtkrc-2.0'
     ['others/indicator-sysmonitor.json']='.indicator-sysmonitor.json'

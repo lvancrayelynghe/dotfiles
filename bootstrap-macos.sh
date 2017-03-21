@@ -25,6 +25,7 @@ declare -A SYMLINKS=(
     ['others/gemrc']='.gemrc'
     ['others/git-templates']='.git-templates'
     ['others/gitattributes']='.gitattributes'
+    ['others/gitignore-global']='.gitignore-global'
     ['others/gitconfig']='.gitconfig'
     ['others/lesskey']='.lesskey'
     ['others/my.cnf']='.my.cnf'
