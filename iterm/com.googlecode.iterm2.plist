@@ -423,9 +423,17 @@
 	<key>NSWindow Frame SharedPreferences</key>
 	<string>516 388 796 473 0 0 1680 1050 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>424 364 570 398 0 0 1680 1028 </string>
+	<string>0 44 1680 1006 0 0 1680 1050 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
 	<string>212 101 570 452 0 0 1680 1050 </string>
+	<key>NeverWarnAboutShortLivedSessions_5ABD9FF9-FC94-4790-940F-E359D2730AAF</key>
+	<true/>
+	<key>NeverWarnAboutShortLivedSessions_5ABD9FF9-FC94-4790-940F-E359D2730AAF_selection</key>
+	<integer>0</integer>
+	<key>NeverWarnAboutShortLivedSessions_8AC21A5C-694E-4E94-9641-718C69DB9628</key>
+	<true/>
+	<key>NeverWarnAboutShortLivedSessions_8AC21A5C-694E-4E94-9641-718C69DB9628_selection</key>
+	<integer>0</integer>
 	<key>New Bookmarks</key>
 	<array>
 		<dict>
@@ -2139,6 +2147,10 @@
 	<true/>
 	<key>NoSyncInstallationId</key>
 	<string>2EC9AFCA-7978-45D7-815A-742A1BD8833B</string>
+	<key>NoSyncNeverRemindPrefsChangesLostForFile</key>
+	<true/>
+	<key>NoSyncNeverRemindPrefsChangesLostForFile_selection</key>
+	<integer>0</integer>
 	<key>NoSyncPermissionToShowTip</key>
 	<false/>
 	<key>NoSyncTimeOfFirstLaunchOfVersionWithTip</key>
