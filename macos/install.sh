@@ -1,16 +1,12 @@
 #/bin/bash
 
-
-# cask microsoft-office ?
-
-
-
 ########################################
 # Manual installs                      #
 ########################################
 
 # Docker for mac (https://docs.docker.com/docker-for-mac/install/)
 # Docker sync (https://docker-sync.io/) -- sudo gem install docker-sync
+# Mail.app configuration (http://apple.stackexchange.com/a/259739)
 
 
 ########################################
@@ -20,6 +16,9 @@
 # GarageBand
 # iTunes
 # iMovie
+# Pages
+# Numbers
+# Keynotes
 
 
 ########################################
@@ -76,6 +75,8 @@ fi
 
 # brew install node
 # brew install npm
+
+
 # PACKAGE NPM (gulp, browsersync)
 # PACKAGE NPM (gulp, browsersync)
 # PACKAGE NPM (gulp, browsersync)
@@ -87,16 +88,10 @@ fi
 # PHP + PHAR TOOLS
 # PHP + PHAR TOOLS
 # PHP + PHAR TOOLS
-
 
 
 # mas install 803453959 ; # Slack
 # mas install 402592703 ; # Dejal timeout
-
-
-
-
-
 
 
 
@@ -204,7 +199,7 @@ defaults write NSGlobalDomain ApplePressAndHoldEnabled -bool false
 
 # Set a blazingly fast keyboard repeat rate
 defaults write NSGlobalDomain KeyRepeat -int 3
-defaults write NSGlobalDomain InitialKeyRepeat -int 10
+defaults write NSGlobalDomain InitialKeyRepeat -int 20
 
 # Set language and text formats
 # Note: if you’re in the US, replace `EUR` with `USD`, `Centimeters` with
