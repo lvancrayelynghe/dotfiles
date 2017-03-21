@@ -25,9 +25,10 @@ end)
 
 -- Chrome reload
 hs.hotkey.bind({"ctrl"}, "i", function()
-  local chrome = hs.appfinder.appFromName("Google Chrome")
-  local item = {"Afficher", "Actualiser cette page"}
-  chrome:selectMenuItem(item)
+  local script = [[tell application "Chrome" to tell the active tab of its first window
+    reload
+end tell]]
+  hs.osascript.applescript(script)
 end)
 
 -- Autoconfig reload
