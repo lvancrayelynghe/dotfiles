@@ -1,6 +1,8 @@
 {
+	"close_windows_when_empty": false,
 	"color_scheme": "Packages/gruvbox/gruvbox (Dark) (Hard) NDC.tmTheme",
 	"dictionary": "Packages/Language - French - Français/fr_FR.dic",
+	"find_selected_text": true,
 	"folder_exclude_patterns":
 	[
 		".svn",
@@ -24,7 +26,10 @@
 	[
 		"Vintage"
 	],
+	"open_files_in_new_window": false,
+	"remember_full_screen": true,
 	"scroll_past_end": true,
+	"show_full_path": true,
 	"theme": "gruvbox (Dark) (Hard).sublime-theme",
 	"trim_automatic_white_space": true,
 	"trim_trailing_white_space_on_save": true,

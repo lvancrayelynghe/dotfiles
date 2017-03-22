@@ -28,6 +28,7 @@
 		"SCSS",
 		"StringUtilities",
 		"TrailingSpaces",
+		"Twig",
 		"Vue Syntax Highlight"
 	]
 }
