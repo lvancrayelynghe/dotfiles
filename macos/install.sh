@@ -71,6 +71,7 @@ fi
 # brew cask install quicklook-json
 # brew cask install quicklook-csv
 # brew cask install font-hack
+# brew cask install paintbrush
 # brew install ccat
 
 # brew install node
