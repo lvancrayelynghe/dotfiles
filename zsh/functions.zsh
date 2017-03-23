@@ -87,12 +87,18 @@ function cheat-sheet() {
         perl -p0e 's/\nelse\n.*?\nfi\n/\n/sg' |
         perl -p0e 's/\nfor .*?done\n//sg' |
         grep -v "^if " |
+        grep -v "^elif " |
+        grep -v "^fi$" |
+        grep -v "^    if " |
+        grep -v "^    elif " |
+        grep -v "^    else" |
+        grep -v "^    fi$" |
         sed -r 's/^[[:space:]]+(.*)/\1/g' |
         sed -r 's/^# (.*)/\x1b[32m\x1b[1m\n# \1\x1b[0m/' |
         sed -r 's/## (.*)/\x1b[33m## \1\x1b[0m/' |
         sed -r 's/-- -/-/' |
         sed -r 's/alias -g/alias/' |
-        sed -r 's/^alias (-g )?([A-Za-z0-9._-=]+)=(.*)/\x1b[36m\2\x1b[0m\t\3/g' |
+        sed -r 's/^alias (-g )?([A-Za-z0-9!=._-]+)=(.*)/\x1b[36m\2\x1b[0m\t\3/g' |
         awk 'BEGIN { FS = "\t" } ; { printf "%-30s %s\n", $1, $2}' |
         sed -r "s/'(.*)'/\1/" |
         sed -r 's/"(.*)"/\1/'
@@ -104,7 +110,7 @@ function cheat-sheet() {
         grep -v "^--" |
         awk '{printf "%s%s",$0,NR%2?"\t":"\n" ; }' |
         awk -F'\t' '{ t = $1; $1 = $2; $2 = t; print; }' |
-        sed -r 's/^function ([A-Za-z0-9._-=]+)(.*) # (.*)/\x1b[36m\1\x1b[0m\t\x1b[33m\3\x1b[0m/g' |
+        sed -r 's/^function ([A-Za-z0-9!=._-]+)(.*) # (.*)/\x1b[36m\1\x1b[0m\t\x1b[33m\3\x1b[0m/g' |
         awk 'BEGIN { FS = "\t" } ; { printf "%-35s %s\n", $1, $2}'
     echo ""
 }
@@ -370,6 +376,11 @@ function gifify() {
     else
         echo "proper usage: gifify <input_movie.mov>. You DO need to include extension."
     fi
+}
+
+# Matrix
+function matrix() {
+    echo -e "\e[1;40m" ; clear ; characters=$( jot -c 94 33 | tr -d '\n' ) ; while :; do echo $LINES $COLUMNS $(( $RANDOM % $COLUMNS)) $(( $RANDOM % 72 )) $characters ;sleep 0.05; done|gawk '{ letters=$5; c=$4; letter=substr(letters,c,1);a[$3]=0;for (x in a) {o=a[x];a[x]=a[x]+1; printf "\033[%s;%sH\033[2;32m%s",o,x,letter; printf "\033[%s;%sH\033[1;37m%s\033[0;0H",a[x],x,letter;if (a[x] >= $1) { a[x]=0; } }}'
 }
 
 # Let's be corporate

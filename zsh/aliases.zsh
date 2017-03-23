@@ -76,6 +76,14 @@ else
     alias agall='apt-get update && apt-get -y upgrade && apt-get -y dist-upgrade && apt-get -y autoremove'
 fi
 
+# Use GNU tools instead of bsd ones
+if [[ "$OSTYPE" == "darwin"* ]]; then
+    alias ls='\gls --color=auto'
+    alias awk='\gawk'
+    alias sed='\gsed'
+    alias grep='\ggrep'
+fi
+
 # Directories working
 alias pwd=' pwd'
 if [[ "$OSTYPE" == "darwin"* ]]; then
@@ -96,11 +104,6 @@ alias 7=' cd -7'
 alias 8=' cd -8'
 alias 9=' cd -9'
 
-if [[ "$OSTYPE" == "darwin"* ]]; then
-    alias ls='\gls --color=auto'
-else
-    alias ls='\ls --color=auto'
-fi
 alias l='ls -lh --group-directories-first'
 alias ll='ls -lhA --group-directories-first'
 alias llm='ls -lhAt --group-directories-first' ## "m" for sort by last modified date
