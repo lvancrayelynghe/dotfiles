@@ -55,6 +55,8 @@ fi
 # sudo dscl . -create /Users/$USER UserShell /usr/local/bin/zsh
 
 # brew install p7zip
+# brew install ranger
+# brew install terminal-notifier
 # brew cask install iterm2
 # brew cask install google-chrome
 # brew cask install firefox
@@ -71,6 +73,7 @@ fi
 # brew cask install quicklook-json
 # brew cask install quicklook-csv
 # brew cask install font-hack
+# brew cask install itsycal
 # brew cask install paintbrush
 # brew install ccat
 
@@ -93,6 +96,7 @@ fi
 
 # mas install 803453959 ; # Slack
 # mas install 402592703 ; # Dejal timeout
+# mas install 425424353 ; # The Unarchiver
 
 
 
