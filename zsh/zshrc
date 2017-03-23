@@ -69,11 +69,6 @@ if hash git >/dev/null 2>&1; then
     source ${DOTFILES_PATH}/zsh/plugins/git.plugin.zsh
 fi
 
-if hash notify-send >/dev/null 2>&1; then
-    [[ -n "$DEBUG" ]] && trace-time "Loading plugins/undistract-me.zsh"
-    source ${DOTFILES_PATH}/zsh/plugins/undistract-me.zsh
-fi
-
 if hash fzf >/dev/null 2>&1; then
     [[ -n "$DEBUG" ]] && trace-time "Loading plugins/fzf-key-bindings.plugin.zsh"
     source ${DOTFILES_PATH}/zsh/plugins/fzf-key-bindings.plugin.zsh

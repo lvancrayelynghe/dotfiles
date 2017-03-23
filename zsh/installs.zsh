@@ -92,3 +92,15 @@ if [[ ! -f ~/.cache/zsh-plugins/zsh-autosuggestions/zsh-autosuggestions.zsh ]]; 
 fi
 [[ -n "$DEBUG" ]] && trace-time "Loading external plugin zsh-autosuggestions"
 source ~/.cache/zsh-plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+
+
+# Desktop notifications for long-running commands in zsh.
+if [[ ! -f ~/.cache/zsh-plugins/zsh-notify/notify.plugin.zsh ]]; then
+    mkdir -p ~/.cache/zsh-plugins/zsh-notify
+    git clone https://github.com/marzocchi/zsh-notify.git ~/.cache/zsh-plugins/zsh-notify
+fi
+[[ -n "$DEBUG" ]] && trace-time "Loading external plugin zsh-notify"
+source ~/.cache/zsh-plugins/zsh-notify/notify.plugin.zsh
+zstyle ':notify:*' command-complete-timeout 10
+zstyle ':notify:*' success-title "Command completed successfully"
+zstyle ':notify:*' error-title "Command completed with warning"
