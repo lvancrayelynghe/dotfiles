@@ -2,6 +2,30 @@
 	"close_windows_when_empty": false,
 	"color_scheme": "Packages/gruvbox/gruvbox (Dark) (Hard) NDC.tmTheme",
 	"dictionary": "Packages/Language - French - Français/fr_FR.dic",
+	"file_exclude_patterns":
+	[
+		"._.DS_Store",
+		".DS_Store",
+		"*.pyc",
+		"*.pyo",
+		"*.exe",
+		"*.dll",
+		"*.obj",
+		"*.o",
+		"*.a",
+		"*.lib",
+		"*.so",
+		"*.dylib",
+		"*.ncb",
+		"*.sdf",
+		"*.suo",
+		"*.pdb",
+		"*.idb",
+		"*.class",
+		"*.psd",
+		"*.db",
+		"*.sublime-workspace"
+	],
 	"find_selected_text": true,
 	"folder_exclude_patterns":
 	[
@@ -11,7 +35,7 @@
 		".sass-cache",
 		"node_modules"
 	],
-	"font_face": "Hack",
+	"font_face": "SF Mono Regular",
 	"font_size": 11,
 	"gruvbox_accent_orange": true,
 	"gruvbox_folder_icons_spacegray": true,
