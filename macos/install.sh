@@ -61,6 +61,7 @@ fi
 # brew cask install google-chrome
 # brew cask install firefox
 # brew cask install sublime-text
+# brew cask install ngrok
 # brew cask install libreoffice libreoffice-language-pack
 # brew cask install sequel-pro
 # brew cask install filezilla
@@ -70,6 +71,8 @@ fi
 # brew cask install hammerspoon
 # brew cask install google-drive
 # brew cask install qlmarkdown
+# brew cask install spotify
+# brew cask install skype
 # brew cask install quicklook-json
 # brew cask install quicklook-csv
 # brew cask install font-hack
@@ -81,10 +84,8 @@ fi
 # brew install npm
 
 
-# PACKAGE NPM (gulp, browsersync)
-# PACKAGE NPM (gulp, browsersync)
-# PACKAGE NPM (gulp, browsersync)
-# PACKAGE NPM (gulp, browsersync)
+# npm i -g gulp
+# npm i -g yarn
 
 
 # PHP + PHAR TOOLS
@@ -97,6 +98,18 @@ fi
 # mas install 803453959 ; # Slack
 # mas install 402592703 ; # Dejal timeout
 # mas install 425424353 ; # The Unarchiver
+
+
+
+
+###############################################################################
+# Install San Francisco fonts                                                 #
+###############################################################################
+
+git clone https://github.com/muhasturk/SFMono.git /tmp/sfmono
+cp /tmp/sfmono/*.otf ~/Library/Fonts
+rm -rf /tmp/sfmono
+ruby -e "$(curl -fsSL https://raw.github.com/davieghos/YosemiteSanFranciscoFont/master/install)"
 
 
 
