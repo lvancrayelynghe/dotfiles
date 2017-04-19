@@ -9,6 +9,9 @@ function find:biggest-dirs() { find . -maxdepth 1 -type d -print0 | xargs -0 du 
 function find:content()      { grep --include=\*.php -rnw '.' -e "$1" }
 function find:duplicated()   { fdupes -r . }
 
+# PHP lint all files
+function php:lint()          { find -iname '*.php' -exec php -l {} \; }
+
 # MySQL snippets
 function mysql:list()        { mysql -e "show databases;" }
 function mysql:create()      { mysql -e "create database \`$1\`;" }
