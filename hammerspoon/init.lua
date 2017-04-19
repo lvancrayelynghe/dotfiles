@@ -9,6 +9,7 @@ hs.hotkey.bind({"ctrl"}, "v",        function() hs.application.launchOrFocus("Fi
 hs.hotkey.bind({"ctrl"}, "q",        function() hs.application.launchOrFocus("Calendar") end)
 hs.hotkey.bind({"ctrl"}, "a",        function() hs.application.launchOrFocus("Slack") end)
 hs.hotkey.bind({"ctrl"}, "m",        function() hs.application.launchOrFocus("Mail") end)
+hs.hotkey.bind({"ctrl"}, "b",        function() hs.application.launchOrFocus("Sequel Pro") end)
 hs.hotkey.bind({"ctrl"}, "l",        function() hs.execute("/System/Library/CoreServices/Menu\\ Extras/User.menu/Contents/Resources/CGSession -suspend") end)
 
 -- Toggle Fullscreen
@@ -30,6 +31,25 @@ hs.hotkey.bind({"ctrl"}, "i", function()
 end tell]]
   hs.osascript.applescript(script)
 end)
+
+-- Caffeinate
+local caffeine = hs.menubar.new()
+function setCaffeineDisplay(state)
+    if state then
+        caffeine:setIcon(os.getenv("HOME") .. "/.hammerspoon/assets/caffeine-on.pdf")
+    else
+        caffeine:setIcon(os.getenv("HOME") .. "/.hammerspoon/assets/caffeine-off.pdf")
+    end
+end
+
+function caffeineClicked()
+    setCaffeineDisplay(hs.caffeinate.toggle("displayIdle"))
+end
+
+if caffeine then
+    caffeine:setClickCallback(caffeineClicked)
+    setCaffeineDisplay(hs.caffeinate.get("displayIdle"))
+end
 
 -- Autoconfig reload
 function reloadConfig(files)
