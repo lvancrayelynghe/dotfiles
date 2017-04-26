@@ -64,9 +64,11 @@ fi
 # brew cask install ngrok
 # brew cask install libreoffice libreoffice-language-pack
 # brew cask install sequel-pro
+# brew cask install cyberduck
 # brew cask install filezilla
 # brew cask install vlc
 # brew cask install atom
+# brew cask install beyond-compare
 # brew cask install firefox
 # brew cask install hammerspoon
 # brew cask install google-drive
