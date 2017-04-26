@@ -11,6 +11,7 @@ declare -A SYMLINKS=(
     ['bash/inputrc']='.inputrc'
     ['bash/profile']='.profile'
     ['zsh/zshrc']='.zshrc'
+    ['scripts/create-desk.sh']='bin/create-desk'
     ['vim/vim']='.vim'
     ['vim/vimrc']='.vimrc'
     ['desk']='.desk'

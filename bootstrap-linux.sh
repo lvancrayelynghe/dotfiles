@@ -15,6 +15,7 @@ declare -A SYMLINKS=(
     ['zsh/zshrc']='.zshrc'
     ['scripts/chromium-focus-and-new-tab.sh']='bin/chromium-focus-and-new-tab'
     ['scripts/cmus-window.sh']='bin/cmus-window'
+    ['scripts/create-desk.sh']='bin/create-desk'
     ['scripts/lights-on.sh']='bin/lights-on'
     ['scripts/move-to-next-monitor.sh']='bin/move-to-next-monitor'
     ['scripts/numlock.sh']='bin/numlock'
