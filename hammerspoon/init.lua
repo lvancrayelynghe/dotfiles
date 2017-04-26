@@ -11,6 +11,7 @@ hs.hotkey.bind({"ctrl"}, "a",        function() hs.application.launchOrFocus("Sl
 hs.hotkey.bind({"ctrl"}, "m",        function() hs.application.launchOrFocus("Mail") end)
 hs.hotkey.bind({"ctrl"}, "b",        function() hs.application.launchOrFocus("Sequel Pro") end)
 hs.hotkey.bind({"ctrl"}, "l",        function() hs.execute("/System/Library/CoreServices/Menu\\ Extras/User.menu/Contents/Resources/CGSession -suspend") end)
+hs.hotkey.bind({"ctrl"}, "p",        function() hs.execute("/usr/local/bin/subl /Users/lucvancrayelynghe/TODO.md") end)
 
 -- Toggle Fullscreen
 hs.hotkey.bind({"ctrl"}, "f", function()
