@@ -26,6 +26,7 @@ if [[ "$project" == "" ]]; then
 fi
 if [[ "$project_path" == "" ]]; then
 	project_path="$PWD"
+    project_path="${project_path/$HOME/\$HOME}"
 fi
 
 if [ -e $HOME/.desk/desks/$project.sh ]; then
