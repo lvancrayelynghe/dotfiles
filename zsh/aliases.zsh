@@ -168,13 +168,21 @@ alias snippets="cat ${DOTFILES_PATH}/zsh/snippets.zsh | sed -r 's/^function //g'
 # System stats
 alias free='free -h'
 alias ps='ps auxf'
-alias df='df -h'
-alias du='du -h'
-alias du0='du --max-depth=0'
-alias du1='du --max-depth=1 | sort -k2' ## sort by name
-alias du1s='du --max-depth=1 | sort -h' ## sort by size
 alias iotop='iotop -Poa' ## iotop with only processes using i/o + accumulated i/o
 alias dmesg="dmesg -T|sed -e 's|\(^.*'`date +%Y`']\)\(.*\)|\x1b[0;34m\1\x1b[0m - \2|g'" ## dmesg with colored human-readable dates
+if [[ "$OSTYPE" == "darwin"* ]]; then
+    alias df='gdf -h'
+    alias du='gdu -h'
+    alias du0='gdu --max-depth=0'
+    alias du1='gdu --max-depth=1 | sort -k2' ## sort by name
+    alias du1s='gdu --max-depth=1 | sort -h' ## sort by size
+else
+    alias df='df -h'
+    alias du='du -h'
+    alias du0='du --max-depth=0'
+    alias du1='du --max-depth=1 | sort -k2' ## sort by name
+    alias du1s='du --max-depth=1 | sort -h' ## sort by size
+fi
 
 # Search & find
 alias sg='grep -rinw "." -e ' ## inside files
@@ -250,6 +258,7 @@ alias dcr="docker-compose run"
 alias dcsa="docker-compose start"
 alias dcso="docker-compose stop"
 alias dsss="docker-sync-stack start"
+alias dssc="docker-sync-stack clean"
 
 # OS Specific
 if [[ "$OSTYPE" == "darwin"* ]]; then
