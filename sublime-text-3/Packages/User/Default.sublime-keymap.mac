@@ -177,13 +177,6 @@
     { "keys": ["alt+f7"], "command": "fold_tag_attributes" },
     { "keys": ["alt+f8"], "command": "unfold_all" },
 
-    // Font size
-    { "keys": ["super++"], "command": "increase_font_size" },
-    { "keys": ["super+="], "command": "increase_font_size" },
-    { "keys": ["super+-"], "command": "decrease_font_size" },
-    { "keys": ["super+keypad_plus"], "command": "increase_font_size" },
-    { "keys": ["super+keypad_minus"], "command": "decrease_font_size" },
-
     // Tabs
     { "keys": ["ctrl+tab"], "command": "next_view" },
     { "keys": ["ctrl+shift+tab"], "command": "prev_view" },
@@ -199,6 +192,13 @@
     { "keys": ["super+_"], "command": "select_by_index", "args": { "index": 7 } },
     { "keys": ["super+ç"], "command": "select_by_index", "args": { "index": 8 } },
     { "keys": ["super+à"], "command": "select_by_index", "args": { "index": 9 } },
+
+    // Font size
+    { "keys": ["super++"], "command": "increase_font_size" },
+    { "keys": ["super+="], "command": "increase_font_size" },
+    { "keys": ["super+-"], "command": "decrease_font_size" },
+    { "keys": ["super+keypad_plus"], "command": "increase_font_size" },
+    { "keys": ["super+keypad_minus"], "command": "decrease_font_size" },
 
     // Layouts
     { "keys": ["super+alt+&"], "command": "set_layout", "args": {
