@@ -1,6 +1,14 @@
 #/bin/bash
 
 ########################################
+# Cleanup                              #
+########################################
+
+rm -rf /Library/Application\ Support/Logic/
+rm -rf /Library/Audio/Apple\ Loops/
+
+
+########################################
 # Manual installs                      #
 ########################################
 
@@ -24,6 +32,7 @@
 ########################################
 # Installs brew                        #
 ########################################
+
 if test ! $(which brew) ; then
     echo "nstalling Homebrew"
     ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
@@ -54,8 +63,11 @@ fi
 # brew install m-cli
 # sudo dscl . -create /Users/$USER UserShell /usr/local/bin/zsh
 
+# brew install ruby
 # brew install p7zip
 # brew install ranger
+# brew install lftp
+# brew install ansible
 # brew install terminal-notifier
 # brew cask install iterm2
 # brew cask install google-chrome
@@ -80,6 +92,7 @@ fi
 # brew cask install font-hack
 # brew cask install itsycal
 # brew cask install paintbrush
+# brew cask install qlcolorcode
 # brew install ccat
 
 # brew install node
