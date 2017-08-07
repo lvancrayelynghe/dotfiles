@@ -20,10 +20,10 @@ hs.hotkey.bind({"ctrl"}, "f", function()
 end)
 
 -- Close active window
-hs.hotkey.bind({"ctrl"}, "x", function()
-  local win = hs.window.focusedWindow()
-  win:application():kill()
-end)
+-- hs.hotkey.bind({"ctrl"}, "x", function()
+--   local win = hs.window.focusedWindow()
+--   win:application():kill()
+-- end)
 
 -- Chrome reload
 hs.hotkey.bind({"ctrl"}, "i", function()
