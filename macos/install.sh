@@ -46,12 +46,17 @@ fi
 # Installs mas                         #
 ########################################
 
+# READ THIS FOR PHP
+# https://stackoverflow.com/questions/32703296/dyld-library-not-loaded-usr-local-lib-libjpeg-8-dylib-homebrew-php
+
 # brew install mas
 # mas signin luc@fractory.io
 
 # brew tap homebrew/dupes
 # brew tap caskroom/cask
 # brew tap caskroom/fonts
+# brew tap homebrew/versions
+# brew tap homebrew/homebrew-php
 
 # brew install coreutils findutils grep wget curl git gnu-tar gnu-sed gawk gnutls gnu-indent gnu-getopt htop httpie iftop imagemagick --with-webp pv tmux tree trash vim --with-override-system-vi wget --with-iri unison
 # echo 'export PATH="/usr/local/opt/gnu-getopt/bin:$PATH"' >> ~/.zshrc
@@ -69,6 +74,8 @@ fi
 # brew install lftp
 # brew install ansible
 # brew install terminal-notifier
+# brew install php71
+# brew install freetype jpeg libpng gd zlib
 # brew cask install iterm2
 # brew cask install google-chrome
 # brew cask install firefox
@@ -94,6 +101,7 @@ fi
 # brew cask install paintbrush
 # brew cask install qlcolorcode
 # brew install ccat
+# brew install openvpn
 
 # brew install node
 # brew install npm
