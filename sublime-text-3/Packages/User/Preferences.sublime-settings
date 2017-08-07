@@ -53,6 +53,7 @@
 	"open_files_in_new_window": false,
 	"remember_full_screen": true,
 	"scroll_past_end": true,
+	"show_encoding": true,
 	"show_full_path": true,
 	"theme": "gruvbox (Dark) (Hard).sublime-theme",
 	"trim_automatic_white_space": true,
