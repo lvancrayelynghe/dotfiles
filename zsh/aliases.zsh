@@ -153,6 +153,7 @@ alias rmrf="rm -rf"
 alias rmds="find . -type f -name '*.DS_Store' -ls -delete"
 alias cpr="cp -r"
 alias bak='backup-file'
+alias psy='psysh'
 alias tailf='tail -f'
 alias less='less -r'
 alias whence='type -a'
