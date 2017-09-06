@@ -33,6 +33,7 @@
 		".git",
 		".bundle",
 		".sass-cache",
+		"cache",
 		"node_modules"
 	],
 	"font_face": "SF Mono Regular",
