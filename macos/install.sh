@@ -58,7 +58,7 @@ fi
 # brew tap homebrew/versions
 # brew tap homebrew/homebrew-php
 
-# brew install coreutils findutils grep wget curl git gnu-tar gnu-sed gawk gnutls gnu-indent gnu-getopt htop httpie iftop imagemagick --with-webp pv tmux tree trash vim --with-override-system-vi wget --with-iri unison
+# brew install coreutils findutils grep wget curl git gnu-tar gnu-sed gawk gnutls gnu-indent gnu-getopt htop httpie iftop imagemagick --with-webp pv tmux tree trash vim --with-override-system-vi wget --with-iri unison dos2unix
 # echo 'export PATH="/usr/local/opt/gnu-getopt/bin:$PATH"' >> ~/.zshrc
 # echo 'export MANPATH=/opt/local/share/man:$MANPATH'  >> ~/.zshrc
 # echo 'export PATH="/usr/local/sbin:$PATH"' >> ~/.zshrc
