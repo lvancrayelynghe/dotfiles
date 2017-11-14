@@ -15,6 +15,7 @@ rm -rf /Library/Audio/Apple\ Loops/
 # Docker for mac (https://docs.docker.com/docker-for-mac/install/)
 # Docker sync (https://docker-sync.io/) -- sudo gem install docker-sync
 # Mail.app configuration (http://apple.stackexchange.com/a/259739)
+# CleanMyMac (https://macpaw.com/fr/store/cleanmymac)
 
 
 ########################################
