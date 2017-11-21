@@ -189,6 +189,7 @@ fi
 alias sg='grep -rinw "." -e ' ## inside files
 alias sa='ack -Hir' ## with ack
 alias ss='sift -n' ## with sift
+alias rg='rg -S' ## with ripgreprg
 alias ff='find . -type f -iname ' ## insensitive filename
 alias fr='find-and-replace' ## find and replace in current dir
 
