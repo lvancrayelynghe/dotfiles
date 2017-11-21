@@ -71,12 +71,13 @@ fi
 
 # brew install ruby
 # brew install p7zip
+# brew install ripgrep
 # brew install ranger
 # brew install lftp
 # brew install ansible
 # brew install terminal-notifier
 # brew install php71
-# brew install freetype jpeg libpng gd zlib
+# brew install freetype jpeg libpng gd zlib imagemagick tesseract
 # brew cask install iterm2
 # brew cask install google-chrome
 # brew cask install firefox
