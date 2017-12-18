@@ -31,6 +31,13 @@ rm -rf /Library/Audio/Apple\ Loops/
 
 
 ########################################
+# Install XCode                        #
+########################################
+
+xcode-select --install # Install Command Line Tools if you haven't already.
+sudo xcode-select --switch /Library/Developer/CommandLineTools # Enable command line tools
+
+########################################
 # Installs brew                        #
 ########################################
 
@@ -111,7 +118,7 @@ fi
 
 # npm i -g gulp
 # npm i -g yarn
-
+# npm i -g imagemin-cli
 
 # PHP + PHAR TOOLS
 # PHP + PHAR TOOLS
