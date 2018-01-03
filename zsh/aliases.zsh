@@ -320,8 +320,8 @@ alias mx='chmod u+x'
 
 # SSH helpers
 alias tunnel='ssh -f -N' ## Create a tunnel
-alias tunnel-mysql='ssh -f -N -L 3307:localhost:3306' ## Create a MySQL tunnel
-alias tunnel-socks='ssh -f -N -D 8080' ## SOCKS proxy
+alias tunnel-mysql='ssh -N -L 3307:localhost:3306' ## Create a MySQL tunnel
+alias tunnel-socks='ssh -N -D 8080' ## SOCKS proxy
 alias tunnel-list='ps aux | grep "ssh -f -N" | grep -v "grep"' ## List tunnels
 if [[ "$OSTYPE" == "darwin"* ]]; then
     alias pubkey="more ~/.ssh/keys/perso.rsa.pub | pbcopy | echo '=> Public key copied to pasteboard'"
