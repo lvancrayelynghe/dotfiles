@@ -85,6 +85,7 @@ fi
 # brew install terminal-notifier
 # brew install php71
 # brew install freetype jpeg libpng gd zlib imagemagick tesseract
+# brew install sift
 # brew cask install iterm2
 # brew cask install google-chrome
 # brew cask install firefox
