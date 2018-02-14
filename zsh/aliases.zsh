@@ -154,6 +154,7 @@ alias rmds="find . -type f -name '*.DS_Store' -ls -delete"
 alias cpr="cp -r"
 alias bak='backup-file'
 alias psy='psysh'
+alias run='make'
 alias phpl='php -l'
 alias tailf='tail -f'
 alias less='less -r'
