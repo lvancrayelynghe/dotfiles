@@ -376,7 +376,14 @@ alias cr="composer require"
 alias ci="composer install"
 alias cda="composer dump-autoload"
 
-# Laravel helpers
-alias art='php artisan'
-alias mig-install='php artisan migrate:install'
-alias mig-seed='php artisan migrate:refresh --seed'
+# Laravel helpers (through docker)
+alias art='docker-compose exec php php artisan'
+alias art-mig-install='docker-compose exec php php artisan migrate:install'
+alias art-mig-seed='docker-compose exec php php artisan migrate:refresh --seed'
+
+# Symfony helpers (through docker)
+alias sc="docker-compose exec php php bin/console"
+alias sc-make-entity="docker-compose exec php php bin/console make:entity"
+alias sc-make-migration="docker-compose exec php php bin/console make:migration"
+alias sc-doctrine-migrate="docker-compose exec php php bin/console doctrine:migrations:migrate -n"
+alias sc-doctrine-fixtures="docker-compose exec php php bin/console doctrine:fixtures:load -n"
