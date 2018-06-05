@@ -51,6 +51,8 @@ source ${DOTFILES_PATH}/zsh/key-bindings.zsh
 
 [[ -n "$DEBUG" ]] && trace-time "Loading aliases.zsh"
 source ${DOTFILES_PATH}/zsh/aliases.zsh
+[[ "$OSTYPE" == "darwin"* ]] && source ${DOTFILES_PATH}/zsh/aliases-osx.zsh
+[[ "$OSTYPE" == "linux"* ]] && source ${DOTFILES_PATH}/zsh/aliases-linux.zsh
 
 [[ -n "$DEBUG" ]] && trace-time "Loading functions.zsh"
 source ${DOTFILES_PATH}/zsh/functions.zsh
