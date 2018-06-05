@@ -8,6 +8,7 @@ rm -rf /Library/Application\ Support/Logic/
 rm -rf /Library/Audio/Apple\ Loops/
 
 
+
 ########################################
 # Manual installs                      #
 ########################################
@@ -16,6 +17,7 @@ rm -rf /Library/Audio/Apple\ Loops/
 # Docker sync (https://docker-sync.io/) -- sudo gem install docker-sync
 # Mail.app configuration (http://apple.stackexchange.com/a/259739)
 # CleanMyMac (https://macpaw.com/fr/store/cleanmymac)
+
 
 
 ########################################
@@ -30,12 +32,15 @@ rm -rf /Library/Audio/Apple\ Loops/
 # Keynotes
 
 
+
 ########################################
 # Install XCode                        #
 ########################################
 
 xcode-select --install # Install Command Line Tools if you haven't already.
 sudo xcode-select --switch /Library/Developer/CommandLineTools # Enable command line tools
+
+
 
 ########################################
 # Installs brew                        #
@@ -46,96 +51,81 @@ if test ! $(which brew) ; then
     ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 fi
 
-# brew update
-# brew upgrade
+
 
 
 ########################################
-# Installs mas                         #
+# Installs mas & brew                  #
 ########################################
 
 # READ THIS FOR PHP
 # https://stackoverflow.com/questions/32703296/dyld-library-not-loaded-usr-local-lib-libjpeg-8-dylib-homebrew-php
 
-# brew install mas
-# mas signin luc@fractory.io
+brew tap caskroom/cask
+brew tap caskroom/fonts
+brew tap homebrew/dupes
+brew tap homebrew/versions
+brew tap homebrew/homebrew-php
 
-# brew tap homebrew/dupes
-# brew tap caskroom/cask
-# brew tap caskroom/fonts
-# brew tap homebrew/versions
-# brew tap homebrew/homebrew-php
+brew install coreutils findutils grep wget curl git gnu-tar gnu-sed gawk gnutls gnu-indent gnu-getopt htop iftop imagemagick --with-webp pv tmux tree trash
+brew install vim --with-override-system-vi wget --with-iri unison dos2unix
+echo 'export PATH="/usr/local/opt/gnu-getopt/bin:$PATH"' >> ~/.zshrc
+echo 'export MANPATH=/opt/local/share/man:$MANPATH'  >> ~/.zshrc
+echo 'export PATH="/usr/local/sbin:$PATH"' >> ~/.zshrc
 
-# brew install coreutils findutils grep wget curl git gnu-tar gnu-sed gawk gnutls gnu-indent gnu-getopt htop httpie iftop imagemagick --with-webp pv tmux tree trash vim --with-override-system-vi wget --with-iri unison dos2unix
-# echo 'export PATH="/usr/local/opt/gnu-getopt/bin:$PATH"' >> ~/.zshrc
-# echo 'export MANPATH=/opt/local/share/man:$MANPATH'  >> ~/.zshrc
-# echo 'export PATH="/usr/local/sbin:$PATH"' >> ~/.zshrc
+brew install bash
+brew install zsh
+brew install m-cli
+sudo dscl . -create /Users/$USER UserShell /usr/local/bin/zsh
 
-# brew install bash
-# brew install zsh
-# brew install m-cli
-# sudo dscl . -create /Users/$USER UserShell /usr/local/bin/zsh
+brew install ruby
+brew install p7zip
+brew install ranger
+brew install lftp
+brew install ansible
+brew install terminal-notifier
+brew install php71
+brew install freetype jpeg libpng gd zlib imagemagick tesseract
 
-# brew install ruby
-# brew install p7zip
-# brew install ripgrep
-# brew install ranger
-# brew install lftp
-# brew install ansible
-# brew install terminal-notifier
-# brew install php71
-# brew install freetype jpeg libpng gd zlib imagemagick tesseract
-# brew install sift
-# brew install fd
-# brew install xsv
-# brew install bat
-# brew install lnav
-# brew cask install iterm2
-# brew cask install google-chrome
-# brew cask install firefox
-# brew cask install sublime-text
-# brew cask install ngrok
-# brew cask install libreoffice libreoffice-language-pack
-# brew cask install sequel-pro
-# brew cask install cyberduck
-# brew cask install filezilla
-# brew cask install vlc
-# brew cask install atom
-# brew cask install beyond-compare
-# brew cask install firefox
-# brew cask install hammerspoon
-# brew cask install google-drive
-# brew cask install qlmarkdown
-# brew cask install spotify
-# brew cask install skype
-# brew cask install quicklook-json
-# brew cask install quicklook-csv
-# brew cask install font-hack
-# brew cask install itsycal
-# brew cask install paintbrush
-# brew cask install qlcolorcode
-# brew install ccat
-# brew install openvpn
+brew cask install font-hack
+brew cask install ngrok
 
-# brew install node
-# brew install npm
+# Desktop apps
+brew cask install iterm2
+brew cask install google-chrome
+brew cask install firefox
+brew cask install sublime-text
+brew cask install libreoffice libreoffice-language-pack
+brew cask install sequel-pro
+brew cask install cyberduck
+brew cask install filezilla
+brew cask install vlc
+brew cask install atom
+brew cask install beyond-compare
+brew cask install firefox
+brew cask install hammerspoon
+brew cask install spotify
+brew cask install itsycal
+brew cask install skype
+brew install openvpn
 
+# Quick-looks
+brew cask install quicklook-json
+brew cask install quicklook-csv
+brew cask install qlcolorcode
+brew cask install qlmarkdown
 
-# npm i -g gulp
-# npm i -g yarn
-# npm i -g imagemin-cli
+# NodeJS
+brew install node
+brew install npm
 
-# PHP + PHAR TOOLS
-# PHP + PHAR TOOLS
-# PHP + PHAR TOOLS
-# PHP + PHAR TOOLS
-# PHP + PHAR TOOLS
-
-
-# mas install 803453959 ; # Slack
-# mas install 402592703 ; # Dejal timeout
-# mas install 425424353 ; # The Unarchiver
-
+# Mas
+brew install mas
+mas signin luc@fractory.io
+# Slack
+mas install 803453959
+# The Unarchiver
+mas install 425424353
 
 
 

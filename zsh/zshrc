@@ -64,6 +64,12 @@ source ${DOTFILES_PATH}/zsh/snippets.zsh
 [[ -n "$DEBUG" ]] && trace-time "Loading plugins/colored-man.plugin.zsh"
 source ${DOTFILES_PATH}/zsh/plugins/colored-man.plugin.zsh
 
+if [[ -f /usr/local/etc/profile.d/z.sh ]]; then
+    [[ -n "$DEBUG" ]] && trace-time "Loading z"
+    source /usr/local/etc/profile.d/z.sh
+    _Z_DATA="$HOME/.cache/z-directories-trackfile" # Source after compinit to enable completion
+fi
+
 if hash fzf >/dev/null 2>&1; then
     [[ -n "$DEBUG" ]] && trace-time "Loading plugins/fzf-key-bindings.plugin.zsh"
     source ${DOTFILES_PATH}/zsh/plugins/fzf-key-bindings.plugin.zsh
