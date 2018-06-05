@@ -30,6 +30,14 @@ function launchOrFocusOrHide(appname)
             app:unhide()
             mainwin:focus()
         end
+    else
+        if appname == "Calendrier" then
+            app:activate(true)
+            app:unhide()
+            app:selectMenuItem({'Fenêtre', 'Calendrier'})
+            app:mainWindow():focus()
+            return
+        end
     end
 end
 
@@ -73,7 +81,7 @@ hs.hotkey.bind({"ctrl", "cmd"}, "l", function() hs.grid.pushWindowDown(hs.window
 -- end)
 
 -- Chrome reload
-hs.hotkey.bind({"ctrl"}, "i", function()
+hs.hotkey.bind({"ctrl"}, "u", function()
   local script = [[tell application "Chrome" to tell the active tab of its first window
     reload
 end tell]]
