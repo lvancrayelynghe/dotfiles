@@ -64,11 +64,6 @@ source ${DOTFILES_PATH}/zsh/snippets.zsh
 [[ -n "$DEBUG" ]] && trace-time "Loading plugins/colored-man.plugin.zsh"
 source ${DOTFILES_PATH}/zsh/plugins/colored-man.plugin.zsh
 
-if hash git >/dev/null 2>&1; then
-    [[ -n "$DEBUG" ]] && trace-time "Loading plugins/git.plugin.zsh"
-    source ${DOTFILES_PATH}/zsh/plugins/git.plugin.zsh
-fi
-
 if hash fzf >/dev/null 2>&1; then
     [[ -n "$DEBUG" ]] && trace-time "Loading plugins/fzf-key-bindings.plugin.zsh"
     source ${DOTFILES_PATH}/zsh/plugins/fzf-key-bindings.plugin.zsh
