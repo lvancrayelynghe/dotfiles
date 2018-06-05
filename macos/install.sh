@@ -86,6 +86,10 @@ fi
 # brew install php71
 # brew install freetype jpeg libpng gd zlib imagemagick tesseract
 # brew install sift
+# brew install fd
+# brew install xsv
+# brew install bat
+# brew install lnav
 # brew cask install iterm2
 # brew cask install google-chrome
 # brew cask install firefox
