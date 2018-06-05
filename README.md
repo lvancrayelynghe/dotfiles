@@ -56,6 +56,5 @@ echo "export ZSH_VCS_INFO=true" >> ".zshrc_`hostname`"
 - [Prezto](https://github.com/sorin-ionescu/prezto)
 - [Oh My ZSH](https://github.com/robbyrussell/oh-my-zsh)
 - [Oh My Git](https://github.com/arialdomartini/oh-my-git)
-- [Agnoster's ZSH theme](https://gist.github.com/agnoster/3712874)
 - [MiniVim](https://github.com/sd65/MiniVim)
 - [noctuid/dotfiles](https://github.com/noctuid/dotfiles) and [unbalancedparentheses/dotfiles](https://github.com/unbalancedparentheses/dotfiles) for keyboard workflow ideas
