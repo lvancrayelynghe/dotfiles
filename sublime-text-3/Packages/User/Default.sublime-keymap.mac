@@ -81,7 +81,7 @@
     { "keys": ["super+shift+backspace"], "command": "run_macro_file", "args": {"file": "res://Packages/Default/Delete to Hard BOL.sublime-macro"} },
 
     // Search / Goto
-    { "keys": ["super+f"], "command": "show_panel", "args": {"panel": "find"} },
+    { "keys": ["super+f"], "command": "show_panel", "args": {"panel": "find", "reverse":false} },
     { "keys": ["super+shift+f"], "command": "show_panel", "args": {"panel": "find_in_files"} },
     { "keys": ["super+h"], "command": "show_panel", "args": {"panel": "replace"} },
     { "keys": ["super+shift+h"], "command": "show_panel", "args": {"panel": "find_in_files"} },
