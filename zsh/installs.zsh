@@ -8,14 +8,6 @@ if [[ ! -e "${BIN_PATH}/git-cheat" ]]; then
     curl -s https://raw.githubusercontent.com/0xAX/git-cheat/master/git-cheat > "${BIN_PATH}/git-cheat" && chmod 0755 "${BIN_PATH}/git-cheat"
 fi
 
-# A plugin to make directory listings more readable
-if [[ ! -f ~/.cache/zsh-plugins/k/k.sh ]]; then
-    mkdir -p ~/.cache/zsh-plugins/k
-    git clone https://github.com/supercrabtree/k.git ~/.cache/zsh-plugins/k
-fi
-[[ -n "$DEBUG" ]] && trace-time "Loading external plugin k"
-source ~/.cache/zsh-plugins/k/k.sh
-
 # Fish shell-like like syntax highlighting for Zsh
 if [[ ! -f ~/.cache/zsh-plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]]; then
     mkdir -p ~/.cache/zsh-plugins/zsh-syntax-highlighting

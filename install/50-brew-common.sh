@@ -19,6 +19,7 @@ brew install ccat
 # Others
 brew install desk
 brew install fzf
+brew install exa
 brew install httpie
 brew install xsv
 brew install lnav

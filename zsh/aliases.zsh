@@ -59,10 +59,8 @@ alias llm='ls -lhAt --group-directories-first' ## "m" for sort by last modified 
 alias llc='ls -lhAU --group-directories-first' ## "c" for sort by creation date
 alias lls='ls -lhAS --group-directories-first' ## "s" for sort by size
 alias lla='ll-archive' ## "a" for archive
-alias k='k -h'
-alias kl='k -h --no-vcs'
-alias kk='k -Ah'
-alias kkl='k -Ah --no-vcs'
+alias k='exa -abghHlS --group-directories-first'
+alias kk='exa -abghHlS --group-directories-first --git'
 
 # 1 letter commands shortcuts
 alias p=' dirs -v | head -10' ## most used dirs for current session
