@@ -34,3 +34,18 @@ source ~/.cache/zsh-plugins/zsh-notify/notify.plugin.zsh
 zstyle ':notify:*' command-complete-timeout 10
 zstyle ':notify:*' success-title "Command completed successfully"
 zstyle ':notify:*' error-title "Command completed with warning"
+
+# Pure Theme
+if [[ ! -d ~/.cache/zsh-plugins/pure ]]; then
+    mkdir -p ~/.cache/zsh-plugins/pure
+    git clone https://github.com/sindresorhus/pure.git ~/.cache/zsh-plugins/pure
+    mkdir -p ~/.cache/zsh-plugins/pure/symlinks
+
+    cd ~/.cache/zsh-plugins/pure
+    ln -s "$PWD/pure.zsh" "$PWD/symlinks/prompt_pure_setup"
+    ln -s "$PWD/async.zsh" "$PWD/symlinks/async"
+    cd
+fi
+fpath=(~/.cache/zsh-plugins/pure/symlinks $fpath)
+autoload -U promptinit; promptinit
+prompt pure
