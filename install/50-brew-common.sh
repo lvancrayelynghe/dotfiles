@@ -25,4 +25,4 @@ brew install xsv
 brew install lnav
 brew install tldr
 brew install sshrc
-brew install colordiff
+brew install icdiff

@@ -50,6 +50,15 @@
 [push]
     default = current
 
+[diff]
+    tool = icdiff
+
+[difftool]
+    prompt = false
+
+[difftool "icdiff"]
+    cmd = icdiff --highlight --line-numbers -L \"$BASE\" -L \"$REMOTE\" \"$LOCAL\" \"$REMOTE\"
+
 [alias]
     # Show defined aliases
     aliases             = !"git config --get-regexp 'alias.*' | colrm 1 6 | sed 's/[ ]/ = /'"
