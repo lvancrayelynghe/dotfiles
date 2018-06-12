@@ -1,10 +1,13 @@
 [color]
-    branch = auto
-    diff = auto
-    status = auto
-    interactive = auto
-    ui = true
-    pager = true
+	branch = always
+	diff = always
+	status = always
+	interactive = always
+	ui = always
+	pager = true
+	grep = always
+	decorate = always
+	showbranch = always
 
 [color "branch"]
     current = yellow reverse
