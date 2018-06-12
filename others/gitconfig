@@ -50,15 +50,6 @@
 [push]
     default = current
 
-[diff]
-    tool = meld
-
-[merge]
-    tool = meld
-
-[mergetool "meld"]
-    trustExitCode = false
-
 [alias]
     # Show defined aliases
     aliases             = !"git config --get-regexp 'alias.*' | colrm 1 6 | sed 's/[ ]/ = /'"
@@ -95,9 +86,9 @@
     full-reset          = "!git fetch origin && git reset --hard origin/master"
 
     # Publish the current branch to "origin" and set the current branch to track the upstream branch
-    publish = !"git push -u origin $(git branch-name)"
+    publish             = !"git push -u origin $(git branch-name)"
     # Unpublish the current branch by deleting the remote version of the current branch on "origin"
-    unpublish = !"git push origin :$(git branch-name)"
+    unpublish           = !"git push origin :$(git branch-name)"
 
     # Open changed files
     subl                = !git-ls-files -m -z | xargs -0 subl
