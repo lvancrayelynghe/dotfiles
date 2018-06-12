@@ -8,6 +8,14 @@ if [[ ! -e "${BIN_PATH}/git-cheat" ]]; then
     curl -s https://raw.githubusercontent.com/0xAX/git-cheat/master/git-cheat > "${BIN_PATH}/git-cheat" && chmod 0755 "${BIN_PATH}/git-cheat"
 fi
 
+# lf terminal file manager
+if [[ ! -e "/usr/local/bin/lf" ]]; then
+    wget -q "https://github.com/gokcehan/lf/releases/download/r4/lf-darwin-amd64.tar.gz" -O /tmp/lf.tar.gz
+    (cd /tmp && tar -zxvf /tmp/lf.tar.gz)
+    mv /tmp/lf /usr/local/bin
+    rm -rf /tmp/lf.tar.gz
+fi
+
 # Fish shell-like like syntax highlighting for Zsh
 if [[ ! -f ~/.cache/zsh-plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]]; then
     mkdir -p ~/.cache/zsh-plugins/zsh-syntax-highlighting
