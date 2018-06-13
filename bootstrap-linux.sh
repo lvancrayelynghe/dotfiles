@@ -83,6 +83,7 @@ declare -A SYMLINKS=(
     ['sublime-text-3/Packages/User/markdown.css']='.config/sublime-text-3/Packages/User/markdown.css'
     ['sublime-text-3/Packages/User/MarkdownPreview.sublime-settings']='.config/sublime-text-3/Packages/User/MarkdownPreview.sublime-settings'
     ['sublime-text-3/Packages/User/Package Control.sublime-settings']='.config/sublime-text-3/Packages/User/Package Control.sublime-settings'
+    ['sublime-text-3/Packages/User/PHP Companion.sublime-settings']='.config/sublime-text-3/Packages/User/PHP Companion.sublime-settings'
     ['sublime-text-3/Packages/User/Preferences.sublime-settings']='.config/sublime-text-3/Packages/User/Preferences.sublime-settings'
 )
 

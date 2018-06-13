@@ -122,7 +122,6 @@
     { "keys": ["super+i"], "command": "chrome_remote_reload" },
     { "keys": ["super+b", "super+b"], "command": "toggle_side_bar" },
     { "keys": ["super+b", "super+p"], "command": "close_folder_list" },
-    { "keys": ["super+b", "super+v"], "command": "paste_from_history" },
     { "keys": ["super+b", "super+f"], "command": "focus_side_bar" },
     { "keys": ["super+b", "super+,"], "command": "toggle_minimap" },
     { "keys": ["super+b", "super+u"], "command": "upper_case" },
@@ -145,6 +144,8 @@
     { "keys": ["super+b", "é"], "command": "convert_chars_to_html" },
     { "keys": ["super+b", "super+tab"], "command": "convert_spaces_to_tabs" },
     { "keys": ["super+b", "super+space"], "command": "convert_tabs_to_spaces" },
+    { "keys": ["super+b", "super+c"], "command": "insert_php_constructor_property" },
+    { "keys": ["super+b", "super+v"], "command": "show_overlay", "args": {"overlay": "command_palette", "text": "PHPCompanion:"} },
 
     // Spelling
     { "keys": ["f6"], "command": "toggle_setting", "args": {"setting": "spell_check"} },

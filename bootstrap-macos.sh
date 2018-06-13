@@ -55,6 +55,7 @@ declare -A SYMLINKS=(
     ['sublime-text-3/Packages/User/markdown.css']='Library/Application Support/Sublime Text 3/Packages/User/markdown.css'
     ['sublime-text-3/Packages/User/MarkdownPreview.sublime-settings']='Library/Application Support/Sublime Text 3/Packages/User/MarkdownPreview.sublime-settings'
     ['sublime-text-3/Packages/User/Package Control.sublime-settings']='Library/Application Support/Sublime Text 3/Packages/User/Package Control.sublime-settings'
+    ['sublime-text-3/Packages/User/PHP Companion.sublime-settings']='Library/Application Support/Sublime Text 3/Packages/User/PHP Companion.sublime-settings'
     ['sublime-text-3/Packages/User/Preferences.sublime-settings']='Library/Application Support/Sublime Text 3/Packages/User/Preferences.sublime-settings'
 )
 
