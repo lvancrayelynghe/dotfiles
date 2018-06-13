@@ -2,5 +2,5 @@
     <content><![CDATA[\$${1:arrayName} = [$0];]]></content>
     <tabTrigger>ar</tabTrigger>
     <scope>source.php - variable.other.php</scope>
-    <description>$… = array (…)</description>
+    <description>$… = […]</description>
 </snippet>

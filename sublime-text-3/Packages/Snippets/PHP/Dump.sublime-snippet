@@ -2,5 +2,5 @@
     <content><![CDATA[dump($0);]]></content>
 	<tabTrigger>d</tabTrigger>
 	<scope>source.php - string - comment</scope>
-	<description>return false</description>
+	<description>dump(…)</description>
 </snippet>

@@ -2,5 +2,5 @@
 	<content><![CDATA[echo ${0};]]></content>
 	<tabTrigger>e</tabTrigger>
 	<scope>source.php - string - comment</scope>
-	<description>echo "…"</description>
+	<description>echo '…'</description>
 </snippet>

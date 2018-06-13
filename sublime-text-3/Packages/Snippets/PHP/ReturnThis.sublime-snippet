@@ -2,5 +2,5 @@
 	<content><![CDATA[return \$this;$0]]></content>
 	<tabTrigger>r$</tabTrigger>
 	<scope>source.php - string - comment</scope>
-	<description>return true</description>
+	<description>return $this</description>
 </snippet>
