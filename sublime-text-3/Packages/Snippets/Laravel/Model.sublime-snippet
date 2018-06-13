@@ -1,0 +1,20 @@
+<snippet>
+	<content><![CDATA[namespace App;
+
+use Illuminate\Database\Eloquent\Model;
+
+class ${1:ModelName} extends Model
+{
+    // public \$timestamps = false;
+
+    protected \$fillable = [${2}];
+
+    $0
+}
+
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	 <tabTrigger>model</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	 <scope>source.php</scope>
+</snippet>

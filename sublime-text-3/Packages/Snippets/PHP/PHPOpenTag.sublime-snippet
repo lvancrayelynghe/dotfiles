@@ -1,0 +1,8 @@
+<snippet>
+	<content><![CDATA[<?${TM_PHP_OPEN_TAG:php}
+
+$0
+]]></content>
+	<tabTrigger>php</tabTrigger>
+	<description>&lt;?php</description>
+</snippet>

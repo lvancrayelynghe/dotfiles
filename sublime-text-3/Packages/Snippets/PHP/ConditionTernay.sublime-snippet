@@ -1,0 +1,6 @@
+<snippet>
+    <content><![CDATA[${2:condition} ? ${3:a} : ${4:b}]]></content>
+    <tabTrigger>?</tabTrigger>
+    <scope>source.php</scope>
+    <description>$… = ( … ) ? … : …</description>
+</snippet>

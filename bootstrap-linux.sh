@@ -73,6 +73,7 @@ declare -A SYMLINKS=(
     ['sublime-text-3/Packages/ChromeRemoteReload.py']='.config/sublime-text-3/Packages/ChromeRemoteReload.py'
     ['sublime-text-3/Packages/CommandOnSave']='.config/sublime-text-3/Packages/CommandOnSave'
     ['sublime-text-3/Packages/PHP']='.config/sublime-text-3/Packages/PHP'
+    ['sublime-text-3/Packages/Snippets']='.config/sublime-text-3/Packages/Snippets'
     ['sublime-text-3/Packages/User/AdvancedNewFile.sublime-settings']='.config/sublime-text-3/Packages/User/AdvancedNewFile.sublime-settings'
     ['sublime-text-3/Packages/User/anmol.tmTheme']='.config/sublime-text-3/Packages/User/anmol.tmTheme'
     ['sublime-text-3/Packages/User/CommandOnSave.sublime-settings']='.config/sublime-text-3/Packages/User/CommandOnSave.sublime-settings'

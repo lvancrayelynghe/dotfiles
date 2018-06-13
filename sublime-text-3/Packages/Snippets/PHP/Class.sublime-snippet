@@ -1,0 +1,12 @@
+
+<snippet>
+    <content><![CDATA[class ${1:ClassName}${2: extends ${3:AnotherClass}}
+{
+    ${0}
+}
+
+]]></content>
+    <tabTrigger>class</tabTrigger>
+    <scope>source.php - string - comment</scope>
+    <description>class …</description>
+</snippet>

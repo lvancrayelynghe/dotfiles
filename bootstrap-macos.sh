@@ -45,6 +45,7 @@ declare -A SYMLINKS=(
     ['sublime-text-3/Packages/ChromeRemoteReload.py']='Library/Application Support/Sublime Text 3/Packages/ChromeRemoteReload.py'
     ['sublime-text-3/Packages/CommandOnSave']='Library/Application Support/Sublime Text 3/Packages/CommandOnSave'
     ['sublime-text-3/Packages/PHP']='Library/Application Support/Sublime Text 3/Packages/PHP'
+    ['sublime-text-3/Packages/Snippets']='Library/Application Support/Sublime Text 3/Packages/Snippets'
     ['sublime-text-3/Packages/User/AdvancedNewFile.sublime-settings']='Library/Application Support/Sublime Text 3/Packages/User/AdvancedNewFile.sublime-settings'
     ['sublime-text-3/Packages/User/anmol.tmTheme']='Library/Application Support/Sublime Text 3/Packages/User/anmol.tmTheme'
     ['sublime-text-3/Packages/User/CommandOnSave.sublime-settings']='Library/Application Support/Sublime Text 3/Packages/User/CommandOnSave.sublime-settings'
