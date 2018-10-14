@@ -62,6 +62,7 @@ alias lls='ls -lhAS --group-directories-first' ## "s" for sort by size
 alias lla='ll-archive' ## "a" for archive
 alias k='exa -abghHlS --group-directories-first'
 alias kk='exa -abghHlS --group-directories-first --git'
+alias kt='exa -hlTlL=2 --group-directories-first'
 
 # 1 letter commands shortcuts
 alias p=' dirs -v | head -10' ## most used dirs for current session
