@@ -110,3 +110,4 @@ export PATH="/usr/local/opt/gnu-getopt/bin:$PATH"
 export PATH="/usr/local/sbin:$PATH"
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+test -e "${HOME}/.dev-server/local/bootstrap.sh" && source "${HOME}/.dev-server/local/bootstrap.sh"
