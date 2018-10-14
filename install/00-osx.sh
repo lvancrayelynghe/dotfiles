@@ -107,6 +107,7 @@ brew cask install hammerspoon
 brew cask install spotify
 brew cask install itsycal
 brew cask install skype
+brew cask install skyfonts
 brew install openvpn
 
 # Quick-looks
