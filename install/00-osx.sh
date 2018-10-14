@@ -205,6 +205,9 @@ defaults write NSGlobalDomain NSAutomaticQuoteSubstitutionEnabled -bool false
 # Disable auto-correct
 defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false
 
+# Silent "your disk is almost full" until 1 Gb
+defaults write com.apple.diskspaced minFreeSpace 1
+
 # Set background
 # sqlite3 ~/Library/Application\ Support/Dock/desktoppicture.db "update data set value = '/path/to/file.png'"
 
