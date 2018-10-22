@@ -110,4 +110,10 @@ export PATH="/usr/local/opt/gnu-getopt/bin:$PATH"
 export PATH="/usr/local/sbin:$PATH"
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
-test -e "${HOME}/.dev-server/local/bootstrap.sh" && source "${HOME}/.dev-server/local/bootstrap.sh"
+
+if [ "$EUID" -ne 0 ]; then
+    test -e "${HOME}/.dev-server/local/bootstrap.sh" && source "${HOME}/.dev-server/local/bootstrap.sh"
+else
+    test -e "${HOME}/.dev-server/server/bootstrap.sh" && source "${HOME}/.dev-server/server/bootstrap.sh"
+fi
+
