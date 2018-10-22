@@ -1,3 +1,9 @@
+[user]
+    # Don't guess the user's (os) identity
+    useConfigOnly = true
+    name = Luc Vancrayelynghe
+    email = luc.vancrayelynghe@gmail.com
+
 [color]
 	branch = always
 	diff = always
@@ -33,10 +39,6 @@
     excludesfile = ~/.gitignore-global
     # Only use on Windows networks share : git config --local core.filemode false
     # filemode = false
-
-[user]
-    # Don't guess the user's (os) identity
-    useConfigOnly = true
 
 [init]
     templatedir = ~/.git-templates
