@@ -6,16 +6,13 @@ echo "2) Base Web"
 read -n 1 action
 
 echo ""
-echo ""
 echo "Nom du projet (défaut au nom du dossier courant) ?"
 read project
 
 echo ""
-echo ""
 echo "Chemin du projet (défaut au dossier courant) ?"
 read project_path
 
-echo ""
 echo ""
 echo "Description ?"
 read description
@@ -26,7 +23,7 @@ if [[ "$project" == "" ]]; then
 fi
 if [[ "$project_path" == "" ]]; then
 	project_path="$PWD"
-    project_path="${project_path/$HOME/\$HOME}"
+    project_path="${project_path/$DESK_PROJECTS_PATH/\$DESK_PROJECTS_PATH}"
 fi
 
 if [ -e $HOME/.desk/desks/$project.sh ]; then

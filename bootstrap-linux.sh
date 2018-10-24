@@ -31,7 +31,6 @@ declare -A SYMLINKS=(
     ['bspwm']='.config/bspwm'
     ['conky']='.config/conky'
     ['sxhkd']='.config/sxhkd'
-    ['desk']='.desk'
     ['geany/geany.conf']='.config/geany/geany.conf'
     ['geany/keybindings.conf']='.config/geany/keybindings.conf'
     ['geany/monokai.conf']='.config/geany/colorschemes/monokai.conf'

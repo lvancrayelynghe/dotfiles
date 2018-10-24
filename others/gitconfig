@@ -4,6 +4,15 @@
     name = Luc Vancrayelynghe
     email = luc.vancrayelynghe@gmail.com
 
+[core]
+    pager = less -FRS
+    editor = vim
+    autocrlf = false
+    whitespace = trailing-space,space-before-tab,cr-at-eol
+    excludesfile = ~/.gitignore-global
+    # Only use on Windows networks share : git config --local core.filemode false
+    # filemode = false
+
 [color]
 	branch = always
 	diff = always
@@ -30,15 +39,6 @@
     added = yellow
     changed = green
     untracked = cyan
-
-[core]
-    pager = less -FRS
-    editor = vim
-    autocrlf = false
-    whitespace = trailing-space,space-before-tab,cr-at-eol
-    excludesfile = ~/.gitignore-global
-    # Only use on Windows networks share : git config --local core.filemode false
-    # filemode = false
 
 [init]
     templatedir = ~/.git-templates

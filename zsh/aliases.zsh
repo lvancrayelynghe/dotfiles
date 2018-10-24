@@ -42,7 +42,6 @@ fi
 # Directories working
 alias pwd=' pwd'
 alias cd=' cd'
-alias cdg=' cd "$(git rev-parse --show-toplevel)"' ## git root
 alias -- -=' cd -'
 alias 1=' cd -'
 alias 2=' cd -2'
@@ -62,7 +61,9 @@ alias lls='ls -lhAS --group-directories-first' ## "s" for sort by size
 alias lla='ll-archive' ## "a" for archive
 alias k='exa -abghHlS --group-directories-first'
 alias kk='exa -abghHlS --group-directories-first --git'
-alias kt='exa -hlTlL=2 --group-directories-first'
+alias kt='exa -hlTl --group-directories-first'
+alias ktt='exa -hlTlL=2 --group-directories-first'
+alias kttt='exa -hlTlL=3 --group-directories-first'
 
 # 1 letter commands shortcuts
 alias p=' dirs -v | head -10' ## most used dirs for current session
@@ -76,13 +77,10 @@ alias e='open-with-vim'
 alias s='open-with-sublime-text'
 alias a='open-with-atom'
 alias n='nano'
-alias g='git'
 
 # Others commands shortcuts
 alias dg='desk go'
 alias zd='z --del'
-alias mu='mutt'
-alias mf='mutt -F'
 alias k9='kill -9'
 alias rd='rmdir'
 alias md='mkdir -p'
@@ -104,6 +102,8 @@ alias grep='grep --color=auto'
 alias vgrep='grep -v --color=auto'
 alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'
+alias mu='mutt'
+alias mf='mutt -F'
 alias zshrc='source ~/.zshrc' ## Reload config
 alias dotfiles='(cd ${DOTFILES_PATH} && git pull) ; (cd ${DOTFILES_PATH}/../private && git pull) ; source ~/.zshrc' ## Pull dotfiles from repositories and reload config
 alias snippets="cat ${DOTFILES_PATH}/zsh/snippets.zsh | sed -r 's/^function //g' | sed -r 's/^# (.*)/\x1b[32m\x1b[1m# \1\x1b[0m/'"
@@ -121,12 +121,16 @@ alias ff='find . -type f -iname ' ## insensitive filename
 alias fr='find-and-replace' ## find and replace in current dir
 
 # Git
+alias cdg=' cd "$(git rev-parse --show-toplevel)"' ## git root
+alias g='git'
 alias gcl='git clone --recursive'
 alias gcf='git config'
 alias gs='git status'
 alias gst='git status-short'
 alias ga='git add'
 alias gaa='git add -A'
+alias gmv='g mv'
+alias grm='g rm'
 alias gl='git log'
 alias gls='git log --stat' ## include which files were altered
 alias glp='git log -p' ## display the full diff of each commit
@@ -182,6 +186,19 @@ alias dok="docker kill"
 alias dops="docker ps"
 alias dorm="docker rm"
 alias dormi="docker rmi"
+
+# Docker compose
+alias dc="docker-compose"
+alias dce="docker-compose exec"
+alias dcr="docker-compose run"
+alias dcb="docker-compose build"
+alias dcu="docker-compose up"
+alias dcd="docker-compose down"
+alias dcsa="docker-compose start"
+alias dcso="docker-compose stop"
+alias dcrm="docker-compose rm"
+alias dsss="docker-sync-stack start"
+alias dssc="docker-sync-stack clean"
 
 # rsync
 alias rsync-copy="rsync -av --progress -h --exclude-from=$HOME/.cvsignore"

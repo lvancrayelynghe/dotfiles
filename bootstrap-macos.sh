@@ -14,7 +14,6 @@ declare -A SYMLINKS=(
     ['scripts/create-desk.sh']='bin/create-desk'
     ['vim/vim']='.vim'
     ['vim/vimrc']='.vimrc'
-    ['desk']='.desk'
     ['hammerspoon']='.hammerspoon'
     ['luakit']='.config/luakit'
     ['mutt/muttrc']='.muttrc'
