@@ -7,9 +7,10 @@ if [[ -d ~/.cache/zsh-completions ]]; then
     fpath=(~/.cache/zsh-completions $fpath)
 fi
 
-# Load and run compinit (autocompletion)
-autoload -U compinit
+# Load and run compinit adn colors (autocompletion)
+autoload -U compinit colors
 compinit -i -d "${ZSH_COMPDUMP}"
+colors
 
 unsetopt flowcontrol     # output flow control via start/stop characters (usually assigned to ^S/^Q) is disabled in the shell’s editor
 setopt menu_complete     # autoselect the first completion entry
@@ -61,8 +62,29 @@ zstyle ':completion:*:functions' ignored-patterns '(_*|pre(cmd|exec))'
 # Array completion element sorting.
 zstyle ':completion:*:*:-subscript-:*' tag-order indexes parameters
 
-# Directories
-zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
+# Load directories colors in "ls" command
+if whence dircolors >/dev/null; then
+  [[ -e ~/.dircolors ]] && eval `dircolors ~/.dircolors`
+  zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
+else
+  export CLICOLOR=1
+  zstyle ':completion:*:default' list-colors ''
+fi
+
+# https://misc.flogisoft.com/bash/tip_colors_and_formatting
+zstyle ':completion:*'                 list-colors 'di=94' 'ln=35' 'so=32' 'ex=92' 'bd=46;34' 'cd=43;34'
+zstyle ':completion:*:commands'        list-colors '=*=32'
+zstyle ':completion:*:builtins'        list-colors '=*=34'
+zstyle ':completion:*:functions'       list-colors '=*=31'
+zstyle ':completion:*:aliases'         list-colors '=*=32'
+zstyle ':completion:*:parameters'      list-colors '=*=33'
+zstyle ':completion:*:reserved-words'  list-colors '=*=31'
+zstyle ':completion:*:manuals*'        list-colors '=*=36'
+zstyle ':completion:*:options'         list-colors '=^(-- *)=1;34'
+
+zstyle ':completion:*:*:kill:*'                    list-colors '=(#b) #([0-9]#)*( *[a-z])*=34=31=33'
+zstyle ':completion:*:*:killall:*:processes-names' list-colors '=(#b) #([0-9]#)*=0=01;31'
+
 zstyle ':completion:*:*:cd:*' tag-order local-directories directory-stack path-directories
 zstyle ':completion:*:*:cd:*:directory-stack' menu yes select
 zstyle ':completion:*:-tilde-:*' group-order 'named-directories' 'path-directories' 'users' 'expand'
