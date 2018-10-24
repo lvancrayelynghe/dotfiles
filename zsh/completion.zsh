@@ -2,6 +2,11 @@
 
 ZSH_COMPDUMP="$HOME/.cache/zsh-completion-dump"
 
+# Completion directory
+if [[ -d ~/.cache/zsh-completions ]]; then
+    fpath=(~/.cache/zsh-completions $fpath)
+fi
+
 # Load and run compinit (autocompletion)
 autoload -U compinit
 compinit -i -d "${ZSH_COMPDUMP}"
