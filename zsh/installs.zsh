@@ -55,5 +55,11 @@ if [[ ! -d ~/.cache/zsh-plugins/pure ]]; then
     cd
 fi
 fpath=(~/.cache/zsh-plugins/pure/symlinks $fpath)
+
+# Desk completion if file exists
+if [[ -f ~/.cache/zsh-plugins/desk-completions ]]; then
+    fpath=(~/.cache/zsh-plugins/desk-completions $fpath)
+fi
+
 autoload -U promptinit; promptinit
 prompt pure
