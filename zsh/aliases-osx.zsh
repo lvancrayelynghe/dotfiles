@@ -7,9 +7,6 @@ alias pubkey="more ~/.ssh/keys/perso.rsa.pub | pbcopy | echo '=> Public key copi
 # Copy working directory to clipboard
 alias pwdc=' pwd | tr -d "\n" | pbcopy'
 
-# Clear screen
-alias c=" clear && printf '\e[3J'"
-
 # Open file
 alias o='open'
 

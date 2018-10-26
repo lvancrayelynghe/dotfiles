@@ -66,6 +66,7 @@ alias ktt='exa -hlTlL=2 --group-directories-first'
 alias kttt='exa -hlTlL=3 --group-directories-first'
 
 # 1 letter commands shortcuts
+alias c=" clear && echo -ne '\033c' && printf '\e[3J'"
 alias p=' dirs -v | head -10' ## most used dirs for current session
 alias x=' exit'
 alias d='desk'

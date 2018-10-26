@@ -7,9 +7,6 @@ alias pubkey="more ~/.ssh/id_rsa.pub | xclip | echo '=> Public key copied to pas
 # Copy working directory to clipboard
 alias pwdc=' pwd | tr -d "\n" | xclip -selection clipboard'
 
-# Clear screen
-alias c=" clear && echo -ne '\033c'"
-
 # Open file
 alias o='xdg-open 2>/dev/null'
 
