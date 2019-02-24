@@ -20,7 +20,7 @@ function trace-time() {
 
 [[ -n "$DEBUG" ]] && trace-time "Initializing dotfiles"
 
-DOTFILES_PATH=${DOTFILES_PATH:-~/dotfiles/public}
+DOTFILES_PATH=~/.dotfiles/public
 BIN_PATH=${BIN_PATH:-~/bin}
 HOSTNAME=`hostname`
 HOST_CONFIG_FILE="$HOME/.zshrc_$HOSTNAME"
@@ -116,4 +116,3 @@ if [ "$HOSTNAME" = dev.fractory.io ]; then
 else
     test -e "${HOME}/.dev-server/local/bootstrap.sh" && source "${HOME}/.dev-server/local/bootstrap.sh"
 fi
-

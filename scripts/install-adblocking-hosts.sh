@@ -22,7 +22,6 @@ cp /etc/hosts /etc/hosts.bak
 
 # Obtain various hosts files and merge into one
 echo "Downloading ad-blocking hosts files..."
-wget -q -O - "http://benoth.github.com/hosts/bad.hosts.txt" >> $temphosts
 wget -q -O - "http://adaway.org/hosts.txt" >> $temphosts
 wget -q -O - "http://winhelp2002.mvps.org/hosts.txt" >> $temphosts
 wget -q -O - "http://pgl.yoyo.org/adservers/serverlist.php?hostformat=hosts&showintro=0&mimetype=plaintext" >> $temphosts

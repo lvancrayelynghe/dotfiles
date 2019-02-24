@@ -2,7 +2,7 @@
 [[ "$0" =~ 'zsh' ]] && alias -g CC='| pbcopy'
 
 # Copy SSH public key to clipboard
-alias pubkey="more ~/.ssh/keys/perso.rsa.pub | pbcopy | echo '=> Public key copied to pasteboard'"
+alias pubkey="more ~/.ssh/id_rsa.pub | pbcopy | echo '=> Public key copied to pasteboard'"
 
 # Copy working directory to clipboard
 alias pwdc=' pwd | tr -d "\n" | pbcopy'

@@ -1,4 +1,4 @@
-export DOTFILES_PATH=${DOTFILES_PATH:-~/dotfiles/public}
+export DOTFILES_PATH=~/.dotfiles/public
 export BIN_PATH=${BIN_PATH:-~/bin}
 
 eval "`dircolors`"
@@ -362,9 +362,9 @@ alias tunnel-mysql='ssh -f -N -L 3307:localhost:3306' ## Create a MySQL tunnel
 alias tunnel-socks='ssh -f -N -D 8080' ## SOCKS proxy
 alias tunnel-list='ps aux | grep "ssh -f -N" | grep -v "grep"' ## List tunnels
 if [[ "$OSTYPE" == "darwin"* ]]; then
-    alias pubkey="more ~/.ssh/keys/perso.rsa.pub | pbcopy | echo '=> Public key copied to pasteboard'"
+    alias pubkey="more ~/.ssh/id_rsa.pub | pbcopy | echo '=> Public key copied to pasteboard'"
 else
-    alias pubkey="more ~/.ssh/keys/perso.rsa.pub | xclip | echo '=> Public key copied to pasteboard'"
+    alias pubkey="more ~/.ssh/id_rsa.pub | xclip | echo '=> Public key copied to pasteboard'"
 fi
 
 # Date & time helpers

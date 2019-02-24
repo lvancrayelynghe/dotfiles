@@ -55,7 +55,7 @@ hs.hotkey.bind({"ctrl"}, "q", function() launchOrFocusOrHide("Calendrier") end)
 hs.hotkey.bind({"ctrl"}, "a", function() launchOrFocusOrHide("Slack") end)
 hs.hotkey.bind({"ctrl"}, "b", function() launchOrFocusOrHide("Sequel Pro") end)
 hs.hotkey.bind({"ctrl"}, "m", function() hs.execute("/System/Library/CoreServices/Menu\\ Extras/User.menu/Contents/Resources/CGSession -suspend") end)
-hs.hotkey.bind({"ctrl"}, "p", function() hs.execute("/usr/local/bin/subl /Users/lucvancrayelynghe/TODO.md") end)
+-- hs.hotkey.bind({"ctrl"}, "p", function() hs.execute("/usr/local/bin/subl /Users/lucvancrayelynghe/TODO.md") end)
 -- hs.hotkey.bind({"ctrl"}, "m", function() launchOrFocusOrHide("Mail") end)
 
 hs.hotkey.bind({"ctrl"}, "h", function() hs.grid.resizeWindowShorter(hs.window.focusedWindow()) end)

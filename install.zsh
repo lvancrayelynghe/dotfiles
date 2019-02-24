@@ -1,13 +1,13 @@
 #!/bin/zsh
-export DOTFILES_PATH=${DOTFILES_PATH:-~/dotfiles/public}
+export DOTFILES_PATH=~/.dotfiles/public
 
 # Clone & config the public repository
 mkdir -p ${DOTFILES_PATH}
 cd ${DOTFILES_PATH}
-git clone --recursive https://github.com/Benoth/dotfiles.git .
+git clone --recursive https://github.com/lvancrayelynghe/dotfiles.git .
 chmod u+x *.sh
-git config --local user.email "benoth83@gmail.com"
-git config --local user.name "Benoth"
+git config --local user.email "luc.vancrayelynghe@gmail.com"
+git config --local user.name "Luc Vancrayelynghe"
 
 # Bootstrap (create symlinks, etc) the public repository
 if [[ "$OSTYPE" == "darwin"* ]]; then

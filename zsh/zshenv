@@ -1,6 +1,6 @@
 #!/usr/bin/env zsh
 
 skip_global_compinit=1
-export DOTFILES_PATH=${DOTFILES_PATH:-~/dotfiles/public}
+export DOTFILES_PATH=~/.dotfiles/public
 export LESSHISTFILE=-
 export MYSQL_HISTFILE=/dev/null

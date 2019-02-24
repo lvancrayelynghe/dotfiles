@@ -8,7 +8,7 @@
 ## Installation
 ```
 export DOTFILES_PATH=~/.dotfiles/public
-wget https://raw.githubusercontent.com/Benoth/dotfiles/master/install.zsh && chmod u+x install.zsh && ./install.zsh && rm install.zsh
+wget https://raw.githubusercontent.com/lvancrayelynghe/dotfiles/master/install.zsh && chmod u+x install.zsh && ./install.zsh && rm install.zsh
 ```
 
 
@@ -24,15 +24,15 @@ wget https://raw.githubusercontent.com/Benoth/dotfiles/master/install.zsh && chm
 - [git-cheat](https://github.com/0xBX/git-cheat)
 - [ack](http://beyondgrep.com/) : A tool like grep, optimized for programmers (require Perl 5)
 - [sift](https://sift-tool.org/) : A fast and powerful alternative to grep
-- A lot of [ZSH](https://github.com/Benoth/dotfiles/tree/master/zsh) (lightweight) customisations, without the use of any framework, but a lot of inspiration from OhMyZsh and Prezto
-- Various dotfiles for [Vim](https://github.com/Benoth/dotfiles/tree/master/vim), [Mutt](https://github.com/Benoth/dotfiles/tree/master/mutt) and [others](https://github.com/Benoth/dotfiles/tree/master/others)
+- A lot of [ZSH](https://github.com/lvancrayelynghe/dotfiles/tree/master/zsh) (lightweight) customisations, without the use of any framework, but a lot of inspiration from OhMyZsh and Prezto
+- Various dotfiles for [Vim](https://github.com/lvancrayelynghe/dotfiles/tree/master/vim), [Mutt](https://github.com/lvancrayelynghe/dotfiles/tree/master/mutt) and [others](https://github.com/lvancrayelynghe/dotfiles/tree/master/others)
 
 
 ## Soft requirements
 Because they're used in aliases & co
 - [Pygments](http://pygments.org/) : A generic syntax highlighter (apt-get install python-pygments)
 - [HTTPie](https://github.com/jkbrzt/httpie) : A CLI cURL-like tool for humans (apt-get install httpie)
-- [Mutt](http://www.mutt.org/) : See compilation [here](https://github.com/Benoth/dotfiles/blob/master/mutt/muttrc#L1) (or apt-get install mutt on recent distros)
+- [Mutt](http://www.mutt.org/) : See compilation [here](https://github.com/lvancrayelynghe/dotfiles/blob/master/mutt/muttrc#L1) (or apt-get install mutt on recent distros)
 - curl (apt-get install curl)
 - pwgen for password generation (apt-get install pwgen)
 - imagemagick (apt-get install imagemagick)

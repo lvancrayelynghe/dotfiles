@@ -36,7 +36,11 @@
 		"cache",
 		"node_modules"
 	],
-	"font_face": "SF Mono Regular",
+	"font_face": "Fira Code Medium",
+	"font_options":
+	[
+		"subpixel_antialias"
+	],
 	"font_size": 12,
 	"gruvbox_accent_orange": true,
 	"gruvbox_folder_icons_spacegray": true,

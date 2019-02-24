@@ -4,8 +4,8 @@
 # Cleanup                              #
 ########################################
 
-rm -rf /Library/Application\ Support/Logic/
-rm -rf /Library/Audio/Apple\ Loops/
+sudo rm -rf /Library/Application\ Support/Logic/
+sudo rm -rf /Library/Audio/Apple\ Loops/
 
 
 
@@ -25,7 +25,6 @@ rm -rf /Library/Audio/Apple\ Loops/
 ########################################
 
 # GarageBand
-# iTunes
 # iMovie
 # Pages
 # Numbers
@@ -63,15 +62,13 @@ fi
 
 brew tap caskroom/cask
 brew tap caskroom/fonts
-brew tap homebrew/dupes
-brew tap homebrew/versions
-brew tap homebrew/homebrew-php
 
-brew install coreutils findutils grep wget curl git gnu-tar gnu-sed gawk gnutls gnu-indent gnu-getopt htop iftop imagemagick --with-webp pv tmux tree trash
-brew install vim --with-override-system-vi wget --with-iri unison dos2unix
+brew install coreutils findutils grep wget curl git gnu-tar gnu-sed gawk gnutls gnu-indent gnu-getopt vim htop iftop imagemagick pv tmux tree trash unison dos2unix
+echo 'export PATH="/usr/local/opt/curl-openssl/bin:$PATH"' >> ~/.zshrc
+echo 'export PATH="/usr/local/opt/curl/bin:$PATH"' >> ~/.zshrc
 echo 'export PATH="/usr/local/opt/gnu-getopt/bin:$PATH"' >> ~/.zshrc
-echo 'export MANPATH=/opt/local/share/man:$MANPATH'  >> ~/.zshrc
 echo 'export PATH="/usr/local/sbin:$PATH"' >> ~/.zshrc
+echo 'export MANPATH=/opt/local/share/man:$MANPATH'  >> ~/.zshrc
 
 brew install bash
 brew install zsh
@@ -85,12 +82,14 @@ brew install lftp
 brew install ansible
 brew install terminal-notifier
 brew install php71
-brew install freetype jpeg libpng gd zlib imagemagick tesseract
+brew install freetype jpeg libpng gd zlib imagemagick tesseract tesseract-lang
 
 brew cask install font-hack
+brew cask install font-fira-code
 brew cask install ngrok
 
 # Desktop apps
+brew cask install appcleaner
 brew cask install iterm2
 brew cask install google-chrome
 brew cask install firefox
@@ -108,6 +107,7 @@ brew cask install spotify
 brew cask install itsycal
 brew cask install skype
 brew cask install skyfonts
+brew cask install google-drive-file-stream
 brew install openvpn
 
 # Quick-looks
@@ -127,7 +127,10 @@ mas signin luc@fractory.io
 mas install 803453959
 # The Unarchiver
 mas install 425424353
-
+# Bear notes
+mas install 1091189122
+# Toogl
+mas install 957734279
 
 
 ###############################################################################

@@ -2,7 +2,7 @@
 
 cd ${DOTFILES_PATH}
 git remote rm origin
-git remote add origin git@github.com:Benoth/dotfiles.git
+git remote add origin git@github.com:lvancrayelynghe/dotfiles.git
 git push origin master
 git branch --set-upstream-to=origin/master master
 
