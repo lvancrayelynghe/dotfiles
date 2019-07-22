@@ -111,7 +111,7 @@ export PATH="/usr/local/sbin:$PATH"
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
-if [ "$HOSTNAME" = dev.fractory.io ]; then
+if [ "$HOSTNAME" = luc.dev.fractory.io ]; then
     test -e "${HOME}/.dev-server/server/bootstrap.sh" && source "${HOME}/.dev-server/server/bootstrap.sh"
 else
     test -e "${HOME}/.dev-server/local/bootstrap.sh" && source "${HOME}/.dev-server/local/bootstrap.sh"
