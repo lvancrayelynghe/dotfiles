@@ -218,6 +218,9 @@ alias 777='chmod 777 -R'
 alias www="chown www-data:www-data * .* -R"
 alias mx='chmod u+x'
 
+# Dev helpers
+alias cs='php-cs-fixer --using-cache=false --rules=@Symfony,@PSR2 fix'
+
 # SSH helpers
 alias tunnel='ssh -f -N' ## Create a tunnel
 alias tunnel-mysql='ssh -N -L 3307:localhost:3306' ## Create a MySQL tunnel
