@@ -41,7 +41,8 @@
 	[
 		"subpixel_antialias"
 	],
-	"font_size": 12,
+	"font_size": 14,
+	"git_diff_target": "head",
 	"gruvbox_accent_orange": true,
 	"gruvbox_folder_icons_spacegray": true,
 	"gruvbox_tabs_xs": true,
@@ -60,7 +61,8 @@
 	"scroll_past_end": true,
 	"show_encoding": true,
 	"show_full_path": true,
-	"theme": "gruvbox (Dark) (Hard).sublime-theme",
+	"show_git_status": true,
+	"theme": "gruvbox.sublime-theme",
 	"trim_automatic_white_space": true,
 	"trim_trailing_white_space_on_save": true,
 	"word_separators": "./\\()\"'-:,.;<>~!@#%^&*|+=[]{}`~?",
