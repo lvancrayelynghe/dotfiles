@@ -1249,7 +1249,7 @@
 				<key>editor</key>
 				<string>com.github.atom</string>
 				<key>text</key>
-				<string>/usr/local/bin/subl $(echo "\(semanticHistory.workingDirectory)/" | sed 's#/var/www#~/DevServer#')$(echo "\1" | sed 's#^[ab]/*##') \2</string>
+				<string>/usr/local/bin/subl $(echo "\(semanticHistory.workingDirectory)/" | sed 's#/var/www#~/DevServer#')$(echo "\1" | sed -E 's#^(a/|b/)*##')</string>
 			</dict>
 			<key>Send Code When Idle</key>
 			<false/>
@@ -1668,7 +1668,7 @@
 		<key>screenFrame</key>
 		<string>{{0, 0}, {1680, 1050}}</string>
 		<key>topLeft</key>
-		<string>{669, 814}</string>
+		<string>{272, 971}</string>
 	</dict>
 	<key>NoSyncHaveRequestedFullDiskAccess</key>
 	<true/>
