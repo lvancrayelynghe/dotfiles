@@ -56,6 +56,7 @@
 	[
 		"Vintage"
 	],
+	"index_files": false,
 	"open_files_in_new_window": false,
 	"remember_full_screen": true,
 	"scroll_past_end": true,
