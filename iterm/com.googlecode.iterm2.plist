@@ -530,7 +530,7 @@
 	<key>NSWindow Frame SharedPreferences</key>
 	<string>725 430 918 423 0 0 1680 1050 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>532 459 570 452 0 0 1680 1027 </string>
+	<string>532 459 570 452 0 0 1680 1050 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
 	<string>212 67 570 473 0 0 1680 1050 </string>
 	<key>NeverWarnAboutShortLivedSessions_15C6173C-1C55-46C9-BE04-C3F0C0053FD8</key>
@@ -1247,9 +1247,9 @@
 				<key>action</key>
 				<string>raw command</string>
 				<key>editor</key>
-				<string>com.sublimetext.3</string>
+				<string>com.github.atom</string>
 				<key>text</key>
-				<string>/usr/local/bin/subl $(echo "\(semanticHistory.workingDirectory)/\1 \2" | sed 's#/var/www#~/DevServer#')</string>
+				<string>/usr/local/bin/subl $(echo "\(semanticHistory.workingDirectory)/" | sed 's#/var/www#~/DevServer#')$(echo "\1" | sed 's#^[ab]/*##') \2</string>
 			</dict>
 			<key>Send Code When Idle</key>
 			<false/>
@@ -1668,7 +1668,7 @@
 		<key>screenFrame</key>
 		<string>{{0, 0}, {1680, 1050}}</string>
 		<key>topLeft</key>
-		<string>{261, 906}</string>
+		<string>{669, 814}</string>
 	</dict>
 	<key>NoSyncHaveRequestedFullDiskAccess</key>
 	<true/>
@@ -1677,7 +1677,7 @@
 	<key>NoSyncInstallationId</key>
 	<string>EF5913FD-9BD8-4880-B545-47AF1F3FA874</string>
 	<key>NoSyncLaunchExperienceControllerRunCount</key>
-	<integer>6</integer>
+	<integer>7</integer>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile</key>
 	<true/>
 	<key>NoSyncNeverRemindPrefsChangesLostForFile_selection</key>
