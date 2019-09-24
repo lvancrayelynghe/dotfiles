@@ -109,6 +109,9 @@ alias zshrc='source ~/.zshrc' ## Reload config
 alias dotfiles='(cd ${DOTFILES_PATH} && git pull) ; (cd ${DOTFILES_PATH}/../private && git pull) ; source ~/.zshrc' ## Pull dotfiles from repositories and reload config
 alias snippets="cat ${DOTFILES_PATH}/zsh/snippets.zsh | sed -r 's/^function //g' | sed -r 's/^# (.*)/\x1b[32m\x1b[1m# \1\x1b[0m/'"
 
+alias sudo='sudo ' ## Allow aliases to be sudo’ed
+alias watch='watch ' ## Allow aliases to be watched
+
 # System stats
 alias free='free -h'
 alias ps='ps auxf'

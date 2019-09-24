@@ -16,8 +16,6 @@ alias record="ffmpeg -f x11grab -s 1366x768 -an -r 16 -loglevel quiet -i :0.0 -b
 # System commands
 alias apt-installed="aptitude search '~i!~M'"
 if [[ $UID != 0 || $EUID != 0 ]]; then
-    alias sudo='sudo ' ## Allow aliases to be sudo’ed
-    alias watch='watch ' ## Allow aliases to be watched
     alias halt='sudo shutdown -h now'
     alias reboot='sudo shutdown -r now'
     alias apt='sudo apt-get'
