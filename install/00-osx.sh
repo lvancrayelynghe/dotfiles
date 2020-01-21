@@ -63,7 +63,7 @@ fi
 brew tap caskroom/cask
 brew tap caskroom/fonts
 
-brew install coreutils findutils grep wget curl git gnu-tar gnu-sed gawk gnutls gnu-indent gnu-getopt vim htop iftop imagemagick pv tmux tree trash unison dos2unix
+brew install coreutils findutils grep wget curl git gnu-tar gnu-sed gawk gnutls gnu-indent gnu-getopt vim htop iftop imagemagick pv tmux tree trash unison dos2unix telnet
 echo 'export PATH="/usr/local/opt/curl-openssl/bin:$PATH"' >> ~/.zshrc
 echo 'export PATH="/usr/local/opt/curl/bin:$PATH"' >> ~/.zshrc
 echo 'export PATH="/usr/local/opt/gnu-getopt/bin:$PATH"' >> ~/.zshrc
@@ -119,6 +119,9 @@ brew cask install qlmarkdown
 # NodeJS
 brew install node
 brew install npm
+
+# Fonts
+brew cask install font-jetbrains-mono
 
 # Mas
 brew install mas
