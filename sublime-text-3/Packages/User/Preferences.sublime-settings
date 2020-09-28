@@ -36,7 +36,7 @@
 		"cache",
 		"node_modules"
 	],
-	"font_face": "Fira Code Medium",
+	"font_face": "JetBrains Mono Medium",
 	"font_options":
 	[
 		"subpixel_antialias"
