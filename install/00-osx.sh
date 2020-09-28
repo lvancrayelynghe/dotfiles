@@ -94,12 +94,12 @@ brew cask install iterm2
 brew cask install google-chrome
 brew cask install firefox
 brew cask install sublime-text
+brew cask install visual-studio-code
 brew cask install libreoffice libreoffice-language-pack
 brew cask install sequel-pro
 brew cask install cyberduck
 brew cask install filezilla
 brew cask install vlc
-brew cask install atom
 brew cask install beyond-compare
 brew cask install firefox
 brew cask install hammerspoon
