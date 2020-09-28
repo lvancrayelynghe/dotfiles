@@ -17,11 +17,11 @@ alias sed='\gsed'
 alias grep='\ggrep'
 
 # Disk usage
-alias df='gdf -h'
+alias df='gdf -h | grep -v tmpfs | grep -v "/docker/"'
 alias du='gdu -h'
-alias du0='gdu --max-depth=0'
-alias du1='gdu --max-depth=1 | sort -k2' ## sort by name
-alias du1s='gdu --max-depth=1 | sort -h' ## sort by size
+alias du0='gdu -hd0'
+alias du1='gdu -hd1 | sort -k2' ## sort by name
+alias du1s='gdu -hd1 | sort -h' ## sort by size
 
 # Cleanup
 alias rmds="find . -type f -name '*.DS_Store' -ls -delete"
@@ -61,7 +61,7 @@ alias afk="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resource
 alias zip="zip -x *.DS_Store -x *__MACOSX* -x *.AppleDouble*"
 
 # Flush DNS
-alias flushdns="dscacheutil -flushcache && killall -HUP mDNSResponder"
+alias flushdns="sudo killall -HUP mDNSResponder"
 
 # Quick-Look preview files from the command line
 alias ql="qlmanage -p &>/dev/null"

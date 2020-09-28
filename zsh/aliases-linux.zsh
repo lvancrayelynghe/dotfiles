@@ -40,11 +40,11 @@ alias iotop='iotop -Poa' ## iotop with only processes using i/o + accumulated i/
 alias dmesg="dmesg -T|sed -e 's|\(^.*'`date +%Y`']\)\(.*\)|\x1b[0;34m\1\x1b[0m - \2|g'" ## dmesg with colored human-readable dates
 
 # Disk usage
-alias df='df -h'
+alias df='df -h | grep -v tmpfs | grep -v "/docker/"'
 alias du='du -h'
-alias du0='du --max-depth=0'
-alias du1='du --max-depth=1 | sort -k2' ## sort by name
-alias du1s='du --max-depth=1 | sort -h' ## sort by size
+alias du0='du -hd0'
+alias du1='du -hd1 | sort -k2' ## sort by name
+alias du1s='du -hd1 | sort -h' ## sort by size
 
 # Datetime helpers
 alias cal='cal -3'

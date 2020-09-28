@@ -154,6 +154,7 @@ alias gcm='git commit -m'
 alias gca='git commit -a'
 alias gcam='git commit -a -m'
 alias gb='git branch'
+alias gbs='git branch --sort=committerdate'
 alias gbm='git branch --merged'
 alias gbr='git branch -r'
 alias gbu='git remote update origin --prune' ## update remote list
@@ -192,14 +193,19 @@ alias dok="docker kill"
 alias dops="docker ps"
 alias dorm="docker rm"
 alias dormi="docker rmi"
+alias docker-clear=docker system prune -f
+alias docker-clear-prnue=docker system prune -f && docker image prune -af
 
 # Docker compose
+alias da="docker-compose exec php php artisan"
 alias dc="docker-compose"
-alias dce="docker-compose exec"
 alias dcr="docker-compose run"
 alias dcb="docker-compose build"
+alias dcbf="docker-compose build --force-rm --no-cache"
 alias dcu="docker-compose up"
 alias dcd="docker-compose down"
+alias dce="docker-compose exec"
+alias dphp="docker-compose exec php php"
 alias dcsa="docker-compose start"
 alias dcso="docker-compose stop"
 alias dcrm="docker-compose rm"
@@ -222,6 +228,13 @@ alias 775='chmod 775 -R'
 alias 777='chmod 777 -R'
 alias www="chown www-data:www-data * .* -R"
 alias mx='chmod u+x'
+
+# NPM
+alias nrw='npm run watch'
+alias nrp='npm run prod'
+
+# ngrok
+alias ng='ngrok http 80 -region eu'
 
 # Dev helpers
 alias cs='php-cs-fixer --using-cache=false --rules=@Symfony,@PSR2 fix'
