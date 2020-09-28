@@ -56,6 +56,9 @@ declare -A SYMLINKS=(
     ['sublime-text-3/Packages/User/Package Control.sublime-settings']='Library/Application Support/Sublime Text 3/Packages/User/Package Control.sublime-settings'
     ['sublime-text-3/Packages/User/PHP Companion.sublime-settings']='Library/Application Support/Sublime Text 3/Packages/User/PHP Companion.sublime-settings'
     ['sublime-text-3/Packages/User/Preferences.sublime-settings']='Library/Application Support/Sublime Text 3/Packages/User/Preferences.sublime-settings'
+    ['vscode/settings.json']='Library/ApplicationSupport/Code/User/settings.json'
+    ['vscode/keybindings.json']='Library/ApplicationSupport/Code/User/keybindings.json'
+    ['vscode/snippets']='Library/ApplicationSupport/Code/User/snippets'
 )
 
 ####################################################################################

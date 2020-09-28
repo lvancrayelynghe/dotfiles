@@ -1,0 +1,252 @@
+[
+    // Tab navigation
+    {"key": "cmd+0", "command": "workbench.action.lastEditorInGroup"},
+    {"key": "cmd+1", "command": "workbench.action.openEditorAtIndex1"},
+    {"key": "cmd+2", "command": "workbench.action.openEditorAtIndex2"},
+    {"key": "cmd+3", "command": "workbench.action.openEditorAtIndex3"},
+    {"key": "cmd+4", "command": "workbench.action.openEditorAtIndex4"},
+    {"key": "cmd+5", "command": "workbench.action.openEditorAtIndex5"},
+    {"key": "cmd+6", "command": "workbench.action.openEditorAtIndex6"},
+    {"key": "cmd+7", "command": "workbench.action.openEditorAtIndex7"},
+    {"key": "cmd+8", "command": "workbench.action.openEditorAtIndex8"},
+    {"key": "cmd+9", "command": "workbench.action.openEditorAtIndex9"},
+
+    // Multi cursor with kbd
+    {"key": "shift+cmd+j", "command": "editor.action.insertCursorBelow", "when": "editorTextFocus"},
+    {"key": "shift+cmd+k", "command": "editor.action.insertCursorAbove", "when": "editorTextFocus"},
+
+    // Go to Files tab
+    {"key": "shift+cmd+1", "command": "workbench.files.action.focusOpenEditorsView", "when": "workbench.explorer.openEditorsView.active"},
+    {"key": "cmd+k e", "command": "-workbench.files.action.focusOpenEditorsView", "when": "workbench.explorer.openEditorsView.active"},
+
+    // Comment line
+    {"key": "cmd+[Period]", "command": "editor.action.commentLine", "when": "editorTextFocus && !editorReadonly"},
+    {"key": "shift+cmd+[Period]", "command": "-editor.action.commentLine", "when": "editorTextFocus && !editorReadonly"},
+    {"key": "shift+cmd+[Period]", "command": "editor.action.blockComment", "when": "editorTextFocus && !editorReadonly"},
+
+    // Others
+    // {"key": "shift+cmd+o", "command": "workbench.action.quickOpenRecent"}, // todo fix opened in new window
+    {"key": "shift+cmd+d", "command": "editor.action.copyLinesDownAction", "when": "editorTextFocus && !editorReadonly"},
+    {"key": "shift+alt+a", "command": "-editor.action.blockComment", "when": "editorTextFocus && !editorReadonly"},
+
+
+
+
+
+
+
+
+
+//     { "keys": ["super+alt+c"], "command": "copy_path" },
+//     { "keys": ["super+shift+c"], "command": "copy_relative_path" },
+
+//     // Arrow movements
+//     { "keys": ["super+up"], "command": "move", "args": {"by": "stops", "empty_line": true, "forward": false} },
+//     { "keys": ["super+down"], "command": "move", "args": {"by": "stops", "empty_line": true, "forward": true} },
+//     { "keys": ["super+shift+up"], "command": "move", "args": {"by": "stops", "empty_line": true, "forward": false, "extend": true} },
+//     { "keys": ["super+shift+down"], "command": "move", "args": {"by": "stops", "empty_line": true, "forward": true, "extend": true} },
+
+//     // Movements (ctrl) | Selections (ctrl + shift), swaps, duplicates...
+//     { "keys": ["super+j"], "command": "jump_back" },
+//     { "keys": ["super+k"], "command": "jump_forward" },
+//     { "keys": ["super+shift+j"], "command": "select_lines", "args": {"forward": true} },
+//     { "keys": ["super+shift+k"], "command": "select_lines", "args": {"forward": false} },
+//     { "keys": ["super+home"], "command": "move_to", "args": {"to": "bof", "extend": false} },
+//     { "keys": ["super+shift+home"], "command": "move_to", "args": {"to": "bof", "extend": true} },
+//     { "keys": ["super+end"], "command": "move_to", "args": {"to": "eof", "extend": false} },
+//     { "keys": ["super+shift+end"], "command": "move_to", "args": {"to": "eof", "extend": true} },
+//     { "keys": ["super+m"], "command": "move_to", "args": {"to": "brackets"} },
+//     { "keys": ["super+shift+m"], "command": "expand_selection", "args": {"to": "brackets"} },
+//     // if you start with an empty selection, then cmd+d (find_under_expand) will search by whole words automatically. If you start with a non-empty selection, then it will search for any instance of the text.
+//     { "keys": ["super+d"], "command": "find_under_expand" },
+//     { "keys": ["super+shift+d"], "command": "duplicate_line" },
+//     { "keys": ["super+a"], "command": "select_all" },
+//     { "keys": ["super+shift+a"], "command": "expand_selection", "args": {"to": "tag"} },
+//     { "keys": ["super+l"], "command": "split_selection_into_lines" },
+//     { "keys": ["super+shift+l"], "command": "expand_selection", "args": {"to": "line"} },
+//     { "keys": ["super+shift+t"], "command": "expand_selection", "args": {"to": "indentation"} },
+//     { "keys": ["super+shift+p"], "command": "expand_selection_to_paragraph" },
+//     { "keys": ["super+shift+space"], "command": "expand_selection", "args": {"to": "scope"} },
+
+//     // Search / Goto
+//     { "keys": ["super+f"], "command": "show_panel", "args": {"panel": "find", "reverse":false} },
+//     { "keys": ["super+shift+f"], "command": "show_panel", "args": {"panel": "find_in_files"} },
+//     { "keys": ["super+h"], "command": "show_panel", "args": {"panel": "replace"} },
+//     { "keys": ["super+shift+h"], "command": "show_panel", "args": {"panel": "find_in_files"} },
+//     { "keys": ["super+e"], "command": "show_panel", "args": {"panel": "incremental_find", "reverse": false} },
+//     { "keys": ["super+shift+e"], "command": "show_panel", "args": {"panel": "incremental_find", "reverse": true} },
+//     { "keys": ["f1"], "command": "goto_documentation" },
+//     { "keys": ["f2"], "command": "goto_definition" },
+//     { "keys": ["super+f2"], "command": "find_all_under" },
+//     { "keys": ["f3"], "command": "find_next" },
+//     { "keys": ["shift+f3"], "command": "find_prev" },
+//     { "keys": ["super+f3"], "command": "find_under" },
+//     { "keys": ["super+shift+f3"], "command": "find_under_prev" },
+
+//     // Comments
+//     { "keys": ["super+q"], "command": "toggle_comment", "args": { "block": false } },
+//     { "keys": ["super+shift+q"], "command": "toggle_comment", "args": { "block": true } },
+//     { "keys": ["super+:"], "command": "toggle_comment", "args": { "block": false } },
+//     { "keys": ["super+/"], "command": "toggle_comment", "args": { "block": true } },
+
+//     // Overlays (Search anything, ...)
+//     { "keys": ["super+r"], "command": "show_overlay", "args": {"overlay": "goto", "text": "@"} },
+//     { "keys": ["super+p"], "command": "show_overlay", "args": {"overlay": "goto", "show_files": true} },
+//     { "keys": ["super+g"], "command": "show_overlay", "args": {"overlay": "goto", "text": ":"} },
+//     { "keys": ["super+t"], "command": "goto_symbol_in_project" },
+//     { "keys": ["super+shift+r"], "command": "show_overlay", "args": {"overlay": "goto", "text": "#"} },
+//     { "keys": ["super+shift+g"], "command": "show_overlay", "args": {"overlay": "command_palette"} },
+//     { "keys": ["super+alt+p"], "command": "prompt_select_project" },
+
+//     // Bookmarks
+//     { "keys": ["f4"], "command": "toggle_bookmark" },
+//     { "keys": ["super+f4"], "command": "next_bookmark" },
+//     { "keys": ["shift+f4"], "command": "prev_bookmark" },
+//     { "keys": ["super+alt+f4"], "command": "clear_bookmarks" },
+//     { "keys": ["super+shift+f4"], "command": "select_all_bookmarks" },
+
+//     // Sidebar, minimap, plugins & specials commands
+//     { "keys": ["super+i"], "command": "chrome_remote_reload" },
+//     { "keys": ["super+b", "super+b"], "command": "toggle_side_bar" },
+//     { "keys": ["super+b", "super+p"], "command": "close_folder_list" },
+//     { "keys": ["super+b", "super+f"], "command": "focus_side_bar" },
+//     { "keys": ["super+b", "super+,"], "command": "toggle_minimap" },
+//     { "keys": ["super+b", "super+u"], "command": "upper_case" },
+//     { "keys": ["super+b", "super+l"], "command": "lower_case" },
+//     { "keys": ["super+b", "super+j"], "command": "join_lines" },
+//     { "keys": ["super+b", "super+a"], "command": "alignment" },
+//     { "keys": ["super+b", "super+w"], "command": "delete_trailing_spaces" },
+//     { "keys": ["super+b", "super+m"], "command": "markdown_preview", "args": {"target": "browser", "parser":"markdown"} },
+//     { "keys": ["super+b", "super+t"], "command": "open_terminal_project_folder" },
+//     { "keys": ["super+b", "super+s"], "command": "toggle_command_on_save" },
+//     { "keys": ["super+b", "super+e"], "args": { "action": "expand_abbreviation" }, "command": "run_emmet_action", "context":
+//         [
+//             {
+//                 "key": "emmet_action_enabled.expand_abbreviation"
+//             }
+//         ]
+//     },
+//     { "keys": ["super+b", "\""], "command": "convert_single_quotes_to_double" },
+//     { "keys": ["super+b", "'"], "command": "convert_double_quotes_to_single" },
+//     { "keys": ["super+b", "é"], "command": "convert_chars_to_html" },
+//     { "keys": ["super+b", "super+tab"], "command": "convert_spaces_to_tabs" },
+//     { "keys": ["super+b", "super+space"], "command": "convert_tabs_to_spaces" },
+//     { "keys": ["super+b", "super+c"], "command": "insert_php_constructor_property" },
+//     { "keys": ["super+b", "super+v"], "command": "show_overlay", "args": {"overlay": "command_palette", "text": "PHPCompanion:"} },
+
+//     // Spelling
+//     { "keys": ["f6"], "command": "toggle_setting", "args": {"setting": "spell_check"} },
+//     { "keys": ["super+f6"], "command": "next_misspelling" },
+//     { "keys": ["super+shift+f6"], "command": "prev_misspelling" },
+
+//     // Word Wrap
+//     { "keys": ["f7"], "command": "toggle_setting", "args": {"setting": "word_wrap"} },
+
+//     // Build
+//     { "keys": ["f8"], "command": "build" },
+//     { "keys": ["super+f8"], "command": "build", "args": {"select": true} },
+//     { "keys": ["super+break"], "command": "cancel_build" },
+
+//     // Sort
+//     { "keys": ["f9"], "command": "sort_lines", "args": {"case_sensitive": false} },
+//     { "keys": ["super+f9"], "command": "sort_lines", "args": {"case_sensitive": true} },
+
+//     // Sublime commands
+//     { "keys": ["f11"], "command": "toggle_full_screen" },
+//     { "keys": ["shift+f11"], "command": "toggle_distraction_free" },
+//     { "keys": ["alt+f12"], "command": "show_panel", "args": {"panel": "console", "toggle": true} },
+
+//     // Folding
+//     { "keys": ["alt+f1"], "command": "fold_by_level", "args": {"level": 1} },
+//     { "keys": ["alt+f2"], "command": "fold_by_level", "args": {"level": 2} },
+//     { "keys": ["alt+f3"], "command": "fold_by_level", "args": {"level": 3} },
+//     { "keys": ["alt+f4"], "command": "fold_by_level", "args": {"level": 4} },
+//     { "keys": ["alt+f5"], "command": "fold" },
+//     { "keys": ["alt+f6"], "command": "unfold" },
+//     { "keys": ["alt+f7"], "command": "fold_tag_attributes" },
+//     { "keys": ["alt+f8"], "command": "unfold_all" },
+
+//     // Tabs
+//     { "keys": ["ctrl+tab"], "command": "next_view" },
+//     { "keys": ["ctrl+shift+tab"], "command": "prev_view" },
+//     { "keys": ["super+<"], "command": "move_tab", "args": {"position": "-1"} },
+//     { "keys": ["super+>"], "command": "move_tab", "args": {"position": "+1"} },
+//     { "keys": ["super+&"], "command": "select_by_index", "args": { "index": 0 } },
+//     { "keys": ["super+é"], "command": "select_by_index", "args": { "index": 1 } },
+//     { "keys": ["super+\""], "command": "select_by_index", "args": { "index": 2 } },
+//     { "keys": ["super+'"], "command": "select_by_index", "args": { "index": 3 } },
+//     { "keys": ["super+("], "command": "select_by_index", "args": { "index": 4 } },
+//     { "keys": ["super+-"], "command": "select_by_index", "args": { "index": 5 } },
+//     { "keys": ["super+è"], "command": "select_by_index", "args": { "index": 6 } },
+//     { "keys": ["super+_"], "command": "select_by_index", "args": { "index": 7 } },
+//     { "keys": ["super+ç"], "command": "select_by_index", "args": { "index": 8 } },
+//     { "keys": ["super+à"], "command": "select_by_index", "args": { "index": 9 } },
+
+//     // Font size
+//     { "keys": ["super++"], "command": "increase_font_size" },
+//     { "keys": ["super+="], "command": "increase_font_size" },
+//     { "keys": ["super+-"], "command": "decrease_font_size" },
+//     { "keys": ["super+keypad_plus"], "command": "increase_font_size" },
+//     { "keys": ["super+keypad_minus"], "command": "decrease_font_size" },
+
+//     // HTML, XML close tag
+//     { "keys": ["/"], "command": "close_tag", "args": { "insert_slash": true }, "context":
+//         [
+//             { "key": "selector", "operator": "equal", "operand": "(text.html, text.xml) - string - comment", "match_all": true },
+//             { "key": "preceding_text", "operator": "regex_match", "operand": ".*<$", "match_all": true },
+//             { "key": "setting.auto_close_tags" }
+//         ]
+//     },
+
+//     // Widget context
+//     { "keys": ["alt+s"], "command": "toggle_case_sensitive", "context":
+//         [{ "key": "setting.is_widget", "operator": "equal", "operand": true }]
+//     },
+//     { "keys": ["alt+c"], "command": "toggle_preserve_case", "context":
+//         [{ "key": "setting.is_widget", "operator": "equal", "operand": true }]
+//     },
+//     { "keys": ["alt+r"], "command": "toggle_regex", "context":
+//         [{ "key": "setting.is_widget", "operator": "equal", "operand": true }]
+//     },
+//     { "keys": ["alt+w"], "command": "toggle_whole_word", "context":
+//         [{ "key": "setting.is_widget", "operator": "equal", "operand": true }]
+//     },
+
+//     // Find panel key bindings
+//     { "keys": ["enter"], "command": "find_next", "context":
+//         [{"key": "panel", "operand": "find"}, {"key": "panel_has_focus"}]
+//     },
+//     { "keys": ["shift+enter"], "command": "find_prev", "context":
+//         [{"key": "panel", "operand": "find"}, {"key": "panel_has_focus"}]
+//     },
+//     { "keys": ["alt+enter"], "command": "find_all", "args": {"close_panel": true},
+//          "context": [{"key": "panel", "operand": "find"}, {"key": "panel_has_focus"}]
+//     },
+
+//     // Replace panel key bindings
+//     { "keys": ["enter"], "command": "find_next", "context":
+//         [{"key": "panel", "operand": "replace"}, {"key": "panel_has_focus"}]
+//     },
+//     { "keys": ["shift+enter"], "command": "find_prev", "context":
+//         [{"key": "panel", "operand": "replace"}, {"key": "panel_has_focus"}]
+//     },
+//     { "keys": ["alt+enter"], "command": "find_all", "args": {"close_panel": true},
+//         "context": [{"key": "panel", "operand": "replace"}, {"key": "panel_has_focus"}]
+//     },
+//     { "keys": ["super+alt+enter"], "command": "replace_all", "args": {"close_panel": true},
+//          "context": [{"key": "panel", "operand": "replace"}, {"key": "panel_has_focus"}]
+//     },
+
+//     // Incremental find panel key bindings
+//     { "keys": ["enter"], "command": "hide_panel", "context":
+//         [{"key": "panel", "operand": "incremental_find"}, {"key": "panel_has_focus"}]
+//     },
+//     { "keys": ["shift+enter"], "command": "find_prev", "context":
+//         [{"key": "panel", "operand": "incremental_find"}, {"key": "panel_has_focus"}]
+//     },
+//     { "keys": ["alt+enter"], "command": "find_all", "args": {"close_panel": true},
+//         "context": [{"key": "panel", "operand": "incremental_find"}, {"key": "panel_has_focus"}]
+//     }
+
+
+]

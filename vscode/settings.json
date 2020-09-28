@@ -1,0 +1,44 @@
+{
+    "window.closeWhenEmpty": false,
+    "editor.find.seedSearchStringFromSelection": true,
+    "editor.fontFamily": "JetBrains Mono Medium",
+    "editor.fontSize": 14,
+    "window.openFilesInNewWindow": "off",
+    "window.restoreFullscreen": true,
+    "editor.scrollBeyondLastLine": true,
+    "window.title": "${activeEditorFull}${separator}${rootName}",
+    "editor.trimAutoWhitespace": true,
+    "files.trimTrailingWhitespace": true,
+    "editor.wordSeparators": "./\\()\"'-:,.;<>~!@#%^&*|+=[]{}`~?",
+    "editor.wordWrap": "off",
+    "editor.formatOnPaste": true,
+    "editor.multiCursorModifier": "ctrlCmd",
+    "editor.snippetSuggestions": "top",
+    "workbench.colorTheme": "Gruvbox Dark Hard",
+    "remote.SSH.path": "ssh",
+    "[php]": {
+
+    },
+    "[properties]": {},
+    "files.watcherExclude": {
+        "**/cache/**": true
+    },
+    "editor.smoothScrolling": true,
+    "editor.minimap.enabled": false,
+    "telemetry.enableTelemetry": false,
+    "telemetry.enableCrashReporter": false,
+    "window.zoomLevel": 0,
+    "remote.SSH.configFile": "~/.ssh/config.vscode",
+    "intelephense.files.exclude": [
+        "**/.git/**",
+        "**/.svn/**",
+        "**/.hg/**",
+        "**/CVS/**",
+        "**/.DS_Store/**",
+        "**/node_modules/**",
+        "**/bower_components/**",
+        "**/vendor/**/{Tests,tests}/**",
+        "**/cache/**",
+        "**/smarty/compile/**"
+    ]
+}
