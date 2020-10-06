@@ -237,7 +237,7 @@ alias nrp='npm run prod'
 alias ng='ngrok http 80 -region eu'
 
 # Dev helpers
-alias cs='php-cs-fixer --using-cache=false --rules=@Symfony,@PSR2 fix'
+alias cs='php-cs-fixer --using-cache=false --config=$HOME/.dotfiles/public/others/php_cs fix'
 
 # SSH helpers
 alias tunnel='ssh -f -N' ## Create a tunnel
