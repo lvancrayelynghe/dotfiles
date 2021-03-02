@@ -193,8 +193,8 @@ alias dok="docker kill"
 alias dops="docker ps"
 alias dorm="docker rm"
 alias dormi="docker rmi"
-alias docker-clear=docker system prune -f
-alias docker-clear-prnue=docker system prune -f && docker image prune -af
+alias docker-clear="docker system prune -f"
+alias docker-clear-prune="docker system prune -f && docker image prune -af"
 
 # Docker compose
 alias da="docker-compose exec php php artisan"
