@@ -76,6 +76,8 @@
     # Set upstream to current branch name
     set-upstream        = !git branch --set-upstream-to=origin/`git symbolic-ref --short HEAD`
 
+    branch-date         = !git for-each-ref --sort='-authordate:iso8601' --format=' %(authordate:relative)|%(refname:short)' refs/heads | column -s '|' -t
+
     # Log
     tree                = log --graph --pretty=oneline --decorate
     pretty-log          = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr - %ci) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
@@ -103,6 +105,8 @@
     publish             = !"git push -u origin $(git branch-name)"
     # Unpublish the current branch by deleting the remote version of the current branch on "origin"
     unpublish           = !"git push origin :$(git branch-name)"
+
+    php-lint            = !"git diff-index HEAD --name-only | grep ".php" | xargs -L1 php -l"
 
     # Open changed files
     subl                = !git-ls-files -m -z | xargs -0 subl
