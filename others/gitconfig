@@ -78,6 +78,9 @@
 
     branch-date         = !git for-each-ref --sort='-authordate:iso8601' --format=' %(authordate:relative)|%(refname:short)' refs/heads | column -s '|' -t
 
+    # Branches not on remote
+    local-branches      = "!git branch --format '%(refname:short) %(upstream:short)' | awk '{if (!$2) print $1;}'"
+
     # Log
     tree                = log --graph --pretty=oneline --decorate
     pretty-log          = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr - %ci) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
