@@ -114,3 +114,7 @@
     # Open changed files
     subl                = !git-ls-files -m -z | xargs -0 subl
     sublall             = !git-ls-files -m -o --exclude-standard -z | xargs -0 subl
+
+    # https://stackoverflow.com/a/45486981
+    # Afterwards, to remove all unstaged changes : git checkout . (git diff -w to check)
+    stage-not-whitespace-changes = !"git diff -U0 -w --no-color | git apply --cached --ignore-whitespace --unidiff-zero -"
