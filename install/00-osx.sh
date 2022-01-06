@@ -60,8 +60,8 @@ fi
 # READ THIS FOR PHP
 # https://stackoverflow.com/questions/32703296/dyld-library-not-loaded-usr-local-lib-libjpeg-8-dylib-homebrew-php
 
-brew tap caskroom/cask
-brew tap caskroom/fonts
+brew tap homebrew/cask
+brew tap homebrew/cask-fonts
 
 brew install coreutils findutils grep wget curl git gnu-tar gnu-sed gawk gnutls gnu-indent gnu-getopt vim htop iftop imagemagick pv tmux tree trash unison dos2unix telnet
 echo 'export PATH="/usr/local/opt/curl-openssl/bin:$PATH"' >> ~/.zshrc
@@ -81,60 +81,54 @@ brew install ranger
 brew install lftp
 brew install ansible
 brew install terminal-notifier
-brew install php71
+brew install php
+brew install node
+brew install ngrok
 brew install freetype jpeg libpng gd zlib imagemagick tesseract tesseract-lang
-
-brew cask install font-hack
-brew cask install font-fira-code
-brew cask install ngrok
+brew install font-hack
+brew install font-fira-code
+brew install font-jetbrains-mono
 
 # Desktop apps
-brew cask install appcleaner
-brew cask install iterm2
-brew cask install google-chrome
-brew cask install firefox
-brew cask install sublime-text
-brew cask install visual-studio-code
-brew cask install libreoffice libreoffice-language-pack
-brew cask install sequel-pro
-brew cask install cyberduck
-brew cask install filezilla
-brew cask install vlc
-brew cask install beyond-compare
-brew cask install firefox
-brew cask install hammerspoon
-brew cask install spotify
-brew cask install itsycal
-brew cask install skype
-brew cask install skyfonts
-brew cask install google-drive-file-stream
+#brew install filezilla
+brew install iterm2
+brew install google-chrome
+brew install firefox
+brew install sublime-text
+brew install visual-studio-code
+brew install libreoffice libreoffice-language-pack
+brew install sequel-pro
+brew install sequel-ace
+brew install vlc
+brew install hammerspoon
+brew install discord
+brew install spotify
+brew install itsycal
+brew install skyfonts
+brew install google-drive
+brew install skype
 brew install openvpn
+brew install cyberduck
+brew install beyond-compare
+brew install appcleaner
 
 # Quick-looks
-brew cask install quicklook-json
-brew cask install quicklook-csv
-brew cask install qlcolorcode
-brew cask install qlmarkdown
+brew install quicklook-json
+brew install quicklook-csv
+brew install qlcolorcode
+brew install qlmarkdown
 
-# NodeJS
-brew install node
-brew install npm
-
-# Fonts
-brew cask install font-jetbrains-mono
 
 # Mas
 brew install mas
-mas signin luc@fractory.io
 # Slack
 mas install 803453959
 # The Unarchiver
 mas install 425424353
 # Bear notes
 mas install 1091189122
-# Toogl
-mas install 957734279
-
+# Harvest
+mas install 506189836
 
 ###############################################################################
 # Install San Francisco fonts                                                 #
