@@ -9,10 +9,10 @@ if [[ ! -e "${BIN_PATH}/git-cheat" ]]; then
 fi
 
 # lf terminal file manager
-if [[ ! -e "/usr/local/bin/lf" ]]; then
+if [[ ! -e "$BIN_PATH/lf" ]]; then
     wget -q "https://github.com/gokcehan/lf/releases/download/r4/lf-darwin-amd64.tar.gz" -O /tmp/lf.tar.gz
     (cd /tmp && tar -zxvf /tmp/lf.tar.gz)
-    mv /tmp/lf /usr/local/bin
+    mv /tmp/lf "$BIN_PATH"
     rm -rf /tmp/lf.tar.gz
 fi
 
