@@ -54,7 +54,7 @@
 	"highlight_line": true,
 	"ignored_packages":
 	[
-		"Vintage"
+		"Vintage",
 	],
 	"index_files": false,
 	"open_files_in_new_window": false,
@@ -68,5 +68,5 @@
 	"trim_trailing_white_space_on_save": true,
 	"word_separators": "./\\()\"'-:,.;<>~!@#%^&*|+=[]{}`~?",
 	"word_wrap": false,
-	"wrap_width": 0
+	"wrap_width": 0,
 }

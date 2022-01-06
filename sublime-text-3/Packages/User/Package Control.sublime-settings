@@ -28,8 +28,6 @@
 		"MoveTab",
 		"Mustache",
 		"nginx",
-		"One Dark Color Scheme",
-		"One Dark Material - Theme",
 		"Package Control",
 		"PHP Companion",
 		"PHP Getters and Setters",
@@ -45,7 +43,6 @@
 		"TrailingSpaces",
 		"Twig",
 		"Varnish VCL",
-		"Vue Syntax Highlight",
-		"WakaTime"
-	]
+		"Vue Syntax Highlight"
+	],
 }
