@@ -84,6 +84,7 @@ brew install terminal-notifier
 brew install php
 brew install node
 brew install ngrok
+brew install macfuse
 brew install freetype jpeg libpng gd zlib imagemagick tesseract tesseract-lang
 brew install font-hack
 brew install font-fira-code
@@ -99,12 +100,14 @@ brew install visual-studio-code
 brew install libreoffice libreoffice-language-pack
 brew install sequel-pro
 brew install sequel-ace
-brew install macfuse
+brew install 1password
 brew install vlc
 brew install hammerspoon
 brew install discord
 brew install spotify
 brew install itsycal
+brew install avocode
+brew install zeplin
 brew install skyfonts
 brew install google-drive
 brew install skype
@@ -130,6 +133,13 @@ mas install 425424353
 mas install 1091189122
 # Harvest
 mas install 506189836
+# Microsoft Remote Desktop
+mas install 1295203466
+# Xmind
+mas install 1327661892
+# Filezilla
+mas install 1298486723
+
 
 ###############################################################################
 # Install San Francisco fonts                                                 #
