@@ -99,6 +99,7 @@ brew install visual-studio-code
 brew install libreoffice libreoffice-language-pack
 brew install sequel-pro
 brew install sequel-ace
+brew install macfuse
 brew install vlc
 brew install hammerspoon
 brew install discord
