@@ -85,6 +85,7 @@ brew install php
 brew install node
 brew install ngrok
 brew install macfuse
+brew install dnsmasq
 brew install freetype jpeg libpng gd zlib imagemagick tesseract tesseract-lang
 brew install font-hack
 brew install font-fira-code
@@ -92,6 +93,7 @@ brew install font-jetbrains-mono
 
 # Desktop apps
 #brew install filezilla
+brew install mouse-fix
 brew install iterm2
 brew install google-chrome
 brew install firefox
