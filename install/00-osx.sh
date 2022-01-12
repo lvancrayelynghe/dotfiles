@@ -110,6 +110,7 @@ brew install spotify
 brew install itsycal
 brew install avocode
 brew install zeplin
+brew install postman
 brew install skyfonts
 brew install google-drive
 brew install skype
