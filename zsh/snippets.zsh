@@ -18,9 +18,12 @@ function mysql:create()      { mysql -e "create database \`$1\`;" }
 function mysql:drop()        { mysql -e "drop database \`$1\`;" }
 function mysql:drop-tables() { mysqldump --add-drop-table --no-data $1 | grep -e "^DROP \| FOREIGN_KEY_CHECKS" | mysql $1 }
 
-# Docker snippers
+# Docker snippets
 function docker:clean()      { docker rmi -f $(docker images | grep "<none>" | awk "{print \$3}") }
 function docker:killall()    { docker kill $(docker ps -q) }
+
+# System snippets
+function journal:vacuum()    { journalctl --vacuum-size=200M }
 
 # SSH snippets
 function ssh:list()          { cat ~/.ssh/config | grep "Host " | grep -v "Host \*" | sed 's/Host //g' | sort }
