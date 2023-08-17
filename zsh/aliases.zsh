@@ -232,12 +232,22 @@ alias mx='chmod u+x'
 # NPM
 alias nrw='npm run watch'
 alias nrp='npm run prod'
+alias nrb='npm run build'
 
 # ngrok
 alias ng='ngrok http 80 -region eu'
 
 # Dev helpers
-alias cs='php-cs-fixer --using-cache=false --config=$HOME/.dotfiles/public/others/php_cs fix'
+alias csf='php-cs-fixer --using-cache=false --config=$HOME/.dotfiles/public/others/php_cs fix'
+
+# Codespaces
+alias cs='gh cs'
+alias csc='gh cs create'
+alias csd='gh cs delete'
+alias csl='gh cs list'
+alias csll='gh cs list -o fractory-io'
+alias css='gh cs ssh'
+alias csstop='gh cs stop -o fractory-io'
 
 # SSH helpers
 alias tunnel='ssh -f -N' ## Create a tunnel
