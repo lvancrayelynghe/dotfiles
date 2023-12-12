@@ -41,7 +41,7 @@
 	[
 		"subpixel_antialias"
 	],
-	"font_size": 14,
+	"font_size": 19,
 	"git_diff_target": "head",
 	"gruvbox_accent_orange": true,
 	"gruvbox_folder_icons_spacegray": true,
@@ -54,6 +54,7 @@
 	"highlight_line": true,
 	"ignored_packages":
 	[
+		"Package Control",
 		"Vintage",
 	],
 	"index_files": false,

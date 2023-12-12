@@ -16,6 +16,7 @@
 		"Emmet",
 		"GotoDocumentation",
 		"gruvbox",
+		"Handlebars",
 		"HTML Mustache",
 		"Indent XML",
 		"INI",
@@ -43,6 +44,6 @@
 		"TrailingSpaces",
 		"Twig",
 		"Varnish VCL",
-		"Vue Syntax Highlight"
+		"Vue Syntax Highlight",
 	],
 }
