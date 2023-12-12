@@ -282,6 +282,9 @@ sudo systemsetup -settimezone "Europe/Paris" > /dev/null
 # Stop iTunes from responding to the keyboard media keys
 launchctl unload -w /System/Library/LaunchAgents/com.apple.rcd.plist 2> /dev/null
 
+# Disable Control-Command-D word definition binding
+defaults write com.apple.symbolichotkeys AppleSymbolicHotKeys -dict-add 70 '<dict><key>enabled</key><false/></dict>'
+
 
 
 ###############################################################################
