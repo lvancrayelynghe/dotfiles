@@ -105,6 +105,8 @@ brew install sequel-ace
 brew install 1password
 brew install vlc
 brew install hammerspoon
+brew install hyperkey
+brew install rectangle
 brew install discord
 brew install spotify
 brew install itsycal
