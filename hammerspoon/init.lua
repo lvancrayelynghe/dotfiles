@@ -1,74 +1,73 @@
 -- API Doc : http://www.hammerspoon.org/docs/
 -- KeyCodes : http://www.hammerspoon.org/docs/hs.keycodes.html#map
 
--- Force launch or focus an app by name (fix issues with Finder)
--- @see https://github.com/cmsj/hammerspoon-config/blob/master/init.lua#L156
--- @see http://liuhao.im/english/2017/06/02/macos-automation-and-shortcuts-with-hammerspoon.html
-function launchOrFocusOrHide(appname)
+local switcher  = require('switcher')
+
+function lanchOrSwitch(appname)
     local app = hs.appfinder.appFromName(appname)
-    if not app then
-        if appname == "Calendrier" then
-            hs.application.launchOrFocus("Calendar")
-        else
-            hs.application.launchOrFocus(appname)
-        end
+
+    if app == nil then
+        hs.application.open(appname)
         return
     end
 
-    if appname == "Finder" then
-        app:activate(true)
-        app:unhide()
+    if hs.application.frontmostApplication():name() == appname then
+        switcher:switchWindow(true)
         return
     end
 
-    local mainwin = app:mainWindow()
-    if mainwin then
-        if mainwin == hs.window.focusedWindow() then
-            app:hide()
-        else
-            app:activate(true)
-            app:unhide()
-            mainwin:focus()
-        end
-    else
-        if appname == "Calendrier" then
-            app:activate(true)
-            app:unhide()
-            app:selectMenuItem({'Fenêtre', 'Calendrier'})
-            app:mainWindow():focus()
-            return
-        end
-    end
+    app:activate(true)
+    app:unhide()
 end
 
--- Set a screen grid size
-hs.grid.setGrid('12x12')
-hs.grid.setMargins('0x0')
+-- App Bindings
+for key, app in pairs({
+    ["a"] = "Slack",
+    ["z"] = "Discord",
+    ["e"] = "Finder",
+    ["r"] = "Postman",
+    ["t"] = "iTerm",
+    ["y"] = "Harvest",
 
--- Key bindings
-hs.hotkey.bind({"ctrl"}, "a", function() launchOrFocusOrHide("Slack") end)
-hs.hotkey.bind({"ctrl"}, "z", function() launchOrFocusOrHide("Discord") end)
-hs.hotkey.bind({"ctrl"}, "e", function() launchOrFocusOrHide("Finder") end)
-hs.hotkey.bind({"ctrl"}, "r", function() launchOrFocusOrHide("Postman") end)
-hs.hotkey.bind({"ctrl"}, "t", function() launchOrFocusOrHide("iTerm") end)
+    ["q"] = "Calendrier",
+    ["s"] = "Sublime Text",
+    ["f"] = "Filezilla",
+    ["g"] = "Google Chrome",
 
-hs.hotkey.bind({"ctrl"}, "q", function() launchOrFocusOrHide("Calendrier") end)
-hs.hotkey.bind({"ctrl"}, "s", function() launchOrFocusOrHide("Sublime Text") end)
-hs.hotkey.bind({"ctrl"}, "f", function() launchOrFocusOrHide("Filezilla") end)
-hs.hotkey.bind({"ctrl"}, "g", function() launchOrFocusOrHide("Google Chrome") end)
+    ["x"] = "ClickUp",
+    ["v"] = "Code",
+    ["b"] = "Sequel Ace",
+}) do
+    hs.hotkey.bind({'cmd', 'alt', 'ctrl'}, key, function()
+        lanchOrSwitch(app)
+    end)
+end
 
-hs.hotkey.bind({"ctrl"}, "x", function() launchOrFocusOrHide("ClickUp") end)
-hs.hotkey.bind({"ctrl"}, "v", function() launchOrFocusOrHide("Visual Studio Code") end)
-hs.hotkey.bind({"ctrl"}, "b", function() launchOrFocusOrHide("Sequel Ace") end)
 
--- hs.hotkey.bind({"ctrl"}, "m", function() hs.execute("/System/Library/CoreServices/Menu\\ Extras/User.menu/Contents/Resources/CGSession -suspend") end)
--- hs.hotkey.bind({"ctrl"}, "p", function() hs.execute("/usr/local/bin/subl /Users/lucvancrayelynghe/TODO.md") end)
--- hs.hotkey.bind({"ctrl"}, "m", function() launchOrFocusOrHide("Mail") end)
+-- select any other window
+-- hs.hotkey.bind({"alt"}, "b", function()
+--     switcher:selectWindow(false)
+-- end)
 
-hs.hotkey.bind({"ctrl"}, "h", function() hs.grid.resizeWindowShorter(hs.window.focusedWindow()) end)
-hs.hotkey.bind({"ctrl"}, "j", function() hs.grid.resizeWindowThinner(hs.window.focusedWindow()) end)
-hs.hotkey.bind({"ctrl"}, "k", function() hs.grid.resizeWindowWider(hs.window.focusedWindow()) end)
-hs.hotkey.bind({"ctrl"}, "l", function() hs.grid.resizeWindowTaller(hs.window.focusedWindow()) end)
+-- select any window for the same application
+-- hs.hotkey.bind({"alt", "shift"}, "b", function()
+--     switcher:selectWindow(true)
+-- end)
+
+-- Alt-tab replacement to go to last window
+hs.hotkey.bind({'cmd', 'alt', 'ctrl'}, "tab", function()
+    switcher:previousWindow(false)
+end)
+
+
+
+-- hs.hotkey.bind({'cmd', 'alt', 'ctrl'}, "m", function() hs.execute("/System/Library/CoreServices/Menu\\ Extras/User.menu/Contents/Resources/CGSession -suspend") end)
+-- hs.hotkey.bind({'cmd', 'alt', 'ctrl'}, "p", function() hs.execute("/usr/local/bin/subl /Users/lucvancrayelynghe/TODO.md") end)
+
+hs.hotkey.bind({'cmd', 'alt', 'ctrl'}, "h", function() hs.grid.resizeWindowShorter(hs.window.focusedWindow()) end)
+hs.hotkey.bind({'cmd', 'alt', 'ctrl'}, "j", function() hs.grid.resizeWindowThinner(hs.window.focusedWindow()) end)
+hs.hotkey.bind({'cmd', 'alt', 'ctrl'}, "k", function() hs.grid.resizeWindowWider(hs.window.focusedWindow()) end)
+hs.hotkey.bind({'cmd', 'alt', 'ctrl'}, "l", function() hs.grid.resizeWindowTaller(hs.window.focusedWindow()) end)
 
 hs.hotkey.bind({"ctrl", "cmd"}, "h", function() hs.grid.pushWindowUp(hs.window.focusedWindow()) end)
 hs.hotkey.bind({"ctrl", "cmd"}, "j", function() hs.grid.pushWindowLeft(hs.window.focusedWindow()) end)
@@ -76,24 +75,49 @@ hs.hotkey.bind({"ctrl", "cmd"}, "k", function() hs.grid.pushWindowRight(hs.windo
 hs.hotkey.bind({"ctrl", "cmd"}, "l", function() hs.grid.pushWindowDown(hs.window.focusedWindow()) end)
 
 -- Toggle Fullscreen
--- hs.hotkey.bind({"ctrl"}, "f", function()
+-- hs.hotkey.bind({'cmd', 'alt', 'ctrl'}, "f", function()
 --   local win = hs.window.focusedWindow()
 --   win:toggleFullScreen()
 -- end)
 
 -- Close active window
--- hs.hotkey.bind({"ctrl"}, "x", function()
+-- hs.hotkey.bind({'cmd', 'alt', 'ctrl'}, "x", function()
 --   local win = hs.window.focusedWindow()
 --   win:application():kill()
 -- end)
 
+hs.eventtap.new({ hs.eventtap.event.types.systemDefined }, function(event)
+    -- https://github.com/Hammerspoon/hammerspoon/issues/1220
+    -- http://www.hammerspoon.org/docs/hs.eventtap.event.html#systemKey
+    event = event:systemKey()
+    -- http://stackoverflow.com/a/1252776/1521064
+    local next = next
+    -- Check empty table
+    if next(event) then
+        if event.key == 'PLAY' and event.down then
+            launch("Spotify")
+
+            hs.timer.doAfter(1, function ()
+                local app = hs.appfinder.appFromName('Musique')
+                if app ~= nil then
+                    app:kill()
+                end
+            end)
+        end
+    end
+end):start()
+
 -- Chrome reload
-hs.hotkey.bind({"ctrl"}, "u", function()
+hs.hotkey.bind({'cmd', 'alt', 'ctrl'}, "u", function()
   local script = [[tell application "Chrome" to tell the active tab of its first window
     reload
 end tell]]
   hs.osascript.applescript(script)
 end)
+
+-- Set a screen grid size
+hs.grid.setGrid('12x12')
+hs.grid.setMargins('0x0')
 
 -- Caffeinate
 local caffeine = hs.menubar.new()
