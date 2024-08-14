@@ -22,9 +22,11 @@ for key, app in pairs({
     ["a"] = "Slack",
     ["z"] = "Discord",
     ["e"] = "Finder",
-    ["r"] = "Postman",
+    ["r"] = "Bruno",
     ["t"] = "iTerm",
     ["y"] = "Harvest",
+
+    ["p"] = "MarkText",
 
     ["q"] = "Calendrier",
     ["s"] = "Sublime Text",
@@ -56,6 +58,13 @@ hs.hotkey.bind({'cmd', 'alt', 'ctrl'}, "tab", function()
     switcher:previousWindow(false)
 end)
 
+-- Toggle fullscreen
+hs.hotkey.bind({'cmd', 'alt', 'ctrl'}, "return", function()
+    local win = hs.window.focusedWindow()
+    if win ~= nil then
+        win:setFullScreen(not win:isFullScreen())
+    end
+end)
 
 
 -- hs.hotkey.bind({'cmd', 'alt', 'ctrl'}, "m", function() hs.execute("/System/Library/CoreServices/Menu\\ Extras/User.menu/Contents/Resources/CGSession -suspend") end)
@@ -105,7 +114,7 @@ hs.eventtap.new({ hs.eventtap.event.types.systemDefined }, function(event)
 end):start()
 
 -- Chrome reload
-hs.hotkey.bind({'cmd', 'alt', 'ctrl'}, "u", function()
+hs.hotkey.bind({'cmd', 'alt', 'ctrl'}, "@", function()
   local script = [[tell application "Chrome" to tell the active tab of its first window
     reload
 end tell]]

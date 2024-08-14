@@ -79,8 +79,11 @@ local function toFullscreen(appList)
 end
 
 local function launchApps()
-    for i, appName in ipairs(appNames) do
-        hs.application.open(appName)
+    for i, appname in ipairs(appNames) do
+        local app = hs.appfinder.appFromName(appname)
+        if app == nil then
+            hs.application.open(appname)
+        end
     end
 end
 
