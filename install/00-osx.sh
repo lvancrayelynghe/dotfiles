@@ -46,7 +46,7 @@ sudo xcode-select --switch /Library/Developer/CommandLineTools # Enable command 
 ########################################
 
 if test ! $(which brew) ; then
-    echo "nstalling Homebrew"
+    echo "Installing Homebrew"
     ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 fi
 
@@ -110,16 +110,17 @@ brew install rectangle
 brew install discord
 brew install spotify
 brew install itsycal
-brew install avocode
-brew install zeplin
-brew install postman
 brew install skyfonts
 brew install google-drive
 brew install skype
 brew install openvpn
-brew install cyberduck
-brew install beyond-compare
 brew install appcleaner
+brew install gh
+brew install ripgrep
+brew install mark-text
+brew install maccy
+brew install bruno
+brew install raycast
 
 # Quick-looks
 brew install quicklook-json
