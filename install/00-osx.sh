@@ -112,8 +112,6 @@ brew install spotify
 brew install itsycal
 brew install skyfonts
 brew install google-drive
-brew install skype
-brew install openvpn
 brew install appcleaner
 brew install gh
 brew install ripgrep
@@ -121,6 +119,11 @@ brew install mark-text
 brew install maccy
 brew install bruno
 brew install raycast
+
+# Casks
+brew install --cask fsnotes
+brew install --cask arc
+brew install --cask brave-browser
 
 # Quick-looks
 brew install quicklook-json
@@ -135,8 +138,6 @@ brew install mas
 mas install 803453959
 # The Unarchiver
 mas install 425424353
-# Bear notes
-mas install 1091189122
 # Harvest
 mas install 506189836
 # Microsoft Remote Desktop
