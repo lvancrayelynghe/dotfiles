@@ -26,7 +26,7 @@ for key, app in pairs({
     ["t"] = "iTerm",
     ["y"] = "Harvest",
 
-    ["p"] = "MarkText",
+    ["p"] = "FSNotes",
 
     ["q"] = "Calendrier",
     ["s"] = "Sublime Text",
@@ -59,7 +59,7 @@ hs.hotkey.bind({'cmd', 'alt', 'ctrl'}, "tab", function()
 end)
 
 -- Toggle fullscreen
-hs.hotkey.bind({'cmd', 'alt', 'ctrl'}, "return", function()
+hs.hotkey.bind({'cmd', 'alt', 'ctrl', 'shift'}, "return", function()
     local win = hs.window.focusedWindow()
     if win ~= nil then
         win:setFullScreen(not win:isFullScreen())
