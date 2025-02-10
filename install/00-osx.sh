@@ -116,13 +116,11 @@ brew install appcleaner
 brew install gh
 brew install ripgrep
 brew install mark-text
-brew install maccy
 brew install bruno
 brew install raycast
 
 # Casks
-brew install --cask fsnotes
-brew install --cask arc
+brew install --cask iina
 brew install --cask brave-browser
 
 # Quick-looks
@@ -403,9 +401,9 @@ defaults write com.apple.finder OpenWindowForNewRemovableDisk -bool true
 # Expand the following File Info panes:
 # “General”, “Open with”, and “Sharing & Permissions”
 defaults write com.apple.finder FXInfoPanesExpanded -dict \
-	General -bool true \
-	OpenWith -bool true \
-	Privileges -bool true
+    General -bool true \
+    OpenWith -bool true \
+    Privileges -bool true
 
 # Show the ~/Library folder.
 chflags nohidden ~/Library
@@ -748,24 +746,24 @@ defaults write com.apple.messageshelper.MessageController SOInputLineSettings -d
 # Kill affected applications                                                  #
 ###############################################################################
 for app in "Activity Monitor" \
-	"Address Book" \
-	"Calendar" \
-	"cfprefsd" \
-	"Contacts" \
-	"Dock" \
-	"Finder" \
-	"Google Chrome Canary" \
-	"Google Chrome" \
-	"Mail" \
-	"Messages" \
-	"Opera" \
-	"Photos" \
-	"Safari" \
-	"SizeUp" \
-	"SystemUIServer" \
-	"Terminal" \
-	"Transmission" \
-	"iCal"; do
-	killall "${app}" &> /dev/null
+    "Address Book" \
+    "Calendar" \
+    "cfprefsd" \
+    "Contacts" \
+    "Dock" \
+    "Finder" \
+    "Google Chrome Canary" \
+    "Google Chrome" \
+    "Mail" \
+    "Messages" \
+    "Opera" \
+    "Photos" \
+    "Safari" \
+    "SizeUp" \
+    "SystemUIServer" \
+    "Terminal" \
+    "Transmission" \
+    "iCal"; do
+    killall "${app}" &> /dev/null
 done
 echo "Done. Note that some of these changes require a logout/restart to take effect."
