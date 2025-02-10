@@ -20,22 +20,25 @@ end
 -- App Bindings
 for key, app in pairs({
     ["a"] = "Slack",
-    ["z"] = "Discord",
     ["e"] = "Finder",
-    ["r"] = "Bruno",
-    ["t"] = "iTerm",
-    ["y"] = "Harvest",
 
-    ["p"] = "FSNotes",
-
-    ["q"] = "Calendrier",
     ["s"] = "Sublime Text",
-    ["f"] = "Filezilla",
     ["g"] = "Google Chrome",
 
-    ["x"] = "ClickUp",
-    ["v"] = "Code",
-    ["b"] = "Sequel Ace",
+    -- ["z"] = "Discord",
+    -- ["r"] = "Bruno",
+    -- ["t"] = "iTerm",
+
+    -- ["y"] = "Harvest",
+
+    -- ["p"] = "Notes",
+    -- ["q"] = "Calendrier",
+    -- ["v"] = "Code",
+
+    -- ["f"] = "Filezilla",
+
+    -- ["x"] = "ClickUp",
+    -- ["b"] = "Sequel Ace",
 }) do
     hs.hotkey.bind({'cmd', 'alt', 'ctrl'}, key, function()
         lanchOrSwitch(app)
