@@ -70,12 +70,15 @@ echo 'export PATH="/usr/local/opt/gnu-getopt/bin:$PATH"' >> ~/.zshrc
 echo 'export PATH="/usr/local/sbin:$PATH"' >> ~/.zshrc
 echo 'export MANPATH=/opt/local/share/man:$MANPATH'  >> ~/.zshrc
 
+# brew install m-cli
+# brew install macfuse
+# brew install ruby
+# brew install mark-text
+
 brew install bash
 brew install zsh
-brew install m-cli
 sudo dscl . -create /Users/$USER UserShell /usr/local/bin/zsh
 
-brew install ruby
 brew install p7zip
 brew install ranger
 brew install lftp
@@ -84,7 +87,6 @@ brew install terminal-notifier
 brew install php
 brew install node
 brew install ngrok
-brew install macfuse
 brew install dnsmasq
 brew install freetype jpeg libpng gd zlib imagemagick tesseract tesseract-lang
 brew install font-hack
@@ -92,7 +94,7 @@ brew install font-fira-code
 brew install font-jetbrains-mono
 
 # Desktop apps
-#brew install filezilla
+brew install filezilla
 brew install mouse-fix
 brew install iterm2
 brew install google-chrome
@@ -115,13 +117,16 @@ brew install google-drive
 brew install appcleaner
 brew install gh
 brew install ripgrep
-brew install mark-text
 brew install bruno
 brew install raycast
+brew install gemini-cli
+brew install macwhisper
+# Spokenly : https://spokenly.app/
 
 # Casks
 brew install --cask iina
 brew install --cask brave-browser
+brew install --cask jordanbaird-ice
 
 # Quick-looks
 brew install quicklook-json
