@@ -1,0 +1,26 @@
+# https://ghostty.org/docs/config/reference
+
+# ghostty +show-config
+# ghostty +show-config --default --docs
+theme = Gruvbox Material Dark
+font-family = Fira Code
+
+copy-on-select = clipboard
+
+unfocused-split-opacity = 0.5
+unfocused-split-fill = #504945
+
+notify-on-command-finish = unfocused
+notify-on-command-finish-action = no-bell,notify
+notify-on-command-finish-after = 30s
+
+
+# ghostty +list-keybinds --default
+keybind = super+q=unbind
+
+keybind = super+arrow_down=goto_split:down
+keybind = super+arrow_left=goto_split:left
+keybind = super+arrow_right=goto_split:right
+keybind = super+arrow_up=goto_split:up
+
+keybind = super+control+alt+w=text:\x17
