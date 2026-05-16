@@ -94,10 +94,12 @@ brew install font-fira-code
 brew install font-jetbrains-mono
 
 # Desktop apps
+# brew install appcleaner
+# brew install iterm2
+# brew install google-chrome
 brew install filezilla
 brew install mouse-fix
-brew install iterm2
-brew install google-chrome
+brew install vivaldi
 brew install firefox
 brew install sublime-text
 brew install visual-studio-code
@@ -105,6 +107,7 @@ brew install libreoffice libreoffice-language-pack
 brew install sequel-pro
 brew install sequel-ace
 brew install 1password
+brew install 1password-cli
 brew install vlc
 brew install hammerspoon
 brew install hyperkey
@@ -114,19 +117,23 @@ brew install spotify
 brew install itsycal
 brew install skyfonts
 brew install google-drive
-brew install appcleaner
 brew install gh
 brew install ripgrep
 brew install bruno
 brew install raycast
 brew install gemini-cli
 brew install macwhisper
+brew install rclone
+brew install fswatch
 # Spokenly : https://spokenly.app/
 
 # Casks
-brew install --cask iina
 brew install --cask brave-browser
-brew install --cask jordanbaird-ice
+brew install --cask fluidvoice
+brew install --cask google-gemini
+brew install --cask ghostty
+brew install --cask hiddenbar
+brew install --cask iina
 
 # Quick-looks
 brew install quicklook-json
