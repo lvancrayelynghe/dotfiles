@@ -17,7 +17,7 @@ local layout = {
 
 local layoutSingleScreen = {
     fullscreen = {
-        {"Google Chrome", nil, monitors.laptop, hs.layout.maximized, nil, nil},
+        {"Vivaldi", nil, monitors.laptop, hs.layout.maximized, nil, nil},
         {"Code", nil, monitors.laptop, hs.layout.maximized, nil, nil},
         {"iTerm2", nil, monitors.laptop, hs.layout.maximized, nil, nil},
         {"Slack", nil, monitors.laptop, hs.layout.maximized, nil, nil},
@@ -39,14 +39,14 @@ local layoutTripleScreen = {
     },
     windowed = {
         {"Spotify", nil, monitors.laptop, layout.spotify, nil, nil},
-        {"Google Chrome", nil, monitors.home.left, hs.layout.left50, nil, nil},
+        {"Vivaldi", nil, monitors.home.left, hs.layout.left50, nil, nil},
         {"Code", nil, monitors.home.left, hs.layout.right50, nil, nil},
         {"iTerm2", nil, monitors.home.right, layout.top50, nil, nil},
     }
 }
 
 local appNames = {
-    "Google Chrome",
+    "Vivaldi",
     "iTerm",
     "Slack",
     "Discord",

@@ -23,7 +23,7 @@ for key, app in pairs({
     ["e"] = "Finder",
 
     ["s"] = "Sublime Text",
-    ["g"] = "Google Chrome",
+    ["g"] = "Vivaldi",
 
     -- ["z"] = "Discord",
     -- ["r"] = "Bruno",
@@ -71,7 +71,7 @@ end)
 
 
 -- hs.hotkey.bind({'cmd', 'alt', 'ctrl'}, "m", function() hs.execute("/System/Library/CoreServices/Menu\\ Extras/User.menu/Contents/Resources/CGSession -suspend") end)
--- hs.hotkey.bind({'cmd', 'alt', 'ctrl'}, "p", function() hs.execute("/usr/local/bin/subl /Users/lucvancrayelynghe/TODO.md") end)
+hs.hotkey.bind({'cmd', 'alt', 'ctrl'}, "o", function() hs.execute("/opt/homebrew/bin/subl ~/Library/Mobile\\ Documents/com~apple~CloudDocs/todo.md") end)
 
 hs.hotkey.bind({'cmd', 'alt', 'ctrl'}, "h", function() hs.grid.resizeWindowShorter(hs.window.focusedWindow()) end)
 hs.hotkey.bind({'cmd', 'alt', 'ctrl'}, "j", function() hs.grid.resizeWindowThinner(hs.window.focusedWindow()) end)
@@ -116,9 +116,9 @@ hs.eventtap.new({ hs.eventtap.event.types.systemDefined }, function(event)
     end
 end):start()
 
--- Chrome reload
+-- Vivaldi reload
 hs.hotkey.bind({'cmd', 'alt', 'ctrl'}, "@", function()
-  local script = [[tell application "Chrome" to tell the active tab of its first window
+  local script = [[tell application "Vivaldi" to tell the active tab of its first window
     reload
 end tell]]
   hs.osascript.applescript(script)
