@@ -125,15 +125,20 @@ brew install gemini-cli
 brew install macwhisper
 brew install rclone
 brew install fswatch
-# Spokenly : https://spokenly.app/
+brew install llmfit
+brew install mole
 
 # Casks
 brew install --cask brave-browser
+brew install --cask claude-code
+brew install --cask macshot
 brew install --cask fluidvoice
 brew install --cask google-gemini
 brew install --cask ghostty
 brew install --cask hiddenbar
 brew install --cask iina
+brew install --cask numi
+brew install --cask orbstack
 
 # Quick-looks
 brew install quicklook-json
