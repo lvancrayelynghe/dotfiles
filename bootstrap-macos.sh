@@ -8,6 +8,7 @@ declare -A COPIES=(
 )
 
 declare -A SYMLINKS=(
+    ['claude/statusline-command.sh']='.claude/statusline-command.sh'
     ['bash/inputrc']='.inputrc'
     ['bash/profile']='.profile'
     ['zsh/zshrc']='.zshrc'
@@ -210,3 +211,6 @@ do_copies() {
 
 do_symlinks
 do_copies
+
+# Claude Code: register the statusLine in ~/.claude/settings.json (idempotent)
+[[ -f "${DOTFILES_ROOT}/claude/install.sh" ]] && bash "${DOTFILES_ROOT}/claude/install.sh"

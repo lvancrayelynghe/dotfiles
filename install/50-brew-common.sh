@@ -16,6 +16,9 @@ brew install fd
 brew install bat
 brew install ccat
 
+# JSON processor (required by the Claude Code statusline)
+brew install jq
+
 # Others
 brew install desk
 brew install fzf
