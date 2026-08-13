@@ -10,19 +10,13 @@
     autocrlf = false
     whitespace = trailing-space,space-before-tab,cr-at-eol
     excludesfile = ~/.gitignore-global
+    untrackedCache = true
     # Only use on Windows networks share : git config --local core.filemode false
     # filemode = false
 
 [color]
-	branch = always
-	diff = always
-	status = always
-	interactive = always
-	ui = always
-	pager = true
-	grep = always
-	decorate = always
-	showbranch = always
+    # 'always' pollutes piped output with ANSI codes; 'auto' colors terminals only
+    ui = auto
 
 [color "branch"]
     current = yellow reverse
@@ -41,10 +35,12 @@
     untracked = cyan
 
 [init]
-    templatedir = ~/.git-templates
+    templateDir = ~/.git-templates
+    defaultBranch = master
 
 [commit]
     template = ~/.git-templates/git-commit
+    verbose = true
 
 [apply]
     whitespace = nowarn
@@ -54,15 +50,31 @@
 
 [push]
     default = current
+    autoSetupRemote = true
+
+[pull]
+    rebase = true
+
+[fetch]
+    prune = true
+
+[rerere]
+    enabled = true
+
+[branch]
+    sort = -committerdate
+
+[tag]
+    sort = version:refname
 
 [diff]
-    tool = icdiff
+    algorithm = histogram
+    colorMoved = zebra
+    renames = copies
 
-[difftool]
-    prompt = false
-
-[difftool "icdiff"]
-    cmd = icdiff --highlight --line-numbers -L \"$BASE\" -L \"$REMOTE\" \"$LOCAL\" \"$REMOTE\"
+# macOS-only settings (repos under /Users): keychain, fsmonitor...
+[includeIf "gitdir:/Users/"]
+    path = ~/.gitconfig-macos
 
 [alias]
     # Show defined aliases
@@ -101,19 +113,14 @@
     # Ignore file mode changes
     ignore-filemode     ="!git config --local core.filemode false"
 
-    # Exactly match the remote branch
-    full-reset          = "!git fetch origin && git reset --hard origin/master"
+    # Exactly match the upstream branch
+    full-reset          = "!git fetch && git reset --hard @{upstream}"
 
-    # Publish the current branch to "origin" and set the current branch to track the upstream branch
-    publish             = !"git push -u origin $(git branch-name)"
-    # Unpublish the current branch by deleting the remote version of the current branch on "origin"
-    unpublish           = !"git push origin :$(git branch-name)"
-
-    php-lint            = !"git diff-index HEAD --name-only | grep ".php" | xargs -L1 php -l"
+    php-lint            = "!git diff-index HEAD --name-only | grep '\\.php$' | xargs -L1 php -l"
 
     # Open changed files
-    subl                = !git-ls-files -m -z | xargs -0 subl
-    sublall             = !git-ls-files -m -o --exclude-standard -z | xargs -0 subl
+    subl                = !git ls-files -m -z | xargs -0 subl
+    sublall             = !git ls-files -m -o --exclude-standard -z | xargs -0 subl
 
     # https://stackoverflow.com/a/45486981
     # Afterwards, to remove all unstaged changes : git checkout . (git diff -w to check)

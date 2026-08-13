@@ -1,0 +1,51 @@
+#!/usr/bin/env bash
+#
+# Deploys the dotfiles with dotter (https://github.com/SuperCuber/dotter)
+# and runs the install hooks. Idempotent, safe to re-run at any time.
+set -euo pipefail
+
+BASEDIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+cd "$BASEDIR"
+
+if ! command -v dotter >/dev/null 2>&1; then
+    echo "dotter is required:" >&2
+    echo "  macOS : brew install dotter" >&2
+    echo "  Linux : download a static binary from https://github.com/SuperCuber/dotter/releases" >&2
+    echo "          (or: cargo install dotter)" >&2
+    exit 1
+fi
+
+# Pick this machine's packages on first run (see .dotter/local.toml.example)
+if [ ! -f .dotter/local.toml ]; then
+    case "$(uname)" in
+        Darwin) printf 'packages = ["common", "macos"]\n' > .dotter/local.toml ;;
+        *)      printf 'packages = ["common"]\n' > .dotter/local.toml ;;
+    esac
+    echo "Created .dotter/local.toml: $(cat .dotter/local.toml)"
+fi
+
+# Migration: the pre-dotter setups linked whole directories into the repo;
+# dotter manages their content file by file, so drop the old directory links
+for legacy in "$HOME/.vim" "$HOME/.git-templates" \
+              "$HOME/Library/Application Support/Code/User/snippets" \
+              "$HOME/.config/Code/User/snippets"; do
+    if [ -L "$legacy" ]; then
+        case "$(readlink "$legacy")" in
+            "$BASEDIR"*) rm "$legacy" ;;
+        esac
+    fi
+done
+
+dotter deploy --force --noconfirm
+
+scripts/link-sublime.sh
+scripts/install-zsh-plugins.sh
+[ ! -f claude/install.sh ] || bash claude/install.sh
+
+# init.templateDir only seeds repositories created after it is set, so this one
+# never got the hooks. Point it at them directly instead of copying.
+if [ -d .git ]; then
+    git config --local core.hooksPath others/git-templates/hooks
+fi
+
+echo "Done."

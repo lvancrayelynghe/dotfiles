@@ -1,6 +1,6 @@
 -- KeyCodes : http://www.hammerspoon.org/docs/hs.keycodes.html#map
 
-function lanchOrSwitch(appname)
+function launchOrSwitch(appname)
     local app = hs.appfinder.appFromName(appname)
 
     if app == nil then
@@ -41,7 +41,7 @@ for key, app in pairs({
     -- ["b"] = "Sequel Ace",
 }) do
     hs.hotkey.bind({'cmd', 'alt', 'ctrl'}, key, function()
-        lanchOrSwitch(app)
+        launchOrSwitch(app)
     end)
 end
 
@@ -104,7 +104,11 @@ hs.eventtap.new({ hs.eventtap.event.types.systemDefined }, function(event)
     -- Check empty table
     if next(event) then
         if event.key == 'PLAY' and event.down then
-            launch("Spotify")
+            -- Start Spotify if needed, but never steal focus from the
+            -- current app when it is already running
+            if hs.appfinder.appFromName("Spotify") == nil then
+                hs.application.open("Spotify")
+            end
 
             hs.timer.doAfter(1, function ()
                 local app = hs.appfinder.appFromName('Musique')

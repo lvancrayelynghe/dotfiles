@@ -1,0 +1,26 @@
+# macOS-only git settings, loaded via includeIf "gitdir:/Users/" from gitconfig.
+# Kept separate so the shared gitconfig stays safe on older server git versions.
+
+[core]
+    # Filesystem watcher daemon: big speedup on large PHP repos (git >= 2.36)
+    fsmonitor = true
+    # delta (brew git-delta) replaces the shared `less -FRS`. Kept macOS-only:
+    # the servers have no delta, and git would lose its pager there.
+    pager = delta
+
+[interactive]
+    # Highlight the hunks of `git add -p` and friends with delta too
+    diffFilter = delta --color-only
+
+[delta]
+    line-numbers = true
+
+[merge]
+    # zdiff3 needs git >= 2.35 and would make merges FATAL on older server git
+    conflictStyle = zdiff3
+
+[credential]
+    helper = osxkeychain
+
+[help]
+    autocorrect = prompt

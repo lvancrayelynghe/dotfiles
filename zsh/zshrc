@@ -1,18 +1,18 @@
 #!/usr/bin/env zsh
 
 # DEBUG=true
+zmodload zsh/datetime
 function trace-time() {
-    if [ -n "$TT_START" ]; then
-        TT_END=$(date +%s.%N)
-        # Subtraction won't read scale variable
-        TT_DIFF=$(echo "scale=4; ($TT_END - $TT_START)/1" | bc -l)
+    if [[ -n "$TT_START" ]]; then
+        local TT_DIFF
+        printf -v TT_DIFF '%.4f' $((EPOCHREALTIME - TT_START))
         echo -e "------------------------------------------------------------- ${TT_DIFF}\r${TT_MSG} "
         TT_START=""
         TT_MSG=""
     fi
 
     if [ ! $# -eq 0 ]; then
-        TT_START=$(date +%s.%N)
+        TT_START=$EPOCHREALTIME
         TT_MSG="$@"
     fi
 }
@@ -20,99 +20,100 @@ function trace-time() {
 
 [[ -n "$DEBUG" ]] && trace-time "Initializing dotfiles"
 
-DOTFILES_PATH=~/.dotfiles/public
-BIN_PATH=${BIN_PATH:-~/bin}
-HOSTNAME=`hostname`
-HOST_CONFIG_FILE="$HOME/.zshrc_$HOSTNAME"
+DOTFILES_PATH=${DOTFILES_PATH:-$HOME/.dotfiles/public}
+BIN_PATH=${BIN_PATH:-$HOME/bin}
+export HOSTNAME="$HOST"
+HOST_CONFIG_FILE="$HOME/.zshrc_$HOST"
 LOCAL_CONFIG_FILE="$HOME/.zshrc_local"
 
-mkdir -p "$HOME/.cache"
+# Non-login interactive shells (su, screen, some IDE terminals) skip zprofile:
+# source it here so PATH/EDITOR are always set. Idempotent and cheap.
+[[ -o login ]] || source "${DOTFILES_PATH}/zsh/zprofile"
+
+[[ -d "$HOME/.cache" ]] || mkdir -p "$HOME/.cache"
 
 [[ -n "$DEBUG" ]] && trace-time "Loading global.zsh"
-source ${DOTFILES_PATH}/zsh/global.zsh
+source "${DOTFILES_PATH}/zsh/global.zsh"
 
-[[ -n "$DEBUG" ]] && trace-time "Loading installs.zsh"
-source ${DOTFILES_PATH}/zsh/installs.zsh
+[[ -n "$DEBUG" ]] && trace-time "Loading plugins.zsh"
+source "${DOTFILES_PATH}/zsh/plugins.zsh"
 
-[[ -n "$DEBUG" ]] && trace-time "Loading completions.zsh"
-source ${DOTFILES_PATH}/zsh/completion.zsh
-
-[[ -n "$DEBUG" ]] && trace-time "Loading correction.zsh"
-source ${DOTFILES_PATH}/zsh/correction.zsh
+[[ -n "$DEBUG" ]] && trace-time "Loading completion.zsh"
+source "${DOTFILES_PATH}/zsh/completion.zsh"
 
 [[ -n "$DEBUG" ]] && trace-time "Loading directories.zsh"
-source ${DOTFILES_PATH}/zsh/directories.zsh
+source "${DOTFILES_PATH}/zsh/directories.zsh"
 
 [[ -n "$DEBUG" ]] && trace-time "Loading history.zsh"
-source ${DOTFILES_PATH}/zsh/history.zsh
+source "${DOTFILES_PATH}/zsh/history.zsh"
 
 [[ -n "$DEBUG" ]] && trace-time "Loading key-bindings.zsh"
-source ${DOTFILES_PATH}/zsh/key-bindings.zsh
+source "${DOTFILES_PATH}/zsh/key-bindings.zsh"
 
-[[ -n "$DEBUG" ]] && trace-time "Loading aliases.zsh"
-source ${DOTFILES_PATH}/zsh/aliases.zsh
-[[ "$OSTYPE" == "darwin"* ]] && source ${DOTFILES_PATH}/zsh/aliases-osx.zsh
-[[ "$OSTYPE" == "linux"* ]] && source ${DOTFILES_PATH}/zsh/aliases-linux.zsh
+[[ -n "$DEBUG" ]] && trace-time "Loading aliases"
+source "${DOTFILES_PATH}/shell/aliases.sh"
+source "${DOTFILES_PATH}/zsh/aliases.zsh"
 
 [[ -n "$DEBUG" ]] && trace-time "Loading functions.zsh"
-source ${DOTFILES_PATH}/zsh/functions.zsh
+source "${DOTFILES_PATH}/zsh/functions.zsh"
 
 [[ -n "$DEBUG" ]] && trace-time "Loading snippets.zsh"
-source ${DOTFILES_PATH}/zsh/snippets.zsh
+source "${DOTFILES_PATH}/zsh/snippets.zsh"
 
-[[ -n $HOST_CONFIG_FILE && -e $HOST_CONFIG_FILE ]] && source $HOST_CONFIG_FILE || true
-[[ -n $LOCAL_CONFIG_FILE && -e $LOCAL_CONFIG_FILE ]] && source $LOCAL_CONFIG_FILE || true
+[[ -n "$DEBUG" ]] && trace-time "Loading host/local config files"
+[[ -e "$HOST_CONFIG_FILE" ]] && source "$HOST_CONFIG_FILE"
+[[ -e "$LOCAL_CONFIG_FILE" ]] && source "$LOCAL_CONFIG_FILE"
 
 [[ -n "$DEBUG" ]] && trace-time "Loading plugins/colored-man.plugin.zsh"
-source ${DOTFILES_PATH}/zsh/plugins/colored-man.plugin.zsh
+source "${DOTFILES_PATH}/zsh/plugins/colored-man.plugin.zsh"
 
-if [[ -f /usr/local/etc/profile.d/z.sh ]]; then
-    [[ -n "$DEBUG" ]] && trace-time "Loading z"
-    source /usr/local/etc/profile.d/z.sh
-    _Z_DATA="$HOME/.cache/z-directories-trackfile" # Source after compinit to enable completion
+# fzf key bindings (Ctrl-R, Ctrl-T, Alt-C) and completion
+if command -v fzf >/dev/null 2>&1; then
+    [[ -n "$DEBUG" ]] && trace-time "Loading fzf"
+    if fzf --zsh >/dev/null 2>&1; then # fzf >= 0.48
+        source <(fzf --zsh)
+    elif [[ -f /usr/share/doc/fzf/examples/key-bindings.zsh ]]; then # distro package
+        source /usr/share/doc/fzf/examples/key-bindings.zsh
+    fi
 fi
 
-if hash fzf >/dev/null 2>&1; then
-    [[ -n "$DEBUG" ]] && trace-time "Loading plugins/fzf-key-bindings.plugin.zsh"
-    source ${DOTFILES_PATH}/zsh/plugins/fzf-key-bindings.plugin.zsh
+# zoxide: smarter cd (z / zi)
+if command -v zoxide >/dev/null 2>&1; then
+    [[ -n "$DEBUG" ]] && trace-time "Loading zoxide"
+    eval "$(zoxide init zsh)"
+    alias zd='zi'
+fi
+
+# mise: node/go/php toolchain versions. `mise activate` forks and costs ~14 ms,
+# so cache its output and regenerate only when the binary is newer than the
+# cache. Loaded here, after the local config files, so mise owns the toolchain
+# PATH -- see the note in ~/.zshrc_local if nvm is still declared there.
+if command -v mise >/dev/null 2>&1; then
+    [[ -n "$DEBUG" ]] && trace-time "Loading mise"
+    _mise_cache="$HOME/.cache/mise-activate.zsh"
+    if [[ ! -f "$_mise_cache" || "$_mise_cache" -ot "$commands[mise]" ]]; then
+        mkdir -p "${_mise_cache:h}"
+        mise activate zsh > "$_mise_cache"
+    fi
+    source "$_mise_cache"
+    unset _mise_cache
 fi
 
 if hash php >/dev/null 2>&1; then
     [[ -n "$DEBUG" ]] && trace-time "Loading plugins/laravel.plugin.zsh"
-    source ${DOTFILES_PATH}/zsh/plugins/laravel.plugin.zsh
+    source "${DOTFILES_PATH}/zsh/plugins/laravel.plugin.zsh"
     if hash composer >/dev/null 2>&1; then
         [[ -n "$DEBUG" ]] && trace-time "Loading plugins/composer.plugin.zsh"
-        source ${DOTFILES_PATH}/zsh/plugins/composer.plugin.zsh
+        source "${DOTFILES_PATH}/zsh/plugins/composer.plugin.zsh"
     fi
 fi
 
 if hash npm >/dev/null 2>&1; then
-    [[ -n "$DEBUG" ]] && trace-time "Loading plugins/gulp.plugin.zsh"
-    source ${DOTFILES_PATH}/zsh/plugins/gulp.plugin.zsh
     [[ -n "$DEBUG" ]] && trace-time "Loading plugins/npm.plugin.zsh"
-    source ${DOTFILES_PATH}/zsh/plugins/npm.plugin.zsh
+    source "${DOTFILES_PATH}/zsh/plugins/npm.plugin.zsh"
 fi
 
-# Hook for desk activation (must stay after every other scripts)
-if [[ -n "$DESK_ENV" ]]; then
-    [[ -n "$DEBUG" ]] && trace-time "Loading desk file"
-    source ${DESK_ENV}
-fi
-
-# Only load last working directory plugin if not in a Desk
-if [[ -z "$DESK_ENV" ]]; then
-    [[ -n "$DEBUG" ]] && trace-time "Loading plugins/last-working-dir"
-    source ${DOTFILES_PATH}/zsh/plugins/last-working-dir.plugin.zsh
-fi
+[[ -n "$DEBUG" ]] && trace-time "Loading plugins/last-working-dir"
+source "${DOTFILES_PATH}/zsh/plugins/last-working-dir.plugin.zsh"
 
 trace-time
-export PATH="/usr/local/opt/gnu-getopt/bin:$PATH"
-export PATH="/usr/local/sbin:$PATH"
-
-test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
-
-if [ "$HOSTNAME" = luc.dev.fractory.io ]; then
-    test -e "${HOME}/.dev-server/server/bootstrap.sh" && source "${HOME}/.dev-server/server/bootstrap.sh"
-else
-    test -e "${HOME}/.dev-server/local/bootstrap.sh" && source "${HOME}/.dev-server/local/bootstrap.sh"
-fi

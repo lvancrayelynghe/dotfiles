@@ -33,7 +33,7 @@ obj.rowsToDisplay = 14 -- how many rows to display in the chooser
 --    obj:print_table(hs.window.visibleWindows(), w_info)
 -- end
 
-theWindows = hs.window.filter.new()
+local theWindows = hs.window.filter.new()
 theWindows:setDefaultFilter{}
 theWindows:setSortOrder(hs.window.filter.sortByFocusedLast)
 obj.currentWindows = {}
@@ -62,7 +62,7 @@ function obj:focus_by_title(t)
       hs.alert.show("No string provided to focus_by_title")
       return nil
    end
-   w = obj:find_window_by_title(t)
+   local w = obj:find_window_by_title(t)
    if w then
       w:focus()
    end
@@ -130,8 +130,8 @@ theWindows:subscribe(hs.window.filter.windowFocused, callback_window_created)
 
 function obj:list_window_choices(onlyCurrentApp)
    local windowChoices = {}
-   local currentWin = hs.window.focusedWindow()
-   local currentApp = currentWin:application()
+   local currentWin = hs.window.focusedWindow() -- may be nil (desktop focused)
+   local currentApp = currentWin and currentWin:application()
    -- print("\nstarting to populate")
    -- print(currentApp)
    for i,w in ipairs(obj.currentWindows) do
@@ -164,7 +164,7 @@ local windowChooser = hs.chooser.new(function(choice)
       if v then
          v:focus()
       else
-         hs.alert.show("unable fo focus " .. name)
+         hs.alert.show("unable to focus " .. (choice["text"] or "window"))
       end
 end)
 
@@ -186,37 +186,31 @@ function obj:selectWindow(onlyCurrentApp)
 end
 
 
+-- Focus the window at the given position in the choices list.
+-- fallbackToAll: retry across all applications when the current app has no other window.
+local function focusChoice(onlyCurrentApp, index, fallbackToAll)
+   local windowChoices = obj:list_window_choices(onlyCurrentApp)
+   if #windowChoices == 0 then
+      if onlyCurrentApp and fallbackToAll then
+         focusChoice(false, 1, false)
+      else
+         hs.alert.show("no other window available ")
+      end
+      return
+   end
+   local i = (index == -1) and #windowChoices or index
+   local v = windowChoices[i]["win"]
+   if v then
+      v:focus()
+   end
+end
+
 function obj:switchWindow(onlyCurrentApp)
-  local windowChoices = obj:list_window_choices(onlyCurrentApp)
-     if #windowChoices == 0 then
-        if onlyCurrentApp then
-           obj:previousWindow(false)
-        else
-           hs.alert.show("no other window available ")
-        end
-        return
-     end
-     local c =#windowChoices
-     local v = windowChoices[c]["win"]
-          if v then
-             v:focus()
-           end
+   focusChoice(onlyCurrentApp, -1, true) -- least recently focused window
 end
 
 function obj:previousWindow(onlyCurrentApp)
-  local windowChoices = obj:list_window_choices(onlyCurrentApp)
-     if #windowChoices == 0 then
-        if onlyCurrentApp then
-           hs.alert.show("no other window for this application ")
-        else
-           hs.alert.show("no other window available ")
-        end
-        return
-     end
-     local v = windowChoices[1]["win"]
-          if v then
-             v:focus()
-           end
+   focusChoice(onlyCurrentApp, 1, false) -- most recently focused window
 end
 
 return obj

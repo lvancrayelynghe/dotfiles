@@ -1,13 +1,12 @@
 #!/usr/bin/env zsh
 
+# Global npm packages installed in the home directory (prefix=~/.npm-packages
+# in ~/.npmrc). Only wired up when that layout is actually in use.
+
 NPM_PACKAGES="${HOME}/.npm-packages"
 
-PATH="$NPM_PACKAGES/bin:$PATH"
-
-# Unset manpath so we can inherit from /etc/manpath via the `manpath` command
-unset MANPATH # delete if you already modified MANPATH elsewhere in your config
-export MANPATH="$NPM_PACKAGES/share/man:$(manpath)"
-
-if [[ ! -f ~/.npmrc ]]; then
-    echo "prefix=${NPM_PACKAGES}" > ~/.npmrc
+if [[ -d "$NPM_PACKAGES" ]]; then
+    path=("$NPM_PACKAGES/bin" $path)
+    # The trailing colon keeps the system default man search path
+    export MANPATH="$NPM_PACKAGES/share/man:${MANPATH:-}"
 fi

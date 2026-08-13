@@ -1,0 +1,76 @@
+# Template for ~/.bashrc_local -- copy it, do not symlink it:
+#
+#     cp bash/bashrc_local.example ~/.bashrc_local
+#
+# NOT deployed by dotter, on purpose. The real file holds tokens, client
+# hostnames and per-machine paths, none of which may ever reach this public
+# repo. Keeping it a manual copy means editing it can never write back here.
+#
+# bash/bashrc sources it last, so anything here overrides the repo config.
+# Read by bash only -- zsh has its own ~/.zshrc_local (see the zsh template).
+#
+# Everything below is optional -- delete what you do not need.
+
+
+# ---------------------------------------------------------------------------
+# Private aliases and environment
+# ---------------------------------------------------------------------------
+# alias myserver='ssh myserver.example.com'
+# export SOME_API_TOKEN='...'   # tokens belong here, never in the repo
+
+
+# ---------------------------------------------------------------------------
+# gvm (Go version manager)
+# ---------------------------------------------------------------------------
+# [ -s "$HOME/.gvm/scripts/gvm" ] && . "$HOME/.gvm/scripts/gvm"
+
+
+# ---------------------------------------------------------------------------
+# nvm. Sourcing nvm.sh costs ~400 ms, so keep it lazy -- but put the default
+# node's bin on PATH right away. Otherwise globally installed npm CLIs stay
+# invisible until something triggers the lazy load, because nvm.sh is what
+# adds that directory to PATH: `claude` and friends would just be not-found.
+# ---------------------------------------------------------------------------
+# export NVM_DIR="${NVM_DIR:-$HOME/.nvm}"
+# if [ -d "$NVM_DIR" ]; then
+#     # Resolve the `default` alias, following hops: default -> lts/* -> lts/jod -> vX
+#     _nvm_default_bin() {
+#         local v=default hops=0
+#         while [[ $v != v[0-9]* ]]; do
+#             [[ -r "$NVM_DIR/alias/$v" && $hops -lt 5 ]] || return 1
+#             v=$(<"$NVM_DIR/alias/$v")
+#             hops=$((hops + 1))
+#         done
+#         [ -d "$NVM_DIR/versions/node/$v/bin" ] || return 1
+#         printf '%s\n' "$NVM_DIR/versions/node/$v/bin"
+#     }
+#
+#     if _nvm_bin=$(_nvm_default_bin); then
+#         # bash has no `typeset -U path`, so guard against a duplicate by hand
+#         case ":$PATH:" in
+#             *":$_nvm_bin:"*) ;;
+#             *) PATH="$_nvm_bin:$PATH" ;;
+#         esac
+#         # node/npm/npx come straight from PATH now; only nvm needs the lazy load
+#         nvm() { unset -f nvm; . "${HOMEBREW_PREFIX:-/opt/homebrew}/opt/nvm/nvm.sh"; nvm "$@"; }
+#     else
+#         # No resolvable default version: keep everything behind the lazy load
+#         _nvm_lazy_load() {
+#             unset -f nvm node npm npx 2>/dev/null
+#             . "${HOMEBREW_PREFIX:-/opt/homebrew}/opt/nvm/nvm.sh"
+#         }
+#         for _cmd in nvm node npm npx; do
+#             eval "${_cmd}() { _nvm_lazy_load; ${_cmd} \"\$@\"; }"
+#         done
+#         unset _cmd
+#     fi
+#     unset _nvm_bin
+#     unset -f _nvm_default_bin
+# fi
+
+
+# ---------------------------------------------------------------------------
+# A CLI installed outside any package manager, wrapped so it needs no PATH
+# entry (the pattern used for gam, the Google Workspace admin CLI)
+# ---------------------------------------------------------------------------
+# [ -x "$HOME/bin/mytool/mytool" ] && mytool() { "$HOME/bin/mytool/mytool" "$@" ; }

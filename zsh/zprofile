@@ -1,0 +1,44 @@
+#!/usr/bin/env zsh
+#
+# Login-shell environment: PATH, MANPATH, default programs.
+# Interactive setup lives in zshrc — keep this file fast and free of side effects.
+
+typeset -U path fpath manpath
+
+# Homebrew (Apple Silicon / Intel / Linuxbrew) — skip if already inherited
+if [[ -z "$HOMEBREW_PREFIX" ]]; then
+    if [[ -x /opt/homebrew/bin/brew ]]; then
+        eval "$(/opt/homebrew/bin/brew shellenv)"
+    elif [[ -x /usr/local/bin/brew ]]; then
+        eval "$(/usr/local/bin/brew shellenv)"
+    elif [[ -x /home/linuxbrew/.linuxbrew/bin/brew ]]; then
+        eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+    fi
+fi
+
+# OrbStack command-line tools
+[[ -e "$HOME/.orbstack/shell/init.zsh" ]] && source "$HOME/.orbstack/shell/init.zsh"
+
+# Keg-only curl from Homebrew
+[[ -n "$HOMEBREW_PREFIX" && -d "$HOMEBREW_PREFIX/opt/curl/bin" ]] && path=("$HOMEBREW_PREFIX/opt/curl/bin" $path)
+
+# Herd Lite (PHP)
+if [[ -d "$HOME/.config/herd-lite/bin" ]]; then
+    path=("$HOME/.config/herd-lite/bin" $path)
+    export PHP_INI_SCAN_DIR="$HOME/.config/herd-lite/bin${PHP_INI_SCAN_DIR:+:$PHP_INI_SCAN_DIR}"
+fi
+
+# Composer global packages
+[[ -d "$HOME/.composer/vendor/bin" ]] && path+=("$HOME/.composer/vendor/bin")
+
+# User binaries
+export BIN_PATH="$HOME/bin"
+[[ -d "$BIN_PATH" ]] || mkdir -p "$BIN_PATH"
+path=("$BIN_PATH" $path)
+[[ -d "$HOME/.local/bin" ]] && path=("$HOME/.local/bin" $path)
+
+export PATH
+
+# Default editor
+export VISUAL='vim'
+export EDITOR='vim'

@@ -5,24 +5,25 @@
 
 # Flag indicating if we've previously jumped to last directory.
 typeset -g ZSH_LAST_WORKING_DIRECTORY
-cache_file="$HOME/.cache/last-working-dir"
-touch $cache_file
+typeset -g _lwd_cache_file="$HOME/.cache/last-working-dir"
 
-# Updates the last directory once directory is changed.
-function chpwd() {
-  # Use >| in case noclobber is set to avoid "file exists" error
-	pwd >| "$cache_file"
+# Update the cache once the directory changes (registered as a hook so other
+# tools using chpwd — zoxide, direnv, terminal integrations — keep working).
+autoload -Uz add-zsh-hook
+function _lwd_save() {
+    # Use >| in case noclobber is set to avoid "file exists" error
+    pwd >| "$_lwd_cache_file"
 }
+add-zsh-hook chpwd _lwd_save
 
 # Changes directory to the last working directory.
 function lwd() {
-	if [[ $(pwd) = "$HOME" ]]; then
-		[[ ! -r "$cache_file" ]] || cd "$(cat "$cache_file")"
-	fi
+    [[ -r "$_lwd_cache_file" ]] && cd "$(<"$_lwd_cache_file")"
 }
 
 # Automatically jump to last working directory unless this isn't the first time
-# this plugin has been loaded.
+# this plugin has been loaded, and only when starting from $HOME.
 if [[ -z "$ZSH_LAST_WORKING_DIRECTORY" ]]; then
-	lwd 2>/dev/null && ZSH_LAST_WORKING_DIRECTORY=1 || true
+    [[ "$PWD" == "$HOME" ]] && lwd 2>/dev/null
+    ZSH_LAST_WORKING_DIRECTORY=1
 fi

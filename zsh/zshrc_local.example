@@ -1,0 +1,108 @@
+#!/usr/bin/env zsh
+#
+# Template for ~/.zshrc_local -- copy it, do not symlink it:
+#
+#     cp zsh/zshrc_local.example ~/.zshrc_local
+#
+# NOT deployed by dotter, on purpose. The real file holds tokens, client
+# hostnames and per-machine paths, none of which may ever reach this public
+# repo. Keeping it a manual copy means editing it can never write back here.
+#
+# zsh/zshrc sources it last, so anything here overrides the repo config:
+#   ~/.zshrc_$HOST   host-specific, same idea (see $HOST_CONFIG_FILE)
+#   ~/.zshrc_local   this file, loaded on every machine
+#
+# Everything below is optional -- delete what you do not need.
+
+
+# ---------------------------------------------------------------------------
+# Private aliases: internal hosts, home automation, client shortcuts
+# ---------------------------------------------------------------------------
+# alias myserver='ssh myserver.example.com'
+# alias vpn:up='sudo wg-quick up wg0'
+
+
+# ---------------------------------------------------------------------------
+# Per-repository git identity, switched by hand when cloning
+# ---------------------------------------------------------------------------
+# alias git:config-perso="git config --local user.name 'Your Name' && git config --local user.email 'you@example.com'"
+# alias git:config-work="git config --local user.name 'Your Name' && git config --local user.email 'you@company.example'"
+
+
+# ---------------------------------------------------------------------------
+# Environment. zsh builtins, so no fork needed (keeps startup cheap)
+# ---------------------------------------------------------------------------
+# export HOST_UID=$EUID
+# export HOST_GID=$GID
+# export SOME_API_TOKEN='...'   # tokens belong here, never in the repo
+
+
+# ---------------------------------------------------------------------------
+# Completion for a tool that generates its own: dump it once into fpath
+# (picked up by completion.zsh), regenerate only when the binary is newer.
+# Generating on every startup would blow the 200 ms budget.
+# ---------------------------------------------------------------------------
+# if (( $+commands[mytool] )); then
+#     if [[ ! -f ~/.cache/zsh-completions/_mytool || ~/.cache/zsh-completions/_mytool -ot $commands[mytool] ]]; then
+#         mkdir -p ~/.cache/zsh-completions
+#         mytool --completion zsh > ~/.cache/zsh-completions/_mytool
+#         # register in this shell and force a full compinit on the next one
+#         fpath=(~/.cache/zsh-completions $fpath)
+#         autoload -Uz _mytool && compdef _mytool mytool
+#         rm -f "$ZSH_COMPDUMP"
+#     fi
+# fi
+
+
+# ---------------------------------------------------------------------------
+# gvm (Go version manager)
+# ---------------------------------------------------------------------------
+# [[ -s "$HOME/.gvm/scripts/gvm" ]] && source "$HOME/.gvm/scripts/gvm"
+# path=($path) # gvm prepends itself via scalar PATH=, force dedupe (typeset -U)
+
+
+# ---------------------------------------------------------------------------
+# nvm. Sourcing nvm.sh costs ~400 ms, so keep it lazy -- but put the default
+# node's bin on PATH right away. Otherwise globally installed npm CLIs stay
+# invisible until something triggers the lazy load, because nvm.sh is what
+# adds that directory to PATH: `claude` and friends would just be not-found.
+# ---------------------------------------------------------------------------
+# export NVM_DIR="${NVM_DIR:-$HOME/.nvm}"
+# if [[ -d "$NVM_DIR" ]]; then
+#     # Resolve the `default` alias, following hops: default -> lts/* -> lts/jod -> vX
+#     _nvm_default_bin() {
+#         local v=default hops=0
+#         while [[ $v != v[0-9]* ]]; do
+#             [[ -r "$NVM_DIR/alias/$v" && $hops -lt 5 ]] || return 1
+#             v="$(<"$NVM_DIR/alias/$v")"
+#             (( hops++ ))
+#         done
+#         [[ -d "$NVM_DIR/versions/node/$v/bin" ]] || return 1
+#         print -r -- "$NVM_DIR/versions/node/$v/bin"
+#     }
+#
+#     if _nvm_bin="$(_nvm_default_bin)"; then
+#         path=("$_nvm_bin" $path) # typeset -U path (zprofile) keeps PATH deduped
+#         # node/npm/npx come straight from PATH now; only nvm needs the lazy load
+#         nvm() { unfunction nvm; source "${HOMEBREW_PREFIX:-/opt/homebrew}/opt/nvm/nvm.sh"; nvm "$@"; }
+#     else
+#         # No resolvable default version: keep everything behind the lazy load
+#         _nvm_lazy_load() {
+#             unfunction nvm node npm npx 2>/dev/null
+#             source "${HOMEBREW_PREFIX:-/opt/homebrew}/opt/nvm/nvm.sh"
+#         }
+#         for _cmd in nvm node npm npx; do
+#             eval "function ${_cmd}() { _nvm_lazy_load; ${_cmd} \"\$@\"; }"
+#         done
+#         unset _cmd
+#     fi
+#     unset _nvm_bin
+#     unfunction _nvm_default_bin
+# fi
+
+
+# ---------------------------------------------------------------------------
+# A CLI installed outside any package manager, wrapped so it needs no PATH
+# entry (the pattern used for gam, the Google Workspace admin CLI)
+# ---------------------------------------------------------------------------
+# [[ -x "$HOME/bin/mytool/mytool" ]] && function mytool() { "$HOME/bin/mytool/mytool" "$@" ; }

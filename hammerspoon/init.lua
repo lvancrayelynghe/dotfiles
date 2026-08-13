@@ -13,16 +13,13 @@ hs.grid.setGrid('12x12')
 hs.grid.setMargins('0x0')
 
 -- Autoconfig reload
-function reloadConfig(files)
-    doReload = false
-    for _,file in pairs(files) do
+local function reloadConfig(files)
+    for _, file in pairs(files) do
         if file:sub(-4) == ".lua" then
-            doReload = true
+            hs.reload() -- destroys the Lua state: nothing after this call runs
+            return
         end
     end
-    if doReload then
-        hs.reload()
-        hs.notify.new({title="Hammerspoon", informativeText="Config reloaded !"}):send()
-    end
 end
-local configWatcher = hs.pathwatcher.new(os.getenv("HOME") .. "/.hammerspoon/", reloadConfig):start()
+-- Global on purpose: a local watcher would be garbage-collected and stop working
+configWatcher = hs.pathwatcher.new(os.getenv("HOME") .. "/.hammerspoon/", reloadConfig):start()

@@ -19,7 +19,6 @@ local layoutSingleScreen = {
     fullscreen = {
         {"Vivaldi", nil, monitors.laptop, hs.layout.maximized, nil, nil},
         {"Code", nil, monitors.laptop, hs.layout.maximized, nil, nil},
-        {"iTerm2", nil, monitors.laptop, hs.layout.maximized, nil, nil},
         {"Slack", nil, monitors.laptop, hs.layout.maximized, nil, nil},
         {"ClickUp", nil, monitors.laptop, hs.layout.maximized, nil, nil},
         {"Sublime Text", nil, monitors.laptop, hs.layout.maximized, nil, nil},
@@ -41,41 +40,37 @@ local layoutTripleScreen = {
         {"Spotify", nil, monitors.laptop, layout.spotify, nil, nil},
         {"Vivaldi", nil, monitors.home.left, hs.layout.left50, nil, nil},
         {"Code", nil, monitors.home.left, hs.layout.right50, nil, nil},
-        {"iTerm2", nil, monitors.home.right, layout.top50, nil, nil},
     }
 }
 
 local appNames = {
     "Vivaldi",
-    "iTerm",
     "Slack",
     "Discord",
     "Spotify",
     "Finder",
-    "Harvest",
     "Sublime Text",
     "ClickUp",
     "Code",
 }
 
-local function unFullscreen(appList)
-    for i, v in ipairs(appList) do
-        local appname = v[1];
-        local app = hs.appfinder.appFromName(appname)
-        if (app:mainWindow():isFullScreen()) then
-            app:mainWindow():setFullScreen(false)
+-- Closed apps or apps without windows must not abort the whole layout
+local function setFullscreenState(appList, state)
+    for _, v in ipairs(appList) do
+        local app = hs.appfinder.appFromName(v[1])
+        local win = app and app:mainWindow()
+        if win and win:isFullScreen() ~= state then
+            win:setFullScreen(state)
         end
     end
 end
 
+local function unFullscreen(appList)
+    setFullscreenState(appList, false)
+end
+
 local function toFullscreen(appList)
-    for i, v in ipairs(appList) do
-        local appname = v[1];
-        local app = hs.appfinder.appFromName(appname)
-        if (not app:mainWindow():isFullScreen()) then
-            app:mainWindow():setFullScreen(true)
-        end
-    end
+    setFullscreenState(appList, true)
 end
 
 local function launchApps()
@@ -88,6 +83,8 @@ local function launchApps()
 end
 
 local menu = hs.menubar.new()
+if not menu then return end
+
 local function setSingleScreen()
     menu:setTooltip("Single Screen Layout")
     unFullscreen(layoutSingleScreen.windowed)

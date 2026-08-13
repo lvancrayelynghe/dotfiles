@@ -1,9 +1,0 @@
---ignore-dir=log
---ignore-dir=vendor
---ignore-dir=node_modules
---ignore-dir=tmp
---ignore-dir=.bundle
-
---ignore-file=is:tags
---ignore-file=is:TAGS
---ignore-file=is:.gitignore

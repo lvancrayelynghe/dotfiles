@@ -5,16 +5,19 @@ let mapleader=":"                " Force default mapleader
 set nocompatible                 " Get rid of Vi compatibility mode. SET FIRST!
 set ttyfast                      " Faster refraw
 set encoding=utf-8 nobomb        " Use UTF-8 without BOM
-set mouse=                       " Enable mouse in all modes
+set mouse=                       " Disable mouse handling (terminal selection stays native)
 set clipboard=unnamed            " Use the OS clipboard by default (on versions compiled with `+clipboard`)
 set wildmenu                     " Enhance command-line completion
 set nobackup                     " No backup
 set nowritebackup                " No backup
 set noswapfile                   " No swapfile
 set undofile                     " Allow undofiles (undo modifications after vim close)
-set undodir=$HOME/.vim/undofiles " Store undofiles in the same dir
+set undodir=$HOME/.local/state/vim/undo " Store undofiles outside the dotfiles repository
 set autowrite                    " Automatically :write before running commands
-set viminfo+=n~/.vim/viminfo     " Move viminfo path
+set viminfo+=n~/.local/state/vim/viminfo " Move viminfo outside the dotfiles repository
+if !isdirectory($HOME . '/.local/state/vim/undo')
+    call mkdir($HOME . '/.local/state/vim/undo', 'p', 0700)
+endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Text Formatting/Layout                                                     "
@@ -143,9 +146,8 @@ nmap <F2> :set number! number?<CR>
 imap <F2> <C-O><F2>
 set showmode
 
-" Toggle paste mode
+" Toggle paste mode (pastetoggle was removed from recent Vim/Neovim)
 nmap <F3> :set invpaste paste?<CR>
-set pastetoggle=<F3>
 set showmode
 
 " File explorer
@@ -156,7 +158,7 @@ set showmode
 nnoremap th  :tabprev<CR>
 nnoremap tj  :tabfirst<CR>
 nnoremap tk  :tablast<CR>
-nnoremap tl  :tabprev<CR>
+nnoremap tl  :tabnext<CR>
 nnoremap tt  :tabnew<CR>
 nnoremap tn  :tabnew<CR>
 nnoremap tm  :tabm<Space>
@@ -167,15 +169,13 @@ nnoremap td  :tabclose<CR>
 " Plugins                                                                    "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 if !empty(glob('~/.vim/autoload/plug.vim'))
-    " Install with :
+    " Installed by scripts/install-zsh-plugins.sh (run by ./install), or:
     " curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
     call plug#begin('~/.vim/plugged')
-    Plug 'ctrlpvim/ctrlp.vim'
-    Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
+    Plug 'preservim/nerdtree', { 'on':  'NERDTreeToggle' }
     Plug 'tomtom/tcomment_vim'
     Plug 'airblade/vim-gitgutter'
     Plug 'ervandew/supertab'
-    Plug 'terryma/vim-multiple-cursors'
     call plug#end()
     " Options
     let g:SuperTabMappingTabLiteral = '<s-tab>'

@@ -1,8 +1,11 @@
 {
-    "window.closeWhenEmpty": false,
+    "workbench.colorTheme": "Gruvbox Dark Soft",
+    "workbench.startupEditor": "none",
+    "editor.fontFamily": "JetBrains Mono Medium, Menlo, Monaco, 'Courier New', monospace",
+    "editor.fontLigatures": false,
+    "editor.fontVariations": false,
+    "editor.minimap.enabled": false,
     "editor.find.seedSearchStringFromSelection": true,
-    "editor.fontFamily": "JetBrains Mono Medium",
-    "editor.fontSize": 14,
     "window.openFilesInNewWindow": "off",
     "window.restoreFullscreen": true,
     "editor.scrollBeyondLastLine": true,
@@ -11,34 +14,45 @@
     "files.trimTrailingWhitespace": true,
     "editor.wordSeparators": "./\\()\"'-:,.;<>~!@#%^&*|+=[]{}`~?",
     "editor.wordWrap": "off",
-    "editor.formatOnPaste": true,
     "editor.multiCursorModifier": "ctrlCmd",
     "editor.snippetSuggestions": "top",
-    "workbench.colorTheme": "Gruvbox Dark Hard",
-    "remote.SSH.path": "ssh",
-    "[php]": {
-
+    "editor.renderWhitespace": "all",
+    "editor.quickSuggestions": {
+        "strings": "on"
     },
-    "[properties]": {},
-    "files.watcherExclude": {
-        "**/cache/**": true
-    },
-    "editor.smoothScrolling": true,
-    "editor.minimap.enabled": false,
-    "telemetry.enableTelemetry": false,
-    "telemetry.enableCrashReporter": false,
-    "window.zoomLevel": 0,
+    "window.zoomLevel": 1,
+    "editor.quickSuggestionsDelay": 0,
     "remote.SSH.configFile": "~/.ssh/config.vscode",
-    "intelephense.files.exclude": [
-        "**/.git/**",
-        "**/.svn/**",
-        "**/.hg/**",
-        "**/CVS/**",
-        "**/.DS_Store/**",
-        "**/node_modules/**",
-        "**/bower_components/**",
-        "**/vendor/**/{Tests,tests}/**",
-        "**/cache/**",
-        "**/smarty/compile/**"
-    ]
+    "explorer.openEditors.visible": 1,
+    "explorer.compactFolders": false,
+    "docker.dockerComposeBuild": false,
+    "files.insertFinalNewline": true,
+    "files.trimFinalNewlines": true,
+    "tailwindCSS.includeLanguages": {
+        "vue": "html",
+        "vue-html": "html",
+        "smarty": "html",
+        "typescript": "javascript",
+        "html": "html",
+        "javascript": "javascript",
+        "css": "css",
+        "plaintext": "html"
+    },
+    "javascript.updateImportsOnFileMove.enabled": "never",
+    "javascript.preferences.quoteStyle": "single",
+    "typescript.preferences.quoteStyle": "single",
+    "javascript.preferences.importModuleSpecifierEnding": "minimal",
+    "window.density.editorTabHeight": "compact",
+    "workbench.activityBar.location": "top",
+    "github.codespaces.usePortForwardingServiceForHTTPS": false,
+    "security.workspace.trust.untrustedFiles": "open",
+    "remote.localPortHost": "allInterfaces",
+    "githubPullRequests.pullBranch": "never",
+    "laravel-pint.enable": true,
+    "containers.composeBuild": false,
+    "github.copilot.nextEditSuggestions.enabled": true,
+    "chat.tools.terminal.autoApprove": {
+        "git fetch": true
+    },
+    "claudeCode.preferredLocation": "panel"
 }

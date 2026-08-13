@@ -1,4 +1,9 @@
 #!/bin/bash
+#
+# Refuse a commit that carries an identity-less author, or a secret.
+#
+# Only the lines being ADDED are scanned, so pre-existing content never blocks
+# an unrelated commit. Bypass deliberately with `git commit --no-verify`.
 
 USERNAME=$(git config --get user.name)
 USEREMAIL=$(git config --get user.email)
@@ -9,6 +14,54 @@ if [ -z "${USERNAME}" ] || [ -z "${USEREMAIL}" ]; then
 	echo "Use :"
 	echo "  git config --local user.name NAME"
 	echo "  git config --local user.email EMAIL"
+	echo ""
+	exit 1
+fi
+
+# Paths whose secrets are known and accepted. One per line, exact match.
+ALLOWED_PATHS='others/my.cnf'
+
+# One rule per line, as "extended regex@@label". @@ is the separator because
+# the patterns themselves contain | and [ ].
+SECRET_RULES='remote\.SSH\.remotePlatform@@VS Code Remote-SSH host list
+BEGIN[ A-Z]*PRIVATE KEY@@private key block
+(password|passwd)[[:space:]]*[=:][[:space:]]*[^[:space:]]@@password assignment
+(ghp_|gho_|ghs_|github_pat_)[A-Za-z0-9_]{20,}@@GitHub token
+sk-[A-Za-z0-9]{20,}@@OpenAI-style key
+xox[baprs]-[A-Za-z0-9-]{10,}@@Slack token
+AKIA[0-9A-Z]{16}@@AWS access key
+glpat-[A-Za-z0-9_-]{20,}@@GitLab token
+AIza[0-9A-Za-z_-]{30,}@@Google API key'
+
+# Collected inside a command substitution so the inner loops can stay in
+# subshells without losing what they found.
+violations=$(
+	git diff --cached --name-only --diff-filter=ACM | while IFS= read -r file; do
+		printf '%s\n' "$ALLOWED_PATHS" | grep -qxF -- "$file" && continue
+
+		added=$(git diff --cached -U0 -- "$file" | sed -n 's/^+\([^+].*\)$/\1/p')
+		[ -n "$added" ] || continue
+
+		printf '%s\n' "$SECRET_RULES" | while IFS= read -r rule; do
+			[ -n "$rule" ] || continue
+			pattern=${rule%%@@*}
+			label=${rule##*@@}
+			hits=$(printf '%s\n' "$added" | grep -nE -- "$pattern" | head -2)
+			if [ -n "$hits" ]; then
+				printf '  %s — %s\n' "$file" "$label"
+				printf '%s\n' "$hits" | sed 's/^/      + /'
+			fi
+		done
+	done
+)
+
+if [ -n "$violations" ]; then
+	echo ""
+	echo "Commit refused: a secret looks about to be committed."
+	echo ""
+	printf '%s\n' "$violations"
+	echo ""
+	echo "Remove it, or bypass with: git commit --no-verify"
 	echo ""
 	exit 1
 fi

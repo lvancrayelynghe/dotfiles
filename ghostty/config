@@ -24,3 +24,7 @@ keybind = super+arrow_right=goto_split:right
 keybind = super+arrow_up=goto_split:up
 
 keybind = super+control+alt+w=text:\x17
+keybind = shift+enter=text:\x1b\r
+
+# temp fix: https://github.com/ghostty-org/ghostty/issues/10749#issuecomment-4195006934
+keybind = super+v=paste_from_clipboard

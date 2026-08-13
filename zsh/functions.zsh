@@ -1,91 +1,33 @@
 #!/usr/bin/env zsh
 
-# List content of archive but don't extract
-function ll-archive() {
-    if [ -f "$1" ]; then
-        case "$1" in
-            *.tar.bz2|*.tbz2|*.tbz)  tar -jtf "$1"     ;;
-            *.tar.gz)                tar -ztf "$1"     ;;
-            *.tar|*.tgz|*.tar.xz)    tar -tf  "$1"     ;;
-            *.gz)                    gzip -l  "$1"     ;;
-            *.rar)                   rar vb   "$1"     ;;
-            *.zip)                   unzip -l "$1"     ;;
-            *.7z)                    7z l     "$1"     ;;
-            *.lzo)                   lzop -l  "$1"     ;;
-            *.xz|*.txz|*.lzma|*.tlz) xz -l    "$1"     ;;
-        esac
-    else
-        echo "Sorry, '$1' is not a valid archive."
-        echo "Valid archive types are:"
-        echo "tar.bz2, tar.gz, tar.xz, tar, gz,"
-        echo "tbz2, tbz, tgz, lzo, rar"
-        echo "zip, 7z, xz and lzma"
-    fi
-}
-
-# Extract an archive
-function extract() {
-    if [ -z "$2" ]; then 2="."; fi
-    if [ -f "$1" ] ; then
-        case "$1" in
-            *.tar.bz2|*.tbz2|*.tbz)       mkdir -v "$2" 2>/dev/null ; tar xvjf "$1" -C "$2"  ;;
-            *.tar.gz|*.tgz)               mkdir -v "$2" 2>/dev/null ; tar xvzf "$1" -C "$2"  ;;
-            *.tar.xz)                     mkdir -v "$2" 2>/dev/null ; tar xvJf "$1"          ;;
-            *.tar)                        mkdir -v "$2" 2>/dev/null ; tar xvf  "$1" -C "$2"  ;;
-            *.rar)                        mkdir -v "$2" 2>/dev/null ; unrar x  "$1"          ;;
-            *.zip)                        mkdir -v "$2" 2>/dev/null ; unzip    "$1" -d "$2"  ;;
-            *.7z)                         mkdir -v "$2" 2>/dev/null ; 7z x     "$1" -o"$2"   ;;
-            *.lzo)                        mkdir -v "$2" 2>/dev/null ; lzop -d  "$1" -p "$2"  ;;
-            *.gz)                         gunzip "$1"                                        ;;
-            *.bz2)                        bunzip2 "$1"                                       ;;
-            *.Z)                          uncompress "$1"                                    ;;
-            *.xz|*.txz|*.lzma|*.tlz)      xz -d "$1"                                         ;;
-            *)
-        esac
-    else
-        echo "Sorry, '$1' could not be decompressed."
-        echo "Usage: extract <archive> <destination>"
-        echo "Example: extract PKGBUILD.tar.bz2 ."
-        echo "Valid archive types are:"
-        echo "tar.bz2, tar.gz, tar.xz, tar, bz2,"
-        echo "gz, tbz2, tbz, tgz, lzo,"
-        echo "rar, zip, 7z, xz and lzma"
-    fi
-}
-
-# compress a file or folder
-function compress() {
-        case "$1" in
-        tar.bz2|.tar.bz2) tar cvjf "${2%%/}.tar.bz2" "${2%%/}/" ;;
-        tbz2|.tbz2)       tar cvjf "${2%%/}.tbz2" "${2%%/}/"    ;;
-        tbz|.tbz)         tar cvjf "${2%%/}.tbz" "${2%%/}/"     ;;
-        tar.xz)           tar cvJf "${2%%/}.tar.xz" "${2%%/}/"  ;;
-        tar.gz|.tar.gz)   tar cvzf "${2%%/}.tar.gz" "${2%%/}/"  ;;
-        tgz|.tgz)         tar cvjf "${2%%/}.tgz" "${2%%/}/"     ;;
-        tar|.tar)         tar cvf  "${2%%/}.tar" "${2%%/}/"     ;;
-        rar|.rar)         rar a "${2}.rar" "$2"                 ;;
-        zip|.zip)         zip -r -9 "${2}.zip" "$2"             ;;
-        7z|.7z)           7z a "${2}.7z" "$2"                   ;;
-        lzo|.lzo)         lzop -v "$2"                          ;;
-        gz|.gz)           gzip -r -v "$2"                       ;;
-        bz2|.bz2)         bzip2 -v "$2"                         ;;
-        xz|.xz)           xz -v "$2"                            ;;
-        lzma|.lzma)       lzma -v "$2"                          ;;
-        *)                echo "Compress a file or directory."
-        echo "Usage:   compress <archive type> <filename>"
-        echo "Example: ac tar.bz2 PKGBUILD"
-        echo "Please specify archive type and source."
-        echo "Valid archive types are:"
-        echo "tar.bz2, tar.gz, tar.gz, tar, bz2, gz, tbz2, tbz,"
-        echo "tgz, lzo, rar, zip, 7z, xz and lzma." ;;
-    esac
-}
-
 # Show aliases and functions cheat-sheet
 function cheat-sheet() {
-    cat "${DOTFILES_PATH}/zsh/aliases.zsh" |
+    local -a files
+    files=(
+        "${DOTFILES_PATH}/shell/aliases.sh"
+        "${DOTFILES_PATH}/shell/aliases-git.sh"
+        "${DOTFILES_PATH}/shell/aliases-docker.sh"
+        "${DOTFILES_PATH}/shell/aliases-dev.sh"
+        "${DOTFILES_PATH}/shell/aliases-net.sh"
+    )
+    # only this machine's OS file, so the other platform's aliases stay out
+    if [[ "$OSTYPE" == darwin* ]]; then
+        files+=("${DOTFILES_PATH}/shell/aliases-macos.sh")
+    else
+        files+=("${DOTFILES_PATH}/shell/aliases-linux.sh")
+    fi
+    files+=("${DOTFILES_PATH}/zsh/aliases.zsh")
+
+    # Drop each file's leading header block: it explains the file, and would
+    # otherwise render as a run of empty section titles.
+    awk 'FNR==1 {h=1; skip=0}
+         /^# >>> plumbing/ {skip=1}
+         skip {next}
+         h && /^#/ {next} h && /^$/ {h=0; next} {h=0; print}' "${files[@]}" |
+        perl -p0e 's/\n# [^\n]*\n[A-Za-z_][A-Za-z0-9_-]*\(\) \{.*?\n\}\n/\n/sg' |
         perl -p0e 's/\nelse\n.*?\nfi\n/\n/sg' |
         perl -p0e 's/\nfor .*?done\n//sg' |
+        grep -v '_ALIASES_DIR' |
         grep -v "^if " |
         grep -v "^elif " |
         grep -v "^fi$" |
@@ -105,13 +47,21 @@ function cheat-sheet() {
     echo ""
     echo "\x1b[32m\x1b[1m\n# Functions\x1b[0m"
 
-    cat "${DOTFILES_PATH}/zsh/functions.zsh" |
-        grep "^function" -B1 |
-        grep -v "^--" |
-        awk '{printf "%s%s",$0,NR%2?"\t":"\n" ; }' |
-        awk -F'\t' '{ t = $1; $1 = $2; $2 = t; print; }' |
-        sed -r 's/^function ([A-Za-z0-9!=._-]+)(.*) # (.*)/\x1b[36m\1\x1b[0m\t\x1b[33m\3\x1b[0m/g' |
-        awk 'BEGIN { FS = "\t" } ; { printf "%-35s %s\n", $1, $2}'
+    # Pair each definition with the comment line right above it. Handles both
+    # `function name()` and POSIX `name()`, so the helpers that live in the
+    # shared shell/aliases-*.sh files are listed too.
+    awk '
+        /^# / { desc = substr($0, 3); next }
+        /^(function )?[A-Za-z0-9!=._-]+ ?\(\)/ {
+            name = $0
+            sub(/^function /, "", name)
+            sub(/ ?\(\).*/, "", name)
+            if (desc != "") printf "\033[36m%-33s\033[0m \033[33m%s\033[0m\n", name, desc
+            desc = ""
+            next
+        }
+        { desc = "" }
+    ' "${DOTFILES_PATH}/zsh/functions.zsh" "${files[@]}"
     echo ""
 }
 
@@ -124,26 +74,12 @@ function git-repositories-pull() {
     fi;
 }
 
-# Columns git show
-function columns-git-show() {
-    cdiff -s -w 0 "$1^" "$1"
-}
-
 # Opens the current directory in Sublime Text, otherwise opens the given location
 function open-with-sublime-text() {
     if [ $# -eq 0 ]; then
         subl -a .;
     else
         subl -a "$@";
-    fi;
-}
-
-# Opens the current directory in Atom, otherwise opens the given location
-function open-with-atom() {
-    if [ $# -eq 0 ]; then
-        atom .;
-    else
-        atom "$@";
     fi;
 }
 
@@ -225,14 +161,14 @@ function find-and-replace() {
         echo 'Find and replace in current dir'
         echo 'Usage: find-and-replace "find_this" "replace_with"'
     else
-        find_this="$1"
-        replace_with="$2"
+        local find_this="$1"
+        local replace_with="$2"
         shift 2
 
-        items=$(ag -l --nocolor "$find_this" "$@")
-        temp="${TMPDIR:-/tmp}/replace_temp.$$"
-        IFS=$'\n'
-        for item in $items; do
+        local temp="${TMPDIR:-/tmp}/replace_temp.$$"
+        local IFS=$'\n'
+        local item
+        for item in $(rg -l --no-heading --color=never -e "$find_this" "$@"); do
           sed "s/$find_this/$replace_with/g" "$item" > "$temp" && mv "$temp" "$item"
         done
     fi
@@ -246,12 +182,12 @@ function backup-file() {
 
 # Encrypt a file
 function encrypt() {
-    openssl des3 -in $* -out $*.secret
+    openssl enc -aes-256-cbc -pbkdf2 -iter 600000 -salt -in "$1" -out "$1.secret"
 }
 
 # Decrypt a file
 function decrypt() {
-    openssl des3 -d -in $* -out $*.plain
+    openssl enc -aes-256-cbc -pbkdf2 -iter 600000 -d -in "$1" -out "${1%.secret}.plain"
 }
 
 # Small calc function
@@ -263,17 +199,6 @@ function calc() {
 function = () {
     # credit goes to arzzen/calc.plugin.zsh
     echo "scale=2;$@" | bc -l
-}
-
-# Notes tool
-function note() {
-    case $@ in
-        "-s") subl ~/.note.md;;
-        "-e") vim  ~/.note.md;;
-          "") cat  ~/.note.md | less;;
-           *) echo -e "$@\n" >> ~/.note.md
-              echo -e "\033[0;37m\"$@\" \033[1;30madded to your notes.\033[0m\n";;
-    esac
 }
 
 # Make a port (default 80) "real life" speeds
@@ -294,34 +219,6 @@ function slowport {
 function unslowport {
     sudo ipfw delete 1
     echo "Port succesfully un-slowed."
-}
-
-# Rename TV shows files
-function rename-tv-shows() {
-    if [ "$#" -lt 1 ]; then
-        echo "Missing TV show name"
-        echo "  Usage : rename-tv-shows Name of the TV show"
-    else
-        SHOWNAME=$@
-        SHOWNAME=${SHOWNAME/\%/\%\%} # Escape "%" for sprintf
-        RENAME="s/.*[s,S](\d{1,2}).*[e,E](\d{1,2}).*\.(.*)/sprintf '$SHOWNAME S%02dE%02d.%s', \$1, \$2, \$3/e"
-        COUNT=`rename -v -n "$RENAME" * | wc -l`
-        if [ "$COUNT" -lt 1 ]; then
-            echo "No file found"
-        else
-            rename -v -n "$RENAME" *
-            printf "\033[0;33mRename files ? [y/n] \033[0m"
-            if [ -n "$ZSH_VERSION" ]; then
-                read action
-            else
-                read -n 1 action
-            fi
-            if [ "$action" = "y" ] || [ "$action" = "Y" ]; then
-                rename "$RENAME" *
-            fi
-        fi
-        echo ""
-    fi
 }
 
 # Create a data URI from file

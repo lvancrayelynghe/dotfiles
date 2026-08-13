@@ -12,4 +12,85 @@
 	// 	],
 	// 	"description": "Log output to console"
 	// }
+
+	"$": {
+		"prefix": "$",
+		"body": [
+			"$$this$1"
+		]
+	},
+	"this": {
+		"prefix": "t",
+		"body": [
+			"$$this->$1"
+		]
+	},
+	"return": {
+		"prefix": "r",
+		"body": [
+			"return $1;"
+		]
+	},
+	"return true": {
+		"prefix": "rt",
+		"body": [
+			"return true;"
+		]
+	},
+	"return false": {
+		"prefix": "rf",
+		"body": [
+			"return false;"
+		]
+	},
+	"return null": {
+		"prefix": "rn",
+		"body": [
+			"return null;"
+		]
+	},
+	"return this": {
+		"prefix": "rtt",
+		"body": [
+			"return $$this;"
+		]
+	},
+	"var_dump": {
+		"prefix": "v",
+		"body": [
+			"var_dump(${1:$$this});"
+		],
+	},
+	"var_dump die": {
+		"prefix": "vd",
+		"body": [
+			"var_dump(${1:$$this}); die('hard');"
+		],
+	},
+	"foreach": {
+		"prefix": "f",
+		"body": [
+			"foreach ($$data as $$key => $$value) {",
+			"	$1",
+			"}"
+		]
+	},
+	"public method": {
+		"prefix": "met",
+		"body": [
+			"public function ${1:name}($2)",
+			"{",
+			"	$3",
+			"}"
+		]
+	},
+	"protected method": {
+		"prefix": "pmet",
+		"body": [
+			"protected function ${1:name}($2)",
+			"{",
+			"	$3",
+			"}"
+		]
+	}
 }

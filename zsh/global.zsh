@@ -18,29 +18,7 @@ setopt extended_glob        # Treat the ‘#’, ‘~’ and ‘^’ characters 
 autoload -Uz url-quote-magic
 zle -N self-insert url-quote-magic
 
-# If we don't have a local bin, add it
-[[ ! -d "$BIN_PATH" ]] && mkdir "$BIN_PATH"
-
-# add bin in path
-export PATH=$BIN_PATH:$PATH
-
-# .local bin
-if [ -d ~/.local/bin ]; then
-    export PATH="$HOME/.local/bin:$PATH"
-fi
-
-# Default editor
-export VISUAL='vim'
-export EDITOR='vim'
-
-# bc (math lib) default config
-export BC_ENV_ARGS=~/.bcrc
-
-# Fix bspwm java apps handling
-export _JAVA_AWT_WM_NONREPARENTING=1
+# PATH, MANPATH and default programs live in zprofile (login shells).
 
 # Command not found helper
 [[ -e /etc/zsh_command_not_found ]] && source /etc/zsh_command_not_found
-
-# Add hash directory to desks
-[[ -e "$HOME/.desk/desks/" ]] && hash -d desks="$HOME/.desk/desks/"

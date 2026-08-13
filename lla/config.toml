@@ -1,0 +1,22 @@
+# lla 0.5.9 rejects a config that omits any of default_sort, default_format,
+# enabled_plugins or plugins_dir, and silently falls back to its built-in
+# defaults -- so those four stay declared even where the value is the default.
+# Run `lla config show-effective` to check what is actually applied.
+default_sort = "name"
+default_format = "git"
+enabled_plugins = []
+plugins_dir = "~/.config/lla/plugins"
+
+show_icons = true
+
+# Paths to exclude from listings (tilde is supported)
+exclude_paths = [
+  "~/Library/Mobile Documents", # iCloud Drive
+  "~/Library/CloudStorage"      # Other cloud providers
+]
+
+[sort]
+dirs_first = true
+
+[filter]
+respect_gitignore = true

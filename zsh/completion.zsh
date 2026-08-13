@@ -7,9 +7,15 @@ if [[ -d ~/.cache/zsh-completions ]]; then
     fpath=(~/.cache/zsh-completions $fpath)
 fi
 
-# Load and run compinit adn colors (autocompletion)
+# Load and run compinit and colors (autocompletion)
 autoload -U compinit colors
-compinit -i -d "${ZSH_COMPDUMP}"
+# Trust the existing dump (-C) unless it is older than 24h — a full fpath
+# verification on every shell costs ~100-250ms. Requires extended_glob (global.zsh).
+if [[ -n ${ZSH_COMPDUMP}(#qN.mh-24) ]]; then
+    compinit -i -C -d "${ZSH_COMPDUMP}"
+else
+    compinit -i -d "${ZSH_COMPDUMP}"
+fi
 colors
 
 unsetopt flowcontrol     # output flow control via start/stop characters (usually assigned to ^S/^Q) is disabled in the shell’s editor
@@ -102,7 +108,7 @@ zstyle ':completion::*:(-command-|export):*' fake-parameters ${${${_comps[(I)-va
 # Populate hostname completion.
 zstyle -e ':completion:*:hosts' hosts 'reply=(
   ${=${=${=${${(f)"$(cat {/etc/ssh_,~/.ssh/known_}hosts(|2)(N) 2>/dev/null)"}%%[#| ]*}//\]:[0-9]*/ }//,/ }//\[/ }
-  ${=${(f)"$(cat /etc/hosts(|)grep -v ".dev\|.test\|^#"(|)(N) <<(ypcat hosts 2>/dev/null))"}%%\#*}
+  ${${${=${${(f)"$(cat /etc/hosts 2>/dev/null)"}%%\#*}}:#*.dev}:#*.test}
   ${=${${${${(@M)${(f)"$(cat ~/.ssh/config 2>/dev/null)"}:#Host *}#Host }:#*\**}:#*\?*}}
 )'
 
@@ -151,12 +157,6 @@ zstyle ':completion:*:*:wine:*'   file-patterns '*.(#i)exe:exe(-.) *(-/):directo
 
 # Ignored patterns
 zstyle ':completion:*:*:(subl|vim|nvim|vi|emacs|nano|e|v|s):*:*files' ignored-patterns '*.(#i)(wav|mp3|flac|ogg|mp4|avi|mkv|webm|iso|dmg|so|o|a|bin|exe|dll|pcap|7z|zip|tar|gz|bz2|rar|deb|pkg|gzip|pdf|mobi|epub|png|jpeg|jpg|gif)'
-
-# Mutt
-if [[ -s "$HOME/.mutt/aliases" ]]; then
-  zstyle ':completion:*:*:mutt:*' menu yes select
-  zstyle ':completion:*:mutt:*' users ${${${(f)"$(<"${DOTFILES_PATH}/mutt/aliases")"}#alias[[:space:]]}%%[[:space:]]*}
-fi
 
 # SSH/SCP/RSYNC
 zstyle ':completion:*:(scp|rsync):*' tag-order 'hosts:-host:host hosts:-domain:domain hosts:-ipaddr:ip\ address *'

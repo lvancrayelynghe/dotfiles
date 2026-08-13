@@ -12,12 +12,6 @@ function find:duplicated()   { fdupes -r . }
 # PHP lint all files
 function php:lint()          { find -iname '*.php' -exec php -l {} \; }
 
-# MySQL snippets
-function mysql:list()        { mysql -e "show databases;" }
-function mysql:create()      { mysql -e "create database \`$1\`;" }
-function mysql:drop()        { mysql -e "drop database \`$1\`;" }
-function mysql:drop-tables() { mysqldump --add-drop-table --no-data $1 | grep -e "^DROP \| FOREIGN_KEY_CHECKS" | mysql $1 }
-
 # Docker snippets
 function docker:clean()      { docker rmi -f $(docker images | grep "<none>" | awk "{print \$3}") }
 function docker:killall()    { docker kill $(docker ps -q) }
@@ -31,11 +25,8 @@ function ssh:combine()       { cp ~/.ssh/config ~/.ssh/config.bak && cat ~/.ssh/
 function ssh:keygen()        { ssh-keygen -t rsa -b 4096 -C "$1"}
 function ssh:mount()         { mkdir -p "$2" 2> /dev/null ; sshfs "$1" "$2" } # $1: [user@]host:[dir] / $2: mountpoint
 function ssh:mounts()        { \ps x | grep sshfs | grep -v " grep " | awk '{$1=$2=$3=$4="";print $0}' | xargs }
-function ssh:unmount()       { fusermount -u "$1" ; rmdir "$1" 2> /dev/null } # $1: mountpoint
 
 # Samba shares
-function smb:all()           { smbtree -b -N }
-function smb:list()          { smbclient -L "$1" -U "$2" } # $1: IP / $2: username
 function smb:mount()         { mkdir -p "$2" 2> /dev/null ; sudo mount.cifs $@ } # $1: //host/sharename / $2: mountpoint
 function smb:unmount()       { sudo umount "$1" ; rmdir "$1" 2> /dev/null  } # $1: mountpoint
 

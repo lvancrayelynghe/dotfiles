@@ -76,4 +76,5 @@ _composer () {
 
 compdef _composer composer
 
-PATH="$HOME/.composer/vendor/bin:$PATH"
+# Array-form assignment so typeset -U (zprofile) can deduplicate
+path=("$HOME/.composer/vendor/bin" $path)

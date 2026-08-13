@@ -1,5 +1,6 @@
 # ~/.profile: executed by Bourne-compatible login shells.
-# This file must have the stuff NOT specifically related to bash, such as environment variables (PATH and friends)
+# Must stay POSIX sh compatible (dash reads it on Debian/Ubuntu):
+# environment variables only, nothing bash-specific.
 
 if [ "$BASH" ]; then
   if [ -f ~/.bashrc ]; then
@@ -7,16 +8,6 @@ if [ "$BASH" ]; then
   fi
 fi
 
-if `tty -s`; then
-   mesg n
-fi
-
-if [ -n "$GTK_MODULES" ]; then
-  GTK_MODULES="$GTK_MODULES:unity-gtk-module"
-else
-  GTK_MODULES="unity-gtk-module"
-fi
-
-if [ -z "$UBUNTU_MENUPROXY" ]; then
-  UBUNTU_MENUPROXY=1
+if tty -s; then
+   mesg n 2>/dev/null
 fi

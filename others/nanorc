@@ -4,9 +4,6 @@ unset mouse
 # Reset keypad bindings
 set rebindkeypad
 
-# Text scroll line-by-line, instead of the usual chunk-by-chunk behavio
-set smooth
-
 # Auto indent code
 set autoindent
 

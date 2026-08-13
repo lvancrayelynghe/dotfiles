@@ -1,0 +1,8 @@
+# Copy to .dotter/local.toml (never committed) and keep the packages
+# relevant to this machine. ./install generates it automatically if missing.
+#
+# macOS:           packages = ["common", "macos"]
+# Linux desktop:   packages = ["common", "linux-desktop"]
+# Linux server:    packages = ["common"]
+
+packages = ["common", "macos"]
