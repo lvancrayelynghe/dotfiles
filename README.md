@@ -34,7 +34,12 @@ links automatically. Minimal packages:
 
 ```sh
 apt install zsh git vim tmux curl ripgrep fzf eza zoxide bat fd-find jq
+apt install du-dust duf sd   # names differ from the binaries: dust, duf, sd
 ```
+
+The second line is not optional: the shared aliases route `du`, `df` and
+`find-and-replace` through those three. Toolchain versions come from
+[mise](https://mise.jdx.dev), which reads the versioned `mise/config.toml`.
 
 ## Layout
 
@@ -42,22 +47,27 @@ apt install zsh git vim tmux curl ripgrep fzf eza zoxide bat fd-find jq
 |---|---|
 | `.dotter/global.toml` | all symlink mappings, grouped by package (dotter) |
 | `install` | wrapper: `dotter deploy` + install hooks |
-| `shell/aliases.sh` | aliases shared by bash **and** zsh (single source of truth) |
+| `shell/aliases.sh` | entry point for the aliases shared by bash **and** zsh |
+| `shell/aliases-*.sh` | the rest, split by topic (git, docker, dev, net) and by OS |
 | `zsh/` | zsh config: `zshenv` → `zprofile` (PATH, env) → `zshrc` (interactive) |
 | `bash/` | thin bash config sourcing `shell/aliases.sh` |
 | `others/` | tool configs linked into `$HOME` (git, tmux, nano, less…) |
+| `mise/` | global toolchain versions (node, claude, gemini) |
 | `scripts/` | helper scripts (`install-zsh-plugins.sh`, `link-sublime.sh`…) |
 | `claude/` | Claude Code statusline + merge-based installer |
 | `Brewfile` | macOS packages (`brew bundle`) |
 | `macos-defaults.sh` | macOS system preferences |
+
+Per-tool directories (`ghostty/`, `lla/`, `ranger/`, `vim/`, `hammerspoon/`,
+`sublime-text/`, `vscode/`, `rectangle/`) each hold that tool's own config.
 
 ## Machine-local overrides (never committed)
 
 - `~/.zshrc_local`, `~/.zshrc_$HOST` — sourced by `zsh/zshrc` if present
 - `~/.bashrc_local` — sourced by `bash/bashrc` if present
 
-Put machine-specific PATH entries, aliases, tokens and version managers
-(nvm, mise…) there.
+Put machine-specific PATH entries, aliases and tokens there. Toolchain versions
+do **not** belong here any more: they live in `mise/config.toml`, versioned.
 
 Annotated starting points — **copy them, never symlink them**, so that editing
 the real file can never write back into this public repo:
