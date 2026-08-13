@@ -21,7 +21,6 @@ function journal:vacuum()    { journalctl --vacuum-size=200M }
 
 # SSH snippets
 function ssh:list()          { cat ~/.ssh/config | grep "Host " | grep -v "Host \*" | sed 's/Host //g' | sort }
-function ssh:combine()       { cp ~/.ssh/config ~/.ssh/config.bak && cat ~/.ssh/config.d/* > ~/.ssh/config } # allow for multiple ssh config files
 function ssh:keygen()        { ssh-keygen -t rsa -b 4096 -C "$1"}
 function ssh:mount()         { mkdir -p "$2" 2> /dev/null ; sshfs "$1" "$2" } # $1: [user@]host:[dir] / $2: mountpoint
 function ssh:mounts()        { \ps x | grep sshfs | grep -v " grep " | awk '{$1=$2=$3=$4="";print $0}' | xargs }
