@@ -105,6 +105,10 @@ unalias pubkey du du0 du1 du1s df 2>/dev/null || true
 
 # Disk usage, through dust and duf. Same commands on both platforms, so no
 # $OSTYPE branch and no dependency on brew coreutils.
+# Self-referential on purpose, like the grep alias above: the shell stops
+# expanding an alias that starts with its own name, and du/du0/du1s inherit
+# these flags because they expand to dust in command position.
+alias dust='dust -X .git -r' ## skip .git, biggest first
 alias du='dust'
 alias du0='dust -d 0' ## total only
 alias du1s='dust -d 1' ## one level, by size (dust always sorts by size)
