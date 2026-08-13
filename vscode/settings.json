@@ -22,7 +22,6 @@
     },
     "window.zoomLevel": 1,
     "editor.quickSuggestionsDelay": 0,
-    "remote.SSH.configFile": "~/.ssh/config.vscode",
     "explorer.openEditors.visible": 1,
     "explorer.compactFolders": false,
     "docker.dockerComposeBuild": false,
