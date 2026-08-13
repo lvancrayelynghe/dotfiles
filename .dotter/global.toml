@@ -54,6 +54,7 @@
 # UseKeychain and WarnWeakCrypto only exist in Apple's ssh: upstream OpenSSH
 # aborts on them, hence the macos package. Kept harmless anyway by the single
 # IgnoreUnknown in ssh/config, verified against OpenSSH 9.2 on Debian 12.
+"ssh/config.d/92-1password.conf" = { target = "~/.ssh/config.d/92-1password.conf", type = "symbolic" }
 "ssh/config.d/95-macos.conf" = { target = "~/.ssh/config.d/95-macos.conf", type = "symbolic" }
 
 # Linux with a desktop (not servers): enable in local.toml alongside common
