@@ -1,0 +1,47 @@
+# ~/.ssh/config -- deployed by dotter, so this file is PUBLIC.
+#
+# It declares no host. Every host lives in ~/.ssh/config.d/, which dotter only
+# populates with the public files below; the private ones are created by hand
+# and never leave the machine.
+#
+#   10-forges.conf     public   git hosting (versioned)
+#   50-internes.conf   PRIVATE  internal servers
+#   60-clients.conf    PRIVATE  client servers
+#   80-archives.conf   PRIVATE  decommissioned hosts, kept commented out
+#   90-defaults.conf   public   Host * defaults (versioned)
+#   95-macos.conf      public   Apple-only keywords (macos package only)
+#
+# Two rules explain the numbering and the layout:
+#
+#   1. ssh keeps the FIRST value it obtains for a keyword, never the last.
+#      Host-specific files must therefore be read BEFORE the Host * defaults,
+#      which is what the 10/50/60/80 < 90/95 ordering guarantees: a host can
+#      still override a default, and never the other way round.
+#
+#   2. An Include that resolves to nothing is a silent no-op -- missing file,
+#      missing directory, unmatched glob, broken symlink, all ignored without
+#      an error. That is what lets one versioned skeleton work on every
+#      machine: on a server the private files simply are not there.
+#
+# `ssh -v <host>` lists the files actually read, and prints "matched no files"
+# for the includes it skipped -- the way to catch a typo in a path here.
+#
+# Never add a host to this file: it would be published.
+
+# Added by OrbStack: 'orb' SSH host for Linux machines
+# This only works if it's at the top of ssh_config (before any Host blocks).
+# This won't be added again if you remove it.
+Include ~/.orbstack/ssh/config
+
+# One single IgnoreUnknown for the whole configuration, deliberately placed
+# before every Include. IgnoreUnknown obeys the first-value-wins rule like any
+# other keyword: a second declaration further down would be silently dropped,
+# and the keyword it was meant to cover would then abort ssh outright with
+# "Bad configuration option". Covered here: UseKeychain and WarnWeakCrypto,
+# which only Apple's ssh knows, plus SetEnv (needs OpenSSH >= 7.8) and
+# AddKeysToAgent (>= 7.2) for the oldest servers.
+IgnoreUnknown UseKeychain,WarnWeakCrypto,SetEnv,AddKeysToAgent
+
+# eval $(ssh-agent) > /dev/null
+
+Include ~/.ssh/config.d/*.conf

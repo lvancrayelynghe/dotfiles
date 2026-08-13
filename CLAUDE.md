@@ -38,6 +38,24 @@
   - Everything after the `# >>> plumbing` marker is hidden from
     `cheat-sheet()`. That function also lists these files explicitly, so adding
     a topic file means updating it in `zsh/functions.zsh`.
+- `ssh/config` + `ssh/config.d/` — the skeleton declares **no host**; they all
+  live in `~/.ssh/config.d/`, of which only `10-forges`, `90-defaults` and
+  `95-macos` are versioned. `50-internes`, `60-clients` and `80-archives` are
+  local-only and hold every real hostname — **never add a host to the repo
+  files**. Three rules govern this layout:
+  - ssh keeps the **first** value it obtains for a keyword, never the last,
+    hence the numbering: host files (10/50/60/80) must be read *before* the
+    `Host *` defaults (90/95). A host added above 90 would silently lose.
+  - `IgnoreUnknown` obeys that same rule, so there is exactly **one**
+    declaration, in `ssh/config` before any `Include`. A second one anywhere
+    would be discarded and the keyword it covers would abort ssh with
+    `Bad configuration option`. It shields `UseKeychain`/`WarnWeakCrypto`
+    (Apple-only, hence the `macos` package) and `SetEnv`/`AddKeysToAgent`
+    (too recent for the oldest servers).
+  - An `Include` that resolves to nothing — missing file, missing directory,
+    unmatched glob — is a **silent** no-op, which is what lets one versioned
+    skeleton work everywhere. `ssh -v` reports `matched no files`, and
+    `ssh -G <host>` prints the resolved config without connecting.
 - `mise/config.toml` — global toolchain versions (node, claude, gemini),
   symlinked like the rest, so `mise use -g` edits the versioned file.
 - zsh load order: `zshenv` (always) → `zprofile` (login: PATH,
@@ -91,8 +109,20 @@ luac -p hammerspoon/**/*.lua  # Lua syntax
 tmux -f others/tmux.conf -L test new -d \; kill-server  # parse tmux.conf
 ```
 
-Nothing runs these automatically, and the Linux half of the config has never
-been executed — it is validated by inspection only.
+Nothing runs these automatically, and the Linux half of the config is
+validated by inspection only — with one exception: the `ssh/` files were
+parsed against OpenSSH 9.2 in a Debian 12 container, which confirmed that a
+stray `95-macos.conf` there is harmless *because of* the `IgnoreUnknown`, and
+fatal without it. A container is the way to check any other Linux-only claim:
+
+```sh
+ssh -G <host>                        # resolved ssh config, connects to nothing
+docker run --rm -v "$PWD/ssh:/cfg:ro" debian:12 sh -c \
+    'apt-get update -qq && apt-get install -y -qq openssh-client && \
+     mkdir -p ~/.ssh/config.d && cp /cfg/config ~/.ssh/ && \
+     cp /cfg/config.d/[19]*.conf ~/.ssh/config.d/ && \
+     chmod 600 ~/.ssh/config ~/.ssh/config.d/*.conf && ssh -G github.com'
+```
 
 ## Style
 

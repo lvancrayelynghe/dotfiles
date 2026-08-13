@@ -20,7 +20,8 @@ function docker:killall()    { docker kill $(docker ps -q) }
 function journal:vacuum()    { journalctl --vacuum-size=200M }
 
 # SSH snippets
-function ssh:list()          { cat ~/.ssh/config | grep "Host " | grep -v "Host \*" | sed 's/Host //g' | sort }
+# (N) so an empty config.d is not a zsh "no matches found" error
+function ssh:list()          { grep -h '^[[:space:]]*Host[[:space:]]' ~/.ssh/config ~/.ssh/config.d/*.conf(N) 2>/dev/null | awk '{for (i = 2; i <= NF; i++) if ($i != "*") print $i}' | sort -u }
 function ssh:keygen()        { ssh-keygen -t rsa -b 4096 -C "$1"}
 function ssh:mount()         { mkdir -p "$2" 2> /dev/null ; sshfs "$1" "$2" } # $1: [user@]host:[dir] / $2: mountpoint
 function ssh:mounts()        { \ps x | grep sshfs | grep -v " grep " | awk '{$1=$2=$3=$4="";print $0}' | xargs }
