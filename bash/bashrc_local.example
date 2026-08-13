@@ -20,12 +20,6 @@
 
 
 # ---------------------------------------------------------------------------
-# gvm (Go version manager)
-# ---------------------------------------------------------------------------
-# [ -s "$HOME/.gvm/scripts/gvm" ] && . "$HOME/.gvm/scripts/gvm"
-
-
-# ---------------------------------------------------------------------------
 # nvm. Sourcing nvm.sh costs ~400 ms, so keep it lazy -- but put the default
 # node's bin on PATH right away. Otherwise globally installed npm CLIs stay
 # invisible until something triggers the lazy load, because nvm.sh is what

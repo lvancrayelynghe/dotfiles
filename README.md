@@ -57,7 +57,7 @@ apt install zsh git vim tmux curl ripgrep fzf eza zoxide bat fd-find jq
 - `~/.bashrc_local` — sourced by `bash/bashrc` if present
 
 Put machine-specific PATH entries, aliases, tokens and version managers
-(nvm, gvm…) there.
+(nvm, mise…) there.
 
 Annotated starting points — **copy them, never symlink them**, so that editing
 the real file can never write back into this public repo:
