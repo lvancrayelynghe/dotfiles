@@ -67,10 +67,10 @@ Per-tool directories (`ghostty/`, `lla/`, `ranger/`, `vim/`, `hammerspoon/`,
 - `~/.zshrc_local`, `~/.zshrc_$HOST` — sourced by `zsh/zshrc` if present
 - `~/.bashrc_local` — sourced by `bash/bashrc` if present
 - `~/.ssh/config.d/50-internes.conf`, `60-clients.conf`, `80-archives.conf` —
-  every real host. `~/.ssh/config` is versioned but declares none: it only
-  includes `config.d/*.conf`, and an include that matches nothing is a silent
-  no-op, so a server needs no local file at all. Back these three up
-  elsewhere — nothing else holds them.
+  every real host, and deliberately absent from this repo. `~/.ssh/config` is
+  versioned here but declares none: it only includes `config.d/*.conf`, and an
+  include that matches nothing is a silent no-op, so a machine without those
+  three files works fine.
 
 Put machine-specific PATH entries, aliases and tokens there. Toolchain versions
 do **not** belong here any more: they live in `mise/config.toml`, versioned.

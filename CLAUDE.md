@@ -40,9 +40,9 @@
     a topic file means updating it in `zsh/functions.zsh`.
 - `ssh/config` + `ssh/config.d/` — the skeleton declares **no host**; they all
   live in `~/.ssh/config.d/`, of which only `10-forges`, `90-defaults` and
-  `95-macos` are versioned. `50-internes`, `60-clients` and `80-archives` are
-  local-only and hold every real hostname — **never add a host to the repo
-  files**. Three rules govern this layout:
+  `95-macos` belong here. `50-internes`, `60-clients` and `80-archives` are not
+  part of this repo and hold every real hostname — **never add a host to the
+  versioned files**. Three rules govern this layout:
   - ssh keeps the **first** value it obtains for a keyword, never the last,
     hence the numbering: host files (10/50/60/80) must be read *before* the
     `Host *` defaults (90/95). A host added above 90 would silently lose.
