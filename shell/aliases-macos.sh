@@ -2,16 +2,6 @@
 # because the GNU tool aliases below deliberately override the generic grep
 # ones defined there. Keep POSIX-friendly: no zsh-only syntax.
 
-# Disk usage, through the GNU coreutils versions. Defined BEFORE the grep
-# alias below on purpose: a function body captures alias expansions when it is
-# defined, so df() keeps the plain grep it has always used and does not gain a
-# hard dependency on brew's ggrep.
-alias du='gdu -h'
-du0() { gdu -hd0 "$@"; }
-du1() { gdu -hd1 "$@" | sort -k2; } ## sort by name
-du1s() { gdu -hd1 "$@" | sort -h; } ## sort by size
-df() { gdf -h "$@" | grep -v tmpfs | grep -v "/docker/"; }
-
 # Use GNU tools instead of the BSD ones (brew coreutils/gawk/gnu-sed/grep).
 # Backslash-quote the target so the shell runs the binary instead of
 # re-expanding it as an alias: gls is also the `git log --stat` shortcut.

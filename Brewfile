@@ -31,6 +31,9 @@ brew "imagemagick"
 brew "ripgrep"
 brew "sift"
 brew "fd"
+brew "sd" # regex find-and-replace, used by find-and-replace()
+brew "dust" # replaces du: du, du0, du1s
+brew "duf" # replaces df
 brew "bat"
 brew "eza"
 brew "fzf"
@@ -53,6 +56,7 @@ brew "httpie"
 brew "dnsmasq"
 brew "ansible"
 brew "gh"
+brew "shellcheck" # required by the pre-commit checklist in CLAUDE.md
 brew "rclone"
 brew "fswatch"
 brew "llmfit"

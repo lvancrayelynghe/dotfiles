@@ -98,10 +98,20 @@ alias tableflip="echo '(ノಠ益ಠ)ノ彡┻━┻'" ## see https://gist.githu
 
 # >>> plumbing: everything below is hidden from cheat-sheet()
 #
-# Some names in the files below were plain aliases before: drop them so
-# re-sourcing in an older live shell doesn't abort on "defining function based
-# on alias". Must stay ahead of the sourcing block.
+# Some of the names below were plain aliases before: drop them so re-sourcing in
+# an older live shell doesn't abort on "defining function based on alias". Must
+# stay ahead of both the disk usage block and the sourcing block.
 unalias pubkey du du0 du1 du1s df 2>/dev/null || true
+
+# Disk usage, through dust and duf. Same commands on both platforms, so no
+# $OSTYPE branch and no dependency on brew coreutils.
+alias du='dust'
+alias du0='dust -d 0' ## total only
+alias du1s='dust -d 1' ## one level, by size (dust always sorts by size)
+alias df='duf'
+
+# dust has no name sort, so this one keeps plain du, which takes -d on BSD too
+du1() { command du -hd1 "$@" | sort -k2; } ## one level, by name
 
 # Per-topic files
 _ALIASES_DIR="${DOTFILES_PATH:-$HOME/.dotfiles/public}/shell"

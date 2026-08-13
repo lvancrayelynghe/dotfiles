@@ -4,13 +4,6 @@
 alias o='xdg-open 2>/dev/null'
 alias pwdc=' pwd | tr -d "\n" | xclip -selection clipboard' ## copy working directory to clipboard
 
-# Disk usage
-alias du='du -h'
-du0() { command du -hd0 "$@"; }
-du1() { command du -hd1 "$@" | sort -k2; } ## sort by name
-du1s() { command du -hd1 "$@" | sort -h; } ## sort by size
-df() { command df -h "$@" | grep -v tmpfs | grep -v "/docker/"; }
-
 # System commands
 alias apt-installed="aptitude search '~i!~M'"
 if [ "${EUID:-$(id -u)}" != 0 ]; then

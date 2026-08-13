@@ -155,23 +155,26 @@ function mkdir-cd() {
     mkdir "${1}" && cd "${1}"
 }
 
-# Find and replace in current dir
+# Find and replace in current dir. Patterns are Rust regexes (sd), not sed BRE:
+# capture groups are (…) and the replacement uses $1, not \1.
 function find-and-replace() {
-    if [ ${#} -ne 2 ]; then
+    if [ ${#} -lt 2 ]; then
         echo 'Find and replace in current dir'
-        echo 'Usage: find-and-replace "find_this" "replace_with"'
-    else
-        local find_this="$1"
-        local replace_with="$2"
-        shift 2
-
-        local temp="${TMPDIR:-/tmp}/replace_temp.$$"
-        local IFS=$'\n'
-        local item
-        for item in $(rg -l --no-heading --color=never -e "$find_this" "$@"); do
-          sed "s/$find_this/$replace_with/g" "$item" > "$temp" && mv "$temp" "$item"
-        done
+        echo 'Usage: find-and-replace "find_this" "replace_with" [path...]'
+        return 2
     fi
+
+    local find_this="$1" replace_with="$2"
+    shift 2
+
+    local files
+    files=$(rg -l --no-heading --color=never -e "$find_this" "$@") || {
+        echo "find-and-replace: nothing matches '$find_this'" >&2
+        return 1
+    }
+
+    # sd edits in place, so no temp file dance
+    printf '%s\n' "$files" | tr '\n' '\0' | xargs -0 sd -- "$find_this" "$replace_with"
 }
 
 # Backup a file

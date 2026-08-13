@@ -67,14 +67,23 @@ source "${DOTFILES_PATH}/zsh/snippets.zsh"
 [[ -n "$DEBUG" ]] && trace-time "Loading plugins/colored-man.plugin.zsh"
 source "${DOTFILES_PATH}/zsh/plugins/colored-man.plugin.zsh"
 
-# fzf key bindings (Ctrl-R, Ctrl-T, Alt-C) and completion
+# fzf key bindings (Ctrl-R, Ctrl-T, Alt-C) and completion. `fzf --zsh` forks,
+# and probing for it forked a second time -- ~20 ms each. Cache the generated
+# script instead and regenerate it only when the binary is newer.
 if command -v fzf >/dev/null 2>&1; then
     [[ -n "$DEBUG" ]] && trace-time "Loading fzf"
-    if fzf --zsh >/dev/null 2>&1; then # fzf >= 0.48
-        source <(fzf --zsh)
+    _fzf_cache="$HOME/.cache/fzf-init.zsh"
+    if [[ ! -f "$_fzf_cache" || "$_fzf_cache" -ot "$commands[fzf]" ]]; then
+        mkdir -p "${_fzf_cache:h}"
+        # empty file on fzf < 0.48, which has no --zsh: the fallback below runs
+        fzf --zsh > "$_fzf_cache" 2>/dev/null || : > "$_fzf_cache"
+    fi
+    if [[ -s "$_fzf_cache" ]]; then
+        source "$_fzf_cache"
     elif [[ -f /usr/share/doc/fzf/examples/key-bindings.zsh ]]; then # distro package
         source /usr/share/doc/fzf/examples/key-bindings.zsh
     fi
+    unset _fzf_cache
 fi
 
 # zoxide: smarter cd (z / zi)
