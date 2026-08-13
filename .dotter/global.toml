@@ -29,6 +29,9 @@
 "ranger/rc.conf" = { target = "~/.config/ranger/rc.conf", type = "symbolic" }
 "ranger/commands.py" = { target = "~/.config/ranger/commands.py", type = "symbolic" }
 "lla/config.toml" = { target = "~/.config/lla/config.toml", type = "symbolic" }
+# Global toolchain versions. Symlinked on purpose: `mise use -g` then edits the
+# versioned file, so a new machine gets the same node, claude and gemini.
+"mise/config.toml" = { target = "~/.config/mise/config.toml", type = "symbolic" }
 "claude/statusline-command.sh" = { target = "~/.claude/statusline-command.sh", type = "symbolic" }
 
 [macos.files]

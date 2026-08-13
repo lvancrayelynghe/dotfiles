@@ -1,0 +1,4 @@
+[tools]
+claude = "latest"
+gemini = { version = "latest", allow_builds = ["@github/keytar", "node-pty"] }
+node = "lts"
