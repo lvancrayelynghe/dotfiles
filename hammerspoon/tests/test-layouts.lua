@@ -63,6 +63,17 @@ local function App(bundleID, windows)
     return a
 end
 
+-- A window that will not go fullscreen whatever it is asked -- Harvest and
+-- Spotify behave exactly like this, measured: the request is accepted and
+-- nothing happens.
+local function StubbornWindow(id, screen)
+    local win = Window(id, screen)
+    function win:setFullScreen(state)
+        table.insert(calls[state and 'fullscreen' or 'unfullscreen'], self._id)
+    end
+    return win
+end
+
 -- The same, with its window on a Space that is not the active one: allWindows()
 -- reports nothing at all, mainWindow() still reaches it. Measured on a real
 -- fullscreen window, and the reason layouts.lua names windows to hs.layout
@@ -321,6 +332,34 @@ items = load({BUILTIN}, apphouse({sublime = {
 }}))
 itemNamed(items, 'Set Single Screen Layout').fn()
 check('each window of an application gets its own row', rowsFor(apps.sublime), 2)
+
+
+-- Fullscreen, one request at a time ------------------------------------------
+
+-- an application that never accepts fullscreen must not swallow the ones after
+-- it: it is asked FULLSCREEN_TRIES times, then the chain moves on
+local function countIn(list, id)
+    local n = 0
+    for _, entry in ipairs(list) do
+        if entry == id then n = n + 1 end
+    end
+    return n
+end
+
+house = apphouse()
+house[apps.ghostty] = App(apps.ghostty, {StubbornWindow('ghostty', BUILTIN)})
+items = load({BUILTIN}, house)
+itemNamed(items, 'Set Single Screen Layout').fn()
+check('a window that refuses fullscreen is retried, not insisted on',
+      countIn(calls.fullscreen, 'ghostty'), 3)
+check('and the rows after it still get theirs',
+      countIn(calls.fullscreen, 'slack'), 1)
+check('as do the rows before', countIn(calls.fullscreen, 'vivaldi'), 1)
+
+-- one that accepts is asked exactly once
+items = load({BUILTIN}, apphouse())
+itemNamed(items, 'Set Single Screen Layout').fn()
+check('a window that accepts is asked once', countIn(calls.fullscreen, 'ghostty'), 1)
 
 
 -- Tooltip, and what survives a reload ----------------------------------------

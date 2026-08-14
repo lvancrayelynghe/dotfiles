@@ -190,14 +190,37 @@ end
 
 -- Entering fullscreen is for the main window only: macOS gives each fullscreen
 -- window a space of its own, and the second Sublime window wants none.
-local function toFullscreen(rows)
-    for _, row in ipairs(rows) do
-        local app = hs.application.applicationsForBundleID(row[1])[1]
-        local win = app and app:mainWindow()
-        if win and not win:isFullScreen() then
-            win:setFullScreen(true)
-        end
+--
+-- One at a time, and that is the whole difficulty. macOS serialises these
+-- transitions and silently drops any request made while another is going
+-- through: measured, four fired in a single tick left two of the four windowed,
+-- while the same four spaced 0.9 s apart left only the one application that
+-- never accepts fullscreen at all. Hence a chain rather than a loop, each request
+-- checked once its transition has had time to finish and retried a couple of
+-- times -- then given up on, because some applications (Harvest, Spotify) have no
+-- fullscreen state to set and asking forever is what makes macOS play its "no"
+-- sound. A window already fullscreen costs nothing: it is skipped immediately.
+local FULLSCREEN_GAP, FULLSCREEN_TRIES = 0.9, 3
+
+local function toFullscreen(rows, index, attempt)
+    index, attempt = index or 1, attempt or 1
+    local row = rows[index]
+    if not row then return end
+
+    local app = hs.application.applicationsForBundleID(row[1])[1]
+    local win = app and app:mainWindow()
+    if not win or win:isFullScreen() then
+        return toFullscreen(rows, index + 1, 1)
     end
+
+    win:setFullScreen(true)
+    hs.timer.doAfter(FULLSCREEN_GAP, function()
+        if win:isFullScreen() or attempt >= FULLSCREEN_TRIES then
+            toFullscreen(rows, index + 1, 1)
+        else
+            toFullscreen(rows, index, attempt + 1)
+        end
+    end)
 end
 
 -- Minimizing, on the other hand, covers every window: the point is to get the
@@ -290,8 +313,10 @@ local function apply(name)
     leaveFullscreen(setup, screens)
     hs.timer.doAfter(0.5, function()
         hs.layout.apply(resolve(setup, screens))
-        toFullscreen(rowsWanting(setup, 'fullscreen'))
+        -- minimizing first, since toFullscreen() then runs on its own timers and
+        -- would otherwise have the two competing for the window server
         minimize(rowsWanting(setup, 'minimized'))
+        toFullscreen(rowsWanting(setup, 'fullscreen'))
     end)
 end
 

@@ -87,6 +87,17 @@
     `hs.application` object, never a bundle id (`layout.lua:147-155`), hence
     `resolve()` in `layouts.lua`. It drops what is not running rather than
     passing nil, which would only print `No windows matched` per entry.
+  - Fullscreen transitions are **serialised by macOS**, and a request made while
+    another is going through is silently dropped: measured, four fired in one
+    tick left two windows behind, where the same four 0.9 s apart left only the
+    one application that never accepts fullscreen at all. `toFullscreen()` is
+    therefore a chain, not a loop — one request, a pause, a check, a couple of
+    retries, then it moves on. It has to give up: **some applications have no
+    fullscreen state to set** (measured on Harvest and Spotify), and asking
+    forever is what makes macOS play its rejection sound. `isFullScreen()`
+    answers the *request*, not the transition — it flips the instant the call is
+    made — so the check belongs after the transition has had time to run, by
+    which point a dropped request reads false again.
   - `resolve()` also **names every window explicitly**, in slot 2 of the row,
     and that is load-bearing: left to find them itself, `hs.layout.apply` calls
     `app:allWindows()` (`layout.lua:200`), which only ever sees the Space active
