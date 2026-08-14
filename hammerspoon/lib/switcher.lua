@@ -273,4 +273,15 @@ obj.wakeWatcher = hs.caffeinate.watcher.new(function(event)
    end
 end):start()
 
+-- A Space change needs the same refresh, and hs.window.filter does run one on
+-- its own -- its internal hs.spaces.watcher goes through the very same -1 --
+-- but it runs it the instant the notification arrives, while the transition,
+-- and the accessibility state that goes with it, is still settling. Hence one
+-- more pass once things have quietened down.
+local filterRefreshAfterSpace = hs.timer.delayed.new(1, refresh_window_filter)
+
+obj.spacesWatcher = hs.spaces.watcher.new(function()
+   filterRefreshAfterSpace:start()
+end):start()
+
 return obj
