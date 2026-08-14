@@ -76,6 +76,34 @@ caffeine() {
     [ "$state" = on ] && echo '☕️ caffeinated' || echo '💤 no caffeine'
 }
 
+# Bundle ids, which is how hammerspoon/apps.lua addresses applications -- a name
+# is matched loosely by some APIs, and is localised anyway ("Musique",
+# "Calendrier"), while `id of app` wants the bundle's own name, not the app's
+# ("Code" is Visual Studio Code.app). Hence -l when the name is the problem.
+# Bundle id of an app: bundleid [name|/path/App.app|-l]
+bundleid() {
+    case "${1:-}" in
+        '')
+            lsappinfo info -only bundleid "$(lsappinfo front)" | awk -F'"' '{print $4}'
+            ;;
+        -l|--list)
+            lsappinfo visibleProcessList | tr ' ' '\n' | while read -r asn; do
+                [ -n "$asn" ] || continue
+                lsappinfo info -only bundleid,name "$asn" |
+                    awk -F'"' '/CFBundleIdentifier/ { id = $4 }
+                               /LSDisplayName/      { name = $4 }
+                               END { if (id != "") printf "%-26s %s\n", name, id }'
+            done | sort -f
+            ;;
+        *.app|*.app/)
+            defaults read "${1%/}/Contents/Info.plist" CFBundleIdentifier
+            ;;
+        *)
+            osascript -e "id of app \"$1\""
+            ;;
+    esac
+}
+
 # Ignore macos files
 alias zip='zip -x *.DS_Store -x *__MACOSX* -x *.AppleDouble*'
 
