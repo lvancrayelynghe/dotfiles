@@ -44,6 +44,7 @@ local unit = {
     top50 = {x = 0, y = 0, w = 1, h = 0.5},
     bottom50 = {x = 0, y = 0.5, w = 1, h = 0.5},
     spotify = {x = 0, y = 0, w = 0.6, h = 0.6},
+    messages = {x = 0.01, y = 0.03, w = 0.6, h = 0.6},
 }
 
 -- One list per setup, of {bundle id, screen role, target} rows, the target being
@@ -63,34 +64,50 @@ local setups = {
     single = {
         {apps.vivaldi, 'laptop', 'fullscreen'},
         {apps.vscode, 'laptop', 'fullscreen'},
+
+        {apps.ghostty, 'laptop', 'fullscreen'},
+        {apps.calendar, 'laptop', 'minimized'},
+        {apps.orbstack, 'laptop', 'fullscreen'},
+
         {apps.slack, 'laptop', 'fullscreen'},
         {apps.clickup, 'laptop', 'fullscreen'},
         {apps.sublime, 'laptop', 'fullscreen'},
         {apps.discord, 'laptop', 'fullscreen'},
-        {apps.ghostty, 'laptop', 'fullscreen'},
+        {apps.claude, 'laptop', 'fullscreen'},
         {apps.spotify, 'laptop', unit.spotify},
-        {apps.calendar, 'laptop', 'minimized'},
+        {apps.messages, 'laptop', unit.messages},
     },
     dual = {
+        {apps.vivaldi, 'horizontal', hs.layout.left50},
+        {apps.vscode, 'horizontal', hs.layout.right50},
+
+        {apps.ghostty, 'laptop', 'fullscreen'},
+        {apps.calendar, 'laptop', 'fullscreen'},
+        {apps.orbstack, 'laptop', 'fullscreen'},
+
         {apps.slack, 'laptop', 'fullscreen'},
         {apps.clickup, 'laptop', 'fullscreen'},
         {apps.sublime, 'laptop', 'fullscreen'},
         {apps.discord, 'laptop', 'fullscreen'},
-        {apps.ghostty, 'laptop', 'fullscreen'},
+        {apps.claude, 'laptop', 'fullscreen'},
         {apps.spotify, 'laptop', unit.spotify},
-        {apps.vivaldi, 'horizontal', hs.layout.left50},
-        {apps.vscode, 'horizontal', hs.layout.right50},
+        {apps.messages, 'laptop', unit.messages},
     },
     triple = {
+        {apps.vivaldi, 'horizontal', hs.layout.left50},
+        {apps.vscode, 'horizontal', hs.layout.right50},
+
+        {apps.ghostty, 'vertical', unit.top50},
+        {apps.calendar, 'vertical', unit.bottom50},
+        {apps.orbstack, 'vertical', unit.bottom50},
+
         {apps.slack, 'laptop', 'fullscreen'},
         {apps.clickup, 'laptop', 'fullscreen'},
         {apps.sublime, 'laptop', 'fullscreen'},
         {apps.discord, 'laptop', 'fullscreen'},
+        {apps.claude, 'laptop', 'fullscreen'},
         {apps.spotify, 'laptop', unit.spotify},
-        {apps.vivaldi, 'horizontal', hs.layout.left50},
-        {apps.vscode, 'horizontal', hs.layout.right50},
-        {apps.ghostty, 'vertical', unit.top50},
-        {apps.calendar, 'vertical', unit.bottom50},
+        {apps.messages, 'laptop', unit.messages},
     },
 }
 
@@ -107,6 +124,7 @@ end
 
 local appsToLaunch = {
     apps.vivaldi,
+    apps.harvest,
     apps.slack,
     apps.discord,
     apps.spotify,
@@ -114,6 +132,8 @@ local appsToLaunch = {
     apps.sublime,
     apps.clickup,
     apps.vscode,
+    apps.ghostty,
+    apps.claude,
 }
 
 -- Every window of an application, which takes two calls: allWindows() does not

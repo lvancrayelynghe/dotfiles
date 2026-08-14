@@ -161,7 +161,8 @@ end
 local function apphouse(overrides)
     local house = {}
     for _, key in ipairs({'vivaldi', 'vscode', 'slack', 'clickup', 'sublime',
-                          'discord', 'ghostty', 'spotify', 'calendar', 'finder'}) do
+                          'discord', 'ghostty', 'spotify', 'calendar', 'finder',
+                          'claude', 'harvest', 'orbstack', 'messages'}) do
         local id = apps[key]
         house[id] = App(id, {Window(key, BUILTIN)})
     end
@@ -199,11 +200,12 @@ itemNamed(items, 'Set Single Screen Layout').fn()
 
 check('fullscreen rows are maximized on the laptop', asked(apps.slack), '1:1x1')
 check('a unit rect row keeps its rect', asked(apps.spotify), '1:0.6x0.6')
+check('an offset unit rect too', asked(apps.messages), '1:0.6x0.6')
 check('a minimized row is not placed', asked(apps.calendar), nil)
 check('and is minimized', joined(calls.minimized), 'calendar')
-check('fullscreen rows are put in fullscreen',
-      joined(calls.fullscreen), 'clickup,discord,ghostty,slack,sublime,vivaldi,vscode')
-check('nothing else is', #calls.fullscreen, 7)
+check('fullscreen rows are put in fullscreen', joined(calls.fullscreen),
+      'claude,clickup,discord,ghostty,orbstack,slack,sublime,vivaldi,vscode')
+check('nothing else is', #calls.fullscreen, 9)
 
 
 -- The triple setup -----------------------------------------------------------
@@ -267,7 +269,8 @@ itemNamed(items, 'Set Dual Screen Layout').fn() -- sublime is a laptop row here
 check('a second window in fullscreen on a laptop row is freed too',
       joined(calls.unfullscreen), 'sublime-second')
 check('but only the main window is put back in fullscreen',
-      joined(calls.fullscreen), 'clickup,discord,ghostty,slack,sublime-main')
+      joined(calls.fullscreen),
+      'calendar,claude,clickup,discord,ghostty,orbstack,slack,sublime-main')
 
 
 -- Tooltip, and what survives a reload ----------------------------------------

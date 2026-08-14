@@ -19,6 +19,7 @@
 return {
     bruno     = 'com.usebruno.app',
     calendar  = 'com.apple.iCal',
+    claude    = 'com.anthropic.claudefordesktop',
     clickup   = 'com.clickup.desktop-app',
     discord   = 'com.hnc.Discord',
     filezilla = 'org.filezilla-project.filezilla',
@@ -26,8 +27,10 @@ return {
     ghostty   = 'com.mitchellh.ghostty',
     harvest   = 'com.getharvest.harvestxapp',
     iterm     = 'com.googlecode.iterm2',
+    messages  = 'com.apple.MobileSMS',
     music     = 'com.apple.Music',
     notes     = 'com.apple.Notes',
+    orbstack  = 'dev.kdrag0n.MacVirt',
     sequelace = 'com.sequel-ace.sequel-ace',
     slack     = 'com.tinyspeck.slackmacgap',
     spotify   = 'com.spotify.client',
