@@ -1,7 +1,12 @@
 -- KeyCodes : http://www.hammerspoon.org/docs/hs.keycodes.html#map
 
+-- find(name, true) rather than a loose name search: hs.application.get() -- and
+-- hs.appfinder.appFromName(), which is a plain alias of it -- matches on
+-- substrings, so "Code" also finds Xcode, and when nothing matches it falls
+-- back to searching every window title, which readily returns the browser
+-- holding a tab with that name in it. With exact = true neither happens.
 function launchOrSwitch(appname)
-    local app = hs.appfinder.appFromName(appname)
+    local app = hs.application.find(appname, true)
 
     if app == nil then
         hs.application.open(appname)
@@ -105,13 +110,17 @@ hs.eventtap.new({ hs.eventtap.event.types.systemDefined }, function(event)
     if next(event) then
         if event.key == 'PLAY' and event.down then
             -- Start Spotify if needed, but never steal focus from the
-            -- current app when it is already running
-            if hs.appfinder.appFromName("Spotify") == nil then
-                hs.application.open("Spotify")
+            -- current app when it is already running.
+            -- By bundle id throughout: a name search matches on substrings and
+            -- falls back to window titles, so 'Musique' -- the localised name,
+            -- another reason not to search for it -- would return the browser
+            -- holding a tab with that word in it, and kill() would quit *that*.
+            if hs.application.applicationsForBundleID('com.spotify.client')[1] == nil then
+                hs.application.open('com.spotify.client')
             end
 
             hs.timer.doAfter(1, function ()
-                local app = hs.appfinder.appFromName('Musique')
+                local app = hs.application.applicationsForBundleID('com.apple.Music')[1]
                 if app ~= nil then
                     app:kill()
                 end

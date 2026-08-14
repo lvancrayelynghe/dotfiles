@@ -54,10 +54,14 @@ local appNames = {
     "Code",
 }
 
--- Closed apps or apps without windows must not abort the whole layout
+-- Closed apps or apps without windows must not abort the whole layout.
+-- find(name, true) rather than a loose name search: an inexact one matches on
+-- substrings ("Code" also finds Xcode) and otherwise falls back to window
+-- titles, which would return the browser holding a tab named after the app --
+-- and its main window would then be the one resized, or fullscreened.
 local function setFullscreenState(appList, state)
     for _, v in ipairs(appList) do
-        local app = hs.appfinder.appFromName(v[1])
+        local app = hs.application.find(v[1], true)
         local win = app and app:mainWindow()
         if win and win:isFullScreen() ~= state then
             win:setFullScreen(state)
@@ -74,9 +78,8 @@ local function toFullscreen(appList)
 end
 
 local function launchApps()
-    for i, appname in ipairs(appNames) do
-        local app = hs.appfinder.appFromName(appname)
-        if app == nil then
+    for _, appname in ipairs(appNames) do
+        if hs.application.find(appname, true) == nil then
             hs.application.open(appname)
         end
     end
