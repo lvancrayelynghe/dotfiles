@@ -138,12 +138,14 @@
     is off, so **the live state is only readable in the Hammerspoon console**:
     its output goes to no file, and not to the unified log either. A module is
     therefore tested by driving it under plain `lua` against a **stub `hs`
-    table** — `hammerspoon/tests/test-switcher.lua`, the one test suite here,
-    which also counts the accessibility sweep and the icon loading so that a
-    keystroke paying for either twice fails the run. Nothing runs it
-    automatically; it is in the checks below. Add a case there when touching
-    `lib/switcher.lua` — the whole point is that two of its bugs were invisible
-    in review.
+    table**, `hammerspoon/tests/` holding one suite per module. `test-switcher`
+    also counts the accessibility sweep and the icon loading, so a keystroke
+    paying for either twice fails the run; `test-layouts` records what
+    `hs.layout.apply` is *asked* for instead of performing it, and drives the
+    module the way a user does — through the function captured from
+    `menu:setMenu()` — since layouts.lua exports nothing at all. Nothing runs
+    them automatically; they are in the checks below. Add a case when touching
+    either module: three of the bugs these caught were invisible in review.
   - To read the live state **from a terminal** rather than that console, use the
     reload as a probe: drop a temporary module in `hammerspoon/`, `require` it
     from `init.lua`, and have it write what it finds — or the result of an
@@ -198,7 +200,7 @@ time zsh -i -c exit           # budget < 200 ms
 brew bundle check --no-upgrade --verbose   # declared but missing
 brew bundle cleanup           # installed but undeclared (dry run; --force removes)
 luac -p hammerspoon/**/*.lua  # Lua syntax
-lua hammerspoon/tests/test-switcher.lua     # switcher, against a stub hs table
+for t in hammerspoon/tests/*.lua; do lua "$t" || break; done  # stub hs suites
 tmux -f others/tmux.conf -L test new -d \; kill-server  # parse tmux.conf
 ```
 

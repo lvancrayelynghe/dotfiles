@@ -46,55 +46,64 @@ local unit = {
     spotify = {x = 0, y = 0, w = 0.6, h = 0.6},
 }
 
--- Rows are hs.layout rows with a screen *role* where the screen goes:
--- {bundle id, window title, role, unit rect, frame rect, full-frame rect}.
--- resolve() swaps the id and the role for live objects just before applying.
--- The laptop group is deliberately the same in dual and triple, so that
--- switching between the two never has to move a window that is already
--- fullscreen (macOS would refuse: see unFullscreen below).
+-- One list per setup, of {bundle id, screen role, target} rows, the target being
+-- either a unit rect to place the window in or the window state to put it in:
+-- 'fullscreen' or 'minimized'.
+--
+-- This used to be two lists, fullscreen and windowed, which never described two
+-- kinds of row -- only what apply() did with each list. The state belongs to the
+-- row, all the more so now that there are three of them: as separate lists it
+-- would take a third one, and a fourth for whatever comes next. hs.layout is no
+-- help here, exposing unit rects only (left25 .. right75, maximized) and knowing
+-- nothing of window states -- no hs.layout.minimized, and no fullscreen either.
+--
+-- The laptop rows are deliberately identical in dual and triple, so that
+-- switching between those two never has to take a window out of fullscreen.
 local setups = {
     single = {
-        fullscreen = {
-            {apps.vivaldi, nil, 'laptop', hs.layout.maximized, nil, nil},
-            {apps.vscode, nil, 'laptop', hs.layout.maximized, nil, nil},
-            {apps.slack, nil, 'laptop', hs.layout.maximized, nil, nil},
-            {apps.clickup, nil, 'laptop', hs.layout.maximized, nil, nil},
-            {apps.sublime, nil, 'laptop', hs.layout.maximized, nil, nil},
-            {apps.discord, nil, 'laptop', hs.layout.maximized, nil, nil},
-        },
-        windowed = {
-            {apps.spotify, nil, 'laptop', unit.spotify, nil, nil},
-        },
+        {apps.vivaldi, 'laptop', 'fullscreen'},
+        {apps.vscode, 'laptop', 'fullscreen'},
+        {apps.slack, 'laptop', 'fullscreen'},
+        {apps.clickup, 'laptop', 'fullscreen'},
+        {apps.sublime, 'laptop', 'fullscreen'},
+        {apps.discord, 'laptop', 'fullscreen'},
+        {apps.ghostty, 'laptop', 'fullscreen'},
+        {apps.spotify, 'laptop', unit.spotify},
+        {apps.calendar, 'laptop', 'minimized'},
     },
     dual = {
-        fullscreen = {
-            {apps.slack, nil, 'laptop', hs.layout.maximized, nil, nil},
-            {apps.clickup, nil, 'laptop', hs.layout.maximized, nil, nil},
-            {apps.sublime, nil, 'laptop', hs.layout.maximized, nil, nil},
-            {apps.discord, nil, 'laptop', hs.layout.maximized, nil, nil},
-        },
-        windowed = {
-            {apps.spotify, nil, 'laptop', unit.spotify, nil, nil},
-            {apps.vivaldi, nil, 'horizontal', hs.layout.left50, nil, nil},
-            {apps.vscode, nil, 'horizontal', hs.layout.right50, nil, nil},
-        },
+        {apps.slack, 'laptop', 'fullscreen'},
+        {apps.clickup, 'laptop', 'fullscreen'},
+        {apps.sublime, 'laptop', 'fullscreen'},
+        {apps.discord, 'laptop', 'fullscreen'},
+        {apps.ghostty, 'laptop', 'fullscreen'},
+        {apps.spotify, 'laptop', unit.spotify},
+        {apps.vivaldi, 'horizontal', hs.layout.left50},
+        {apps.vscode, 'horizontal', hs.layout.right50},
     },
     triple = {
-        fullscreen = {
-            {apps.slack, nil, 'laptop', hs.layout.maximized, nil, nil},
-            {apps.clickup, nil, 'laptop', hs.layout.maximized, nil, nil},
-            {apps.sublime, nil, 'laptop', hs.layout.maximized, nil, nil},
-            {apps.discord, nil, 'laptop', hs.layout.maximized, nil, nil},
-        },
-        windowed = {
-            {apps.spotify, nil, 'laptop', unit.spotify, nil, nil},
-            {apps.vivaldi, nil, 'horizontal', hs.layout.left50, nil, nil},
-            {apps.vscode, nil, 'horizontal', hs.layout.right50, nil, nil},
-            {apps.ghostty, nil, 'vertical', unit.top50, nil, nil},
-            {apps.calendar, nil, 'vertical', unit.bottom50, nil, nil},
-        },
+        {apps.slack, 'laptop', 'fullscreen'},
+        {apps.clickup, 'laptop', 'fullscreen'},
+        {apps.sublime, 'laptop', 'fullscreen'},
+        {apps.discord, 'laptop', 'fullscreen'},
+        {apps.spotify, 'laptop', unit.spotify},
+        {apps.vivaldi, 'horizontal', hs.layout.left50},
+        {apps.vscode, 'horizontal', hs.layout.right50},
+        {apps.ghostty, 'vertical', unit.top50},
+        {apps.calendar, 'vertical', unit.bottom50},
     },
 }
+
+-- The rows of a setup asking for one particular state
+local function rowsWanting(rows, target)
+    local found = {}
+    for _, row in ipairs(rows) do
+        if row[3] == target then
+            table.insert(found, row)
+        end
+    end
+    return found
+end
 
 local appsToLaunch = {
     apps.vivaldi,
@@ -128,30 +137,57 @@ local function windowsOf(bundleID)
             table.insert(windows, win)
         end
     end
-    return windows
+    return windows, main
 end
 
--- Leaving fullscreen covers every window: any of them could be the one
--- hs.layout.apply is about to try to move, and macOS moves no fullscreen window.
--- A closed application, or one without windows, must not abort the whole layout.
-local function unFullscreen(rows)
+-- macOS neither moves, resizes nor minimizes a window that is in fullscreen, so
+-- anything that has to change must leave it first -- every window of the
+-- application, since hs.layout.apply, given no window title, places them all
+-- (layout.lua:200). A closed application, or one without windows, must not abort
+-- the whole layout.
+--
+-- Exactly one window may stay: the main one, when its row asks for fullscreen and
+-- it already is, on the right screen. Leaving and re-entering fullscreen for
+-- nothing is both slow and very visible. Any other window of that application
+-- still has to come out, main being the only one toFullscreen() puts back.
+local function leaveFullscreen(rows, screens)
     for _, row in ipairs(rows) do
-        for _, win in ipairs(windowsOf(row[1])) do
+        local wanted = screens[row[2]]
+        local windows, main = windowsOf(row[1])
+        for _, win in ipairs(windows) do
             if win:isFullScreen() then
-                win:setFullScreen(false)
+                local screen = win:screen()
+                local staying = row[3] == 'fullscreen'
+                    and main and win:id() == main:id()
+                    and wanted and screen and screen:id() == wanted:id()
+                if not staying then
+                    win:setFullScreen(false)
+                end
             end
         end
     end
 end
 
--- Entering it is for the main window only: macOS gives each fullscreen window a
--- space of its own, and the second Sublime window wants none.
+-- Entering fullscreen is for the main window only: macOS gives each fullscreen
+-- window a space of its own, and the second Sublime window wants none.
 local function toFullscreen(rows)
     for _, row in ipairs(rows) do
         local app = hs.application.applicationsForBundleID(row[1])[1]
         local win = app and app:mainWindow()
         if win and not win:isFullScreen() then
             win:setFullScreen(true)
+        end
+    end
+end
+
+-- Minimizing, on the other hand, covers every window: the point is to get the
+-- application out of the way, and a second window left on screen would defeat it.
+local function minimize(rows)
+    for _, row in ipairs(rows) do
+        for _, win in ipairs(windowsOf(row[1])) do
+            if not win:isMinimized() then
+                win:minimize()
+            end
         end
     end
 end
@@ -164,18 +200,21 @@ local function launchApps()
     end
 end
 
--- hs.layout.apply takes an application name or an hs.application object, never a
--- bundle id, and a screen name or an hs.screen object, never a role
--- (layout.lua:147-175). Resolve both here, dropping the rows whose application
--- is not running or whose screen is not plugged in: passing nil would only make
--- it log "No windows matched" for each of them.
+-- hs.layout rows, built from ours. It takes an application name or an
+-- hs.application object, never a bundle id, and a screen name or an hs.screen
+-- object, never a role (layout.lua:147-175); its rows are six wide, of which only
+-- the unit rect is ever used here. Rows whose application is not running, or
+-- whose screen is not plugged in, are dropped -- passing nil would only make it
+-- log "No windows matched" for each. So are the rows asking to be minimized:
+-- placing a window one is about to put away would be work for nothing.
 local function resolve(rows, screens)
     local resolved = {}
     for _, row in ipairs(rows) do
         local app = hs.application.applicationsForBundleID(row[1])[1]
-        local screen = screens[row[3]]
-        if app and screen then
-            table.insert(resolved, {app, row[2], screen, row[4], row[5], row[6]})
+        local screen = screens[row[2]]
+        local rect = row[3] == 'fullscreen' and hs.layout.maximized or row[3]
+        if app and screen and type(rect) == 'table' then
+            table.insert(resolved, {app, nil, screen, rect, nil, nil})
         end
     end
     return resolved
@@ -201,17 +240,17 @@ local function apply(name)
     hs.settings.set(SETTING, name)
     menu:setTooltip(tooltipFor(name))
 
-    -- macOS will not move or resize a window that is in fullscreen, so leave it
-    -- first. The delay covers that transition, and 0.5 s is comfortable rather
-    -- than tight: measured, a setFrame sent 100 ms after setFullScreen(false)
-    -- holds, and so does a move to another screen. What cannot be waited on is
-    -- isFullScreen(), which flips to false the instant the call is made -- so
-    -- polling it, the obvious "improvement" here, would wait for nothing at all.
-    unFullscreen(setup.windowed)
+    -- The delay covers the fullscreen transitions leaveFullscreen() just asked
+    -- for, and 0.5 s is comfortable rather than tight: measured, a setFrame sent
+    -- 100 ms after setFullScreen(false) holds, and so does a move to another
+    -- screen. What cannot be waited on is isFullScreen(), which flips to false
+    -- the instant the call is made -- so polling it, the obvious "improvement"
+    -- here, would wait for nothing at all.
+    leaveFullscreen(setup, screens)
     hs.timer.doAfter(0.5, function()
-        hs.layout.apply(resolve(setup.windowed, screens))
-        hs.layout.apply(resolve(setup.fullscreen, screens))
-        toFullscreen(setup.fullscreen)
+        hs.layout.apply(resolve(setup, screens))
+        toFullscreen(rowsWanting(setup, 'fullscreen'))
+        minimize(rowsWanting(setup, 'minimized'))
     end)
 end
 
