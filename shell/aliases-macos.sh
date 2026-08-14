@@ -39,6 +39,43 @@ alias stfu="osascript -e 'set volume output muted true'"
 
 alias afk='/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend'
 
+# Keep the display awake through Hammerspoon, so that the terminal and the ☕️
+# menubar item drive one and the same assertion -- a `caffeinate -d` here would
+# hold a second one and the icon would then lie. The hammerspoon:// URL is bound
+# in hammerspoon/caffeinate.lua and needs nothing installed, unlike hs.ipc.
+# pmset is what actually holds the answer, `open` returning before Hammerspoon
+# has even seen the URL.
+
+# on when Hammerspoon holds the display sleep assertion, off otherwise
+caffeine_state() {
+    pmset -g assertions |
+        awk '/\(Hammerspoon\)/ && /PreventUserIdleDisplaySleep/ { found = 1 }
+             END { print found ? "on" : "off" }'
+}
+
+# Toggle the display-sleep block, or force it: caffeine [on|off|status]
+caffeine() {
+    local want state i=0
+    state=$(caffeine_state)
+
+    case "${1:-toggle}" in
+        toggle) [ "$state" = on ] && want=off || want=on ;;
+        on|off) want="$1" ;;
+        status) echo "$state"; return 0 ;;
+        *) echo 'caffeine: usage: caffeine [toggle|on|off|status]' >&2; return 1 ;;
+    esac
+
+    open -g "hammerspoon://caffeinate?action=$want" || return 1
+
+    while [ "$state" != "$want" ] && [ "$i" -lt 20 ]; do
+        sleep 0.05
+        state=$(caffeine_state)
+        i=$((i + 1))
+    done
+
+    [ "$state" = on ] && echo '☕️ caffeinated' || echo '💤 no caffeine'
+}
+
 # Ignore macos files
 alias zip='zip -x *.DS_Store -x *__MACOSX* -x *.AppleDouble*'
 
