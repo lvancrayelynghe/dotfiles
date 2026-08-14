@@ -100,7 +100,10 @@ hs.hotkey.bind({"ctrl", "cmd"}, "l", function() hs.grid.pushWindowDown(hs.window
 --   win:application():kill()
 -- end)
 
-hs.eventtap.new({ hs.eventtap.event.types.systemDefined }, function(event)
+-- Global on purpose, like configWatcher in init.lua: hs.eventtap does not
+-- retain its own object and its __gc disables the tap, so a tap nothing points
+-- at is collected and stops firing without a word.
+mediaKeyTap = hs.eventtap.new({ hs.eventtap.event.types.systemDefined }, function(event)
     -- https://github.com/Hammerspoon/hammerspoon/issues/1220
     -- http://www.hammerspoon.org/docs/hs.eventtap.event.html#systemKey
     event = event:systemKey()
@@ -127,7 +130,8 @@ hs.eventtap.new({ hs.eventtap.event.types.systemDefined }, function(event)
             end)
         end
     end
-end):start()
+end)
+mediaKeyTap:start()
 
 -- Vivaldi reload
 hs.hotkey.bind({'cmd', 'alt', 'ctrl'}, "@", function()
