@@ -63,6 +63,16 @@ local function App(bundleID, windows)
     return a
 end
 
+-- The same, with its window on a Space that is not the active one: allWindows()
+-- reports nothing at all, mainWindow() still reaches it. Measured on a real
+-- fullscreen window, and the reason layouts.lua names windows to hs.layout
+-- instead of letting it enumerate them.
+local function OffSpaceApp(bundleID, window)
+    local a = App(bundleID, {window})
+    function a:allWindows() return {} end
+    return a
+end
+
 hs = {
     screen = {
         allScreens = function() return screens end,
@@ -90,6 +100,7 @@ hs = {
             for _, row in ipairs(rows) do
                 table.insert(calls.layout, {
                     app = row[1]:bundleID(),
+                    window = row[2] and row[2]:id() or nil,
                     screen = row[3]:id(),
                     rect = row[4],
                 })
@@ -148,6 +159,21 @@ local function asked(bundleID)
             return row.screen .. ':' .. row.rect.w .. 'x' .. row.rect.h
         end
     end
+end
+
+-- the window the layout was handed for it, and how many rows it got
+local function windowFor(bundleID)
+    for _, row in ipairs(calls.layout) do
+        if row.app == bundleID then return row.window end
+    end
+end
+
+local function rowsFor(bundleID)
+    local n = 0
+    for _, row in ipairs(calls.layout) do
+        if row.app == bundleID then n = n + 1 end
+    end
+    return n
 end
 
 local function joined(list)
@@ -242,6 +268,7 @@ items = load({BUILTIN}, apphouse({slack = {Window('slack', BUILTIN, {fullscreen 
 itemNamed(items, 'Set Single Screen Layout').fn()
 check('a window already fullscreen on the right screen is left alone',
       joined(calls.unfullscreen), '')
+check('and is not placed again either', asked(apps.slack), nil)
 
 items = load({BUILTIN, LANDSCAPE},
              apphouse({slack = {Window('slack', LANDSCAPE, {fullscreen = true})}}))
@@ -271,6 +298,29 @@ check('a second window in fullscreen on a laptop row is freed too',
 check('but only the main window is put back in fullscreen',
       joined(calls.fullscreen),
       'calendar,claude,clickup,discord,ghostty,orbstack,slack,sublime-main')
+
+
+-- Windows are named to hs.layout, never left to it -----------------------------
+
+items = load({BUILTIN}, apphouse())
+itemNamed(items, 'Set Single Screen Layout').fn()
+check('the layout is given the window itself', windowFor(apps.slack), 'slack')
+
+-- the regression this guards: allWindows() sees nothing of a window that sits on
+-- another Space, so hs.layout.apply left the application where it was
+local house = apphouse()
+house[apps.spotify] = OffSpaceApp(apps.spotify, Window('spotify', BUILTIN))
+items = load({BUILTIN}, house)
+itemNamed(items, 'Set Single Screen Layout').fn()
+check('a window on another Space is still placed', asked(apps.spotify), '1:0.6x0.6')
+check('and named', windowFor(apps.spotify), 'spotify')
+
+items = load({BUILTIN}, apphouse({sublime = {
+    Window('sublime-main', BUILTIN),
+    Window('sublime-second', BUILTIN),
+}}))
+itemNamed(items, 'Set Single Screen Layout').fn()
+check('each window of an application gets its own row', rowsFor(apps.sublime), 2)
 
 
 -- Tooltip, and what survives a reload ----------------------------------------

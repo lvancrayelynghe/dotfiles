@@ -222,11 +222,28 @@ end
 
 -- hs.layout rows, built from ours. It takes an application name or an
 -- hs.application object, never a bundle id, and a screen name or an hs.screen
--- object, never a role (layout.lua:147-175); its rows are six wide, of which only
--- the unit rect is ever used here. Rows whose application is not running, or
--- whose screen is not plugged in, are dropped -- passing nil would only make it
--- log "No windows matched" for each. So are the rows asking to be minimized:
--- placing a window one is about to put away would be work for nothing.
+-- object, never a role (layout.lua:147-175).
+--
+-- The windows are named explicitly, one row each, and that is the whole point:
+-- left to find them itself, hs.layout.apply calls app:allWindows()
+-- (layout.lua:200), which only ever sees the Space currently active on each
+-- screen. A window sitting on any other Space -- which is where every fullscreen
+-- window and everything left behind on another desktop lives -- is invisible to
+-- it, so it logs "No windows matched, skipping" and the application simply does
+-- not move. Measured on a fullscreen Slack window: allWindows() returned nothing
+-- at all, and still nothing 2.5 s after it had left fullscreen. That is what made
+-- a layout need applying twice -- the first run only freed the windows from
+-- fullscreen, which brought them back onto an ordinary Space for the second.
+-- Given a window in slot 2, hs.layout.apply uses that one and enumerates nothing
+-- (layout.lua:186-188), and windowsOf() finds it through mainWindow(), which does
+-- reach across Spaces.
+--
+-- Rows whose application is not running, whose screen is not plugged in, or whose
+-- windows cannot be reached are dropped; so are the rows asking to be minimized,
+-- placing a window one is about to put away being work for nothing. A window
+-- still in fullscreen here is one leaveFullscreen() deliberately kept there,
+-- everything else having been asked to leave before this runs: there is nothing
+-- to place, and macOS would refuse anyway.
 local function resolve(rows, screens)
     local resolved = {}
     for _, row in ipairs(rows) do
@@ -234,7 +251,11 @@ local function resolve(rows, screens)
         local screen = screens[row[2]]
         local rect = row[3] == 'fullscreen' and hs.layout.maximized or row[3]
         if app and screen and type(rect) == 'table' then
-            table.insert(resolved, {app, nil, screen, rect, nil, nil})
+            for _, win in ipairs(windowsOf(row[1])) do
+                if not win:isFullScreen() then
+                    table.insert(resolved, {app, win, screen, rect, nil, nil})
+                end
+            end
         end
     end
     return resolved

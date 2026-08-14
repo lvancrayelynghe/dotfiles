@@ -87,6 +87,17 @@
     `hs.application` object, never a bundle id (`layout.lua:147-155`), hence
     `resolve()` in `layouts.lua`. It drops what is not running rather than
     passing nil, which would only print `No windows matched` per entry.
+  - `resolve()` also **names every window explicitly**, in slot 2 of the row,
+    and that is load-bearing: left to find them itself, `hs.layout.apply` calls
+    `app:allWindows()` (`layout.lua:200`), which only ever sees the Space active
+    on each screen. A window on any other Space — where every fullscreen window
+    lives — is invisible to it, so it prints `No windows matched, skipping` and
+    the application does not move at all. Measured: `allWindows()` returned
+    nothing for a fullscreen window, and still nothing 2.5 s after it had left
+    fullscreen. That is what made a layout need applying **twice** — the first
+    run only freed the windows, which brought them back onto an ordinary Space
+    for the second. Given a window, `hs.layout.apply` enumerates nothing
+    (`layout.lua:186-188`), and `mainWindow()` does reach across Spaces.
   - `hs.window.filter` only ever sees the **current Space** (`app:allWindows()`
     can do no better), and it loses a window for good whenever the
     accessibility API is briefly incoherent — a wake, a Space transition. It
