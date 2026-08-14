@@ -138,8 +138,8 @@ theWindows:subscribe(hs.window.filter.windowFocused, callback_window_created)
 -- are dropped, and the visible windows the filter does not know about are
 -- appended front to back at the least recently focused end, since we have no
 -- focus history for them. hs.window.orderedWindows() queries every application
--- over the accessibility API, i.e. the same order of cost as the titles and
--- icons collected below.
+-- over the accessibility API, which makes this the one real cost of a switch --
+-- the reason nothing else on that path builds a title or an icon.
 --
 -- The role check is how the filter's own rules are kept: setDefaultFilter{}
 -- overrides no role, so allowedWindowRoles is the effective rule and popovers
@@ -168,32 +168,47 @@ local function refresh_current_windows()
    return windows
 end
 
-function obj:list_window_choices(onlyCurrentApp)
-   local windowChoices = {}
+-- Windows worth switching to, most recently focused first, current one excluded.
+-- The optional windows argument lets a caller reuse a list it already holds
+-- rather than pay for a second accessibility sweep.
+local function candidate_windows(onlyCurrentApp, windows)
    local currentWin = hs.window.focusedWindow() -- may be nil (desktop focused)
    local currentApp = currentWin and currentWin:application()
-   -- print("\nstarting to populate")
-   -- print(currentApp)
-   for i,w in ipairs(refresh_current_windows()) do
-      if w ~= currentWin then
-         local app = w:application()
-         local appImage = nil
-         local appName  = '(none)'
-         if app then
-            appName = app:name()
-            appImage = hs.image.imageFromAppBundle(w:application():bundleID())
-         end
-         -- print(appName, currentApp)
-         if (not onlyCurrentApp) or (app == currentApp) then
-            -- print("inserting...")
-            table.insert(windowChoices, {
-                            text = (w:title() or '') .. "--" .. appName,
-                            subText = appName,
-                            uuid = i,
-                            image = appImage,
-                            win=w})
-         end
+   local candidates = {}
+   for _,w in ipairs(windows or refresh_current_windows()) do
+      if w ~= currentWin and ((not onlyCurrentApp) or w:application() == currentApp) then
+         table.insert(candidates, w)
       end
+   end
+   return candidates
+end
+
+-- Icons are read from the application bundle on disk, so they are kept; false
+-- marks a bundle whose icon could not be read, so it is not asked for twice.
+local appIcons = {}
+local function app_icon(app)
+   local bundleID = app and app:bundleID() -- nil for a bundle-less application,
+   if not bundleID then return nil end     -- which imageFromAppBundle rejects
+   if appIcons[bundleID] == nil then
+      appIcons[bundleID] = hs.image.imageFromAppBundle(bundleID) or false
+   end
+   return appIcons[bundleID] or nil
+end
+
+-- Rows for the chooser, and for the chooser only: switchWindow() and
+-- previousWindow() focus a single window and would throw away every title and
+-- icon built here.
+function obj:list_window_choices(onlyCurrentApp)
+   local windowChoices = {}
+   for i,w in ipairs(candidate_windows(onlyCurrentApp)) do
+      local app = w:application()
+      local appName = app and app:name() or '(none)'
+      table.insert(windowChoices, {
+                      text = (w:title() or '') .. "--" .. appName,
+                      subText = appName,
+                      uuid = i,
+                      image = app_icon(app),
+                      win = w})
    end
    return windowChoices;
 end
@@ -226,31 +241,33 @@ function obj:selectWindow(onlyCurrentApp)
 end
 
 
--- Focus the window at the given position in the choices list.
--- fallbackToAll: retry across all applications when the current app has no other window.
-local function focusChoice(onlyCurrentApp, index, fallbackToAll)
-   local windowChoices = obj:list_window_choices(onlyCurrentApp)
-   if #windowChoices == 0 then
-      if onlyCurrentApp and fallbackToAll then
-         focusChoice(false, 1, false)
-      else
-         hs.alert.show("no other window available ")
-      end
+-- Focus the candidate at the given position, 1 being the most recently focused.
+-- fallbackToAll: when the current application has no other window, fall back to
+-- every application -- and, as before, to position 1 there rather than to the
+-- requested one, the most recently focused window being the useful answer then.
+-- Both passes share one window list, so the fallback costs no second sweep.
+local function focusCandidate(onlyCurrentApp, index, fallbackToAll)
+   local windows = refresh_current_windows()
+   local candidates = candidate_windows(onlyCurrentApp, windows)
+   if #candidates == 0 and onlyCurrentApp and fallbackToAll then
+      candidates, index = candidate_windows(false, windows), 1
+   end
+   if #candidates == 0 then
+      hs.alert.show("no other window available ")
       return
    end
-   local i = (index == -1) and #windowChoices or index
-   local v = windowChoices[i]["win"]
-   if v then
-      v:focus()
+   local w = candidates[(index == -1) and #candidates or index]
+   if w then
+      w:focus()
    end
 end
 
 function obj:switchWindow(onlyCurrentApp)
-   focusChoice(onlyCurrentApp, -1, true) -- least recently focused window
+   focusCandidate(onlyCurrentApp, -1, true) -- least recently focused window
 end
 
 function obj:previousWindow(onlyCurrentApp)
-   focusChoice(onlyCurrentApp, 1, false) -- most recently focused window
+   focusCandidate(onlyCurrentApp, 1, false) -- most recently focused window
 end
 
 
