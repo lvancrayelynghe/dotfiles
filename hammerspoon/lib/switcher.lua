@@ -140,6 +140,14 @@ theWindows:subscribe(hs.window.filter.windowFocused, callback_window_created)
 -- focus history for them. hs.window.orderedWindows() queries every application
 -- over the accessibility API, i.e. the same order of cost as the titles and
 -- icons collected below.
+--
+-- The role check is how the filter's own rules are kept: setDefaultFilter{}
+-- overrides no role, so allowedWindowRoles is the effective rule and popovers
+-- or sheets stay out. Its isWindowAllowed() is of no use here -- on a
+-- subscribed filter it only answers "is this window in my tracked set?", which
+-- is the very bookkeeping this function exists to bypass, and it answers it
+-- wrongly at that: window_filter.lua:280 indexes a Window-keyed table with a
+-- window id, so it returns false for every window.
 local function refresh_current_windows()
    local windows, seen = {}, {}
    for _,w in ipairs(obj.currentWindows) do
@@ -151,7 +159,7 @@ local function refresh_current_windows()
    end
    for _,w in ipairs(hs.window.orderedWindows()) do
       local id = w:id()
-      if id and not seen[id] and theWindows:isWindowAllowed(w) then
+      if id and not seen[id] and hs.window.filter.allowedWindowRoles[w:subrole()] then
          seen[id] = true
          table.insert(windows, w)
       end
