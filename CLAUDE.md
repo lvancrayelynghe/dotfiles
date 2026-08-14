@@ -66,10 +66,19 @@
   `init.lua` requires `lib/switcher`, `caffeinate`, `keymappings`, `layouts`.
   - `lib/switcher.lua` is vendored (PorcoSpoon / dmg) and keeps its **3-space
     indentation**; the other files are on 4 like the rest of the repo.
-  - A watcher must stay reachable from a live value or it is
-    garbage-collected and **silently stops**: `configWatcher` is global in
-    `init.lua`, `obj.wakeWatcher` and `obj.spacesWatcher` live on the
-    switcher's module table.
+  - A watcher or an eventtap must stay reachable from a live value or it is
+    garbage-collected and **silently stops** — `hs.eventtap`'s `__gc` disables
+    the tap outright. Hence `configWatcher` and `mediaKeyTap` global, and
+    `obj.wakeWatcher` / `obj.spacesWatcher` on the switcher's module table. A
+    module-level `local` is *not* enough: nothing references a chunk's locals
+    once it has run, unless a live callback captures them.
+  - Never look an application up by name loosely. `hs.application.get()` — and
+    `hs.appfinder.appFromName()`, a plain alias of it — matches on
+    **substrings** (`"Code"` also finds Xcode) and, when nothing matches, falls
+    back to searching **every window title**, so it readily returns the browser
+    holding a tab named after the app. Use `hs.application.find(name, true)`,
+    which skips both, or `applicationsForBundleID()` when the display name is
+    localised (Apple Music is `Musique` here).
   - `hs.window.filter` only ever sees the **current Space** (`app:allWindows()`
     can do no better), and it loses a window for good whenever the
     accessibility API is briefly incoherent — a wake, a Space transition. It
@@ -80,7 +89,12 @@
     `spacesDone`, so unlike a real number it refreshes on every call.
     `lib/switcher.lua` therefore rebuilds its own list from
     `hs.window.orderedWindows()` instead of trusting the filter's bookkeeping,
-    and borrows only its *rules*, through `isWindowAllowed()`.
+    and keeps its rules by checking `allowedWindowRoles` itself.
+    **`isWindowAllowed()` is unusable for that**: on a subscribed filter it
+    short-circuits to "is this window in my tracked set?" — the very bookkeeping
+    being bypassed — and gets even that wrong, since `window_filter.lua:280`
+    indexes a `Window`-keyed table with a window id and so returns `false` for
+    every window.
   - There is no `hs` CLI (`hs.ipc` is never required) and `hs.allowAppleScript`
     is off, so **the live state is only readable in the Hammerspoon console**:
     its output goes to no file, and not to the unified log either. A module can
