@@ -23,6 +23,7 @@ return {
     discord   = 'com.hnc.Discord',
     filezilla = 'org.filezilla-project.filezilla',
     finder    = 'com.apple.finder',
+    ghostty   = 'com.mitchellh.ghostty',
     harvest   = 'com.getharvest.harvestxapp',
     iterm     = 'com.googlecode.iterm2',
     music     = 'com.apple.Music',

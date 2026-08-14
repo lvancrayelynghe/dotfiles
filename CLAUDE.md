@@ -118,17 +118,22 @@
     running `caffeinate -d` in the shell is what keeps a single holder of the
     assertion, and a menubar icon that cannot lie; and `screens`, wrapped by
     `screenid()`, answered through `~/.cache/hammerspoon-screens.txt`.
-  - Screen names are as slippery as application names, for another reason:
-    `hs.screen:name()` is `NSScreen.localizedName` (`libscreen.m:78`), localised
-    for **the calling application**. Hammerspoon ships English only, so
-    `layouts.lua` rightly says `Built-in Retina Display` where a French
-    `osascript` is told `Écran Retina intégré` — and neither `LANG` nor
-    `AppleLanguages` changes that, hence `screenid` asking Hammerspoon itself.
-    Two more traps: `(1)`/`(2)` on identical monitors is an ordering macOS can
-    swap between reconnections, where the UUID that `hs.layout` accepts in the
-    same slot cannot; and such names are unusable with `hs.screen.find()`, which
-    takes them as Lua patterns, `(1)` being a capture group. `hs.layout.apply`
-    compares them exactly, so it is unaffected.
+  - `layouts.lua` names **no screen**: its rows carry a role (`laptop`,
+    `horizontal`, `vertical`) that `resolve()` swaps for an `hs.screen` object,
+    and the setup — `single`, `dual`, `triple` — follows from which roles are
+    present. Names were the trap, twice over: `hs.screen:name()` is
+    `NSScreen.localizedName` (`libscreen.m:78`), localised for **the calling
+    application**, so Hammerspoon (English only) says `Built-in Retina Display`
+    where a French `osascript` is told `Écran Retina intégré` — neither `LANG`
+    nor `AppleLanguages` changes that; and `(1)`/`(2)` on two identical monitors
+    is an ordering macOS assigns, and can swap between reconnections. Roles come
+    from shape — taller than wide is the vertical one — except the Mac's own
+    screen, which nothing identifies (`getInfo()` returns nil here,
+    `CGDisplayIsBuiltin` is not exposed): hence the `Built-in` **prefix**, with
+    the primary screen as fallback. `screenid` prints those roles, and such
+    names would in any case be unusable with `hs.screen.find()`, which takes
+    them as Lua patterns — `(1)` is a capture group. `hs.layout.apply` compares
+    exactly, so it never was affected.
   - There is no `hs` CLI (`hs.ipc` is never required) and `hs.allowAppleScript`
     is off, so **the live state is only readable in the Hammerspoon console**:
     its output goes to no file, and not to the unified log either. A module is

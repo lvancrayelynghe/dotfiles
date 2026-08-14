@@ -104,13 +104,13 @@ bundleid() {
     esac
 }
 
-# Screens as hammerspoon/layouts.lua has to name them, with their UUID. Asked of
-# Hammerspoon rather than of macOS, because hs.screen:name() is NSScreen's
-# localizedName, localised for whoever asks: Hammerspoon ships English only, so
-# it says "Built-in Retina Display" where this terminal would be told "Écran
-# Retina intégré". A UUID is the sturdier key of the two -- "(1)" and "(2)" can
-# swap between two identical monitors across a reconnection.
-# Screens, named as Hammerspoon names them: screenid
+# Screens as Hammerspoon sees them: the role hammerspoon/layouts.lua gives each
+# one, its name, its UUID and its geometry, plus the setup those roles add up to.
+# Asked of Hammerspoon rather than of macOS because hs.screen:name() is NSScreen's
+# localizedName, localised for whoever asks: Hammerspoon ships English only, so it
+# says "Built-in Retina Display" where this terminal would be told "Écran Retina
+# intégré".
+# Screens and their layout roles: screenid
 screenid() {
     local out="$HOME/.cache/hammerspoon-screens.txt" i=0
 
