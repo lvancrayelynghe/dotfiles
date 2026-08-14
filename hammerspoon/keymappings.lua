@@ -18,8 +18,12 @@ function launchOrSwitch(appname)
         return
     end
 
-    app:activate(true)
+    -- unhide first: activate() never unhides (application.lua:71-79). On a
+    -- hidden app it takes the focusedWindow branch and brings to the front
+    -- windows that are still hidden, so the unhide that followed made them
+    -- appear without the app being frontmost.
     app:unhide()
+    app:activate(true)
 end
 
 -- App Bindings
