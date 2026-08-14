@@ -106,21 +106,24 @@ local function callback_window_created(w, appName, event)
       return
    end
    if event == "windowCreated" then
-      if w then
-         -- print("creating window " .. w:title())
+      if not w then return end
+      -- A brand new window is not necessarily focused yet, and a windowFocused
+      -- event follows when it is; a window the filter registers late -- see the
+      -- wake watcher at the bottom -- never is, and must not jump the queue.
+      local focused = hs.window.focusedWindow()
+      if focused and w:id() == focused:id() then
+         table.insert(obj.currentWindows, 1, w)
+      else
+         table.insert(obj.currentWindows, w)
       end
---      print("inserting into windows.........", w)
-      table.insert(obj.currentWindows, 1, w)
       return
    end
    if event == "windowFocused" then
-      --otherwise is equivalent to delete and then create
-      if w then
---         print("Focusing window" .. w:title())
-      end
+      -- equivalent to a delete followed by an insert at the most recent end
       callback_window_created(w, appName, "windowDestroyed")
-      callback_window_created(w, appName, "windowCreated")
---      obj:print_table0(obj.currentWindows)
+      if w then
+         table.insert(obj.currentWindows, 1, w)
+      end
    end
 end
 theWindows:subscribe(hs.window.filter.windowCreated, callback_window_created)
@@ -128,13 +131,42 @@ theWindows:subscribe(hs.window.filter.windowDestroyed, callback_window_created)
 theWindows:subscribe(hs.window.filter.windowFocused, callback_window_created)
 
 
+-- The list above is fed by events only, so it misses any window the filter
+-- failed to register -- it then reports no event at all for it, which is what
+-- the "wfilter: ... is STILL not registered" warnings in the console mean.
+-- Rebuild the list before every lookup: windows that are gone and duplicates
+-- are dropped, and the visible windows the filter does not know about are
+-- appended front to back at the least recently focused end, since we have no
+-- focus history for them. hs.window.orderedWindows() queries every application
+-- over the accessibility API, i.e. the same order of cost as the titles and
+-- icons collected below.
+local function refresh_current_windows()
+   local windows, seen = {}, {}
+   for _,w in ipairs(obj.currentWindows) do
+      local id = w:id() -- nil once the window is gone
+      if id and not seen[id] then
+         seen[id] = true
+         table.insert(windows, w)
+      end
+   end
+   for _,w in ipairs(hs.window.orderedWindows()) do
+      local id = w:id()
+      if id and not seen[id] and theWindows:isWindowAllowed(w) then
+         seen[id] = true
+         table.insert(windows, w)
+      end
+   end
+   obj.currentWindows = windows
+   return windows
+end
+
 function obj:list_window_choices(onlyCurrentApp)
    local windowChoices = {}
    local currentWin = hs.window.focusedWindow() -- may be nil (desktop focused)
    local currentApp = currentWin and currentWin:application()
    -- print("\nstarting to populate")
    -- print(currentApp)
-   for i,w in ipairs(obj.currentWindows) do
+   for i,w in ipairs(refresh_current_windows()) do
       if w ~= currentWin then
          local app = w:application()
          local appImage = nil
@@ -147,7 +179,7 @@ function obj:list_window_choices(onlyCurrentApp)
          if (not onlyCurrentApp) or (app == currentApp) then
             -- print("inserting...")
             table.insert(windowChoices, {
-                            text = w:title() .. "--" .. appName,
+                            text = (w:title() or '') .. "--" .. appName,
                             subText = appName,
                             uuid = i,
                             image = appImage,
