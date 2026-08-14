@@ -213,4 +213,32 @@ function obj:previousWindow(onlyCurrentApp)
    focusChoice(onlyCurrentApp, 1, false) -- most recently focused window
 end
 
+
+-- hs.window.filter loses a window for good whenever the accessibility API is
+-- momentarily incoherent, which is exactly what a wake looks like: the focused
+-- window of an application fails to register, the filter logs "... is STILL not
+-- registered", and from then on it reports no event for that window at all.
+-- switchedToSpace() makes every filter re-enumerate the windows of every
+-- running application; -1 is the one space number it does not memoise, so
+-- unlike a real space number it forces that refresh on each call.
+local function refresh_window_filter()
+   hs.window.filter.switchedToSpace(-1)
+end
+
+-- Long-lived on purpose: an hs.timer.delayed cannot be removed from the run
+-- loop, so both are created once, here. Two passes because the accessibility
+-- API can still be unreliable seconds after a wake; the second one is a no-op
+-- when the first was enough.
+local filterRefreshSoon = hs.timer.delayed.new(3, refresh_window_filter)
+local filterRefreshLate = hs.timer.delayed.new(15, refresh_window_filter)
+
+-- Kept on the module table: a local watcher would be garbage-collected.
+obj.wakeWatcher = hs.caffeinate.watcher.new(function(event)
+   if event == hs.caffeinate.watcher.systemDidWake
+      or event == hs.caffeinate.watcher.screensDidUnlock then
+      filterRefreshSoon:start()
+      filterRefreshLate:start()
+   end
+end):start()
+
 return obj
