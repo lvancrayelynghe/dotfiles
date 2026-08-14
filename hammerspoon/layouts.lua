@@ -107,23 +107,53 @@ local appsToLaunch = {
     apps.vscode,
 }
 
--- Closed apps or apps without windows must not abort the whole layout
-local function setFullscreenState(rows, state)
+-- Every window of an application, which takes two calls: allWindows() does not
+-- see a window that is fullscreen, macOS having given it a space of its own, and
+-- mainWindow() sees that one but none of the others. Measured on a fullscreen
+-- Slack window: absent from allWindows(), returned by mainWindow().
+local function windowsOf(bundleID)
+    local app = hs.application.applicationsForBundleID(bundleID)[1]
+    if not app then return {} end
+
+    local windows, seen = {}, {}
+    local main = app:mainWindow()
+    if main then
+        seen[main:id() or -1] = true
+        table.insert(windows, main)
+    end
+    for _, win in ipairs(app:allWindows()) do
+        local id = win:id() or -1
+        if not seen[id] then
+            seen[id] = true
+            table.insert(windows, win)
+        end
+    end
+    return windows
+end
+
+-- Leaving fullscreen covers every window: any of them could be the one
+-- hs.layout.apply is about to try to move, and macOS moves no fullscreen window.
+-- A closed application, or one without windows, must not abort the whole layout.
+local function unFullscreen(rows)
     for _, row in ipairs(rows) do
-        local app = hs.application.applicationsForBundleID(row[1])[1]
-        local win = app and app:mainWindow()
-        if win and win:isFullScreen() ~= state then
-            win:setFullScreen(state)
+        for _, win in ipairs(windowsOf(row[1])) do
+            if win:isFullScreen() then
+                win:setFullScreen(false)
+            end
         end
     end
 end
 
-local function unFullscreen(rows)
-    setFullscreenState(rows, false)
-end
-
+-- Entering it is for the main window only: macOS gives each fullscreen window a
+-- space of its own, and the second Sublime window wants none.
 local function toFullscreen(rows)
-    setFullscreenState(rows, true)
+    for _, row in ipairs(rows) do
+        local app = hs.application.applicationsForBundleID(row[1])[1]
+        local win = app and app:mainWindow()
+        if win and not win:isFullScreen() then
+            win:setFullScreen(true)
+        end
+    end
 end
 
 local function launchApps()
@@ -154,16 +184,29 @@ end
 local menu = hs.menubar.new()
 if not menu then return end
 
+-- Which layout was applied last, so that the tooltip survives a config reload --
+-- and this config reloads on every save.
+local SETTING = 'layouts.applied'
+
+local function tooltipFor(name)
+    if not name then return "No Layout" end
+    return name:gsub('^%l', string.upper) .. ' screen layout'
+end
+
 local function apply(name)
     local setup = setups[name]
     if not setup then return end
 
     local screens = currentScreens()
-    menu:setTooltip(name:gsub('^%l', string.upper) .. ' screen layout')
+    hs.settings.set(SETTING, name)
+    menu:setTooltip(tooltipFor(name))
 
     -- macOS will not move or resize a window that is in fullscreen, so leave it
-    -- first; the delay is for that transition, which the layout would otherwise
-    -- race against.
+    -- first. The delay covers that transition, and 0.5 s is comfortable rather
+    -- than tight: measured, a setFrame sent 100 ms after setFullScreen(false)
+    -- holds, and so does a move to another screen. What cannot be waited on is
+    -- isFullScreen(), which flips to false the instant the call is made -- so
+    -- polling it, the obvious "improvement" here, would wait for nothing at all.
     unFullscreen(setup.windowed)
     hs.timer.doAfter(0.5, function()
         hs.layout.apply(resolve(setup.windowed, screens))
@@ -176,7 +219,7 @@ end
 -- the menu is opened rather than once at load: plugging a screen in changes it.
 local function enableMenu()
     menu:setTitle("🖥")
-    menu:setTooltip("No Layout")
+    menu:setTooltip(tooltipFor(hs.settings.get(SETTING)))
     menu:setMenu(function()
         local detected = detectSetup(currentScreens())
         return {
