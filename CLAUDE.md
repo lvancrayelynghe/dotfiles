@@ -58,6 +58,35 @@
     `ssh -G <host>` prints the resolved config without connecting.
 - `mise/config.toml` — global toolchain versions (node, claude, gemini),
   symlinked like the rest, so `mise use -g` edits the versioned file.
+- `hammerspoon/` — `macos` package, mapped as a **single directory symlink**
+  (`recurse = false`) so that Hammerspoon's pathwatcher resolves the repo
+  directory: **any `.lua` saved here reloads the live config at once**, and a
+  syntax error takes that config down until the next save. Hence `luac -p`
+  right after writing, and drafting anything substantial elsewhere first.
+  `init.lua` requires `lib/switcher`, `caffeinate`, `keymappings`, `layouts`.
+  - `lib/switcher.lua` is vendored (PorcoSpoon / dmg) and keeps its **3-space
+    indentation**; the other files are on 4 like the rest of the repo.
+  - A watcher must stay reachable from a live value or it is
+    garbage-collected and **silently stops**: `configWatcher` is global in
+    `init.lua`, `obj.wakeWatcher` and `obj.spacesWatcher` live on the
+    switcher's module table.
+  - `hs.window.filter` only ever sees the **current Space** (`app:allWindows()`
+    can do no better), and it loses a window for good whenever the
+    accessibility API is briefly incoherent — a wake, a Space transition. It
+    says so with `wfilter: <app> (<window id>) is STILL not registered`, and
+    from then on reports no event at all for that window.
+    `hs.window.filter.switchedToSpace(-1)` is the lever that forces a
+    re-enumeration: `-1` is the one Space number never memoised in its
+    `spacesDone`, so unlike a real number it refreshes on every call.
+    `lib/switcher.lua` therefore rebuilds its own list from
+    `hs.window.orderedWindows()` instead of trusting the filter's bookkeeping,
+    and borrows only its *rules*, through `isWindowAllowed()`.
+  - There is no `hs` CLI (`hs.ipc` is never required) and `hs.allowAppleScript`
+    is off, so **the live state is only readable in the Hammerspoon console**:
+    its output goes to no file, and not to the unified log either. A module can
+    still be exercised outside Hammerspoon by driving it under plain `lua`
+    with a stub `hs` table, which is how the switcher's list bookkeeping was
+    checked.
 - zsh load order: `zshenv` (always) → `zprofile` (login: PATH,
   MANPATH, EDITOR, `typeset -U path`) → `zshrc` (interactive) →
   `zsh/*.zsh` files → `~/.zshrc_$HOST` / `~/.zshrc_local` (machine-local,
