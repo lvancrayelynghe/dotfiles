@@ -1,6 +1,13 @@
 -- API Doc : http://www.hammerspoon.org/docs/
 
-hs.application.enableSpotlightForNameSearches(true)
+-- Only when it is off: the setting is persistent across reloads and restarts,
+-- and passing true again throws away the alternate name map and rebuilds it from
+-- scratch -- a fresh Spotlight query over every application bundle on disk,
+-- which the reload below would otherwise trigger on every single save.
+-- With no argument at all the function is a pure getter (application.lua:445).
+if not hs.application.enableSpotlightForNameSearches() then
+    hs.application.enableSpotlightForNameSearches(true)
+end
 
 switcher  = require('lib/switcher')
 
