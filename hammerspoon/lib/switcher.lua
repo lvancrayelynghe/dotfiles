@@ -17,71 +17,12 @@ obj.license = "MIT - https://opensource.org/licenses/MIT"
 obj.rowsToDisplay = 14 -- how many rows to display in the chooser
 
 
--- -- for debugging purposes
--- function obj:print_table(t, f)
---    for i,v in ipairs(t) do
---       print(i, f(v))
---    end
--- end
---
--- -- for debugging purposes
---
--- function obj:print_windows()
---    function w_info(w)
---       return w:title() .. w:application():name()
---    end
---    obj:print_table(hs.window.visibleWindows(), w_info)
--- end
-
 local theWindows = hs.window.filter.new()
 theWindows:setDefaultFilter{}
 theWindows:setSortOrder(hs.window.filter.sortByFocusedLast)
-obj.currentWindows = {}
-obj.previousSelection = nil  -- the idea is that one switches back and forth between two windows all the time
 
-
--- Start by saving all windows
-
-for i,v in ipairs(theWindows:getWindows()) do
-   table.insert(obj.currentWindows, v)
-end
-
-function obj:find_window_by_title(t)
-   -- find a window by title.
-   for i,v in ipairs(obj.currentWindows) do
-      if string.find(v:title(), t) then
-         return v
-      end
-   end
-   return nil
-end
-
-function obj:focus_by_title(t)
-   -- focus the window with given title
-   if not t then
-      hs.alert.show("No string provided to focus_by_title")
-      return nil
-   end
-   local w = obj:find_window_by_title(t)
-   if w then
-      w:focus()
-   end
-   return w
-end
-
-function obj:focus_by_app(appName)
-   -- find a window with that application name and jump to it
---   print(' [' .. appName ..']')
-   for i,v in ipairs(obj.currentWindows) do
---      print('           [' .. v:application():name() .. ']')
-      if string.find(v:application():name(), appName) then
---         print("Focusing window" .. v:title())
-         v:focus()
-         return v
-      end
-   end
-   return nil
-end
+-- Start by saving all windows, most recently focused first
+obj.currentWindows = theWindows:getWindows()
 
 
 -- the hammerspoon tracking of windows seems to be broken
@@ -90,20 +31,13 @@ end
 local function callback_window_created(w, appName, event)
 
    if event == "windowDestroyed" then
---      print("deleting from windows-----------------", w)
-      if w then
---         print("destroying window" .. w:title())
-      end
       for i,v in ipairs(obj.currentWindows) do
          if v == w then
             table.remove(obj.currentWindows, i)
             return
          end
       end
---      print("Not found .................. ", w)
---      obj:print_table0(obj.currentWindows)
---      print("Not found ............ :()", w)
-      return
+      return -- not found: the rebuild below drops it anyway
    end
    if event == "windowCreated" then
       if not w then return end
