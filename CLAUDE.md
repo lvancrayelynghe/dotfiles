@@ -97,10 +97,14 @@
     every window.
   - There is no `hs` CLI (`hs.ipc` is never required) and `hs.allowAppleScript`
     is off, so **the live state is only readable in the Hammerspoon console**:
-    its output goes to no file, and not to the unified log either. A module can
-    still be exercised outside Hammerspoon by driving it under plain `lua`
-    with a stub `hs` table, which is how the switcher's list bookkeeping was
-    checked.
+    its output goes to no file, and not to the unified log either. A module is
+    therefore tested by driving it under plain `lua` against a **stub `hs`
+    table** — `hammerspoon/tests/test-switcher.lua`, the one test suite here,
+    which also counts the accessibility sweep and the icon loading so that a
+    keystroke paying for either twice fails the run. Nothing runs it
+    automatically; it is in the checks below. Add a case there when touching
+    `lib/switcher.lua` — the whole point is that two of its bugs were invisible
+    in review.
 - zsh load order: `zshenv` (always) → `zprofile` (login: PATH,
   MANPATH, EDITOR, `typeset -U path`) → `zshrc` (interactive) →
   `zsh/*.zsh` files → `~/.zshrc_$HOST` / `~/.zshrc_local` (machine-local,
@@ -149,6 +153,7 @@ time zsh -i -c exit           # budget < 200 ms
 brew bundle check --no-upgrade --verbose   # declared but missing
 brew bundle cleanup           # installed but undeclared (dry run; --force removes)
 luac -p hammerspoon/**/*.lua  # Lua syntax
+lua hammerspoon/tests/test-switcher.lua     # switcher, against a stub hs table
 tmux -f others/tmux.conf -L test new -d \; kill-server  # parse tmux.conf
 ```
 
