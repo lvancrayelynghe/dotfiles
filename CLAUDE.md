@@ -72,13 +72,21 @@
     `obj.wakeWatcher` / `obj.spacesWatcher` on the switcher's module table. A
     module-level `local` is *not* enough: nothing references a chunk's locals
     once it has run, unless a live callback captures them.
-  - Never look an application up by name loosely. `hs.application.get()` — and
-    `hs.appfinder.appFromName()`, a plain alias of it — matches on
-    **substrings** (`"Code"` also finds Xcode) and, when nothing matches, falls
-    back to searching **every window title**, so it readily returns the browser
-    holding a tab named after the app. Use `hs.application.find(name, true)`,
-    which skips both, or `applicationsForBundleID()` when the display name is
-    localised (Apple Music is `Musique` here).
+  - Applications are addressed by **bundle id**, never by name: `apps.lua` holds
+    the table and the two other files read it. Names fail three different ways —
+    `get(name)` and `find(name)` match on **substrings** (`"Code"` also finds
+    Xcode) then fall back to searching **every window title**, so they readily
+    return the browser holding a tab named after the app; `find(name, true)` is
+    exact but against the **localised** name (`Musique`, `Calendrier`); and
+    `open(name)` wants the **bundle's** name, which is often not the app's, so
+    `"Code"` launches nothing — the bundle is `Visual Studio Code.app`.
+    `applicationsForBundleID()` and `open(bundleID)` have none of it. To find an
+    id: `bundleid <name|path>`, or `bundleid -l` when the name is the problem
+    (`shell/aliases-macos.sh`).
+  - `hs.layout.apply` is the one exception: it takes a name or an
+    `hs.application` object, never a bundle id (`layout.lua:147-155`), hence
+    `resolve()` in `layouts.lua`. It drops what is not running rather than
+    passing nil, which would only print `No windows matched` per entry.
   - `hs.window.filter` only ever sees the **current Space** (`app:allWindows()`
     can do no better), and it loses a window for good whenever the
     accessibility API is briefly incoherent — a wake, a Space transition. It

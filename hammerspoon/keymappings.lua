@@ -1,19 +1,18 @@
 -- KeyCodes : http://www.hammerspoon.org/docs/hs.keycodes.html#map
 
--- find(name, true) rather than a loose name search: hs.application.get() -- and
--- hs.appfinder.appFromName(), which is a plain alias of it -- matches on
--- substrings, so "Code" also finds Xcode, and when nothing matches it falls
--- back to searching every window title, which readily returns the browser
--- holding a tab with that name in it. With exact = true neither happens.
-function launchOrSwitch(appname)
-    local app = hs.application.find(appname, true)
+local apps = require('apps')
+
+-- By bundle id throughout, see apps.lua for why: applicationsForBundleID() is
+-- exact and has no fallback, and open() takes a bundle id as readily as a name.
+function launchOrSwitch(bundleID)
+    local app = hs.application.applicationsForBundleID(bundleID)[1]
 
     if app == nil then
-        hs.application.open(appname)
+        hs.application.open(bundleID)
         return
     end
 
-    if hs.application.frontmostApplication():name() == appname then
+    if hs.application.frontmostApplication():bundleID() == bundleID then
         switcher:switchWindow(true)
         return
     end
@@ -27,30 +26,30 @@ function launchOrSwitch(appname)
 end
 
 -- App Bindings
-for key, app in pairs({
-    ["a"] = "Slack",
-    ["e"] = "Finder",
+for key, bundleID in pairs({
+    ["a"] = apps.slack,
+    ["e"] = apps.finder,
 
-    ["s"] = "Sublime Text",
-    ["g"] = "Vivaldi",
+    ["s"] = apps.sublime,
+    ["g"] = apps.vivaldi,
 
-    -- ["z"] = "Discord",
-    -- ["r"] = "Bruno",
-    -- ["t"] = "iTerm",
+    -- ["z"] = apps.discord,
+    -- ["r"] = apps.bruno,
+    -- ["t"] = apps.iterm,
 
-    -- ["y"] = "Harvest",
+    -- ["y"] = apps.harvest,
 
-    -- ["p"] = "Notes",
-    -- ["q"] = "Calendrier",
-    -- ["v"] = "Code",
+    -- ["p"] = apps.notes,
+    -- ["q"] = apps.calendar,
+    -- ["v"] = apps.vscode,
 
-    -- ["f"] = "Filezilla",
+    -- ["f"] = apps.filezilla,
 
-    -- ["x"] = "ClickUp",
-    -- ["b"] = "Sequel Ace",
+    -- ["x"] = apps.clickup,
+    -- ["b"] = apps.sequelace,
 }) do
     hs.hotkey.bind({'cmd', 'alt', 'ctrl'}, key, function()
-        launchOrSwitch(app)
+        launchOrSwitch(bundleID)
     end)
 end
 
@@ -117,17 +116,13 @@ mediaKeyTap = hs.eventtap.new({ hs.eventtap.event.types.systemDefined }, functio
     if next(event) then
         if event.key == 'PLAY' and event.down then
             -- Start Spotify if needed, but never steal focus from the
-            -- current app when it is already running.
-            -- By bundle id throughout: a name search matches on substrings and
-            -- falls back to window titles, so 'Musique' -- the localised name,
-            -- another reason not to search for it -- would return the browser
-            -- holding a tab with that word in it, and kill() would quit *that*.
-            if hs.application.applicationsForBundleID('com.spotify.client')[1] == nil then
-                hs.application.open('com.spotify.client')
+            -- current app when it is already running
+            if hs.application.applicationsForBundleID(apps.spotify)[1] == nil then
+                hs.application.open(apps.spotify)
             end
 
             hs.timer.doAfter(1, function ()
-                local app = hs.application.applicationsForBundleID('com.apple.Music')[1]
+                local app = hs.application.applicationsForBundleID(apps.music)[1]
                 if app ~= nil then
                     app:kill()
                 end
@@ -137,10 +132,11 @@ mediaKeyTap = hs.eventtap.new({ hs.eventtap.event.types.systemDefined }, functio
 end)
 mediaKeyTap:start()
 
--- Vivaldi reload
+-- Vivaldi reload. `tell application id` rather than by name here too: it is the
+-- same trap, AppleScript resolving a name through LaunchServices as well.
 hs.hotkey.bind({'cmd', 'alt', 'ctrl'}, "@", function()
-  local script = [[tell application "Vivaldi" to tell the active tab of its first window
+  local script = string.format([[tell application id "%s" to tell the active tab of its first window
     reload
-end tell]]
+end tell]], apps.vivaldi)
   hs.osascript.applescript(script)
 end)

@@ -1,3 +1,5 @@
+local apps = require('apps')
+
 local monitors = {
     laptop = "Built-in Retina Display",
     home = {
@@ -17,51 +19,47 @@ local layout = {
 
 local layoutSingleScreen = {
     fullscreen = {
-        {"Vivaldi", nil, monitors.laptop, hs.layout.maximized, nil, nil},
-        {"Code", nil, monitors.laptop, hs.layout.maximized, nil, nil},
-        {"Slack", nil, monitors.laptop, hs.layout.maximized, nil, nil},
-        {"ClickUp", nil, monitors.laptop, hs.layout.maximized, nil, nil},
-        {"Sublime Text", nil, monitors.laptop, hs.layout.maximized, nil, nil},
-        {"Discord", nil, monitors.laptop, hs.layout.maximized, nil, nil},
+        {apps.vivaldi, nil, monitors.laptop, hs.layout.maximized, nil, nil},
+        {apps.vscode, nil, monitors.laptop, hs.layout.maximized, nil, nil},
+        {apps.slack, nil, monitors.laptop, hs.layout.maximized, nil, nil},
+        {apps.clickup, nil, monitors.laptop, hs.layout.maximized, nil, nil},
+        {apps.sublime, nil, monitors.laptop, hs.layout.maximized, nil, nil},
+        {apps.discord, nil, monitors.laptop, hs.layout.maximized, nil, nil},
     },
     windowed = {
-        {"Spotify", nil, monitors.laptop, layout.spotify, nil, nil},
+        {apps.spotify, nil, monitors.laptop, layout.spotify, nil, nil},
     }
 }
 
 local layoutTripleScreen = {
     fullscreen = {
-        {"Slack", nil, monitors.laptop, hs.layout.maximized, nil, nil},
-        {"ClickUp", nil, monitors.laptop, hs.layout.maximized, nil, nil},
-        {"Sublime Text", nil, monitors.laptop, hs.layout.maximized, nil, nil},
-        {"Discord", nil, monitors.laptop, hs.layout.maximized, nil, nil},
+        {apps.slack, nil, monitors.laptop, hs.layout.maximized, nil, nil},
+        {apps.clickup, nil, monitors.laptop, hs.layout.maximized, nil, nil},
+        {apps.sublime, nil, monitors.laptop, hs.layout.maximized, nil, nil},
+        {apps.discord, nil, monitors.laptop, hs.layout.maximized, nil, nil},
     },
     windowed = {
-        {"Spotify", nil, monitors.laptop, layout.spotify, nil, nil},
-        {"Vivaldi", nil, monitors.home.left, hs.layout.left50, nil, nil},
-        {"Code", nil, monitors.home.left, hs.layout.right50, nil, nil},
+        {apps.spotify, nil, monitors.laptop, layout.spotify, nil, nil},
+        {apps.vivaldi, nil, monitors.home.left, hs.layout.left50, nil, nil},
+        {apps.vscode, nil, monitors.home.left, hs.layout.right50, nil, nil},
     }
 }
 
-local appNames = {
-    "Vivaldi",
-    "Slack",
-    "Discord",
-    "Spotify",
-    "Finder",
-    "Sublime Text",
-    "ClickUp",
-    "Code",
+local appsToLaunch = {
+    apps.vivaldi,
+    apps.slack,
+    apps.discord,
+    apps.spotify,
+    apps.finder,
+    apps.sublime,
+    apps.clickup,
+    apps.vscode,
 }
 
--- Closed apps or apps without windows must not abort the whole layout.
--- find(name, true) rather than a loose name search: an inexact one matches on
--- substrings ("Code" also finds Xcode) and otherwise falls back to window
--- titles, which would return the browser holding a tab named after the app --
--- and its main window would then be the one resized, or fullscreened.
+-- Closed apps or apps without windows must not abort the whole layout
 local function setFullscreenState(appList, state)
     for _, v in ipairs(appList) do
-        local app = hs.application.find(v[1], true)
+        local app = hs.application.applicationsForBundleID(v[1])[1]
         local win = app and app:mainWindow()
         if win and win:isFullScreen() ~= state then
             win:setFullScreen(state)
@@ -78,11 +76,26 @@ local function toFullscreen(appList)
 end
 
 local function launchApps()
-    for _, appname in ipairs(appNames) do
-        if hs.application.find(appname, true) == nil then
-            hs.application.open(appname)
+    for _, bundleID in ipairs(appsToLaunch) do
+        if hs.application.applicationsForBundleID(bundleID)[1] == nil then
+            hs.application.open(bundleID)
         end
     end
+end
+
+-- hs.layout.apply takes an application name or an hs.application object, never
+-- a bundle id (layout.lua:147-155), and a name is what we are getting away from.
+-- So resolve here, dropping whatever is not running rather than passing nil,
+-- which would only make it print "No windows matched" for each.
+local function resolve(appList)
+    local resolved = {}
+    for _, v in ipairs(appList) do
+        local app = hs.application.applicationsForBundleID(v[1])[1]
+        if app then
+            table.insert(resolved, {app, v[2], v[3], v[4], v[5], v[6]})
+        end
+    end
+    return resolved
 end
 
 local menu = hs.menubar.new()
@@ -92,8 +105,8 @@ local function setSingleScreen()
     menu:setTooltip("Single Screen Layout")
     unFullscreen(layoutSingleScreen.windowed)
     hs.timer.doAfter(0.5, function()
-        hs.layout.apply(layoutSingleScreen.windowed)
-        hs.layout.apply(layoutSingleScreen.fullscreen)
+        hs.layout.apply(resolve(layoutSingleScreen.windowed))
+        hs.layout.apply(resolve(layoutSingleScreen.fullscreen))
         toFullscreen(layoutSingleScreen.fullscreen)
     end)
 end
@@ -102,8 +115,8 @@ local function setTripleScreen()
     menu:setTooltip("Triple Screen Layout")
     unFullscreen(layoutTripleScreen.windowed)
     hs.timer.doAfter(0.5, function()
-        hs.layout.apply(layoutTripleScreen.windowed)
-        hs.layout.apply(layoutTripleScreen.fullscreen)
+        hs.layout.apply(resolve(layoutTripleScreen.windowed))
+        hs.layout.apply(resolve(layoutTripleScreen.fullscreen))
         toFullscreen(layoutTripleScreen.fullscreen)
     end)
 end
