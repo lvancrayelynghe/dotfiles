@@ -109,14 +109,26 @@
     nothing — and a hidden application stays hidden. `lib/switcher.lua` raises a
     window through `reveal()`, which undoes both first. The accessibility calls
     are animated, so the state only settles a fraction of a second later.
-  - `hs.urlevent.bind('caffeinate', …)` in `caffeinate.lua` is the config's only
-    door from outside: `open -g "hammerspoon://caffeinate?action=toggle"`, which
-    `caffeine()` in `shell/aliases-macos.sh` wraps. The scheme is claimed by the
-    app itself, so this needs nothing installed and turns nothing on. **The
-    event name and the `action` values are a contract** with that shell
-    function, which reads the resulting state back from `pmset` — going through
-    Hammerspoon rather than running `caffeinate -d` in the shell is what keeps
-    one holder of the assertion, and a menubar icon that cannot lie.
+  - `hs.urlevent.bind()` is how a terminal reaches the config: the scheme is
+    claimed by the app itself, so this needs nothing installed and turns nothing
+    on, unlike `hs.ipc` or `hs.allowAppleScript`. Two events are bound, and
+    **both names are a contract** with `shell/aliases-macos.sh`:
+    `caffeinate?action=toggle|on|off`, wrapped by `caffeine()`, which reads the
+    resulting state back from `pmset` — going through Hammerspoon rather than
+    running `caffeinate -d` in the shell is what keeps a single holder of the
+    assertion, and a menubar icon that cannot lie; and `screens`, wrapped by
+    `screenid()`, answered through `~/.cache/hammerspoon-screens.txt`.
+  - Screen names are as slippery as application names, for another reason:
+    `hs.screen:name()` is `NSScreen.localizedName` (`libscreen.m:78`), localised
+    for **the calling application**. Hammerspoon ships English only, so
+    `layouts.lua` rightly says `Built-in Retina Display` where a French
+    `osascript` is told `Écran Retina intégré` — and neither `LANG` nor
+    `AppleLanguages` changes that, hence `screenid` asking Hammerspoon itself.
+    Two more traps: `(1)`/`(2)` on identical monitors is an ordering macOS can
+    swap between reconnections, where the UUID that `hs.layout` accepts in the
+    same slot cannot; and such names are unusable with `hs.screen.find()`, which
+    takes them as Lua patterns, `(1)` being a capture group. `hs.layout.apply`
+    compares them exactly, so it is unaffected.
   - There is no `hs` CLI (`hs.ipc` is never required) and `hs.allowAppleScript`
     is off, so **the live state is only readable in the Hammerspoon console**:
     its output goes to no file, and not to the unified log either. A module is

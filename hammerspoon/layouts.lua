@@ -8,6 +8,32 @@ local monitors = {
     }
 }
 
+-- Those names only exist in this form inside Hammerspoon: hs.screen:name() is
+-- NSScreen.localizedName (libscreen.m:78), localised for the *calling*
+-- application, and Hammerspoon ships English only -- ask macOS the same question
+-- from a terminal and it answers "Écran Retina intégré". Hence this handler,
+-- which `screenid` in shell/aliases-macos.sh reads after
+--     open -g "hammerspoon://screens"
+-- The UUIDs come along because hs.layout.apply accepts one in place of a name
+-- (layout.lua:161) and, unlike "(1)" and "(2)", a UUID cannot swap between two
+-- identical monitors from one reconnection to the next.
+hs.urlevent.bind("screens", function()
+    local primary = hs.screen.primaryScreen()
+    local lines = {}
+    for _, s in ipairs(hs.screen.allScreens()) do
+        local f = s:frame()
+        table.insert(lines, string.format('%-26s %s  %dx%d at %d,%d%s',
+            tostring(s:name()), tostring(s:getUUID()), f.w, f.h, f.x, f.y,
+            s == primary and '  [primary]' or ''))
+    end
+
+    local file = io.open(os.getenv('HOME') .. '/.cache/hammerspoon-screens.txt', 'w')
+    if file then
+        file:write(table.concat(lines, '\n'), '\n')
+        file:close()
+    end
+end)
+
 local layout = {
     leftTop = {x=0, y=0, w=0.5, h=0.5},
     leftBottom = {x=0, y=0.5, w=0.5, h=0.5},
