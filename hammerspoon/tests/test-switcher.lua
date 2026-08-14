@@ -13,14 +13,19 @@
 -- it does reload the live config all the same, through the pathwatcher.
 
 local sweeps, images = 0, 0
-local subscribed, watchers, focusCalls, alerts = {}, {}, {}, {}
-local focused, orderedWindows, noBundle = nil, {}, {}
+local subscribed, watchers, focusCalls, alerts, actions = {}, {}, {}, {}, {}
+local focused, orderedWindows, noBundle, hidden = nil, {}, {}, {}
 
 -- One shared table per application name, so that `app == currentApp` holds the
 -- way it does for hs.application userdata.
 local apps = setmetatable({}, {__index = function(t, name)
     local app = {
         name = function() return name end,
+        isHidden = function() return hidden[name] == true end,
+        unhide = function()
+            hidden[name] = false
+            table.insert(actions, 'unhide:' .. name)
+        end,
         bundleID = function()
             if noBundle[name] then return nil end
             return 'id.' .. name
@@ -31,13 +36,21 @@ local apps = setmetatable({}, {__index = function(t, name)
 end})
 
 local function W(id, title, appname, subrole)
-    local w = {alive = true, _id = id, _title = title, _app = appname,
-               _subrole = subrole or 'AXStandardWindow'}
+    local w = {alive = true, minimized = false, _id = id, _title = title,
+               _app = appname, _subrole = subrole or 'AXStandardWindow'}
     function w:id() if self.alive then return self._id end return nil end
     function w:title() return self._title end
     function w:subrole() return self._subrole end
     function w:application() return apps[self._app] end
-    function w:focus() table.insert(focusCalls, self._id) end
+    function w:isMinimized() return self.minimized end
+    function w:unminimize()
+        self.minimized = false
+        table.insert(actions, 'unminimize:' .. self._id)
+    end
+    function w:focus()
+        table.insert(focusCalls, self._id)
+        table.insert(actions, 'focus:' .. self._id)
+    end
     return w
 end
 
@@ -255,6 +268,36 @@ focused, focusCalls, alerts = A, {}, {}
 switcher:previousWindow(false)
 check('no candidate focuses nothing', #focusCalls, 0)
 check('no candidate warns', alerts[1], 'no other window available ')
+
+
+-- Revealing the window ---------------------------------------------------------
+
+-- focus() alone leaves a minimized window minimized -- the application merely
+-- comes forward showing another of its windows -- so it must be un-minimized
+switcher.currentWindows = {A, C}
+orderedWindows = {A} -- a minimized window is not in orderedWindows either
+focused, actions = A, {}
+C.minimized = true
+switcher:previousWindow(false)
+check('minimized window un-minimized then focused',
+      table.concat(actions, ' '), 'unminimize:3 focus:3')
+check('minimized window kept in the list despite orderedWindows', trackedIds(), '1,3')
+
+-- and a window of a hidden application needs the application unhidden first
+switcher.currentWindows = {A, B}
+orderedWindows = {A}
+focused, actions = A, {}
+hidden['Sublime Text'] = true
+switcher:previousWindow(false)
+check('hidden application unhidden then focused',
+      table.concat(actions, ' '), 'unhide:Sublime Text focus:2')
+
+-- an ordinary window needs neither
+switcher.currentWindows = {A, B}
+orderedWindows = {A, B}
+focused, actions = A, {}
+switcher:previousWindow(false)
+check('ordinary window only focused', table.concat(actions, ' '), 'focus:2')
 
 
 -- Titles and icons, chooser only ---------------------------------------------

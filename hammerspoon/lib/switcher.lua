@@ -147,11 +147,24 @@ function obj:list_window_choices(onlyCurrentApp)
    return windowChoices;
 end
 
+-- focus() is not enough to bring a window forward. It makes the window main and
+-- brings its application to the front, which leaves a minimized window
+-- minimized -- the application comes forward and shows another of its windows
+-- instead, so the switch looks like it did nothing -- and does just as little
+-- for a window whose application is hidden. Undo both first; the window then
+-- appears, and takes the focus, once the un-minimize animation is over.
+local function reveal(w)
+   local app = w:application()
+   if app and app:isHidden() then app:unhide() end
+   if w:isMinimized() then w:unminimize() end
+   w:focus()
+end
+
 local windowChooser = hs.chooser.new(function(choice)
       if not choice then hs.alert.show("Nothing to focus"); return end
       local v = choice["win"]
       if v then
-         v:focus()
+         reveal(v)
       else
          hs.alert.show("unable to focus " .. (choice["text"] or "window"))
       end
@@ -192,7 +205,7 @@ local function focusCandidate(onlyCurrentApp, index, fallbackToAll)
    end
    local w = candidates[(index == -1) and #candidates or index]
    if w then
-      w:focus()
+      reveal(w)
    end
 end
 
