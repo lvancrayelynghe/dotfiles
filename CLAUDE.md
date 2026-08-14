@@ -95,6 +95,12 @@
     being bypassed — and gets even that wrong, since `window_filter.lua:280`
     indexes a `Window`-keyed table with a window id and so returns `false` for
     every window.
+  - `hs.window:focus()` is `becomeMain()` plus `_bringtofront()` and **reveals
+    nothing**: a minimized window stays minimized — its application merely comes
+    forward and shows another of its windows, so the switch looks like it did
+    nothing — and a hidden application stays hidden. `lib/switcher.lua` raises a
+    window through `reveal()`, which undoes both first. The accessibility calls
+    are animated, so the state only settles a fraction of a second later.
   - There is no `hs` CLI (`hs.ipc` is never required) and `hs.allowAppleScript`
     is off, so **the live state is only readable in the Hammerspoon console**:
     its output goes to no file, and not to the unified log either. A module is
@@ -105,6 +111,12 @@
     automatically; it is in the checks below. Add a case there when touching
     `lib/switcher.lua` — the whole point is that two of its bugs were invisible
     in review.
+  - To read the live state **from a terminal** rather than that console, use the
+    reload as a probe: drop a temporary module in `hammerspoon/`, `require` it
+    from `init.lua`, and have it write what it finds — or the result of an
+    experiment — to a file. Saving either file triggers the reload that runs it,
+    so no setting has to be turned on and nothing is left behind once both are
+    reverted. That is how `focus()` was caught leaving a window minimized.
 - zsh load order: `zshenv` (always) → `zprofile` (login: PATH,
   MANPATH, EDITOR, `typeset -U path`) → `zshrc` (interactive) →
   `zsh/*.zsh` files → `~/.zshrc_$HOST` / `~/.zshrc_local` (machine-local,
