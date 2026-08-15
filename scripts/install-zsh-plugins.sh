@@ -17,7 +17,10 @@ clone_or_update() {
 }
 
 mkdir -p "$PLUGINS_PATH"
-clone_or_update zsh-users/zsh-syntax-highlighting "$PLUGINS_PATH/zsh-syntax-highlighting"
+# Syntax highlighting is zsh-patina, a binary from Homebrew (macOS) or the .deb
+# (Debian) rather than a clone -- see zsh/plugins.zsh. Drop the clone it
+# replaced so the cache does not keep a repo nothing sources any more.
+rm -rf "$PLUGINS_PATH/zsh-syntax-highlighting"
 clone_or_update zsh-users/zsh-autosuggestions "$PLUGINS_PATH/zsh-autosuggestions"
 clone_or_update sindresorhus/pure "$PLUGINS_PATH/pure"
 

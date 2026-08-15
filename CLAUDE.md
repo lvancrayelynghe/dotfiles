@@ -70,7 +70,10 @@
 - `zsh/plugins.zsh` only **sources** the plugins; their network
   installation lives in `scripts/install-zsh-plugins.sh` (a hook of
   `./install`). Never any network command or extra `compinit` in the
-  startup files.
+  startup files. One exception to the sourcing rule: syntax highlighting is
+  **zsh-patina**, a compiled binary driving a daemon shared by every session,
+  so it is installed as a package (Brewfile / `.deb`) and activated with
+  `eval "$(zsh-patina activate)"`, not cloned and sourced.
 - `claude/install.sh` (atomic jq merge into `~/.claude/settings.json`) is
   the model for any hook that needs to merge rather than overwrite.
 
@@ -84,6 +87,12 @@
   it as an alias).
 - The shared aliases now depend on `dust`, `duf` and `sd`, so a server needs
   them too — their distribution package names differ from the binaries.
+- `zsh-patina` is a **binary**, and the only piece of the zsh startup that is
+  not either versioned here or cloned by `install-zsh-plugins.sh`. macOS gets
+  it from the Brewfile; Debian has **no apt repository** — grab the `.deb`
+  (`amd64`/`arm64`, plus musl builds) from the releases page and `dpkg -i` it.
+  Its absence is not fatal: `zsh/plugins.zsh` guards on `command -v`, so a
+  server without it simply has no highlighting.
 - `bash/profile` must remain POSIX sh (read by dash on Debian/Ubuntu).
 - `others/gitconfig` must stay compatible with the older git versions on
   the servers; macOS-only options go in `others/gitconfig-macos`
@@ -103,11 +112,19 @@
     felt. Reference on the M-series Mac, **minimum** of 16 iterations (zsh-bench
     reports the min, not a median, so a short run is not comparable):
     `first_prompt_lag` 138, `first_command_lag` 150, `command_lag` 21,
-    `input_lag` 10, `exit_time` 98 ms. The ceilings in the script sit ~25% above
+    `input_lag` 3.6, `exit_time` 98 ms. The ceilings in the script sit ~25% above
     those — regression guards, not targets: against romkatv's perception
     thresholds (50 / 150 / 10 / 20 ms) `first_prompt_lag` and `command_lag` are
     already 2-3× over, `first_command_lag` sits right on its threshold.
-    `git_prompt=0` is expected, pure resolves the branch asynchronously.
+    `git_prompt=0` is expected, pure resolves the branch asynchronously, and so
+    is `highlighting=0`: zsh-bench sniffs `ZSH_HIGHLIGHT_VERSION` /
+    `FAST_HIGHLIGHT_VERSION` instead of testing the rendered line, and
+    zsh-patina defines neither. `input_lag` is where a highlighter actually
+    shows up, measured here A/B over 3 interleaved rounds of 16 iterations:
+    **1.8 ms** with none loaded, **3.6 ms** with zsh-patina, **10.4 ms** with
+    the zsh-syntax-highlighting it replaced — so its share of the budget drops
+    ~5×. Nothing else moved: `command_lag` reads ~19.4 ms in all three, which is
+    `mise hook-env`, not highlighting.
     The script clones zsh-bench pinned to a SHA into `~/.cache` on first use;
     it is deliberately absent from the Brewfile (no formula, no upstream tag)
     and from `./install` (which pulls, and would move the baseline). On Linux
@@ -123,9 +140,18 @@
     are over-charged (spread ~1.1-2×).
   Any costly addition must be lazy-loaded or cached: `fzf` and `mise` both
   generate their init script into `~/.cache`, regenerated only when the binary
-  is newer, because each of them forks otherwise. `mise activate` still forks
-  `mise hook-env` from `precmd` on every prompt (~11 ms), which is the bulk of
-  `command_lag` and is invisible to the `exit` check.
+  is newer, because each of them forks otherwise. `zsh-patina activate` is the
+  documented **exception** — it forks ~4 ms and must still run every time,
+  because that call is what starts the daemon and the script it prints carries
+  the version the daemon checks per request. Cached, the daemon never starts
+  and the emitted script returns silently on the missing socket: highlighting
+  dies with nothing on stderr. `zsh-patina check` diagnoses it, from an
+  activated shell — it also warns that `~/.zshrc` lacks the string
+  `zsh-patina activate`, which is a false positive here, the call lives in
+  `zsh/plugins.zsh`.
+  `mise activate` still forks `mise hook-env` from `precmd` on every prompt
+  (~11 ms), which is the bulk of `command_lag` and is invisible to the `exit`
+  check.
 
 ## Pre-commit checks
 

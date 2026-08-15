@@ -27,7 +27,7 @@ ZSH_BENCH_TIMEOUT="${ZSH_BENCH_TIMEOUT:-300}"
 MAX_FIRST_PROMPT_LAG="${MAX_FIRST_PROMPT_LAG:-170}"
 MAX_FIRST_COMMAND_LAG="${MAX_FIRST_COMMAND_LAG:-185}"
 MAX_COMMAND_LAG="${MAX_COMMAND_LAG:-28}"
-MAX_INPUT_LAG="${MAX_INPUT_LAG:-16}"
+MAX_INPUT_LAG="${MAX_INPUT_LAG:-6}"
 MAX_EXIT_TIME="${MAX_EXIT_TIME:-130}"
 
 usage() {
@@ -154,8 +154,17 @@ printf '%s\n' "$out" | awk \
         printf "  capabilities: compsys=%s highlighting=%s autosuggestions=%s git_prompt=%s tty=%s\n", \
                v["has_compsys"], v["has_syntax_highlighting"], \
                v["has_autosuggestions"], v["has_git_prompt"], v["creates_tty"]
-        # pure resolves the branch asynchronously, so it is absent from the
-        # first prompt by design: git_prompt=0 is the expected reading here.
+        # Two zeroes on that line are expected, not regressions:
+        #   git_prompt=0     pure resolves the branch asynchronously, so it is
+        #                    absent from the first prompt by design.
+        #   highlighting=0   zsh-bench probes for the variables set by
+        #                    zsh-syntax-highlighting and fast-syntax-highlighting
+        #                    (ZSH_HIGHLIGHT_VERSION / FAST_HIGHLIGHT_VERSION)
+        #                    rather than testing the rendered line, and
+        #                    zsh-patina sets neither. input_lag_ms is where the
+        #                    highlighter shows up: ~1.8 ms with none loaded,
+        #                    ~3.6 ms with patina, ~10.4 ms with the plugin it
+        #                    replaced.
         print ""
         if (failed) {
             printf "  %d ceiling(s) exceeded\n", failed
