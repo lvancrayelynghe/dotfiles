@@ -14,6 +14,9 @@ notify-on-command-finish = unfocused
 notify-on-command-finish-action = no-bell,notify
 notify-on-command-finish-after = 30s
 
+# Right Option = Alt (fzf Alt-C); not `true`: the left types { } [ ] | @ # \ ~
+macos-option-as-alt = right
+
 
 # ghostty +list-keybinds --default
 keybind = super+q=unbind
