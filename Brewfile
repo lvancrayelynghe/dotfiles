@@ -38,6 +38,7 @@ brew "duf" # replaces df
 brew "bat"
 brew "eza"
 brew "fzf"
+brew "television"
 brew "zoxide"
 brew "lf"
 brew "ranger"
