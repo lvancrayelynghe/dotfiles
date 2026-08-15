@@ -109,11 +109,13 @@ zstyle ':completion:*:history-words' menu yes
 # Environmental Variables
 zstyle ':completion::*:(-command-|export):*' fake-parameters ${${${_comps[(I)-value-*]#*,}%%,*}:#-*-}
 
-# Populate hostname completion.
+# Populate hostname completion. The versioned ssh skeleton declares no Host
+# (see CLAUDE.md); they all live in ~/.ssh/config.d/, which has to be read too.
+# Read at completion time — no hostname ever lands in this repo.
 zstyle -e ':completion:*:hosts' hosts 'reply=(
   ${=${=${=${${(f)"$(cat {/etc/ssh_,~/.ssh/known_}hosts(|2)(N) 2>/dev/null)"}%%[#| ]*}//\]:[0-9]*/ }//,/ }//\[/ }
   ${${${=${${(f)"$(cat /etc/hosts 2>/dev/null)"}%%\#*}}:#*.dev}:#*.test}
-  ${=${${${${(@M)${(f)"$(cat ~/.ssh/config 2>/dev/null)"}:#Host *}#Host }:#*\**}:#*\?*}}
+  ${=${${${${(@M)${(f)"$(cat ~/.ssh/config ~/.ssh/config.d/*.conf(N) 2>/dev/null)"}:#Host *}#Host }:#*\**}:#*\?*}}
 )'
 
 # Don't complete parameters...
