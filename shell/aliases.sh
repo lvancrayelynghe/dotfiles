@@ -22,6 +22,7 @@ fi
 alias pwd=' pwd'
 alias cd=' cd'
 alias cdg=' cd "$(git rev-parse --show-toplevel)"' ## git root
+alias zz=' fzf-cd-home' ## fzf-pick any dir under $HOME (z/zi only know visited ones)
 
 # Listing
 alias l='ls -lh --group-directories-first'

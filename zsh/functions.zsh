@@ -155,6 +155,23 @@ function mkdir-cd() {
     mkdir "${1}" && cd "${1}"
 }
 
+# Pick any directory under $HOME with fzf and "cd" into it (arg seeds the query)
+function fzf-cd-home() {
+    # fzf's own walker (>= 0.48) rather than fd: nothing more to install on a
+    # server, and it streams. No `hidden`, so dotfolders are out -- ~/.dotfiles
+    # included, reach that one with z. "Google Drive" is a symlink into the
+    # skipped Library, so `follow` needs it named. Run from $HOME: relative paths.
+    local dir
+    dir=$(builtin cd -q -- "$HOME" && fzf --walker=dir,follow \
+        --walker-skip='node_modules,vendor,Library,Google Drive' \
+        --scheme=path --reverse --query="${1:-}" \
+        --preview='eza -1 --color=always --group-directories-first {}')
+
+    # Escape leaves $dir empty: return 0, or the prompt reports a failure
+    [ -n "$dir" ] || return 0
+    cd "$HOME/$dir"
+}
+
 # Find and replace in current dir. Patterns are Rust regexes (sd), not sed BRE:
 # capture groups are (…) and the replacement uses $1, not \1.
 function find-and-replace() {
