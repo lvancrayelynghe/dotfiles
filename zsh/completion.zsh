@@ -161,8 +161,11 @@ zstyle ':completion:*:*:mpv:*'    file-patterns '*.(#i)(avi|mkv|mp4|flac|m4a):me
 zstyle ':completion:*:*:pinta:*'  file-patterns '*.(#i)(jpg|png|gif):images(-.) *(-/):directories' '*:all-files'
 zstyle ':completion:*:*:wine:*'   file-patterns '*.(#i)exe:exe(-.) *(-/):directories' '*:all-files'
 
-# Ignored patterns
-zstyle ':completion:*:*:(subl|vim|nvim|vi|emacs|nano|e|v|s):*:*files' ignored-patterns '*.(#i)(wav|mp3|flac|ogg|mp4|avi|mkv|webm|iso|dmg|so|o|a|bin|exe|dll|pcap|7z|zip|tar|gz|bz2|rar|deb|pkg|gzip|pdf|mobi|epub|png|jpeg|jpg|gif)'
+# Ignored patterns. The commands must be the names an alias resolves to: zsh
+# builds the completion context from the expansion, so `s` never matches here,
+# `open-with-sublime-text` does. The (#i) is required, unlike in file-patterns
+# above: this is plain pattern matching, out of reach of case_glob.
+zstyle ':completion:*:*:(subl|vim|nvim|vi|emacs|nano|open-with-vim|open-with-sublime-text):*:*files' ignored-patterns '*.(#i)(wav|mp3|flac|ogg|mp4|avi|mkv|webm|iso|dmg|so|o|a|bin|exe|dll|pcap|7z|zip|tar|gz|bz2|rar|deb|pkg|gzip|pdf|mobi|epub|png|jpeg|jpg|gif)'
 
 # SSH/SCP/RSYNC
 zstyle ':completion:*:(scp|rsync):*' tag-order 'hosts:-host:host hosts:-domain:domain hosts:-ipaddr:ip\ address *'
