@@ -61,9 +61,9 @@ zstyle ':completion:*' verbose yes
 # Fuzzy match mistyped completions.
 zstyle ':completion:*' completer _complete _match _approximate
 zstyle ':completion:*:match:*' original only
-zstyle ':completion:*:approximate:*' max-errors 1 numeric
 
-# Increase the number of errors based on the length of the typed word.
+# Increase the number of errors based on the length of the typed word. A static
+# max-errors on the same context would be replaced by this one.
 zstyle -e ':completion:*:approximate:*' max-errors 'reply=($((($#PREFIX+$#SUFFIX)/3))numeric)'
 
 # Don't complete unavailable commands.
@@ -157,14 +157,16 @@ zstyle ':completion:*:*:kill:*' insert-ids single
 zstyle ':completion:*:manuals' separate-sections true
 zstyle ':completion:*:manuals.(^1*)' insert-sections true
 
-# Files types completions
-zstyle ':completion:*:*:php:*'    file-patterns '*.(#i)php:php(-.) *(-/):directories' '*:all-files'
-zstyle ':completion:*:*:perl:*'   file-patterns '*.(#i)pl:perl(-.) *(-/):directories' '*:all-files'
-zstyle ':completion:*:*:python:*' file-patterns '*.(#i)py:python(-.) *(-/):directories' '*:all-files'
-zstyle ':completion:*:*:ruby:*'   file-patterns '*.(#i)rb:ruby(-.) *(-/):directories' '*:all-files'
-zstyle ':completion:*:*:mpv:*'    file-patterns '*.(#i)(avi|mkv|mp4|flac|m4a):medias(-.) *(-/):directories' '*:all-files'
-zstyle ':completion:*:*:pinta:*'  file-patterns '*.(#i)(jpg|png|gif):images(-.) *(-/):directories' '*:all-files'
-zstyle ':completion:*:*:wine:*'   file-patterns '*.(#i)exe:exe(-.) *(-/):directories' '*:all-files'
+# Files types completions. No (#i) needed: file-patterns drives filename
+# generation, which the case_glob unset above already makes case-insensitive —
+# *.php matches SCRIPT.PHP. Restoring that option makes these case-sensitive.
+zstyle ':completion:*:*:php:*'    file-patterns '*.php:php(-.) *(-/):directories' '*:all-files'
+zstyle ':completion:*:*:perl:*'   file-patterns '*.pl:perl(-.) *(-/):directories' '*:all-files'
+zstyle ':completion:*:*:python:*' file-patterns '*.py:python(-.) *(-/):directories' '*:all-files'
+zstyle ':completion:*:*:ruby:*'   file-patterns '*.rb:ruby(-.) *(-/):directories' '*:all-files'
+zstyle ':completion:*:*:mpv:*'    file-patterns '*.(avi|mkv|mp4|flac|m4a):medias(-.) *(-/):directories' '*:all-files'
+zstyle ':completion:*:*:pinta:*'  file-patterns '*.(jpg|png|gif):images(-.) *(-/):directories' '*:all-files'
+zstyle ':completion:*:*:wine:*'   file-patterns '*.exe:exe(-.) *(-/):directories' '*:all-files'
 
 # Ignored patterns. The commands must be the names an alias resolves to: zsh
 # builds the completion context from the expansion, so `s` never matches here,
