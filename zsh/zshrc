@@ -1,24 +1,8 @@
 #!/usr/bin/env zsh
-
-# DEBUG=true
-zmodload zsh/datetime
-function trace-time() {
-    if [[ -n "$TT_START" ]]; then
-        local TT_DIFF
-        printf -v TT_DIFF '%.4f' $((EPOCHREALTIME - TT_START))
-        echo -e "------------------------------------------------------------- ${TT_DIFF}\r${TT_MSG} "
-        TT_START=""
-        TT_MSG=""
-    fi
-
-    if [ ! $# -eq 0 ]; then
-        TT_START=$EPOCHREALTIME
-        TT_MSG="$@"
-    fi
-}
-
-
-[[ -n "$DEBUG" ]] && trace-time "Initializing dotfiles"
+#
+# Startup cost is measured from outside, never from instrumentation left in
+# here: scripts/bench-shell.sh for the user-visible latencies,
+# scripts/trace-shell.sh for the per-file attribution.
 
 DOTFILES_PATH=${DOTFILES_PATH:-$HOME/.dotfiles/public}
 BIN_PATH=${BIN_PATH:-$HOME/bin}
@@ -32,46 +16,26 @@ LOCAL_CONFIG_FILE="$HOME/.zshrc_local"
 
 [[ -d "$HOME/.cache" ]] || mkdir -p "$HOME/.cache"
 
-[[ -n "$DEBUG" ]] && trace-time "Loading global.zsh"
 source "${DOTFILES_PATH}/zsh/global.zsh"
-
-[[ -n "$DEBUG" ]] && trace-time "Loading plugins.zsh"
 source "${DOTFILES_PATH}/zsh/plugins.zsh"
-
-[[ -n "$DEBUG" ]] && trace-time "Loading completion.zsh"
 source "${DOTFILES_PATH}/zsh/completion.zsh"
-
-[[ -n "$DEBUG" ]] && trace-time "Loading directories.zsh"
 source "${DOTFILES_PATH}/zsh/directories.zsh"
-
-[[ -n "$DEBUG" ]] && trace-time "Loading history.zsh"
 source "${DOTFILES_PATH}/zsh/history.zsh"
-
-[[ -n "$DEBUG" ]] && trace-time "Loading key-bindings.zsh"
 source "${DOTFILES_PATH}/zsh/key-bindings.zsh"
-
-[[ -n "$DEBUG" ]] && trace-time "Loading aliases"
 source "${DOTFILES_PATH}/shell/aliases.sh"
 source "${DOTFILES_PATH}/zsh/aliases.zsh"
-
-[[ -n "$DEBUG" ]] && trace-time "Loading functions.zsh"
 source "${DOTFILES_PATH}/zsh/functions.zsh"
-
-[[ -n "$DEBUG" ]] && trace-time "Loading snippets.zsh"
 source "${DOTFILES_PATH}/zsh/snippets.zsh"
 
-[[ -n "$DEBUG" ]] && trace-time "Loading host/local config files"
 [[ -e "$HOST_CONFIG_FILE" ]] && source "$HOST_CONFIG_FILE"
 [[ -e "$LOCAL_CONFIG_FILE" ]] && source "$LOCAL_CONFIG_FILE"
 
-[[ -n "$DEBUG" ]] && trace-time "Loading plugins/colored-man.plugin.zsh"
 source "${DOTFILES_PATH}/zsh/plugins/colored-man.plugin.zsh"
 
 # fzf key bindings (Ctrl-R, Ctrl-T, Alt-C) and completion. `fzf --zsh` forks,
 # and probing for it forked a second time -- ~20 ms each. Cache the generated
 # script instead and regenerate it only when the binary is newer.
 if command -v fzf >/dev/null 2>&1; then
-    [[ -n "$DEBUG" ]] && trace-time "Loading fzf"
     _fzf_cache="$HOME/.cache/fzf-init.zsh"
     if [[ ! -f "$_fzf_cache" || "$_fzf_cache" -ot "$commands[fzf]" ]]; then
         mkdir -p "${_fzf_cache:h}"
@@ -88,7 +52,6 @@ fi
 
 # zoxide: smarter cd (z / zi)
 if command -v zoxide >/dev/null 2>&1; then
-    [[ -n "$DEBUG" ]] && trace-time "Loading zoxide"
     eval "$(zoxide init zsh)"
     alias zd='zi'
 fi
@@ -98,7 +61,6 @@ fi
 # cache. Loaded here, after the local config files, so mise owns the toolchain
 # PATH -- see the note in ~/.zshrc_local if nvm is still declared there.
 if command -v mise >/dev/null 2>&1; then
-    [[ -n "$DEBUG" ]] && trace-time "Loading mise"
     _mise_cache="$HOME/.cache/mise-activate.zsh"
     if [[ ! -f "$_mise_cache" || "$_mise_cache" -ot "$commands[mise]" ]]; then
         mkdir -p "${_mise_cache:h}"
@@ -109,20 +71,14 @@ if command -v mise >/dev/null 2>&1; then
 fi
 
 if hash php >/dev/null 2>&1; then
-    [[ -n "$DEBUG" ]] && trace-time "Loading plugins/laravel.plugin.zsh"
     source "${DOTFILES_PATH}/zsh/plugins/laravel.plugin.zsh"
     if hash composer >/dev/null 2>&1; then
-        [[ -n "$DEBUG" ]] && trace-time "Loading plugins/composer.plugin.zsh"
         source "${DOTFILES_PATH}/zsh/plugins/composer.plugin.zsh"
     fi
 fi
 
 if hash npm >/dev/null 2>&1; then
-    [[ -n "$DEBUG" ]] && trace-time "Loading plugins/npm.plugin.zsh"
     source "${DOTFILES_PATH}/zsh/plugins/npm.plugin.zsh"
 fi
 
-[[ -n "$DEBUG" ]] && trace-time "Loading plugins/last-working-dir"
 source "${DOTFILES_PATH}/zsh/plugins/last-working-dir.plugin.zsh"
-
-trace-time
