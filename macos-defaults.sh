@@ -193,10 +193,82 @@ defaults write com.apple.SoftwareUpdate AutomaticDownload -int 1
 defaults write com.apple.SoftwareUpdate CriticalUpdateInstall -int 1
 
 ###############################################################################
+# Menu bar                                                                    #
+###############################################################################
+#
+# Captured from a configured machine (macOS 26.5 Tahoe). Only what follows is
+# reachable from a script — the block closing this section documents the large
+# part of the menu bar that is not, and has to be redone by hand.
+#
+# Two reproducible mechanisms, and they are not the same thing:
+#   - Control Center modules, stored as ints in the ByHost domain.
+#   - AppKit status items pulled out of the menu bar with cmd-drag, persisted
+#     as "NSStatusItem Visible <autosaveName>" in the owning app's own domain.
+# Types below were read back with `defaults read-type`.
+#
+# A third-party app must be QUIT before its line runs: cfprefsd serves a
+# running app its cached domain and rewrites the file when the app exits,
+# silently reverting the write.
+
+# Control Center modules (ByHost). Observed on this Mac: 18 = shown in the menu
+# bar, 8 = not shown. Any module absent from this list is left at its default.
+defaults -currentHost write com.apple.controlcenter FocusModes -int 8
+defaults -currentHost write com.apple.controlcenter ScreenMirroring -int 8
+defaults -currentHost write com.apple.controlcenter VoiceControl -int 8
+defaults -currentHost write com.apple.controlcenter SolariumBentoBox -int 8
+
+# System items that carry their own switch instead
+defaults write com.apple.controlcenter "NSStatusItem Visible FaceTime" -bool false
+defaults write com.apple.Siri StatusMenuVisible -bool false
+defaults write com.apple.airplay showInMenuBarIfPresent -bool false
+# Input source menu (the flag)
+defaults write com.apple.TextInputMenuAgent "NSStatusItem Visible Item-0" -bool false
+
+# Third-party items pulled out of the menu bar with cmd-drag. The autosave
+# name is assigned by AppKit in creation order, so "Item-0" is only meaningful
+# for an app that creates exactly one status item.
+defaults write com.raycast.macos "NSStatusItem Visible raycastIcon" -bool false
+defaults write com.raycast.macos "NSStatusItem Visible Item-1" -bool false
+defaults write com.knollsoft.Hyperkey "NSStatusItem Visible Item-0" -bool false
+
+# Third-party items removed through the app's own preference, which is the
+# better lever: the status item is never instantiated at all
+defaults write com.knollsoft.Rectangle hideMenubarIcon -bool true
+defaults write com.knollsoft.Hyperkey hideMenuBarIcon -bool true
+defaults write org.hammerspoon.Hammerspoon MJShowMenuIconKey -bool false
+
+# NOT reproducible from here — redo by hand on a new machine
+# ----------------------------------------------------------
+# System Settings > Menu Bar lists every app that has ever declared a status
+# item, one switch each. Those switches do control the icon, and take effect
+# immediately — but their state is stored nowhere a script can reach. Checked
+# on 2026-08-15 by snapshotting all 1156 preference domains (standard and
+# ByHost) around a single toggle: nothing moved, there nor in
+# /Library/Preferences, backgrounditems.btm, ~/Library/Application Support, or
+# any file ControlCenter holds open. Most likely a TCC-style protected store,
+# unreadable without full disk access.
+#
+# Switched off by hand in that pane, to redo:
+#   1Password, ClickUp, Discord, Espanso, FluidVoice, Gemini, Google Drive,
+#   Harvest, Hidden Bar, IPdivaClientExecutable, LibreOffice, macshot,
+#   MacWhisper, Ollama, OrbStack, Rectangle, ScriptMonitor, Vivaldi
+# Left on: Hammerspoon, Itsycal.
+#
+# Also deliberately not captured:
+#   - com.apple.controlcenter "NSStatusItem Visible Item-0" ... "Item-9": ten
+#     opaque positional names left by the Tahoe menu bar migration
+#     (HasAttemptedMenuBarWorkflowMigration). They do not track that pane —
+#     they stayed false while an app was switched back on — and map to nothing
+#     identifiable, so replaying them would hide arbitrary items.
+#   - org.p0deje.Maccy, com.jordanbaird.Ice: stale domains, apps not installed.
+#   - macshot and MacWhisper: "NSStatusItem VisibleCC" = moved into Control
+#     Center rather than hidden.
+
+###############################################################################
 # Apply                                                                       #
 ###############################################################################
 
-for app in "cfprefsd" "Dock" "Finder" "SystemUIServer"; do
+for app in "cfprefsd" "ControlCenter" "Dock" "Finder" "SystemUIServer"; do
     killall "$app" &> /dev/null || true
 done
 
