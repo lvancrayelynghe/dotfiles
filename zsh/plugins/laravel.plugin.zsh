@@ -61,6 +61,24 @@ _artisan () {
     fi
 }
 
-compdef _artisan php artisan
+# `compdef _artisan php artisan` binds _artisan to *both* names -- compdef has
+# no notion of a two-word command -- so every `php <TAB>` landed in _artisan.
+# Outside a Laravel root it adds nothing yet still returns 0, so the completion
+# system considers the word handled and never falls back: `php path/to/scr<TAB>`
+# completed nothing at all. Dispatch by hand instead.
+_php_or_artisan() {
+    if (( CURRENT > 2 )) && [[ $words[2] == artisan ]]; then
+        # let _artisan see itself as words[1]; both are restored on return
+        local -a words=( "${(@)words[2,-1]}" )
+        local CURRENT=$(( CURRENT - 1 ))
+        _artisan "$@"
+    elif (( $+functions[_php] )); then   # autoload stub declared by compinit
+        _php "$@"
+    else
+        _default "$@"
+    fi
+}
+
+compdef _php_or_artisan php
 compdef _artisan artisan
 compdef _artisan art
