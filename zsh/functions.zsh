@@ -278,6 +278,17 @@ function gifify() {
     fi
 }
 
+# Tetris (arrows to play, F1 for the keys, q to quit, --silly for the animation)
+function tetris() {
+    # tetriscurses ships with zsh, in $fpath: autoloaded here rather than at
+    # startup, and it zmodloads zsh/curses itself (nothing happens without it).
+    autoload -Uz tetriscurses
+    tetriscurses "$@"
+    # it defines its ~14 helpers in the global scope and never removes them
+    unfunction -m '__tetris-*' 2>/dev/null
+    return 0
+}
+
 # Matrix
 function matrix() {
     echo -e "\e[1;40m" ; clear ; characters=$( jot -c 94 33 | tr -d '\n' ) ; while :; do echo $LINES $COLUMNS $(( $RANDOM % $COLUMNS)) $(( $RANDOM % 72 )) $characters ;sleep 0.05; done|gawk '{ letters=$5; c=$4; letter=substr(letters,c,1);a[$3]=0;for (x in a) {o=a[x];a[x]=a[x]+1; printf "\033[%s;%sH\033[2;32m%s",o,x,letter; printf "\033[%s;%sH\033[1;37m%s\033[0;0H",a[x],x,letter;if (a[x] >= $1) { a[x]=0; } }}'
