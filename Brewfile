@@ -18,6 +18,7 @@ brew "vim"
 brew "tmux"
 brew "bash"
 brew "zsh"
+brew "zsh-patina" # syntax highlighting: Rust daemon, activated in zsh/plugins.zsh
 brew "htop"
 brew "iftop"
 brew "tree"
