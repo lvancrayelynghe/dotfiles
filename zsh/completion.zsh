@@ -72,14 +72,19 @@ zstyle ':completion:*:functions' ignored-patterns '(_*|pre(cmd|exec))'
 # Array completion element sorting.
 zstyle ':completion:*:*:-subscript-:*' tag-order indexes parameters
 
-# Load directories colors in "ls" command
-if whence dircolors >/dev/null; then
-  [[ -e ~/.dircolors ]] && eval `dircolors ~/.dircolors`
-  zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
+# Load directories colors in "ls" command. GNU coreutils is prefixed on macOS,
+# where ls is aliased to gls — hence the two names.
+# One fork, +0.5 ms, deliberately not cached like fzf and mise: the output
+# depends on $TERM, so a cache would serve the wrong palette under tmux or ssh.
+_dircolors=${commands[gdircolors]:-$commands[dircolors]}
+if [[ -n $_dircolors ]]; then
+    [[ -e ~/.dircolors ]] && eval "$("$_dircolors" ~/.dircolors)"
+    zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
 else
-  export CLICOLOR=1
-  zstyle ':completion:*:default' list-colors ''
+    export CLICOLOR=1
+    zstyle ':completion:*:default' list-colors ''
 fi
+unset _dircolors
 
 # https://misc.flogisoft.com/bash/tip_colors_and_formatting
 zstyle ':completion:*'                 list-colors 'di=94' 'ln=35' 'so=32' 'ex=92' 'bd=46;34' 'cd=43;34'

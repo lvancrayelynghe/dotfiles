@@ -59,6 +59,18 @@ TERM xterm-256color
 TERM xterm-88color
 TERM xterm-color
 TERM xterm-debian
+# A terminal matching no entry here gets LS_COLORS='' and loses its colours
+# silently. The globs below are the ones GNU coreutils ships in its own
+# defaults (`dircolors -p`); ghostty announces itself as xterm-ghostty.
+TERM *color*
+TERM *direct*
+TERM alacritty
+TERM ghostty
+TERM kitty
+TERM rxvt*
+TERM screen*
+TERM tmux*
+TERM xterm*
 
 
 # Effects
