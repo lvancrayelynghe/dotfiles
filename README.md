@@ -23,9 +23,18 @@ prompt, vim-plug and the Claude Code statusline. Re-run it any time.
 ### macOS extras
 
 ```sh
-brew bundle              # install packages, apps and fonts (see Brewfile)
-./macos-defaults.sh mbp  # system preferences (hostname optional)
+brew bundle                       # install packages, apps and fonts (see Brewfile)
+./macos-defaults.sh "My MacBook"  # system preferences (name optional)
 ```
+
+`macos-defaults.sh` is neither symlinked nor called by `./install`: every line
+writes a system preference, so it is run by hand, once, on a fresh install —
+never to check something. The optional argument sets `ComputerName` verbatim
+and derives `LocalHostName` from a sanitised copy (the Bonjour name accepts
+neither spaces nor accents); `HostName` is deliberately left unset so macOS
+keeps deriving it from the network. Read the file first: the commented-out
+lines are settings deliberately left at the macOS default, and uncommenting one
+is an opt-in.
 
 ### Linux servers
 
@@ -59,7 +68,7 @@ The second line is not optional: the shared aliases route `du`, `df` and
 | `scripts/trace-shell.sh` | where zsh startup time goes, per sourced file or per line |
 | `claude/` | Claude Code statusline + merge-based installer |
 | `Brewfile` | macOS packages (`brew bundle`) |
-| `macos-defaults.sh` | macOS system preferences |
+| `macos-defaults.sh` | macOS system preferences — run by hand, never by `./install` |
 
 Per-tool directories (`ghostty/`, `lla/`, `ranger/`, `vim/`, `hammerspoon/`,
 `sublime-text/`, `vscode/`, `rectangle/`) each hold that tool's own config.

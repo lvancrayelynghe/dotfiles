@@ -76,6 +76,34 @@
   `eval "$(zsh-patina activate)"`, not cloned and sourced.
 - `claude/install.sh` (atomic jq merge into `~/.claude/settings.json`) is
   the model for any hook that needs to merge rather than overwrite.
+- `macos-defaults.sh` — **not mapped in dotter, not called by `./install`**:
+  every line writes a system preference, so it is run by hand, once, on a fresh
+  install. Never run it to inspect anything — read it, or read the machine with
+  `defaults read <domain> <key>`. Regenerated 2026-08-15 from the live state of
+  a MacBookPro18,3 on macOS 26.5, and three rules keep it readable: an active
+  line reproduces a value the machine actually has, a commented-out line is a
+  setting left at the macOS default (uncommenting is a deliberate opt-in), and
+  a key that no longer exists is deleted rather than left to rot.
+  - The 16 removed keys are listed at the bottom of the file with the method
+    that condemned them: a key is dead only if its name is absent as a
+    **standalone C literal** from the owning binary — both architecture slices,
+    including strings inlined as x86_64 `movabs` immediates, which `strings`
+    cannot see — *and* from all twelve slices of the dyld shared cache. That
+    last clause is not optional: `mru-spaces` and `showhidden` are inlined, so
+    a naive `strings` sweep reports them missing while they are alive. Matching
+    a substring instead is the other trap — `SortColumn` hits inside
+    `_updateSortColumn`.
+  - Two failure modes the file comments rather than repeats: `-dict`
+    **replaces** a dictionary where `-dict-add` merges (the old
+    `FXInfoPanesExpanded` line silently dropped four panes), and the
+    `com.apple.SoftwareUpdate` keys are read only from `/Library/Preferences`,
+    so writing them to the user domain without `sudo` is a silent no-op.
+  - The menu bar section reaches exactly two mechanisms: Control Center modules
+    (ints in the **ByHost** domain, 18 shown / 8 hidden) and `NSStatusItem
+    Visible <autosaveName>` in each app's own domain. The System Settings >
+    Menu Bar switches are stored where no script can read them; the file lists
+    what has to be redone by hand. A third-party app must be **quit** before
+    its line runs, or cfprefsd rewrites the domain from its cache on exit.
 
 ## Compatibility constraints
 
@@ -171,7 +199,7 @@ VS Code Remote-SSH host list or a provider token; `./install` points
 ```sh
 zsh -n <file.zsh>             # zsh syntax
 bash -n <file.sh>             # bash syntax (shell/aliases*.sh must pass both)
-shellcheck install scripts/*.sh others/git-templates/hooks/pre-commit
+shellcheck install scripts/*.sh macos-defaults.sh others/git-templates/hooks/pre-commit
 ./install                     # must remain idempotent (zero prompts, re-runnable)
 time zsh -i -c exit           # portable smoke test < 130 ms (blind after zshrc)
 scripts/bench-shell.sh        # zsh-bench in a pty: the latencies the line above misses
