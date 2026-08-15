@@ -88,11 +88,44 @@
 - `others/gitconfig` must stay compatible with the older git versions on
   the servers; macOS-only options go in `others/gitconfig-macos`
   (loaded via `includeIf "gitdir:/Users/"`).
-- Shell startup budget: `time zsh -i -c exit` must stay **under 200 ms**
-  (measured ~80 ms, with a real spread under load — measure several times).
+- Shell latency is measured by two checks, because they answer different
+  questions, and by no instrumentation left inside the startup files.
+  - `time zsh -i -c exit` — **ceiling 130 ms** (measured ~100 ms, real spread
+    under load, measure several times). Portable smoke test, and the only one a
+    Debian server runs over ssh with nothing installed. It tracks the sourcing
+    path closely — this config defers nothing, so a cost added to `zsh/zshrc`
+    moves it roughly 1:1 — but it is **blind to everything after zshrc**:
+    prompt, zle-init, `precmd` hooks. A 50 ms `precmd` hook moves `command_lag`
+    by +68 ms and this metric by −0.5 ms. It also does not run the same code:
+    under `-c` there is no zle, so mise emits `can't change option: zle` twice
+    and zoxide skips its `[[ -o zle ]]` branch.
+  - `scripts/bench-shell.sh` — zsh-bench in a pty, ~35 s, what is actually
+    felt. Reference on the M-series Mac, **minimum** of 16 iterations (zsh-bench
+    reports the min, not a median, so a short run is not comparable):
+    `first_prompt_lag` 138, `first_command_lag` 150, `command_lag` 21,
+    `input_lag` 10, `exit_time` 98 ms. The ceilings in the script sit ~25% above
+    those — regression guards, not targets: against romkatv's perception
+    thresholds (50 / 150 / 10 / 20 ms) `first_prompt_lag` and `command_lag` are
+    already 2-3× over, `first_command_lag` sits right on its threshold.
+    `git_prompt=0` is expected, pure resolves the branch asynchronously.
+    The script clones zsh-bench pinned to a SHA into `~/.cache` on first use;
+    it is deliberately absent from the Brewfile (no formula, no upstream tag)
+    and from `./install` (which pulls, and would move the baseline). On Linux
+    zsh-bench runs its payload through `$SHELL`, not the shell in `/etc/passwd`:
+    with a bash `$SHELL` it does not fail, it **hangs forever with no output**
+    — hence the forced `SHELL` and the `timeout` wrapper in the script. A server
+    also needs its own ceilings, a VPS is nothing like the Mac:
+    `MAX_FIRST_PROMPT_LAG=400 MAX_COMMAND_LAG=60 scripts/bench-shell.sh`.
+  - `scripts/trace-shell.sh` — where the time goes, per sourced file (`-x` for
+    per line). A ranking, not absolute costs: the DEBUG trap that keeps the
+    timestamp alive through pure's `PROMPT4` costs ~20%, charged per command
+    executed rather than per millisecond, so files running many cheap commands
+    are over-charged (spread ~1.1-2×).
   Any costly addition must be lazy-loaded or cached: `fzf` and `mise` both
   generate their init script into `~/.cache`, regenerated only when the binary
-  is newer, because each of them forks otherwise.
+  is newer, because each of them forks otherwise. `mise activate` still forks
+  `mise hook-env` from `precmd` on every prompt (~11 ms), which is the bulk of
+  `command_lag` and is invisible to the `exit` check.
 
 ## Pre-commit checks
 
@@ -107,7 +140,8 @@ zsh -n <file.zsh>             # zsh syntax
 bash -n <file.sh>             # bash syntax (shell/aliases*.sh must pass both)
 shellcheck install scripts/*.sh others/git-templates/hooks/pre-commit
 ./install                     # must remain idempotent (zero prompts, re-runnable)
-time zsh -i -c exit           # budget < 200 ms
+time zsh -i -c exit           # portable smoke test < 130 ms (blind after zshrc)
+scripts/bench-shell.sh        # zsh-bench in a pty: the latencies the line above misses
 brew bundle check --no-upgrade --verbose   # declared but missing
 brew bundle cleanup           # installed but undeclared (dry run; --force removes)
 luac -p hammerspoon/**/*.lua  # Lua syntax

@@ -55,6 +55,8 @@ The second line is not optional: the shared aliases route `du`, `df` and
 | `ssh/` | `~/.ssh/config` skeleton + the public half of `config.d/` |
 | `mise/` | global toolchain versions (node, claude, gemini) |
 | `scripts/` | helper scripts (`install-zsh-plugins.sh`, `link-sublime.sh`…) |
+| `scripts/bench-shell.sh` | interactive zsh latency, via [zsh-bench](https://github.com/romkatv/zsh-bench) |
+| `scripts/trace-shell.sh` | where zsh startup time goes, per sourced file or per line |
 | `claude/` | Claude Code statusline + merge-based installer |
 | `Brewfile` | macOS packages (`brew bundle`) |
 | `macos-defaults.sh` | macOS system preferences |

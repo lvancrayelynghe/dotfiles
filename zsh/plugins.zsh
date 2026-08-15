@@ -7,13 +7,11 @@ ZSH_PLUGINS_PATH="$HOME/.cache/zsh-plugins"
 
 # Fish shell-like syntax highlighting for zsh
 if [[ -f "$ZSH_PLUGINS_PATH/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ]]; then
-    [[ -n "$DEBUG" ]] && trace-time "Loading external plugin zsh-syntax-highlighting"
     source "$ZSH_PLUGINS_PATH/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 fi
 
 # Fish shell-like fast/unobtrusive autosuggestions for zsh
 if [[ -f "$ZSH_PLUGINS_PATH/zsh-autosuggestions/zsh-autosuggestions.zsh" ]]; then
-    [[ -n "$DEBUG" ]] && trace-time "Loading external plugin zsh-autosuggestions"
     source "$ZSH_PLUGINS_PATH/zsh-autosuggestions/zsh-autosuggestions.zsh"
 fi
 
