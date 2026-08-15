@@ -111,11 +111,12 @@
   - `scripts/bench-shell.sh` — zsh-bench in a pty, ~35 s, what is actually
     felt. Reference on the M-series Mac, **minimum** of 16 iterations (zsh-bench
     reports the min, not a median, so a short run is not comparable):
-    `first_prompt_lag` 138, `first_command_lag` 150, `command_lag` 21,
+    `first_prompt_lag` 138, `first_command_lag` 150, `command_lag` 11.4,
     `input_lag` 3.6, `exit_time` 98 ms. The ceilings in the script sit ~25% above
     those — regression guards, not targets: against romkatv's perception
-    thresholds (50 / 150 / 10 / 20 ms) `first_prompt_lag` and `command_lag` are
-    already 2-3× over, `first_command_lag` sits right on its threshold.
+    thresholds (50 / 150 / 10 / 20 ms) `first_prompt_lag` is still ~2.5× over,
+    `first_command_lag` sits right on its threshold, and `command_lag` now
+    lands just above its own.
     `git_prompt=0` is expected, pure resolves the branch asynchronously, and so
     is `highlighting=0`: zsh-bench sniffs `ZSH_HIGHLIGHT_VERSION` /
     `FAST_HIGHLIGHT_VERSION` instead of testing the rendered line, and
@@ -123,8 +124,13 @@
     shows up, measured here A/B over 3 interleaved rounds of 16 iterations:
     **1.8 ms** with none loaded, **3.6 ms** with zsh-patina, **10.4 ms** with
     the zsh-syntax-highlighting it replaced — so its share of the budget drops
-    ~5×. Nothing else moved: `command_lag` reads ~19.4 ms in all three, which is
-    `mise hook-env`, not highlighting.
+    ~5×. Nothing else moved: `command_lag` read ~19.4 ms in all three, so none
+    of it was highlighting.
+    That ~19.4 ms was then halved to **11.4 ms** by `ZSH_AUTOSUGGEST_MANUAL_REBIND`
+    (see `zsh/plugins.zsh`): zsh-autosuggestions was rebinding 387 widgets on
+    every prompt, ~8.9 ms of it. Only the remainder is `mise hook-env`. Against
+    the 10 ms perception threshold `command_lag` now sits 14% over instead of
+    ~2×.
     The script clones zsh-bench pinned to a SHA into `~/.cache` on first use;
     it is deliberately absent from the Brewfile (no formula, no upstream tag)
     and from `./install` (which pulls, and would move the baseline). On Linux
@@ -150,8 +156,9 @@
   `zsh-patina activate`, which is a false positive here, the call lives in
   `zsh/plugins.zsh`.
   `mise activate` still forks `mise hook-env` from `precmd` on every prompt
-  (~11 ms), which is the bulk of `command_lag` and is invisible to the `exit`
-  check.
+  (~11 ms), which is now the whole of `command_lag` — the autosuggestions
+  rebind that used to be the other half is gone — and is invisible to the
+  `exit` check.
 
 ## Pre-commit checks
 
