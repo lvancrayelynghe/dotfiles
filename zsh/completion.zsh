@@ -9,12 +9,16 @@ fi
 
 # Load and run compinit and colors (autocompletion)
 autoload -U compinit colors
-# Trust the existing dump (-C) unless it is older than 24h — a full fpath
-# verification on every shell costs ~100-250ms. Requires extended_glob (global.zsh).
+# Trust the existing dump (-C) unless it is older than 24h — the full fpath
+# verification costs ~12 ms. Requires extended_glob (global.zsh).
 if [[ -n ${ZSH_COMPDUMP}(#qN.mh-24) ]]; then
     compinit -i -C -d "${ZSH_COMPDUMP}"
 else
     compinit -i -d "${ZSH_COMPDUMP}"
+    # compinit rewrites the dump only when it regenerates it, which it does only
+    # when the fpath file count or the zsh version changed. The touch is what
+    # re-arms the 24h window in every other case.
+    touch "${ZSH_COMPDUMP}"
 fi
 colors
 
