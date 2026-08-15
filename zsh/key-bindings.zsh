@@ -83,7 +83,6 @@ bindkey "$keymap[Control]X$keymap[Control]E" edit-command-line           # [Ctrl
 
 bindkey "$keymap[Escape]w" kill-region                                   # [Esc-w] - Kill from the cursor to the mark
 bindkey -s "$keymap[Escape]l" 'll\n'                                     # [Esc-l] - run command: ll
-bindkey -s "$keymap[Escape]d" 'd\n'                                      # [Esc-d] - run command: d
 bindkey -s "$keymap[Escape]p" 'pwd\n'                                    # [Esc-p] - run command: pwd
 
 # Fix numeric keypad
