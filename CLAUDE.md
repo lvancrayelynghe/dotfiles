@@ -84,15 +84,21 @@
   line reproduces a value the machine actually has, a commented-out line is a
   setting left at the macOS default (uncommenting is a deliberate opt-in), and
   a key that no longer exists is deleted rather than left to rot.
-  - The 16 removed keys are listed at the bottom of the file with the method
-    that condemned them: a key is dead only if its name is absent as a
-    **standalone C literal** from the owning binary — both architecture slices,
-    including strings inlined as x86_64 `movabs` immediates, which `strings`
-    cannot see — *and* from all twelve slices of the dyld shared cache. That
-    last clause is not optional: `mru-spaces` and `showhidden` are inlined, so
-    a naive `strings` sweep reports them missing while they are alive. Matching
-    a substring instead is the other trap — `SortColumn` hits inside
-    `_updateSortColumn`.
+  - The 15 removed keys are listed at the bottom of the file with the method
+    that condemned them, which has **two halves and needs both**. First, the
+    name must be absent as a **standalone C literal** from the owning binary —
+    both architecture slices, including strings inlined as x86_64 `movabs`
+    immediates that `strings` cannot see — *and* from all twelve slices of the
+    dyld shared cache. Then `defaults find <fragment>` must come up empty
+    across the live domains, because a key assembled at runtime appears in no
+    binary at all: `PMPrintingExpandedStateForPrint2` is built by appending the
+    `2`, so only `defaults find` reveals that the unsuffixed name the old
+    script wrote was the wrong one. Three traps in the binary half: inlined
+    immediates (`mru-spaces`, `showhidden` are alive and look missing),
+    substring matches (`SortColumn` hits inside `_updateSortColumn`), and
+    immediate fragments that are *not* adjacent — `disable-shadow` and
+    `DisableSendAnimations` both look inlined and are genuinely dead, so the
+    `movabs` pair has to be checked for adjacency, not just presence.
   - Two failure modes the file comments rather than repeats: `-dict`
     **replaces** a dictionary where `-dict-add` merges (the old
     `FXInfoPanesExpanded` line silently dropped four panes), and the

@@ -29,12 +29,22 @@ set -uo pipefail
 
 # System Settings caches the panes it has open and writes them back when it
 # quits, which would silently revert part of what follows.
-osascript -e 'tell application "System Settings" to quit' 2>/dev/null || true
+# The Apple event is tried first because it is the graceful path, but it needs
+# Automation consent (kTCCServiceAppleEvents) that a fresh install has not
+# granted yet — where it would only raise a prompt or fail silently, SIGTERM
+# does the job without any TCC involvement.
+osascript -e 'tell application "System Settings" to quit' 2>/dev/null \
+    || pkill -x "System Settings" 2>/dev/null \
+    || true
 
 # Take the admin ticket once, up front, then refresh it in the background so
 # the sudo blocks further down never prompt in the middle of the run.
 sudo -v || { echo "admin rights required"; exit 1; }
 while true; do sudo -n true; sleep 60; kill -0 "$$" 2>/dev/null || exit; done 2>/dev/null &
+# Reap the refresher on the way out. Without this it survives up to 60 s past
+# the script, and re-running the script stacks a second one on top.
+sudo_keepalive=$!
+trap 'kill "$sudo_keepalive" 2>/dev/null' EXIT
 
 ###############################################################################
 # Machine identity                                                            #
@@ -85,9 +95,10 @@ defaults write NSGlobalDomain NSAutomaticSpellingCorrectionEnabled -bool false
 defaults write NSGlobalDomain NSAutomaticDashSubstitutionEnabled -bool true
 defaults write NSGlobalDomain NSAutomaticQuoteSubstitutionEnabled -bool true
 
-# Unset on this Mac. NSNavPanelExpandedStateForSaveMode is still a live key;
-# its print-panel counterpart is not (see the removed list at the bottom).
+# Unset on this Mac. Both are live keys; the print one carries a "2" suffix
+# that the old script was missing, see the note at the bottom of the file.
 #defaults write NSGlobalDomain NSNavPanelExpandedStateForSaveMode -bool true
+#defaults write NSGlobalDomain PMPrintingExpandedStateForPrint2 -bool true
 #defaults write NSGlobalDomain NSDocumentSaveNewDocumentsToCloud -bool false
 
 ###############################################################################
@@ -424,7 +435,6 @@ echo "Done. Some changes require a logout or a restart to take effect."
 # hit only as a standalone C literal (so `SortColumn` does not match inside
 # `_updateSortColumn`).
 #
-#   NSGlobalDomain PMPrintingExpandedStateForPrint      no hit, nor "…Print2"
 #   com.apple.print.PrintingPrefs "Quit When Finished"  domain and key both gone
 #   com.apple.AppleFileServer guestAccess               AFP server removed
 #   com.apple.screencapture disable-shadow              no hit anywhere
@@ -442,6 +452,17 @@ echo "Done. Some changes require a logout or a restart to take effect."
 #   com.apple.mail DisableSendAnimations                absent from Mail
 #   com.apple.mail AddressesIncludeNameOnPasteboard     absent from Mail
 #
-# Verified alive and kept, against first impressions: com.apple.dock mru-spaces
-# and showhidden are both inlined as immediates rather than stored as literals,
-# which is why a naive `strings` sweep reports them missing.
+# Verified alive despite first impressions, and the two ways that happens:
+#   - com.apple.dock mru-spaces and showhidden are inlined as x86_64 immediates
+#     instead of stored as literals, so a naive `strings` sweep reports them
+#     missing. com.apple.screencapture disable-shadow looks like the same case
+#     and is not: its fragments turn up in unrelated strings with no adjacent
+#     `movabs` pair, so it really is dead — check the adjacency, not just the
+#     presence of the fragments.
+#   - NSGlobalDomain PMPrintingExpandedStateForPrint2 is never a literal at
+#     all. Preview and ColorSync Utility carry only the unsuffixed base and
+#     append the "2" at runtime, so no binary search can find either spelling.
+#     `defaults find PMPrintingExpandedState` is what surfaces it: three app
+#     domains hold the suffixed key. Binary searching cannot see a key built
+#     at runtime, so `defaults find` over the live domains is the mandatory
+#     second half of the method — a key is only dead when both come up empty.
