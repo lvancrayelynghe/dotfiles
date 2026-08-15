@@ -40,7 +40,7 @@
 # ---------------------------------------------------------------------------
 # Completion for a tool that generates its own: dump it once into fpath
 # (picked up by completion.zsh), regenerate only when the binary is newer.
-# Generating on every startup would blow the 200 ms budget.
+# Generating on every startup would blow the startup ceiling (see CLAUDE.md).
 # ---------------------------------------------------------------------------
 # if (( $+commands[mytool] )); then
 #     if [[ ! -f ~/.cache/zsh-completions/_mytool || ~/.cache/zsh-completions/_mytool -ot $commands[mytool] ]]; then
