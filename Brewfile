@@ -100,8 +100,9 @@ cask "macwhisper"
 cask "mac-mouse-fix"
 cask "ngrok"
 cask "macshot"
-cask "fluidvoice"
 cask "google-gemini"
+# cask "fluidvoice"
+cask "saurabhav88/tap/enviouswispr"
 
 # Mac App Store (requires being signed in)
 brew "mas"
