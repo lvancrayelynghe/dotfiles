@@ -26,7 +26,6 @@ return {
     finder    = 'com.apple.finder',
     ghostty   = 'com.mitchellh.ghostty',
     harvest   = 'com.getharvest.harvestxapp',
-    iterm     = 'com.googlecode.iterm2',
     messages  = 'com.apple.MobileSMS',
     music     = 'com.apple.Music',
     notes     = 'com.apple.Notes',
