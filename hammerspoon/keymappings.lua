@@ -98,7 +98,6 @@ hs.hotkey.bind({'cmd', 'alt', 'ctrl', 'shift'}, "return", function()
 end)
 
 
--- hs.hotkey.bind({'cmd', 'alt', 'ctrl'}, "m", function() hs.execute("/System/Library/CoreServices/Menu\\ Extras/User.menu/Contents/Resources/CGSession -suspend") end)
 hs.hotkey.bind({'cmd', 'alt', 'ctrl'}, "o", function() hs.execute("/opt/homebrew/bin/subl ~/Library/Mobile\\ Documents/com~apple~CloudDocs/todo.md") end)
 
 hs.hotkey.bind({'cmd', 'alt', 'ctrl'}, "h", function() hs.grid.resizeWindowShorter(hs.window.focusedWindow()) end)
@@ -159,4 +158,38 @@ hs.hotkey.bind({'cmd', 'alt', 'ctrl'}, "@", function()
     reload
 end tell]], apps.vivaldi)
   hs.osascript.applescript(script)
+end)
+
+-- Ghostty's quick terminal, which its own `global:` keybind cannot deliver
+-- here: Ghostty and Hyperkey both install a *session* event tap, head-inserted,
+-- so the last one registered is served first. Hyperkey starts with the session
+-- and Ghostty relaunches after it -- on every update -- so Ghostty reads the
+-- keyDown before Hyperkey has rewritten its flags, and matches a bare `m` with
+-- no modifier at all. Measured both ways: the tap is up (`global event tap
+-- enabled` in the log, so the Accessibility grant is fine) and an event
+-- carrying real ctrl+alt+cmd injected at HID level, upstream of both taps, is
+-- handled. A Carbon hotkey sits past the whole chain, where the flags are
+-- there, which is what makes every other hyper binding in this file work.
+hs.hotkey.bind({'cmd', 'alt', 'ctrl'}, "m", function()
+    -- Asked before the AppleScript on purpose: `tell application` launches what
+    -- it addresses, and would block Hammerspoon's main loop for the whole
+    -- launch. By id rather than by name, same trap as the Vivaldi reload above.
+    if hs.application.applicationsForBundleID(apps.ghostty)[1] == nil then
+        hs.application.open(apps.ghostty)
+        return
+    end
+
+    -- `on` is not optional in Ghostty.sdef, so the action needs a terminal to
+    -- dispatch through -- any one of them, the quick terminal is toggled at the
+    -- application level. An application left with no window has none, and only
+    -- the application itself can make one, hence the reopen event.
+    local script = string.format([[tell application id "%s"
+    if (count of windows) is 0 then return false
+    return perform action "toggle_quick_terminal" on terminal 1 of window 1
+end tell]], apps.ghostty)
+
+    local ok, result = hs.osascript.applescript(script)
+    if ok and result == false then
+        hs.application.open(apps.ghostty)
+    end
 end)
