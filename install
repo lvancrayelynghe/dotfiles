@@ -40,6 +40,7 @@ dotter deploy --force --noconfirm
 
 scripts/link-sublime.sh
 scripts/install-zsh-plugins.sh
+scripts/install-gh-extensions.sh
 [ ! -f claude/install.sh ] || bash claude/install.sh
 
 # init.templateDir only seeds repositories created after it is set, so this one

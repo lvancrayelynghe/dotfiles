@@ -74,6 +74,14 @@
   **zsh-patina**, a compiled binary driving a daemon shared by every session,
   so it is installed as a package (Brewfile / `.deb`) and activated with
   `eval "$(zsh-patina activate)"`, not cloned and sourced.
+- `scripts/install-gh-extensions.sh` — the gh CLI extensions (another hook of
+  `./install`), one array line per `owner/repo`. Not a Brewfile entry: gh only
+  runs extensions found in its own data directory, so the Homebrew formula
+  would give the binary and no `gh <command>`. Re-running is free and offline
+  (gh checks that directory first, prints `already installed`, exits 0), and
+  installing needs **no** `gh auth login` — it is an anonymous release
+  download, unlike almost everything else gh does. Nothing upgrades them:
+  `gh extension upgrade --all` by hand.
 - `claude/install.sh` (atomic jq merge into `~/.claude/settings.json`) is
   the model for any hook that needs to merge rather than overwrite.
 - `macos-defaults.sh` — **not mapped in dotter, not called by `./install`**:

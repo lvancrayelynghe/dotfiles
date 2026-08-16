@@ -18,7 +18,8 @@ cd ~/.dotfiles/public
 `.dotter/local.toml` (auto-generated on first run: `common` + `macos` on
 a Mac, `common` on Linux servers, add `linux-desktop` by hand), removes
 links dropped from the config, then installs the zsh plugins, the pure
-prompt, vim-plug and the Claude Code statusline. Re-run it any time.
+prompt, vim-plug, the gh CLI extensions and the Claude Code statusline.
+Re-run it any time.
 
 ### macOS extras
 

@@ -20,6 +20,9 @@ alias mig-seed='php artisan migrate:refresh --seed'
 # ngrok
 alias ng='ngrok http 80'
 
+# GitHub
+alias ghd='gh dash' ## PR/issue/notification dashboard, from the gh-dash extension
+
 # Codespaces
 alias cs='gh cs'
 alias csc='gh cs create'
