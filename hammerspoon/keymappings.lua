@@ -33,20 +33,21 @@ for key, bundleID in pairs({
     ["s"] = apps.sublime,
     ["g"] = apps.vivaldi,
 
-    -- ["z"] = apps.discord,
-    -- ["r"] = apps.bruno,
-    -- ["t"] = apps.iterm,
+    ["z"] = apps.discord,
+    ["r"] = apps.bruno,
+    ["t"] = apps.ghostty,
 
-    -- ["y"] = apps.harvest,
+    ["y"] = apps.harvest,
 
-    -- ["p"] = apps.notes,
-    -- ["q"] = apps.calendar,
-    -- ["v"] = apps.vscode,
+    ["p"] = apps.notes,
+    ["q"] = apps.calendar,
+    ["v"] = apps.vscode,
+    ["c"] = apps.claude,
 
-    -- ["f"] = apps.filezilla,
+    ["f"] = apps.filezilla,
 
-    -- ["x"] = apps.clickup,
-    -- ["b"] = apps.sequelace,
+    ["x"] = apps.clickup,
+    ["b"] = apps.sequelace,
 }) do
     hs.hotkey.bind({'cmd', 'alt', 'ctrl'}, key, function()
         launchOrSwitch(bundleID)
