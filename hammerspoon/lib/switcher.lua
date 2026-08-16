@@ -117,6 +117,34 @@ local function candidate_windows(onlyCurrentApp, windows)
    return candidates
 end
 
+-- The windows of one application, most recently focused first, minimized ones
+-- included. The tracked list comes first, since it alone carries the focus
+-- order; app:allWindows() then adds what the filter missed -- and it is the only
+-- source there is for a minimized window, which hs.window.orderedWindows() does
+-- not report, so refresh_current_windows() alone would never find one back.
+-- Neither half sweeps every application, unlike the lookups above.
+-- The role check is the same rule as there, and it earns its place twice over:
+-- app:allWindows() hands out the Finder desktop as a window (an AXScrollArea
+-- with no subrole at all), which would pass for something to bring forward.
+function obj:appWindows(app)
+   local windows, seen = {}, {}
+   for _,w in ipairs(obj.currentWindows) do
+      local id = w:id() -- nil once the window is gone
+      if id and not seen[id] and w:application() == app then
+         seen[id] = true
+         table.insert(windows, w)
+      end
+   end
+   for _,w in ipairs(app:allWindows()) do
+      local id = w:id()
+      if id and not seen[id] and hs.window.filter.allowedWindowRoles[w:subrole()] then
+         seen[id] = true
+         table.insert(windows, w)
+      end
+   end
+   return windows
+end
+
 -- Icons are read from the application bundle on disk, so they are kept; false
 -- marks a bundle whose icon could not be read, so it is not asked for twice.
 local appIcons = {}
@@ -158,6 +186,33 @@ local function reveal(w)
    if app and app:isHidden() then app:unhide() end
    if w:isMinimized() then w:unminimize() end
    w:focus()
+end
+
+-- Bring an application forward with a window actually on screen, which
+-- activate() on its own never does: it makes the application frontmost and
+-- stops there, so one whose windows are all minimized comes forward showing
+-- nothing. That is what made a hotkey need a second press -- the second one
+-- reaching reveal() through switchWindow(), the application being frontmost by
+-- then. Only the most recently focused window is revealed, and only when
+-- nothing of the application is up: un-minimizing a window left minimized
+-- behind a visible one would be a surprise.
+-- The optional windows argument reuses a list the caller already holds.
+function obj:focusApp(app, windows)
+   windows = windows or obj:appWindows(app)
+   local onScreen = false
+   for _,w in ipairs(windows) do
+      if not w:isMinimized() then onScreen = true break end
+   end
+   -- Unhiding has to come first, in either branch: activate() never unhides
+   -- (application.lua:71-79), and on a hidden application it takes its
+   -- focusedWindow branch and raises windows that are still hidden -- unhiding
+   -- after it made them appear without the application being frontmost.
+   if not onScreen and windows[1] then
+      reveal(windows[1])
+   elseif app:isHidden() then
+      app:unhide()
+   end
+   app:activate(true) -- the application's other windows come forward too
 end
 
 local windowChooser = hs.chooser.new(function(choice)

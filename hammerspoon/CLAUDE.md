@@ -85,6 +85,33 @@ in review, and three of the bugs behind these notes shipped once already.
   nothing — and a hidden application stays hidden. `lib/switcher.lua` raises a
   window through `reveal()`, which undoes both first. The accessibility calls
   are animated, so the state only settles a fraction of a second later.
+- `app:activate()` reveals no more than `focus()` does, and **returns true all
+  the same**: measured, an application whose windows are all minimized comes
+  forward showing nothing, and one that has no window left — what a native
+  application closed with cmd-W is, still running with nothing on screen — comes
+  forward showing nothing either. Both made a `keymappings.lua` hotkey need a
+  **second press**, the one that reached `reveal()` through the switcher because
+  the application was frontmost by then; that is what `focusApp()` and
+  `appWindows()` are for. Only the application itself can make a window: on a
+  running application `hs.application.open()` is a **reopen event**, the one a
+  Dock click sends, and it opens Calendar's window back and un-minimizes Sublime
+  Text's. **Finder is the exception** — its desktop counts as a window of its
+  own, so the event finds one already up and does nothing at all.
+- That desktop comes out of `app:allWindows()` as an ordinary window: an
+  `AXScrollArea`, window id 0, **no subrole at all**, and the only thing Finder
+  answers with when no folder is open. `hs.window.filter.allowedWindowRoles` is
+  what keeps it out, in `appWindows()` as in `refresh_current_windows()`.
+- A window that is off screen reports **`AXDialog` as its subrole**, and
+  `isStandard()` false, whether it is minimized or its application is hidden; it
+  is `AXStandardWindow` again the moment it is shown. Measured on Sublime Text
+  and on Finder, so this is the API and not an application quirk: `isStandard()`
+  cannot be used to sort windows that are not on screen, and a role filter that
+  has to see them must accept `AXDialog` — `allowedWindowRoles` does.
+- `mainWindow()` is the only call on that path that crosses a Space boundary: a
+  fullscreen window living on another Space answers nil to `app:allWindows()`
+  and comes back from `mainWindow()`. `launchOrSwitch()` asks it before
+  concluding that an application has no window, or a reopen event would reach an
+  application that has one — and some answer that with a brand new window.
 - `hs.window.filter` only ever sees the **current Space** (`app:allWindows()`
   can do no better), and it loses a window for good whenever the accessibility
   API is briefly incoherent — a wake, a Space transition. It says so with

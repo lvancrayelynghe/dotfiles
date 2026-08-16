@@ -12,17 +12,36 @@ function launchOrSwitch(bundleID)
         return
     end
 
+    -- Running with no window at all is what an application closed with cmd-W
+    -- looks like -- Calendar and the other native ones stay up with nothing
+    -- left -- and activate() would then bring forward an application that
+    -- displays nothing. Only the application itself can make a window, through
+    -- the reopen event LaunchServices sends here, the one a Dock click sends:
+    -- measured, it opens Calendar's window back, and un-minimizes Sublime
+    -- Text's. Finder is the exception, and stays unfixed: its desktop counts as
+    -- a window of its own, so the event finds one already up and does nothing.
+    -- Asked before the frontmost test on purpose -- pressing the key again has
+    -- to bring the window back, not switch away to another application.
+    --
+    -- mainWindow() gets the last word as the only call here that reaches
+    -- another Space: measured, a fullscreen window living on one answers nil to
+    -- app:allWindows() and comes back from mainWindow(). Without it, an
+    -- application whose only window sits on another Space, and that the window
+    -- filter happens to have missed, would be sent a reopen event -- which some
+    -- applications answer with a brand new window.
+    local windows = switcher:appWindows(app)
+    if #windows == 0 and app:mainWindow() == nil then
+        hs.application.open(bundleID)
+        return
+    end
+
     if hs.application.frontmostApplication():bundleID() == bundleID then
         switcher:switchWindow(true)
         return
     end
 
-    -- unhide first: activate() never unhides (application.lua:71-79). On a
-    -- hidden app it takes the focusedWindow branch and brings to the front
-    -- windows that are still hidden, so the unhide that followed made them
-    -- appear without the app being frontmost.
-    app:unhide()
-    app:activate(true)
+    -- unhides and un-minimizes as needed: activate() does neither
+    switcher:focusApp(app, windows)
 end
 
 -- App Bindings

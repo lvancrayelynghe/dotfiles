@@ -12,9 +12,11 @@
 -- directory, where nothing loads it -- Hammerspoon only reads init.lua. Saving
 -- it does reload the live config all the same, through the pathwatcher.
 
-local sweeps, images = 0, 0
+local sweeps, images, appSweeps = 0, 0, 0
 local subscribed, watchers, focusCalls, alerts, actions = {}, {}, {}, {}, {}
 local focused, orderedWindows, noBundle, hidden = nil, {}, {}, {}
+-- what each application answers to allWindows(), by application name
+local windowsOfApp = {}
 
 -- One shared table per application name, so that `app == currentApp` holds the
 -- way it does for hs.application userdata.
@@ -29,6 +31,15 @@ local apps = setmetatable({}, {__index = function(t, name)
         bundleID = function()
             if noBundle[name] then return nil end
             return 'id.' .. name
+        end,
+        -- one application queried, not the whole accessibility sweep
+        allWindows = function()
+            appSweeps = appSweeps + 1
+            return windowsOfApp[name] or {}
+        end,
+        activate = function(_, allWindows)
+            table.insert(actions, 'activate:' .. name .. ':' .. tostring(allWindows))
+            return true
         end,
     }
     t[name] = app
@@ -298,6 +309,100 @@ orderedWindows = {A, B}
 focused, actions = A, {}
 switcher:previousWindow(false)
 check('ordinary window only focused', table.concat(actions, ' '), 'focus:2')
+
+
+-- Reaching a whole application -----------------------------------------------
+
+-- ids of a list of windows, in order
+local function winIds(windows)
+    local r = {}
+    for _, w in ipairs(windows) do table.insert(r, tostring(w:id())) end
+    return table.concat(r, ',')
+end
+
+local V = apps['Vivaldi']
+local S = apps['Sublime Text']
+local D = W(4, 'D win', 'Vivaldi') -- never registered by the filter
+
+-- the tracked list carries the focus order, so it comes first; what only the
+-- application knows about is appended
+switcher.currentWindows = {A, B, C}
+windowsOfApp['Vivaldi'] = {C, A, D}
+appSweeps, sweeps = 0, 0
+check('appWindows keeps the tracked focus order first',
+      winIds(switcher:appWindows(V)), '1,3,4')
+check('appWindows sweeps the one application', appSweeps, 1)
+check('appWindows sweeps no other', sweeps, 0)
+
+-- a minimized window is in neither orderedWindows nor the tracked list when the
+-- filter missed it; app:allWindows() is the only place left it shows up
+switcher.currentWindows = {}
+orderedWindows = {}
+B.minimized = true
+windowsOfApp['Sublime Text'] = {B}
+check('a minimized window the filter missed is still found',
+      winIds(switcher:appWindows(S)), '2')
+B.minimized = false
+
+-- app:allWindows() hands out the Finder desktop as if it were a window
+switcher.currentWindows = {A}
+windowsOfApp['Finder'] = {W(0, '', 'Finder', '')} -- an AXScrollArea, no subrole
+check('the Finder desktop is not a window to bring forward',
+      #switcher:appWindows(apps['Finder']), 0)
+
+-- an application closed with cmd-W: still running, nothing left to show
+windowsOfApp['Calendrier'] = {}
+check('an application closed to nothing has no window',
+      #switcher:appWindows(apps['Calendrier']), 0)
+
+
+-- activate() brings the application forward and stops there, so a window whose
+-- application is up but minimized has to be revealed
+switcher.currentWindows = {B}
+windowsOfApp['Sublime Text'] = {B}
+B.minimized = true
+actions = {}
+switcher:focusApp(S)
+check('an application with only minimized windows is revealed',
+      table.concat(actions, ' '), 'unminimize:2 focus:2 activate:Sublime Text:true')
+
+-- with a window already on screen there is nothing to reveal
+B.minimized = false
+actions = {}
+switcher:focusApp(S)
+check('an application already showing a window is only activated',
+      table.concat(actions, ' '), 'activate:Sublime Text:true')
+
+-- and a window minimized behind a visible one stays where the user left it
+local B2 = W(5, 'B other win', 'Sublime Text')
+switcher.currentWindows = {B, B2} -- the minimized one is the most recent
+windowsOfApp['Sublime Text'] = {B, B2}
+B.minimized, actions = true, {}
+switcher:focusApp(S)
+check('a window minimized behind a visible one is left alone',
+      table.concat(actions, ' '), 'activate:Sublime Text:true')
+B.minimized = false
+
+-- hidden is the other way an application shows nothing
+switcher.currentWindows = {B}
+windowsOfApp['Sublime Text'] = {B}
+hidden['Sublime Text'], actions = true, {}
+switcher:focusApp(S)
+check('a hidden application is unhidden before it is activated',
+      table.concat(actions, ' '), 'unhide:Sublime Text activate:Sublime Text:true')
+
+-- hidden and minimized at once: reveal() undoes both, in that order
+hidden['Sublime Text'], B.minimized, actions = true, true, {}
+switcher:focusApp(S)
+check('hidden and minimized are both undone', table.concat(actions, ' '),
+      'unhide:Sublime Text unminimize:2 focus:2 activate:Sublime Text:true')
+hidden['Sublime Text'], B.minimized = nil, false
+
+-- the caller's list is reused rather than rebuilt
+appSweeps, actions = 0, {}
+switcher:focusApp(V, {A})
+check('focusApp reuses the list it is handed', appSweeps, 0)
+check('focusApp still activates', table.concat(actions, ' '), 'activate:Vivaldi:true')
 
 
 -- Titles and icons, chooser only ---------------------------------------------
