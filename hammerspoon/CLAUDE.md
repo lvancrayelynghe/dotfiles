@@ -128,6 +128,52 @@ in review, and three of the bugs behind these notes shipped once already.
   even that wrong, since `window_filter.lua:280` indexes a `Window`-keyed table
   with a window id and so returns `false` for every window.
 
+## Brightness, and dimming under an assertion
+
+- `caffeinate.lua` dims the screen after `DIM_AFTER` of inactivity (60 s)
+  **while the `displayIdle` assertion is held** — macOS has no such middle
+  state, an assertion is all-or-nothing and suppresses its own pre-sleep dim
+  along with everything else. Four things were measured on this machine
+  (MacBookPro18,3, macOS 26.5, Hammerspoon 1.1.1) before any of it could be
+  written, and the first is the one the whole design rests on:
+  - `hs.host.idleTime()` **keeps counting under the assertion** — traced past
+    78 s with it held. Assertions suppress the power-management timer, they do
+    not inject activity; only `hs.caffeinate.declareUserActivity()` resets it.
+  - Setting the brightness **does not** reset that idle timer, so the dim cannot
+    feed itself a wake-up. Nor does the ambient light sensor fight the value
+    back.
+  - `hs.brightness` **works** here, its Apple-Silicon reputation
+    notwithstanding — but it is built-in-only and works in **integer percents**,
+    which loses a point on the way through: `set(38)` reads back `37`, so a
+    restore never lands where it started. `hs.screen:getBrightness()` /
+    `:setBrightness()` take a 0..1 float, round-trip at **drift 0.0000**, and
+    are per-screen, so an external display that supports the call dims too and
+    one that does not simply ignores it. A display that answers outside 0..1, or
+    throws, is skipped rather than driven.
+  - `hs.eventtap.event.types` must be read for **every** name the wake tap
+    lists: a `nil` in that table constructor truncates the array at the hole and
+    the tap goes half-deaf with nothing on stderr. All eight used here exist.
+    `systemDefined` is one of them — the brightness and media keys are not
+    `keyDown`.
+- The eventtap is what actually wakes the screen, and it exists **only while
+  dimmed** — watching every mouse move is not something to leave running, and
+  one event is all it ever needs. The 2 s poll alongside it is the backstop for
+  macOS disabling the tap behind our back, which it does silently.
+- `stopFade()` and `stopTap()` stop their object **without clearing the field**,
+  and that is not an oversight: each is called from inside its own callback, so
+  dropping the last reference there would leave a live object free to be
+  collected while its own callback is still on the stack. The stale value is
+  overwritten by the next dim.
+- Nothing may **persist** the dim level: macOS remembers the brightness across a
+  sleep, so a machine that sleeps dimmed wakes at 5% for good. Hence the
+  `hs.caffeinate.watcher` undimming on sleep, screens-sleep, lock and power-off,
+  and the `hs.shutdownCallback` undimming on reload — **chained**, not assigned,
+  since that is a single slot and this file is not guaranteed to be its only
+  claimant.
+- The watch loop is a self-rescheduling `doAfter` that sleeps exactly as long as
+  it takes to reach the threshold, not a 1 Hz poll: one wake-up per `DIM_AFTER`
+  of continuous use, not one per second.
+
 ## Reaching the config, and reading its state
 
 - `hs.urlevent.bind()` is how a terminal reaches the config: the scheme is
@@ -148,8 +194,14 @@ in review, and three of the bugs behind these notes shipped once already.
   twice fails the run; `test-layouts` records what `hs.layout.apply` is *asked*
   for instead of performing it, and drives the module the way a user does —
   through the function captured from `menu:setMenu()` — since `layouts.lua`
-  exports nothing at all. Nothing runs them automatically; they are in the root
-  `CLAUDE.md`'s pre-commit checks. Add a case when touching either module.
+  exports nothing at all. `test-caffeinate` stubs **time itself**: the idle
+  timer is a variable and a timer only runs when the test fires it, which is the
+  only way a minute-long threshold and a fade are testable at all — and it
+  repeats **no delay** from the module, reading `DIM_AFTER` back from the one
+  timer a caffeinated load arms and deriving every fixture from it, so retuning
+  the constant moves the suite instead of breaking it (checked from 10 s to
+  600 s). Nothing runs them automatically; they are in the root `CLAUDE.md`'s
+  pre-commit checks. Add a case when touching any of those modules.
 - To read the live state **from a terminal** rather than that console, use the
   reload as a probe: drop a temporary module here, `require` it from `init.lua`,
   and have it write what it finds — or the result of an experiment — to a file.
