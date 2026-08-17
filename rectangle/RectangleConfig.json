@@ -1,6 +1,9 @@
 {
   "bundleId" : "com.knollsoft.Rectangle",
   "defaults" : {
+    "SUEnableAutomaticChecks" : {
+      "bool" : false
+    },
     "allowAnyShortcut" : {
       "bool" : true
     },
@@ -10,11 +13,11 @@
     "almostMaximizeWidth" : {
       "float" : 0
     },
-    "alternateDefaultShortcuts" : {
-      "bool" : true
-    },
     "altThirdCycle" : {
       "int" : 0
+    },
+    "alternateDefaultShortcuts" : {
+      "bool" : true
     },
     "alwaysAccountForStage" : {
       "int" : 0
@@ -34,10 +37,16 @@
     "cascadeAllDeltaSize" : {
       "float" : 30
     },
+    "centerHalfCycles" : {
+      "int" : 0
+    },
     "centeredDirectionalMove" : {
       "int" : 0
     },
-    "centerHalfCycles" : {
+    "cooperativeCornerResize" : {
+      "bool" : false
+    },
+    "cornerCycleExpansionAxis" : {
       "int" : 0
     },
     "cornerSnapAreaSize" : {
@@ -45,6 +54,18 @@
     },
     "curtainChangeSize" : {
       "int" : 0
+    },
+    "cycleSizesIsChanged" : {
+      "bool" : false
+    },
+    "cyclingOverlapMaxCascade" : {
+      "int" : 1
+    },
+    "cyclingOverlapOffset" : {
+      "int" : 0
+    },
+    "cyclingOverlapOffsetSize" : {
+      "float" : 11
     },
     "disabledApps" : {
 
@@ -65,7 +86,7 @@
       "int" : 1
     },
     "footprintAlpha" : {
-      "float" : 0.30000001192092896
+      "float" : 0.3
     },
     "footprintAnimationDurationMultiplier" : {
       "float" : 0
@@ -85,8 +106,17 @@
     "gapSize" : {
       "float" : 0
     },
-    "hideMenubarIcon" : {
+    "greenButtonOverride" : {
       "bool" : false
+    },
+    "hapticFeedbackOnSnap" : {
+      "int" : 0
+    },
+    "hideMenubarIcon" : {
+      "bool" : true
+    },
+    "horizontalSplitRatio" : {
+      "float" : 50
     },
     "ignoreDragSnapToo" : {
       "int" : 0
@@ -121,6 +151,9 @@
     "moveCursorAcrossDisplays" : {
       "int" : 1
     },
+    "moveFixedSizeToEdge" : {
+      "int" : 1
+    },
     "notifiedOfProblemApps" : {
       "bool" : false
     },
@@ -128,7 +161,7 @@
       "int" : 0
     },
     "portraitSnapAreas" : {
-      "string" : "[5,{\"compound\":-5},4,{\"compound\":-5}]"
+      "string" : "[]"
     },
     "relaunchOpensMenu" : {
       "bool" : false
@@ -145,14 +178,26 @@
     "screenEdgeGapRight" : {
       "float" : 0
     },
-    "screenEdgeGapsOnMainScreenOnly" : {
-      "bool" : false
-    },
     "screenEdgeGapTop" : {
       "float" : 0
     },
+    "screenEdgeGapTopNotch" : {
+      "float" : 0
+    },
+    "screenEdgeGapsOnMainScreenOnly" : {
+      "bool" : false
+    },
+    "screensOrderedByX" : {
+      "int" : 3
+    },
+    "selectedCycleSizes" : {
+      "int" : 0
+    },
     "shortEdgeSnapAreaSize" : {
       "float" : 145
+    },
+    "showAdditionalSizesInMenu" : {
+      "int" : 0
     },
     "showAllActionsInMenu" : {
       "int" : 0
@@ -162,6 +207,9 @@
     },
     "sizeOffset" : {
       "float" : 0
+    },
+    "skipGapTopEdge" : {
+      "bool" : false
     },
     "snapEdgeMarginBottom" : {
       "float" : 5
@@ -190,11 +238,11 @@
     "subsequentExecutionMode" : {
       "int" : 1
     },
-    "SUEnableAutomaticChecks" : {
-      "bool" : false
-    },
     "systemWideMouseDown" : {
       "int" : 0
+    },
+    "systemWideMouseDownApps" : {
+
     },
     "todo" : {
       "int" : 0
@@ -217,62 +265,28 @@
     "unsnapRestore" : {
       "int" : 0
     },
+    "verticalSplitRatio" : {
+      "float" : 50
+    },
+    "widthStepSize" : {
+      "float" : 30
+    },
     "windowSnapping" : {
-      "int" : 0
+      "int" : 2
     }
   },
   "shortcuts" : {
     "bottomHalf" : {
       "keyCode" : 125,
-      "modifierFlags" : 262144
-    },
-    "bottomLeft" : {
-      "keyCode" : 38,
-      "modifierFlags" : 786432
-    },
-    "bottomRight" : {
-      "keyCode" : 40,
-      "modifierFlags" : 786432
-    },
-    "centerThird" : {
-      "keyCode" : 3,
-      "modifierFlags" : 786432
-    },
-    "firstThird" : {
-      "keyCode" : 2,
-      "modifierFlags" : 786432
-    },
-    "firstTwoThirds" : {
-      "keyCode" : 14,
-      "modifierFlags" : 786432
-    },
-    "larger" : {
-      "keyCode" : 13,
-      "modifierFlags" : 1310720
-    },
-    "lastThird" : {
-      "keyCode" : 5,
-      "modifierFlags" : 786432
-    },
-    "lastTwoThirds" : {
-      "keyCode" : 17,
-      "modifierFlags" : 786432
+      "modifierFlags" : 1835008
     },
     "leftHalf" : {
       "keyCode" : 123,
-      "modifierFlags" : 262144
+      "modifierFlags" : 1835008
     },
     "maximize" : {
       "keyCode" : 36,
-      "modifierFlags" : 262144
-    },
-    "nextDisplay" : {
-      "keyCode" : 124,
-      "modifierFlags" : 786432
-    },
-    "previousDisplay" : {
-      "keyCode" : 123,
-      "modifierFlags" : 786432
+      "modifierFlags" : 1835008
     },
     "reflowTodo" : {
       "keyCode" : 45,
@@ -280,11 +294,7 @@
     },
     "rightHalf" : {
       "keyCode" : 124,
-      "modifierFlags" : 262144
-    },
-    "smaller" : {
-      "keyCode" : 1,
-      "modifierFlags" : 1310720
+      "modifierFlags" : 1835008
     },
     "toggleTodo" : {
       "keyCode" : 11,
@@ -292,16 +302,8 @@
     },
     "topHalf" : {
       "keyCode" : 126,
-      "modifierFlags" : 262144
-    },
-    "topLeft" : {
-      "keyCode" : 32,
-      "modifierFlags" : 786432
-    },
-    "topRight" : {
-      "keyCode" : 34,
-      "modifierFlags" : 786432
+      "modifierFlags" : 1835008
     }
   },
-  "version" : "81"
+  "version" : "104"
 }
