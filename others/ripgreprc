@@ -1,0 +1,17 @@
+# ripgrep default flags, loaded through RIPGREP_CONFIG_PATH (exported by
+# zsh/zshenv and bash/bashrc). One flag per line, no shell quoting. The command
+# line wins: -I drops the file name, -N the line number, --no-config the file.
+
+# Replaces the former `alias rg='rg -S'`: reaches bash and scripts too.
+--smart-case
+
+# path:line:match on every line, like sift. The last two flags are needed
+# because rg hides both outside a tty, and the name when a single file is named.
+--no-heading
+--with-filename
+--line-number
+
+# Truncate long lines. Without --max-columns-preview rg hides the whole match
+# behind "[Omitted long matching line]". The 150 exclude the path:line: prefix.
+--max-columns=150
+--max-columns-preview

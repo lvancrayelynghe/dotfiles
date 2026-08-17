@@ -15,6 +15,10 @@ export HISTFILE="$HOME/.cache/bash_history"
 export LESSHISTFILE=-
 export MYSQL_HISTFILE=/dev/null
 
+# ripgrep default flags (others/ripgreprc). Guarded like the zsh side: an
+# unreadable path makes rg warn on stderr at every call, not just fall back.
+[ -r "$HOME/.ripgreprc" ] && export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
+
 export VISUAL='vim'
 export EDITOR='vim'
 

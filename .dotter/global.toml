@@ -26,6 +26,7 @@
 "others/lesskey" = { target = "~/.lesskey", type = "symbolic" }
 "others/my.cnf" = { target = "~/.my.cnf", type = "symbolic" }
 "others/sift.conf" = { target = "~/.sift.conf", type = "symbolic" }
+"others/ripgreprc" = { target = "~/.ripgreprc", type = "symbolic" }
 # ssh: the skeleton declares no host, they all live in ~/.ssh/config.d/. Only
 # the public files are mapped; 50-internes, 60-clients and 80-archives are
 # created by hand and stay off this repo. An Include that matches nothing is a

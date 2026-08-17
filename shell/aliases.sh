@@ -75,7 +75,6 @@ alias watch='watch ' ## Allow aliases to be watched
 
 # Search & find
 alias ss='sift -n' ## with sift
-alias rg='rg -S' ## smart-case ripgrep
 alias ff='find . -type f -iname ' ## insensitive filename
 alias fr='find-and-replace' ## find and replace in current dir
 

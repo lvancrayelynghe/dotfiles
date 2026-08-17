@@ -4,3 +4,9 @@ skip_global_compinit=1
 export DOTFILES_PATH=~/.dotfiles/public
 export LESSHISTFILE=-
 export MYSQL_HISTFILE=/dev/null
+
+# ripgrep default flags (others/ripgreprc). Guarded on purpose: when the path is
+# set but unreadable, rg prints "failed to read the file specified in
+# RIPGREP_CONFIG_PATH" on stderr at every single call — including the ones whose
+# output is captured, like find-and-replace in zsh/functions.zsh.
+[[ -r ~/.ripgreprc ]] && export RIPGREP_CONFIG_PATH=~/.ripgreprc
