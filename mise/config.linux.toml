@@ -1,0 +1,27 @@
+# Loaded by ./install with MISE_ENV=linux. Keep this list to apt packages:
+# portable CLIs are installed from [tools] in config.toml.
+
+[settings]
+system_packages.managers = ["apt"]
+
+[bootstrap.packages]
+"apt:bash" = "latest"
+"apt:zsh" = "latest"
+"apt:git" = "latest"
+"apt:curl" = "latest"
+"apt:wget" = "latest"
+"apt:vim" = "latest"
+"apt:htop" = "latest"
+"apt:iftop" = "latest"
+"apt:tree" = "latest"
+"apt:pv" = "latest"
+"apt:dos2unix" = "latest"
+"apt:telnet" = "latest"
+"apt:unison" = "latest"
+"apt:imagemagick" = "latest"
+"apt:gnutls-bin" = "latest"
+"apt:fdupes" = "latest"
+"apt:php" = "latest"
+"apt:ansible" = "latest"
+"apt:dnsmasq" = "latest"
+"apt:fswatch" = "latest"

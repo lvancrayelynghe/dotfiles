@@ -1,4 +1,90 @@
 [tools]
-claude = "latest"
-gemini = { version = "latest", allow_builds = ["@github/keytar", "node-pty"] }
+# Languages
 node = "lts"
+# AI
+antigravity-cli = "latest"
+claude = "latest"
+codex = "latest"
+llmfit = "latest"
+# Others
+bat = "latest"
+cloudflared = "latest"
+delta = "latest"
+duf = "latest"
+dust = "latest"
+eza = "latest"
+fd = "latest"
+fzf = "latest"
+gh = "latest"
+jq = "latest"
+lnav = "latest"
+rclone = "latest"
+ripgrep = "latest"
+sd = "latest"
+shellcheck = "latest"
+tealdeer = "latest"
+television = "latest"
+xh = "latest"
+yazi = "latest"
+zoxide = "latest"
+
+# CLIs with no mise registry shorthand: pinned to their upstream GitHub releases
+# (github: backend, not the deprecated ubi:) or a prebuilt-binary aqua package.
+"github:chaqchase/lla" = "latest"
+"github:Lymphatus/caesium-clt" = "latest"
+"github:ouch-org/ouch" = "latest"
+"github:svent/sift" = "latest"
+"github:tokuhirom/dcv" = "latest"
+
+# Most command-line tools deliberately live above: mise installs them through
+# portable, version-aware backends. Native packages belong in the OS profiles.
+
+[dotfiles]
+"~/.profile" = "../bash/profile"
+"~/.bashrc" = "../bash/bashrc"
+"~/.inputrc" = "../bash/inputrc"
+"~/.zshenv" = "../zsh/zshenv"
+"~/.zprofile" = "../zsh/zprofile"
+"~/.zshrc" = "../zsh/zshrc"
+"~/.gitconfig" = "../others/gitconfig"
+"~/.gitignore-global" = "../others/gitignore-global"
+"~/.gitattributes" = "../others/gitattributes"
+# These directories also contain generated or user-managed neighbours, so keep
+# the parent real and link only the repository files below it.
+"~/.git-templates" = { source = "../others/git-templates", mode = "symlink-each" }
+"~/.vim" = { source = "../vim/vim", mode = "symlink-each" }
+"~/.vimrc" = "../vim/vimrc"
+"~/.nanorc" = "../others/nanorc"
+"~/.wgetrc" = "../others/wgetrc"
+"~/.cvsignore" = "../others/cvsignore"
+"~/.dircolors" = "../others/dircolors"
+"~/.gemrc" = "../others/gemrc"
+"~/.lesskey" = "../others/lesskey"
+"~/.my.cnf" = "../others/my.cnf"
+"~/.sift.conf" = "../others/sift.conf"
+"~/.ripgreprc" = "../others/ripgreprc"
+"~/.ssh/config" = "../ssh/config"
+"~/.ssh/config.d/10-forges.conf" = "../ssh/config.d/10-forges.conf"
+"~/.ssh/config.d/90-defaults.conf" = "../ssh/config.d/90-defaults.conf"
+"~/.config/lla/config.toml" = "../lla/config.toml"
+# theme.toml selects the flavor; package.toml is the flavor/plugin manifest,
+# symlinked so `ya pkg add` edits the versioned file (the flavors themselves are
+# cloned into ~/.config/yazi/flavors by the bootstrap task, not versioned).
+"~/.config/yazi/theme.toml" = "../yazi/theme.toml"
+"~/.config/yazi/package.toml" = "../yazi/package.toml"
+# The config is self-managed: the repository must exist before the first
+# bootstrap, then this link makes its global tool declarations available
+# everywhere.
+"~/.config/mise/config.toml" = "config.toml"
+"~/.claude/statusline-command.sh" = "../claude/statusline-command.sh"
+
+[tasks.bootstrap]
+description = "Install idempotent integrations not modeled by mise"
+run = "bash scripts/link-sublime.sh && bash scripts/install-zsh-plugins.sh && bash scripts/install-gh-extensions.sh && bash scripts/install-yazi-packages.sh && { [ ! -f claude/install.sh ] || bash claude/install.sh; } && { [ ! -d .git ] || git config --local core.hooksPath others/git-templates/hooks; }"
+
+# macOS system preferences. Deliberately NOT part of `mise bootstrap`: every line
+# writes a system preference, so it stays a run-once, by-hand step. The script
+# self-guards on Darwin. Pass a name with `./macos-defaults.sh "My Mac"`.
+[tasks.macos-defaults]
+description = "Curated macOS system preferences — run once, by hand (not in bootstrap)"
+run = "bash macos-defaults.sh"

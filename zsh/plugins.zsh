@@ -6,7 +6,7 @@
 ZSH_PLUGINS_PATH="$HOME/.cache/zsh-plugins"
 
 # Syntax highlighting. zsh-patina is a compiled binary driving a daemon shared
-# by every session, not a sourceable plugin: it is installed by the Brewfile on
+# by every session, not a sourceable plugin: it is installed by mise's macOS
 # macOS and by the .deb on Debian, so it is absent from install-zsh-plugins.sh.
 #
 # `activate` forks (~4 ms). zshrc caches that kind of cost away for fzf and

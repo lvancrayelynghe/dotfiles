@@ -1,52 +1,41 @@
 #!/usr/bin/env bash
 #
-# Deploys the dotfiles with dotter (https://github.com/SuperCuber/dotter)
-# and runs the install hooks. Idempotent, safe to re-run at any time.
+# Bootstraps this machine with mise. The configuration is declarative and the
+# command is safe to re-run; it only installs missing tools/packages and
+# repairs the dotfile links it owns.
 set -euo pipefail
 
 BASEDIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 cd "$BASEDIR"
 
-if ! command -v dotter >/dev/null 2>&1; then
-    echo "dotter is required:" >&2
-    echo "  macOS : brew install dotter" >&2
-    echo "  Linux : download a static binary from https://github.com/SuperCuber/dotter/releases" >&2
-    echo "          (or: cargo install dotter)" >&2
-    exit 1
+if ! command -v mise >/dev/null 2>&1; then
+    echo "Installing mise with its official installer..."
+    curl https://mise.run | sh
+    export PATH="$HOME/.local/bin:$PATH"
 fi
 
-# Pick this machine's packages on first run (see .dotter/local.toml.example)
-if [ ! -f .dotter/local.toml ]; then
-    case "$(uname)" in
-        Darwin) printf 'packages = ["common", "macos"]\n' > .dotter/local.toml ;;
-        *)      printf 'packages = ["common"]\n' > .dotter/local.toml ;;
-    esac
-    echo "Created .dotter/local.toml: $(cat .dotter/local.toml)"
-fi
+case "$(uname)" in
+    Darwin) profile=macos ;;
+    Linux)  profile=linux ;;
+    *)      echo "Unsupported platform: $(uname)" >&2; exit 1 ;;
+esac
 
-# Migration: the pre-dotter setups linked whole directories into the repo;
-# dotter manages their content file by file, so drop the old directory links
-for legacy in "$HOME/.vim" "$HOME/.git-templates" \
-              "$HOME/Library/Application Support/Code/User/snippets" \
-              "$HOME/.config/Code/User/snippets"; do
-    if [ -L "$legacy" ]; then
-        case "$(readlink "$legacy")" in
-            "$BASEDIR"*) rm "$legacy" ;;
-        esac
+# Trust is local mise state, not repository state. It permits a fresh clone to
+# run this reviewed configuration without an interactive trust prompt.
+mise trust "$BASEDIR"
+mise -C "$BASEDIR" -E "$profile" bootstrap --yes "$@"
+
+# A cask installed by Homebrew cannot safely be adopted in place by mise.
+# Fresh Macs receive the declarative applications profile; an existing machine
+# keeps its working apps until the user explicitly uninstalls those casks.
+if [ "$profile" = macos ]; then
+    if command -v brew >/dev/null 2>&1 && [ -n "$(brew list --cask 2>/dev/null)" ]; then
+        echo "Homebrew-owned casks detected; skipped mise's macOS apps profile."
+        echo "Migrate them deliberately, then run: mise -C $BASEDIR -E macos-apps bootstrap --only packages --yes"
+    else
+        mise -C "$BASEDIR" -E macos-apps bootstrap --only packages --yes "$@"
+        bash "$BASEDIR/scripts/link-sublime.sh"
     fi
-done
-
-dotter deploy --force --noconfirm
-
-scripts/link-sublime.sh
-scripts/install-zsh-plugins.sh
-scripts/install-gh-extensions.sh
-[ ! -f claude/install.sh ] || bash claude/install.sh
-
-# init.templateDir only seeds repositories created after it is set, so this one
-# never got the hooks. Point it at them directly instead of copying.
-if [ -d .git ]; then
-    git config --local core.hooksPath others/git-templates/hooks
 fi
 
-echo "Done."
+echo "Bootstrap complete."

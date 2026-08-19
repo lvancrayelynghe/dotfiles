@@ -1,35 +1,46 @@
 # Dotfiles
 
-Personal public dotfiles: zsh, bash, git, vim, tmux, Ghostty, Hammerspoon,
-Sublime Text, VS Code, Claude Code — managed with
-[dotter](https://github.com/SuperCuber/dotter) (Rust, single static binary).
+Personal public dotfiles: zsh, bash, git, vim, Ghostty, Hammerspoon,
+Sublime Text, VS Code and Claude Code — bootstrapped with
+[mise](https://mise.jdx.dev).
 
 ## Install
 
 ```sh
-brew install dotter   # Linux: static binary from the dotter releases page
 git clone https://github.com/lvancrayelynghe/dotfiles.git ~/.dotfiles/public
 cd ~/.dotfiles/public
 ./install
 ```
 
-`./install` is idempotent: it (re)creates the symlinks declared in
-`.dotter/global.toml` for the packages this machine enables in
-`.dotter/local.toml` (auto-generated on first run: `common` + `macos` on
-a Mac, `common` on Linux servers, add `linux-desktop` by hand), removes
-links dropped from the config, then installs the zsh plugins, the pure
-prompt, vim-plug, the gh CLI extensions and the Claude Code statusline.
-Re-run it any time.
+`./install` installs mise with its official installer if needed, trusts this
+reviewed checkout locally, then runs `mise bootstrap`. It converges the
+dotfile links, platform packages and versioned CLI tools before running the
+idempotent integrations for zsh, vim, gh, Sublime Text and Claude Code.
+Re-run it any time. Existing real files are deliberately not overwritten: pass
+`--force-dotfiles` only after inspecting the conflict mise reports.
+
+On a Linux desktop, copy `mise/config.local.toml.example` to the ignored
+`mise/config.local.toml` before running `./install`; it adds the VS Code links.
+Linux servers use the common + Linux configuration only.
 
 ### macOS extras
 
 ```sh
-brew bundle                       # install packages, apps and fonts (see Brewfile)
-./macos-defaults.sh "My MacBook"  # system preferences (name optional)
+mise run macos-defaults           # system preferences (mise task)
+./macos-defaults.sh "My MacBook"  # …or run directly to also set the computer name
 ```
 
-`macos-defaults.sh` is neither symlinked nor called by `./install`: every line
-writes a system preference, so it is run by hand, once, on a fresh install —
+Applications, fonts, CLI packages and Mac App Store entries are declared in
+`mise/config.macos*.toml`; `./install` applies them. mise uses its built-in
+Homebrew package manager and does not require `brew bundle` or a `Brewfile`.
+On an existing Homebrew workstation, mise deliberately does not take ownership
+of casks: `./install` deploys the rest and prints the explicit apps-migration
+command. `libreoffice-language-pack` remains a manual exception, because its
+cask script is not currently supported by mise.
+
+`macos-defaults.sh` is exposed as the `macos-defaults` mise task but is
+deliberately not part of `mise bootstrap` / `./install`: every line writes a
+system preference, so it is run by hand, once, on a fresh install —
 never to check something. The optional argument sets `ComputerName` verbatim
 and derives `LocalHostName` from a sanitised copy (the Bonjour name accepts
 neither spaces nor accents); `HostName` is deliberately left unset so macOS
@@ -39,37 +50,31 @@ is an opt-in.
 
 ### Linux servers
 
-Only the shell/CLI configs matter there; `./install` skips the macOS-only
-links automatically. Minimal packages:
-
-```sh
-apt install zsh git vim tmux curl ripgrep fzf eza zoxide bat fd-find jq
-apt install du-dust duf sd   # names differ from the binaries: dust, duf, sd
-```
-
-The second line is not optional: the shared aliases route `du`, `df` and
-`find-and-replace` through those three. Toolchain versions come from
-[mise](https://mise.jdx.dev), which reads the versioned `mise/config.toml`.
+`./install` selects the Linux profile, which delegates native dependencies to
+apt and installs portable CLIs through mise. The shared aliases therefore get
+`dust`, `duf` and `sd` without a hand-maintained apt command.
 
 ## Layout
 
 | Path | Purpose |
 |---|---|
-| `.dotter/global.toml` | all symlink mappings, grouped by package (dotter) |
-| `install` | wrapper: `dotter deploy` + install hooks |
+| `mise/config.toml` | shared tools, symlink mappings and bootstrap task |
+| `mise/config.macos.toml` | macOS native packages and dotfiles |
+| `mise/config.macos-apps.toml` | macOS applications, fonts and App Store entries |
+| `mise/config.linux.toml` | Debian/Ubuntu native dependencies |
+| `install` | mise bootstrap wrapper |
 | `shell/aliases.sh` | entry point for the aliases shared by bash **and** zsh |
 | `shell/aliases-*.sh` | the rest, split by topic (git, docker, dev, net) and by OS |
 | `zsh/` | zsh config: `zshenv` → `zprofile` (PATH, env) → `zshrc` (interactive) |
 | `bash/` | thin bash config sourcing `shell/aliases.sh` |
-| `others/` | tool configs linked into `$HOME` (git, tmux, nano, less…) |
+| `others/` | tool configs linked into `$HOME` (git, nano, less…) |
 | `ssh/` | `~/.ssh/config` skeleton + the public half of `config.d/` |
-| `mise/` | global toolchain versions (node, claude, gemini) |
+| `mise/` | global toolchain, packages, dotfiles and bootstrap configuration |
 | `scripts/` | helper scripts (`install-zsh-plugins.sh`, `link-sublime.sh`…) |
 | `scripts/bench-shell.sh` | interactive zsh latency, via [zsh-bench](https://github.com/romkatv/zsh-bench) |
 | `scripts/trace-shell.sh` | where zsh startup time goes, per sourced file or per line |
 | `claude/` | Claude Code statusline + merge-based installer |
-| `Brewfile` | macOS packages (`brew bundle`) |
-| `macos-defaults.sh` | macOS system preferences — run by hand, never by `./install` |
+| `macos-defaults.sh` | macOS system preferences — `mise run macos-defaults`, by hand, never by `./install` |
 
 Per-tool directories (`ghostty/`, `lla/`, `ranger/`, `vim/`, `hammerspoon/`,
 `sublime-text/`, `vscode/`, `rectangle/`) each hold that tool's own config.
@@ -85,7 +90,7 @@ Per-tool directories (`ghostty/`, `lla/`, `ranger/`, `vim/`, `hammerspoon/`,
   three files works fine.
 
 Put machine-specific PATH entries, aliases and tokens there. Toolchain versions
-do **not** belong here any more: they live in `mise/config.toml`, versioned.
+and managed system packages live in the versioned `mise/config*.toml` files.
 
 Annotated starting points — **copy them, never symlink them**, so that editing
 the real file can never write back into this public repo:
@@ -95,5 +100,5 @@ cp zsh/zshrc_local.example ~/.zshrc_local
 cp bash/bashrc_local.example ~/.bashrc_local
 ```
 
-They are deliberately absent from `.dotter/global.toml`: an unmapped file here
-is the intent, not an oversight.
+They are deliberately absent from `[dotfiles]`: an unmanaged file here is the
+intent, not an oversight.

@@ -52,5 +52,18 @@ alias 9=' cd -9'
 
 # Config management
 alias zshrc='source ~/.zshrc' ## Reload config
-alias dotfiles='(cd ${DOTFILES_PATH} && git pull) ; (cd ${DOTFILES_PATH}/../private && git pull) ; source ~/.zshrc' ## Pull dotfiles from repositories and reload config
+dotfiles() {
+    local profile
+    git -C "${DOTFILES_PATH}" pull || return
+    if [[ -d "${DOTFILES_PATH}/../private/.git" ]]; then
+        git -C "${DOTFILES_PATH}/../private" pull || return
+    fi
+    case "$(uname)" in
+        Darwin) profile=macos ;;
+        Linux) profile=linux ;;
+        *) echo 'dotfiles: unsupported platform' >&2; return 1 ;;
+    esac
+    mise -C "${DOTFILES_PATH}" -E "$profile" bootstrap --yes || return
+    source ~/.zshrc
+} ## Pull dotfiles, converge the machine, then reload zsh
 alias snippets="cat ${DOTFILES_PATH}/zsh/snippets.zsh | sed -r 's/^function //g' | sed -r 's/^# (.*)/\x1b[32m\x1b[1m# \1\x1b[0m/'"

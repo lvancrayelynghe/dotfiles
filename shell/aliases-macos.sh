@@ -19,8 +19,6 @@ alias pwdc=' pwd | tr -d "\n" | pbcopy' ## copy working directory to clipboard
 # System commands
 alias halt="osascript -e 'tell app \"System Events\" to shut down'"
 alias reboot="osascript -e 'tell app \"System Events\" to restart'"
-alias agall='brew update && brew upgrade && brew cleanup -s && brew doctor'
-alias brewall='brew update && brew upgrade && brew cleanup -s && brew doctor'
 
 # Show/hide hidden files in Finder
 alias show='defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder'

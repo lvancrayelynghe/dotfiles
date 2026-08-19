@@ -1,0 +1,57 @@
+# Loaded by ./install with MISE_ENV=macos. Homebrew is an implementation
+# detail of mise's package manager here; no Homebrew CLI or Brewfile is needed.
+
+[settings]
+system_packages.managers = ["brew"]
+
+[bootstrap.packages]
+# GNU userland, selected by shell/aliases-macos.sh.
+"brew:coreutils" = "latest"
+"brew:findutils" = "latest"
+"brew:grep" = "latest"
+"brew:gnu-sed" = "latest"
+"brew:gnu-tar" = "latest"
+"brew:gawk" = "latest"
+"brew:gnutls" = "latest"
+
+# System-integrated CLIs and libraries. Portable CLIs live in [tools]. Notable
+# exceptions kept native on purpose: the `coreutils` registry shorthand is uutils
+# (a Rust rewrite), not the GNU tools the gls/ggrep/gsed aliases expect, and the
+# `unison` shorthand is the Unison language, not the file synchroniser.
+"brew:git" = "latest"
+"brew:curl" = "latest"
+"brew:wget" = "latest"
+"brew:vim" = "latest"
+"brew:bash" = "latest"
+"brew:zsh" = "latest"
+"brew:zsh-patina" = "latest"
+"brew:htop" = "latest"
+"brew:iftop" = "latest"
+"brew:tree" = "latest"
+"brew:pv" = "latest"
+"brew:dos2unix" = "latest"
+"brew:telnet" = "latest"
+"brew:unison" = "latest"
+"brew:imagemagick" = "latest"
+"brew:fdupes" = "latest"
+"brew:php" = "latest"
+# Native: the only registry shorthand is pipx:ansible, which exposes just
+# ansible-community, not the ansible / ansible-playbook commands.
+"brew:ansible" = "latest"
+"brew:dnsmasq" = "latest"
+"brew:fswatch" = "latest"
+"brew:mole" = "latest"
+"brew:mas" = "latest"
+
+[dotfiles]
+# A whole-directory symlink on purpose (default mode, not symlink-each): Hammerspoon
+# watches ~/.hammerspoon and hot-reloads, so the live directory must be the repo's.
+"~/.hammerspoon" = "../hammerspoon"
+"~/.config/ghostty/config" = "../ghostty/config"
+"~/Library/Application Support/Rectangle/RectangleConfig.json" = "../rectangle/RectangleConfig.json"
+"~/Library/Application Support/Code/User/settings.json" = "../vscode/settings.json"
+"~/Library/Application Support/Code/User/keybindings.json" = "../vscode/keybindings.json"
+"~/Library/Application Support/Code/User/snippets" = { source = "../vscode/snippets", mode = "symlink-each" }
+"~/.gitconfig-macos" = "../others/gitconfig-macos"
+"~/.ssh/config.d/92-1password.conf" = "../ssh/config.d/92-1password.conf"
+"~/.ssh/config.d/95-macos.conf" = "../ssh/config.d/95-macos.conf"

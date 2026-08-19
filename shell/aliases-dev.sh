@@ -17,9 +17,6 @@ alias art='php artisan'
 alias mig-install='php artisan migrate:install'
 alias mig-seed='php artisan migrate:refresh --seed'
 
-# ngrok
-alias ng='ngrok http 80'
-
 # GitHub
 alias ghd='gh dash' ## PR/issue/notification dashboard, from the gh-dash extension
 

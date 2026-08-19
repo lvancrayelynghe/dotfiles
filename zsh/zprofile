@@ -16,6 +16,14 @@ if [[ -z "$HOMEBREW_PREFIX" ]]; then
     fi
 fi
 
+# mise can pour Homebrew formulae itself, without installing the Homebrew CLI.
+# Those formulae still use Homebrew's canonical prefixes, so expose them even
+# when `brew shellenv` above was unavailable.
+for _mise_brew_prefix in /opt/homebrew /usr/local /home/linuxbrew/.linuxbrew; do
+    [[ -d "$_mise_brew_prefix/bin" ]] && path=("$_mise_brew_prefix/bin" "$_mise_brew_prefix/sbin" $path)
+done
+unset _mise_brew_prefix
+
 # OrbStack command-line tools
 [[ -e "$HOME/.orbstack/shell/init.zsh" ]] && source "$HOME/.orbstack/shell/init.zsh"
 

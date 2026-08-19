@@ -22,6 +22,7 @@ fi
 alias pwd=' pwd'
 alias cd=' cd'
 alias cdg=' cd "$(git rev-parse --show-toplevel)"' ## git root
+alias cdc=" cd && clear && printf '\e[3J'"
 alias zz=' fzf-cd-home' ## fzf-pick any dir under $HOME (z/zi only know visited ones)
 
 # Listing
@@ -42,7 +43,6 @@ alias p=' dirs -v | head -10' ## most used dirs for current session
 alias x=' exit'
 alias h='history'
 alias j='jobs'
-alias t='tmux'
 alias v='open-with-vim'
 alias e='open-with-vim'
 alias s='open-with-sublime-text'
@@ -72,6 +72,11 @@ alias fgrep='grep -F --color=auto'
 
 alias sudo='sudo ' ## Allow aliases to be sudo'ed
 alias watch='watch ' ## Allow aliases to be watched
+
+# mise
+alias m='mise'
+alias mr='mise run'
+alias mt='mise tasks'
 
 # Search & find
 alias ss='sift -n' ## with sift
@@ -116,6 +121,30 @@ alias df='duf'
 
 # dust has no name sort, so this one keeps plain du, which takes -d on BSD too
 du1() { command du -hd1 "$@" | sort -k2; } ## one level, by name
+
+# Update only the packages declared in this repository. mise is the
+# orchestrator; apt/Homebrew/MAS remain the platform installers underneath.
+mise-packages-upgrade() {
+    local profile
+    case "$(uname)" in
+        Darwin) profile=macos ;;
+        Linux) profile=linux ;;
+        *) echo 'mise-packages-upgrade: unsupported platform' >&2; return 1 ;;
+    esac
+    mise -C "${DOTFILES_PATH:-$HOME/.dotfiles/public}" -E "$profile" \
+        bootstrap packages upgrade --yes "$@" || return
+
+    # Do not make a routine update take ownership of casks still managed by an
+    # existing Homebrew install. Fresh Macs use mise's apps profile as well.
+    if [ "$profile" = macos ]; then
+        if command -v brew >/dev/null 2>&1 && [ -n "$(brew list --cask 2>/dev/null)" ]; then
+            echo 'Homebrew-owned casks skipped; migrate them before mise manages their updates.'
+        else
+            mise -C "${DOTFILES_PATH:-$HOME/.dotfiles/public}" -E macos-apps \
+                bootstrap packages upgrade --yes "$@"
+        fi
+    fi
+}
 
 # Per-topic files
 _ALIASES_DIR="${DOTFILES_PATH:-$HOME/.dotfiles/public}/shell"

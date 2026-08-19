@@ -1,6 +1,6 @@
-# ~/.ssh/config -- deployed by dotter, so this file is PUBLIC.
+# ~/.ssh/config -- deployed by mise, so this file is PUBLIC.
 #
-# It declares no host. Every host lives in ~/.ssh/config.d/, which dotter only
+# It declares no host. Every host lives in ~/.ssh/config.d/, which mise only
 # populates with the public files below; the private ones are created by hand
 # and never leave the machine.
 #

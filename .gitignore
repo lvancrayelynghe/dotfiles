@@ -1,6 +1,10 @@
 vim/vim/autoload
 vim/vim/plugged
 
-.dotter/local.toml
-.dotter/cache.toml
-.dotter/cache/
+# Per-machine additions to the mise bootstrap configuration (for example the
+# Linux desktop profile). They must never carry secrets or host-specific data
+# that belongs outside this public repository.
+mise/config.local.toml
+
+# Left behind by the retired dotter deployment on existing machines.
+.dotter/

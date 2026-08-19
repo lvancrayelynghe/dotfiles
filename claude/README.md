@@ -13,7 +13,7 @@ flags. Tweak the `CFG_*` toggles at the top of the script to show/hide segments.
 `./install` handles it in two steps:
 
 1. **Symlink** — `claude/statusline-command.sh` → `~/.claude/statusline-command.sh`
-   (declared in `.dotter/global.toml`). Claude Code never writes to this
+   (declared in `mise/config.toml`). Claude Code never writes to this
    file, so the symlink stays valid and edits in the repo take effect immediately.
 2. **Register** — `./install` runs `claude/install.sh`,
    which sets the `statusLine` key in `~/.claude/settings.json` (idempotent,
@@ -24,5 +24,5 @@ flags. Tweak the `CFG_*` toggles at the top of the script to show/hide segments.
 ## Requirements
 
 - `jq` — used by the status line at runtime and by `install.sh` to merge
-  settings. Installed via the `Brewfile` on macOS (`brew bundle`). On Linux
+  settings. Installed as a mise-managed tool on macOS and Linux. On Linux
   install it with your package manager (e.g. `apt install jq`).

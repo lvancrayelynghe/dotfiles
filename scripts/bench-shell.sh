@@ -6,7 +6,7 @@
 # the time go?", use scripts/trace-shell.sh.
 #
 # Dev-only tool, on purpose:
-#   - not in the Brewfile: upstream ships no formula and no tag,
+#   - not in mise packages: upstream ships no formula and no tag,
 #   - not in ./install: install-zsh-plugins.sh pulls unconditionally, which
 #     would advance master under the recorded baseline and move the numbers,
 #   - not in the pre-commit hook: a run costs ~35 s.

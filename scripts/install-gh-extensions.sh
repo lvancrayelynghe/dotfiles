@@ -8,7 +8,7 @@ EXTENSIONS=(
     dlvhdr/gh-dash # `gh dash`: PR / issue / notification dashboard (TUI)
 )
 
-# gh comes from the Brewfile on macOS and is usually absent from a server:
+# gh is a mise-managed portable tool and can still be absent before bootstrap:
 # skip rather than fail, ./install runs everywhere.
 if ! command -v gh >/dev/null 2>&1; then
     echo "gh not installed, no extension to install"

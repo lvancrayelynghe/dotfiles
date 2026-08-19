@@ -15,7 +15,7 @@ local caffeine = hs.menubar.new()
 --   * setting the brightness does *not* reset that idle timer, so the dim cannot
 --     feed itself a wake-up.
 --   * the ambient light sensor does not fight the value back.
-local DIM_AFTER = 60    -- seconds without input before the screen dims
+local DIM_AFTER = 300   -- seconds without input before the screen dims
 local DIM_LEVEL = 0.05  -- brightness to fall to, 0..1 -- never raises a screen
 local FADE_TIME = 1     -- how long the fade down takes; waking back up is instant
 local FADE_TICK = 0.05

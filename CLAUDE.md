@@ -6,7 +6,7 @@
 
 - **Never any secret, token, password, internal hostname, or runtime state**
   in this repo. Anything sensitive stays local.
-- Files are **symlinked in place** in `$HOME` via dotter: editing
+- Files are **symlinked in place** in `$HOME` via mise: editing
   `~/.zshrc`, `~/.gitconfig`, etc. directly modifies this repo. Never
   do `echo >> ~/.zshrc` from a script — it pollutes the versioned file
   (the historical cause of duplicate PATH entries).
@@ -17,10 +17,11 @@
 
 ## Architecture
 
-- `.dotter/global.toml` — **any new config file must be mapped here**
-  (in the appropriate package: `common`, `macos`, or `linux-desktop`; each
-  machine enables its own via `.dotter/local.toml`, which is never committed).
-  `./install` is idempotent and reruns `dotter deploy --force`.
+- `mise/config.toml` — **any shared dotfile mapping must be declared in its
+  `[dotfiles]` table**. Platform mappings and native packages belong in
+  `mise/config.macos.toml` or `mise/config.linux.toml`; an ignored
+  `mise/config.local.toml` holds the explicit Linux desktop additions.
+  `./install` is idempotent and runs `mise bootstrap` for the current OS.
 - `shell/aliases.sh` — **entry point** for the aliases shared between bash and
   zsh, and home of the general-purpose ones. It sources the per-topic files at
   the bottom; callers still source this one file only. POSIX-compatible syntax
@@ -56,10 +57,12 @@
     unmatched glob — is a **silent** no-op, which is what lets one versioned
     skeleton work everywhere. `ssh -v` reports `matched no files`, and
     `ssh -G <host>` prints the resolved config without connecting.
-- `mise/config.toml` — global toolchain versions (node, claude, gemini),
-  symlinked like the rest, so `mise use -g` edits the versioned file.
-- `hammerspoon/` — `macos` package, mapped as a **single directory symlink**
-  (`recurse = false`): **any `.lua` saved there reloads the live config at
+- `mise/config.toml` — global toolchain versions, common dotfile links and
+  bootstrap task. It is self-symlinked to `~/.config/mise/config.toml`, so
+  `mise use -g` edits the versioned file.
+- `hammerspoon/` — macOS mise profile, mapped in the `[dotfiles]` of
+  `mise/config.macos.toml` as a **whole-directory symlink** (mise's default mode,
+  not `symlink-each`): **any `.lua` saved there reloads the live config at
   once**, and a syntax error takes it down until the next save. That directory
   carries its own `CLAUDE.md`, loaded when a file in it is read, and holds the
   rest — the constraints there are many, and none of them are guessable.
@@ -67,26 +70,33 @@
   MANPATH, EDITOR, `typeset -U path`) → `zshrc` (interactive) →
   `zsh/*.zsh` files → `~/.zshrc_$HOST` / `~/.zshrc_local` (machine-local,
   never committed).
-- `zsh/plugins.zsh` only **sources** the plugins; their network
-  installation lives in `scripts/install-zsh-plugins.sh` (a hook of
-  `./install`). Never any network command or extra `compinit` in the
+- `zsh/plugins.zsh` only **sources** the plugins; their network installation
+  lives in `scripts/install-zsh-plugins.sh` (a mise bootstrap task). Never any
+  network command or extra `compinit` in the
   startup files. One exception to the sourcing rule: syntax highlighting is
   **zsh-patina**, a compiled binary driving a daemon shared by every session,
-  so it is installed as a package (Brewfile / `.deb`) and activated with
+  so it is installed as a package (mise `brew:` / `.deb`) and activated with
   `eval "$(zsh-patina activate)"`, not cloned and sourced.
-- `scripts/install-gh-extensions.sh` — the gh CLI extensions (another hook of
-  `./install`), one array line per `owner/repo`. Not a Brewfile entry: gh only
+- `scripts/install-gh-extensions.sh` — the gh CLI extensions (another mise
+  bootstrap integration), one array line per `owner/repo`. Not a package entry: gh only
   runs extensions found in its own data directory, so the Homebrew formula
   would give the binary and no `gh <command>`. Re-running is free and offline
   (gh checks that directory first, prints `already installed`, exits 0), and
   installing needs **no** `gh auth login` — it is an anonymous release
   download, unlike almost everything else gh does. Nothing upgrades them:
   `gh extension upgrade --all` by hand.
+- `scripts/install-yazi-packages.sh` — runs `ya pkg install` (another mise
+  bootstrap integration), cloning the flavors/plugins pinned in the versioned
+  `yazi/package.toml` into `~/.config/yazi/flavors` (runtime, not versioned).
+  Guarded on `ya`, idempotent, upgrade by hand with `ya pkg upgrade`. Both
+  `yazi/package.toml` and `yazi/theme.toml` are symlinked via `[dotfiles]`, so
+  `ya pkg add` edits the versioned manifest in place (like `mise use -g`).
 - `claude/install.sh` (atomic jq merge into `~/.claude/settings.json`) is
   the model for any hook that needs to merge rather than overwrite.
-- `macos-defaults.sh` — **not mapped in dotter, not called by `./install`**:
-  every line writes a system preference, so it is run by hand, once, on a fresh
-  install. Never run it to inspect anything — read it, or read the machine with
+- `macos-defaults.sh` — exposed as the `macos-defaults` **mise task**
+  (`mise run macos-defaults`) but **deliberately not part of `mise bootstrap` /
+  `./install`**: every line writes a system preference, so it is run by hand,
+  once, on a fresh install. Never run it to inspect anything — read it, or read the machine with
   `defaults read <domain> <key>`. Regenerated 2026-08-15 from the live state of
   a MacBookPro18,3 on macOS 26.5, and three rules keep it readable: an active
   line reproduces a value the machine actually has, a commented-out line is a
@@ -131,7 +141,7 @@
   them too — their distribution package names differ from the binaries.
 - `zsh-patina` is a **binary**, and the only piece of the zsh startup that is
   not either versioned here or cloned by `install-zsh-plugins.sh`. macOS gets
-  it from the Brewfile; Debian has **no apt repository** — grab the `.deb`
+  it from mise's `brew:` package manager; Debian has **no apt repository** — grab the `.deb`
   (`amd64`/`arm64`, plus musl builds) from the releases page and `dpkg -i` it.
   Its absence is not fatal: `zsh/plugins.zsh` guards on `command -v`, so a
   server without it simply has no highlighting.
@@ -174,7 +184,7 @@
     the 10 ms perception threshold `command_lag` now sits 14% over instead of
     ~2×.
     The script clones zsh-bench pinned to a SHA into `~/.cache` on first use;
-    it is deliberately absent from the Brewfile (no formula, no upstream tag)
+    it is deliberately absent from mise packages (no formula, no upstream tag)
     and from `./install` (which pulls, and would move the baseline). On Linux
     zsh-bench runs its payload through `$SHELL`, not the shell in `/etc/passwd`:
     with a bash `$SHELL` it does not fail, it **hangs forever with no output**
@@ -217,11 +227,10 @@ shellcheck install scripts/*.sh macos-defaults.sh others/git-templates/hooks/pre
 ./install                     # must remain idempotent (zero prompts, re-runnable)
 time zsh -i -c exit           # portable smoke test < 130 ms (blind after zshrc)
 scripts/bench-shell.sh        # zsh-bench in a pty: the latencies the line above misses
-brew bundle check --no-upgrade --verbose   # declared but missing
-brew bundle cleanup           # installed but undeclared (dry run; --force removes)
+mise -C . -E macos bootstrap plan          # macOS bootstrap preview
+mise -C . -E linux bootstrap plan          # Linux bootstrap preview
 luac -p hammerspoon/**/*.lua  # Lua syntax
 for t in hammerspoon/tests/*.lua; do lua "$t" || break; done  # stub hs suites
-tmux -f others/tmux.conf -L test new -d \; kill-server  # parse tmux.conf
 ```
 
 Nothing runs these automatically, and the Linux half of the config is

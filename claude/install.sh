@@ -4,7 +4,8 @@
 # Idempotent and non-destructive: it only sets the `statusLine` key and leaves
 # everything else (permissions, model, marketplaces…) untouched.
 #
-# The status line SCRIPT itself is symlinked by dotter (.dotter/global.toml:
+# The status line SCRIPT itself is symlinked by mise ([dotfiles] in
+# mise/config.toml):
 # claude/statusline-command.sh -> ~/.claude/statusline-command.sh), so it stays
 # in sync with the repo. settings.json is intentionally NOT symlinked because
 # Claude Code rewrites it (permission approvals, atomic saves).

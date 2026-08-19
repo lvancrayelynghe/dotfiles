@@ -2,7 +2,7 @@
 #
 #     cp bash/bashrc_local.example ~/.bashrc_local
 #
-# NOT deployed by dotter, on purpose. The real file holds tokens, client
+# NOT deployed by mise, on purpose. The real file holds tokens, client
 # hostnames and per-machine paths, none of which may ever reach this public
 # repo. Keeping it a manual copy means editing it can never write back here.
 #

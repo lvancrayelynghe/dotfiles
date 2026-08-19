@@ -1,0 +1,46 @@
+# macOS applications are isolated from the base profile. mise refuses to take
+# over casks already owned by Homebrew, so ./install skips this profile on an
+# existing Homebrew workstation and reports the required manual migration.
+
+[settings]
+system_packages.managers = ["brew-cask", "mas"]
+
+[bootstrap.packages]
+"brew-cask:font-hack" = "latest"
+"brew-cask:font-fira-code" = "latest"
+"brew-cask:font-jetbrains-mono" = "latest"
+"brew-cask:ghostty" = "latest"
+"brew-cask:sublime-text" = "latest"
+"brew-cask:visual-studio-code" = "latest"
+"brew-cask:vivaldi" = "latest"
+"brew-cask:firefox" = "latest"
+"brew-cask:brave-browser" = "latest"
+"brew-cask:1password" = "latest"
+"brew-cask:1password-cli" = "latest"
+"brew-cask:vlc" = "latest"
+"brew-cask:iina" = "latest"
+"brew-cask:hammerspoon" = "latest"
+"brew-cask:hyperkey" = "latest"
+"brew-cask:rectangle" = "latest"
+"brew-cask:discord" = "latest"
+"brew-cask:spotify" = "latest"
+"brew-cask:itsycal" = "latest"
+"brew-cask:orbstack" = "latest"
+"brew-cask:google-drive" = "latest"
+"brew-cask:libreoffice" = "latest"
+"brew-cask:sequel-ace" = "latest"
+"brew-cask:bruno" = "latest"
+"brew-cask:raycast" = "latest"
+"brew-cask:macwhisper" = "latest"
+"brew-cask:mac-mouse-fix" = "latest"
+"brew-cask:macshot" = "latest"
+"brew-cask:google-gemini" = "latest"
+"brew-cask:fluidvoice" = "latest"
+
+# Mac App Store: account login remains a manual prerequisite.
+"mas:803453959" = "latest" # Slack
+"mas:425424353" = "latest" # The Unarchiver
+"mas:506189836" = "latest" # Harvest
+"mas:1295203466" = "latest" # Windows App
+"mas:1327661892" = "latest" # Xmind
+"mas:1298486723" = "latest" # FileZilla

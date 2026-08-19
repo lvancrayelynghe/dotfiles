@@ -15,7 +15,6 @@ if [ "${EUID:-$(id -u)}" != 0 ]; then
     alias agu='sudo apt-get update'
     alias agg='sudo apt-get upgrade'
     alias ags='sudo apt-cache search'
-    alias agall='sudo apt-get update && sudo apt-get -y upgrade && sudo apt-get -y dist-upgrade && sudo apt-get -y autoremove'
 else
     alias halt='shutdown -h now'
     alias reboot='shutdown -r now'
@@ -25,7 +24,6 @@ else
     alias agu='apt-get update'
     alias agg='apt-get upgrade'
     alias ags='apt-cache search'
-    alias agall='apt-get update && apt-get -y upgrade && apt-get -y dist-upgrade && apt-get -y autoremove'
 fi
 
 # Network, through iproute2 rather than the deprecated net-tools

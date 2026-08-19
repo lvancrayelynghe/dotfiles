@@ -24,7 +24,7 @@ alias wget-site='wget --mirror -p --convert-links -P'
 alias header='curl-header'
 alias purge='curl-purge'
 for method in GET HEAD POST PUT DELETE PURGE TRACE OPTIONS; do
-    alias "$method"="http '$method'"
+    alias "$method"="xh '$method'"
 done
 unset method
 

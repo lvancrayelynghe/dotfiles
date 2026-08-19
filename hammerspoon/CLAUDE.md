@@ -7,9 +7,10 @@ in review, and three of the bugs behind these notes shipped once already.
 
 ## The directory, and the reload
 
-- `macos` package, mapped in `.dotter/global.toml` as a **single directory
-  symlink** (`recurse = false`) so that Hammerspoon's pathwatcher resolves the
-  repo directory: **any `.lua` saved here reloads the live config at once**, and
+- Mapped in the `[dotfiles]` of `mise/config.macos.toml` as a **whole-directory
+  symlink** (mise's default mode, not `symlink-each`) so that Hammerspoon's
+  pathwatcher resolves the repo directory: **any `.lua` saved here reloads the
+  live config at once**, and
   a syntax error takes that config down until the next save. Hence `luac -p`
   right after writing, and drafting anything substantial elsewhere first.
 - `init.lua` requires `lib/switcher`, `caffeinate`, `keymappings`, `layouts`.

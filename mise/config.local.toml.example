@@ -1,0 +1,9 @@
+# Optional, machine-local additions to mise's bootstrap configuration.
+#
+# Copy this to mise/config.local.toml on a Linux workstation. It is ignored by
+# Git and makes the VS Code links part of that machine's bootstrap only.
+
+[dotfiles]
+"~/.config/Code/User/settings.json" = "../vscode/settings.json"
+"~/.config/Code/User/keybindings.json" = "../vscode/keybindings.json"
+"~/.config/Code/User/snippets" = { source = "../vscode/snippets", mode = "symlink-each" }
