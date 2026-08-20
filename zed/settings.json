@@ -7,6 +7,21 @@
 // custom settings, run `zed: open default settings` from the
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
+  "agent_servers": {
+    "claude-acp": {
+      "favorite_config_option_values": {
+        "effort": [
+          "max"
+        ]
+      },
+      "default_config_options": {
+        "fast": false,
+        "effort": "max",
+        "mode": "acceptEdits"
+      },
+      "type": "registry"
+    }
+  },
   "terminal": {
     "font_weight": 600.0
   },
