@@ -51,39 +51,37 @@ for key, bundleID in pairs({
     ["z"] = apps.zed,
     ["e"] = apps.finder,
     ["r"] = apps.bruno,
-    ["t"] = apps.ghostty,
+    ["t"] = apps.filezilla,
     ["y"] = apps.harvest,
-
+    -- u → free
+    -- i → free
+    -- o → todo.md
     ["p"] = apps.notes,
 
     -- second row
     ["q"] = apps.calendar,
     ["s"] = apps.sublime,
     ["d"] = apps.discord,
-    ["f"] = apps.filezilla,
-    ["g"] = apps.vivaldi,
+    ["f"] = apps.vivaldi,
+    ["g"] = apps.ghostty,
+    -- h → resize
+    -- j → resize
+    -- k → resize
+    -- l → resize
+    -- m → floating term
 
     -- third row
+    -- w → free
     ["x"] = apps.clickup,
     ["c"] = apps.claude,
     ["v"] = apps.vscode,
     ["b"] = apps.sequelace,
+    -- n → free
 }) do
     hs.hotkey.bind({'cmd', 'alt', 'ctrl'}, key, function()
         launchOrSwitch(bundleID)
     end)
 end
-
-
--- select any other window
--- hs.hotkey.bind({"alt"}, "b", function()
---     switcher:selectWindow(false)
--- end)
-
--- select any window for the same application
--- hs.hotkey.bind({"alt", "shift"}, "b", function()
---     switcher:selectWindow(true)
--- end)
 
 -- Alt-tab replacement to go to last window
 hs.hotkey.bind({'cmd', 'alt', 'ctrl'}, "tab", function()
@@ -98,6 +96,11 @@ hs.hotkey.bind({'cmd', 'alt', 'ctrl', 'shift'}, "return", function()
     end
 end)
 
+-- Close active window
+hs.hotkey.bind({'cmd', 'alt', 'ctrl', 'shift'}, "q", function()
+  local win = hs.window.focusedWindow()
+  win:application():kill()
+end)
 
 hs.hotkey.bind({'cmd', 'alt', 'ctrl'}, "o", function() hs.execute("/opt/homebrew/bin/subl ~/Library/Mobile\\ Documents/com~apple~CloudDocs/todo.md") end)
 
@@ -106,22 +109,10 @@ hs.hotkey.bind({'cmd', 'alt', 'ctrl'}, "j", function() hs.grid.resizeWindowThinn
 hs.hotkey.bind({'cmd', 'alt', 'ctrl'}, "k", function() hs.grid.resizeWindowWider(hs.window.focusedWindow()) end)
 hs.hotkey.bind({'cmd', 'alt', 'ctrl'}, "l", function() hs.grid.resizeWindowTaller(hs.window.focusedWindow()) end)
 
-hs.hotkey.bind({"ctrl", "cmd"}, "h", function() hs.grid.pushWindowUp(hs.window.focusedWindow()) end)
-hs.hotkey.bind({"ctrl", "cmd"}, "j", function() hs.grid.pushWindowLeft(hs.window.focusedWindow()) end)
-hs.hotkey.bind({"ctrl", "cmd"}, "k", function() hs.grid.pushWindowRight(hs.window.focusedWindow()) end)
-hs.hotkey.bind({"ctrl", "cmd"}, "l", function() hs.grid.pushWindowDown(hs.window.focusedWindow()) end)
-
--- Toggle Fullscreen
--- hs.hotkey.bind({'cmd', 'alt', 'ctrl'}, "f", function()
---   local win = hs.window.focusedWindow()
---   win:toggleFullScreen()
--- end)
-
--- Close active window
--- hs.hotkey.bind({'cmd', 'alt', 'ctrl'}, "x", function()
---   local win = hs.window.focusedWindow()
---   win:application():kill()
--- end)
+hs.hotkey.bind({'cmd', 'alt', 'ctrl', 'shift'}, "h", function() hs.grid.pushWindowUp(hs.window.focusedWindow()) end)
+hs.hotkey.bind({'cmd', 'alt', 'ctrl', 'shift'}, "j", function() hs.grid.pushWindowLeft(hs.window.focusedWindow()) end)
+hs.hotkey.bind({'cmd', 'alt', 'ctrl', 'shift'}, "k", function() hs.grid.pushWindowRight(hs.window.focusedWindow()) end)
+hs.hotkey.bind({'cmd', 'alt', 'ctrl', 'shift'}, "l", function() hs.grid.pushWindowDown(hs.window.focusedWindow()) end)
 
 -- Global on purpose, like configWatcher in init.lua: hs.eventtap does not
 -- retain its own object and its __gc disables the tap, so a tap nothing points
