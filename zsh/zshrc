@@ -32,6 +32,27 @@ source "${DOTFILES_PATH}/zsh/snippets.zsh"
 
 source "${DOTFILES_PATH}/zsh/plugins/colored-man.plugin.zsh"
 
+# mise: node/go/php toolchain versions. `mise activate` forks and costs ~14 ms,
+# so cache its output and regenerate only when the binary is newer than the
+# cache. Loaded here, after the local config files, so mise owns the toolchain
+# PATH -- see the note in ~/.zshrc_local if nvm is still declared there.
+#
+# fzf and zoxide are mise [tools] (mise/config.toml): their binaries land in
+# ~/.local/share/mise/installs and reach PATH only once `mise activate` has run
+# its initial hook-env. Their init blocks below MUST stay after this one --
+# above it, `command -v` fails in a fresh terminal (mise hasn't populated PATH
+# yet) and z / zi / zd and the fzf key bindings silently vanish. This bit when
+# they moved from the Homebrew Brewfile (on PATH via zprofile) to mise [tools].
+if command -v mise >/dev/null 2>&1; then
+    _mise_cache="$HOME/.cache/mise-activate.zsh"
+    if [[ ! -f "$_mise_cache" || "$_mise_cache" -ot "$commands[mise]" ]]; then
+        mkdir -p "${_mise_cache:h}"
+        mise activate zsh > "$_mise_cache"
+    fi
+    source "$_mise_cache"
+    unset _mise_cache
+fi
+
 # fzf key bindings (Ctrl-R, Ctrl-T, Alt-C) and completion. `fzf --zsh` forks,
 # and probing for it forked a second time -- ~20 ms each. Cache the generated
 # script instead and regenerate it only when the binary is newer.
@@ -54,20 +75,6 @@ fi
 if command -v zoxide >/dev/null 2>&1; then
     eval "$(zoxide init zsh)"
     alias zd='zi'
-fi
-
-# mise: node/go/php toolchain versions. `mise activate` forks and costs ~14 ms,
-# so cache its output and regenerate only when the binary is newer than the
-# cache. Loaded here, after the local config files, so mise owns the toolchain
-# PATH -- see the note in ~/.zshrc_local if nvm is still declared there.
-if command -v mise >/dev/null 2>&1; then
-    _mise_cache="$HOME/.cache/mise-activate.zsh"
-    if [[ ! -f "$_mise_cache" || "$_mise_cache" -ot "$commands[mise]" ]]; then
-        mkdir -p "${_mise_cache:h}"
-        mise activate zsh > "$_mise_cache"
-    fi
-    source "$_mise_cache"
-    unset _mise_cache
 fi
 
 if hash php >/dev/null 2>&1; then
