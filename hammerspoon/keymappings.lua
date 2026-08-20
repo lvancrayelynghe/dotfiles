@@ -46,26 +46,27 @@ end
 
 -- App Bindings
 for key, bundleID in pairs({
+    -- first row
     ["a"] = apps.slack,
+    ["z"] = apps.zed,
     ["e"] = apps.finder,
-
-    ["s"] = apps.sublime,
-    ["g"] = apps.vivaldi,
-
-    ["z"] = apps.discord,
     ["r"] = apps.bruno,
     ["t"] = apps.ghostty,
-
     ["y"] = apps.harvest,
 
     ["p"] = apps.notes,
+
+    -- second row
     ["q"] = apps.calendar,
-    ["v"] = apps.vscode,
-    ["c"] = apps.claude,
-
+    ["s"] = apps.sublime,
+    ["d"] = apps.discord,
     ["f"] = apps.filezilla,
+    ["g"] = apps.vivaldi,
 
+    -- third row
     ["x"] = apps.clickup,
+    ["c"] = apps.claude,
+    ["v"] = apps.vscode,
     ["b"] = apps.sequelace,
 }) do
     hs.hotkey.bind({'cmd', 'alt', 'ctrl'}, key, function()

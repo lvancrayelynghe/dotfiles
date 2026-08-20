@@ -36,4 +36,5 @@ return {
     sublime   = 'com.sublimetext.4',
     vivaldi   = 'com.vivaldi.Vivaldi',
     vscode    = 'com.microsoft.VSCode',
+    zed       = 'dev.zed.Zed',
 }
