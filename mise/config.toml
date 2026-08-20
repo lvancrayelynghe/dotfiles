@@ -72,6 +72,11 @@ zoxide = "latest"
 # cloned into ~/.config/yazi/flavors by the bootstrap task, not versioned).
 "~/.config/yazi/theme.toml" = "../yazi/theme.toml"
 "~/.config/yazi/package.toml" = "../yazi/package.toml"
+# Zed uses ~/.config/zed on both macOS and Linux, so this mapping is shared here
+# (VS Code, whose path differs per OS, lives in the platform profiles instead).
+# Zed rewrites settings.json in place like VS Code, so edits land in the repo.
+"~/.config/zed/keymap.json" = "../zed/keymap.json"
+"~/.config/zed/settings.json" = "../zed/settings.json"
 # The config is self-managed: the repository must exist before the first
 # bootstrap, then this link makes its global tool declarations available
 # everywhere.

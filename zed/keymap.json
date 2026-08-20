@@ -1,0 +1,148 @@
+// Zed keymap — transposé depuis les raccourcis VS Code
+//   source : ~/.dotfiles/public/vscode/keybindings.json
+//   référence : keymap par défaut de Zed v1.16.1
+//
+// settings.json a "base_keymap": "VSCode" : ce fichier ne contient donc que
+// les PERSONNALISATIONS (comme le keybindings.json de VS Code), pas les
+// raccourcis standards.
+//
+// Clavier FR (AZERTY) détecté → "use_key_equivalents": true sur chaque bloc,
+// comme le keymap par défaut de Zed : les lettres suivent la touche telle
+// qu'étiquetée, les chiffres et ponctuations restent tapables à leur position
+// habituelle (cmd-1..9 sans Maj, etc.).
+//
+// Sans équivalent Zed, volontairement omis :
+//   - cmd-b cmd-a  (extension yo1dog cursor-align : aligner les curseurs)
+//   - f1           (extension gotoDocument ; le plus proche : cmd-k cmd-i = survol)
+// Réglé sur le défaut Zed (cmd-k cmd-s) plutôt que réaffecté :
+//   - ouvrir l'éditeur de raccourcis (VS Code : openGlobalKeybindings)
+[
+  // ── Global ───────────────────────────────────────────────────────────
+  {
+    "use_key_equivalents": true,
+    "bindings": {
+      // Quitter : double appui (comme VS Code) ; cmd-q seul est neutralisé
+      // car réaffecté à « commenter » dans l'éditeur.
+      "alt-cmd-q alt-cmd-q": "zed::Quit",
+      "cmd-q": null,
+      // Zoom de la police. La paire VS Code se recouvrait ; répartie ici sur
+      // « - » (réduire) et « = » (agrandir). Zed garde aussi cmd-- / cmd-+.
+      "cmd-shift--": ["zed::DecreaseBufferFontSize", { "persist": false }],
+      "cmd-shift-=": ["zed::IncreaseBufferFontSize", { "persist": false }],
+    },
+  },
+
+  // ── Éditeur ──────────────────────────────────────────────────────────
+  {
+    "context": "Editor && mode == full",
+    "use_key_equivalents": true,
+    "bindings": {
+      // Commenter : VS Code utilisait cmd-q et cmd-. (cmd-/ reste dispo).
+      "cmd-q": "editor::ToggleComments",
+      "cmd-.": "editor::ToggleComments",
+      "shift-cmd-.": "editor::ToggleBlockComments",
+
+      // Navigation par blocs séparés de lignes vides (ex-Space Block Jumper).
+      "cmd-up": "editor::MoveToStartOfParagraph",
+      "cmd-down": "editor::MoveToEndOfParagraph",
+      "shift-cmd-up": "editor::SelectToStartOfParagraph",
+      "shift-cmd-down": "editor::SelectToEndOfParagraph",
+
+      // Début / fin du document (déplacés par VS Code sur ctrl-cmd).
+      "ctrl-cmd-up": "editor::MoveToBeginning",
+      "ctrl-cmd-down": "editor::MoveToEnd",
+      "ctrl-shift-cmd-up": "editor::SelectToBeginning",
+      "ctrl-shift-cmd-down": "editor::SelectToEnd",
+
+      // Duplication de ligne / multi-curseurs.
+      "shift-cmd-d": "editor::DuplicateLineDown",
+      "cmd-l": "editor::SplitSelectionIntoLines", // un curseur en fin de chaque ligne sélectionnée
+
+      // Suppressions.
+      "shift-cmd-backspace": "editor::DeleteToBeginningOfLine",
+      "cmd-backspace": "editor::DeleteToPreviousWordStart",
+
+      // Rechercher / remplacer dans le tampon.
+      "cmd-h": ["buffer_search::Deploy", { "replace_enabled": true }],
+
+      // Aller à…
+      "cmd-r": "outline::Toggle",     // symboles du fichier (VS Code : gotoSymbol)
+      "cmd-g": "go_to_line::Toggle",  // aller à la ligne
+      "f2": "editor::GoToDefinition", // définition (VS Code : F2)
+
+      // Divers.
+      "f7": "editor::ToggleSoftWrap",
+      "f9": "editor::SortLinesCaseSensitive",
+      "cmd-m": "editor::MoveToEnclosingBracket",           // aller au crochet correspondant
+      "shift-cmd-m": "editor::SelectInsideDelimiters",     // ex-selectToBracket (selectBrackets:false)
+
+      // Casse (accords cmd-b …).
+      "cmd-b cmd-u": "editor::ConvertToUpperCase",
+      "cmd-b cmd-l": "editor::ConvertToLowerCase",
+
+      // Copier le chemin relatif du fichier.
+      "shift-cmd-c": "workspace::CopyRelativePath",
+
+      // Rouvrir le dernier onglet fermé (VS Code : reopenClosedEditor).
+      // Remplace ici l'outline par défaut (déplacé sur cmd-r ci-dessus).
+      "shift-cmd-o": "pane::ReopenClosedItem",
+    },
+  },
+
+  // ── Onglets : aller à l'onglet N ─────────────────────────────────────
+  {
+    "context": "Pane",
+    "use_key_equivalents": true,
+    "bindings": {
+      "cmd-1": ["pane::ActivateItem", 0],
+      "cmd-2": ["pane::ActivateItem", 1],
+      "cmd-3": ["pane::ActivateItem", 2],
+      "cmd-4": ["pane::ActivateItem", 3],
+      "cmd-5": ["pane::ActivateItem", 4],
+      "cmd-6": ["pane::ActivateItem", 5],
+      "cmd-7": ["pane::ActivateItem", 6],
+      "cmd-8": ["pane::ActivateItem", 7],
+      "cmd-9": ["pane::ActivateItem", 8],
+    },
+  },
+
+  // ── Espace de travail ────────────────────────────────────────────────
+  {
+    "context": "Workspace",
+    "use_key_equivalents": true,
+    "bindings": {
+      // cmd-b devient un préfixe d'accords (comme dans VS Code) : cmd-b seul
+      // ne fait plus rien, cmd-b cmd-b (dé)masque la barre latérale.
+      "cmd-b": null,
+      "cmd-b cmd-b": "workspace::ToggleLeftDock",
+      "cmd-b cmd-e": "project_panel::ToggleFocus", // explorateur
+      "cmd-b cmd-g": "git_panel::ToggleFocus",     // gestion de version
+
+      "shift-cmd-t": "terminal_panel::Toggle",     // terminal (VS Code : shift-cmd-t)
+      "shift-cmd-j": "workspace::ToggleZoom",       // maximiser le panneau actif
+    },
+  },
+
+  // ── Panneau de projet ────────────────────────────────────────────────
+  {
+    "context": "ProjectPanel",
+    "use_key_equivalents": true,
+    "bindings": {
+      // Retirer du projet le dossier sélectionné (VS Code : removeRootFolder).
+      "cmd-b cmd-p": "project_panel::RemoveFromProject",
+    },
+  },
+  {
+    // Uniquement hors renommage : ne perturbe pas la confirmation (Entrée dans
+    // l'éditeur du nom, gérée par l'éditeur lui-même).
+    "context": "ProjectPanel && not_editing",
+    "use_key_equivalents": true,
+    "bindings": {
+      // Entrée : ouvrir le fichier (onglet permanent) et y déplacer le focus
+      // — au lieu de renommer. Sur un dossier : déplier/replier.
+      "enter": "project_panel::OpenPermanent",
+      // Renommer passe sur Maj+Entrée.
+      "shift-enter": "project_panel::Rename",
+    },
+  },
+]
