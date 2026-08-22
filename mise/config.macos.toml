@@ -48,7 +48,9 @@ system_packages.managers = ["brew"]
 # watches ~/.hammerspoon and hot-reloads, so the live directory must be the repo's.
 "~/.hammerspoon" = "../hammerspoon"
 "~/.config/ghostty/config" = "../ghostty/config"
-"~/Library/Application Support/Rectangle/RectangleConfig.json" = "../rectangle/RectangleConfig.json"
+# Rectangle refuses a symlinked (or world-writable) config: it renames the  symlink to RectangleConfig<timestamp>.json
+# and errors out. Hence mode = "copy" (a real file), not the default symlink.
+"~/Library/Application Support/Rectangle/RectangleConfig.json" = { source = "../rectangle/RectangleConfig.json", mode = "copy" }
 "~/Library/Application Support/Code/User/settings.json" = "../vscode/settings.json"
 "~/Library/Application Support/Code/User/keybindings.json" = "../vscode/keybindings.json"
 "~/Library/Application Support/Code/User/snippets" = { source = "../vscode/snippets", mode = "symlink-each" }
