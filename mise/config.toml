@@ -87,6 +87,18 @@ zoxide = "latest"
 description = "Install idempotent integrations not modeled by mise"
 run = "bash scripts/link-sublime.sh && bash scripts/install-zsh-plugins.sh && bash scripts/install-gh-extensions.sh && bash scripts/install-yazi-packages.sh && { [ ! -f claude/install.sh ] || bash claude/install.sh; } && { [ ! -d .git ] || git config --local core.hooksPath others/git-templates/hooks; }"
 
+# The reverse of `bootstrap dotfiles apply`: copies each mode = "copy" dotfile
+# from its live location back into the repo, so app-side edits to files that
+# cannot be symlinked (e.g. Rectangle) can be committed. Reads the file list
+# from mise, writes only into the repo. Review with `git diff`.
+# Absolute script path on purpose: run ad-hoc, this task loads the *global*
+# config (symlinked from the repo), whose config_root is $HOME — a relative
+# `scripts/` path would not resolve (unlike bootstrap, only ever run under
+# `mise -C <repo>`). DOTFILES_PATH matches the default the script itself uses.
+[tasks."dotfiles:backup"]
+description = "Copy mode=copy dotfiles from their live location back into the repo"
+run = 'bash "${DOTFILES_PATH:-$HOME/.dotfiles/public}/scripts/dotfiles-backup.sh"'
+
 # macOS system preferences. Deliberately NOT part of `mise bootstrap`: every line
 # writes a system preference, so it stays a run-once, by-hand step. The script
 # self-guards on Darwin. Pass a name with `./macos-defaults.sh "My Mac"`.
