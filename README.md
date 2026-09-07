@@ -58,7 +58,8 @@ apt and installs portable CLIs through mise. The shared aliases therefore get
 
 | Path | Purpose |
 |---|---|
-| `mise/config.toml` | shared tools, symlink mappings and bootstrap task |
+| `mise.toml` | repo-scoped config never exposed globally: shared dotfile links and tasks (`bootstrap`, `dotfiles:backup`, `macos-defaults`) |
+| `mise/config.toml` | shared CLI tool versions — the only file symlinked into the global mise environment |
 | `mise/config.macos.toml` | macOS native packages and dotfiles |
 | `mise/config.macos-apps.toml` | macOS applications, fonts and App Store entries |
 | `mise/config.linux.toml` | Debian/Ubuntu native dependencies |

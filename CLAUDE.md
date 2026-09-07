@@ -17,8 +17,9 @@
 
 ## Architecture
 
-- `mise/config.toml` — **any shared dotfile mapping must be declared in its
-  `[dotfiles]` table**. Platform mappings and native packages belong in
+- **Shared dotfile mappings live in the `[dotfiles]` table of the repo-root
+  `mise.toml`, never in `mise/config.toml`** (which is symlinked into the global
+  environment — see below). Platform mappings and native packages belong in
   `mise/config.macos.toml` or `mise/config.linux.toml`; an ignored
   `mise/config.local.toml` holds the explicit Linux desktop additions.
   `./install` is idempotent and runs `mise bootstrap` for the current OS.
@@ -57,9 +58,27 @@
     unmatched glob — is a **silent** no-op, which is what lets one versioned
     skeleton work everywhere. `ssh -v` reports `matched no files`, and
     `ssh -G <host>` prints the resolved config without connecting.
-- `mise/config.toml` — global toolchain versions, common dotfile links and
-  bootstrap task. It is self-symlinked to `~/.config/mise/config.toml`, so
-  `mise use -g` edits the versioned file.
+- `mise/config.toml` — the shared, cross-platform **`[tools]` table and nothing
+  else**. It is the **only** file symlinked into the global mise environment, as
+  the conf.d drop-in `~/.config/mise/conf.d/public.toml` (a link declared in the
+  repo-root `mise.toml`, alongside the private repo's own `conf.d/private.toml`).
+  It must stay **path-free**: read through that symlink its `config_root` is
+  `~/.config/mise`, so any repo-relative source (a `[dotfiles]` entry, a task
+  path) would resolve to a missing file — which is exactly what dumping
+  `[dotfiles]` here used to do, silently, from every directory but the repo.
+  - Adding a global tool is therefore **not** `mise use -g`: that targets
+    `~/.config/mise/config.toml` (unversioned, and overridden by this drop-in
+    anyway). Edit `mise/config.toml` directly, or
+    `mise use --path mise/config.toml <tool>`.
+- `mise.toml` (repo root) — repo-scoped config that is **never** symlinked
+  globally, so it cannot leak: the shared `[dotfiles]` links **and** the tasks
+  (`bootstrap`, `dotfiles:backup`, `macos-defaults`). Only `mise -C <repo>`
+  loads it (as `./install` does). Its `config_root` is the repo root, so the
+  `[dotfiles]` sources are repo-relative with **no `../`** (unlike the platform
+  files under `mise/`, which keep the `../`). The `bootstrap` task is named for
+  mise's convention — `mise bootstrap` runs a same-named task as its final step
+  (step 15, `mise run bootstrap`), so `./install` picks up the integrations
+  automatically; keep it idempotent.
 - `hammerspoon/` — macOS mise profile, mapped in the `[dotfiles]` of
   `mise/config.macos.toml` as a **whole-directory symlink** (mise's default mode,
   not `symlink-each`): **any `.lua` saved there reloads the live config at

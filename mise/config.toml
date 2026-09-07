@@ -39,69 +39,11 @@ zoxide = "latest"
 # Most command-line tools deliberately live above: mise installs them through
 # portable, version-aware backends. Native packages belong in the OS profiles.
 
-[dotfiles]
-"~/.profile" = "../bash/profile"
-"~/.bashrc" = "../bash/bashrc"
-"~/.inputrc" = "../bash/inputrc"
-"~/.zshenv" = "../zsh/zshenv"
-"~/.zprofile" = "../zsh/zprofile"
-"~/.zshrc" = "../zsh/zshrc"
-"~/.gitconfig" = "../others/gitconfig"
-"~/.gitignore-global" = "../others/gitignore-global"
-"~/.gitattributes" = "../others/gitattributes"
-# These directories also contain generated or user-managed neighbours, so keep
-# the parent real and link only the repository files below it.
-"~/.git-templates" = { source = "../others/git-templates", mode = "symlink-each" }
-"~/.vim" = { source = "../vim/vim", mode = "symlink-each" }
-"~/.vimrc" = "../vim/vimrc"
-"~/.nanorc" = "../others/nanorc"
-"~/.wgetrc" = "../others/wgetrc"
-"~/.cvsignore" = "../others/cvsignore"
-"~/.dircolors" = "../others/dircolors"
-"~/.gemrc" = "../others/gemrc"
-"~/.lesskey" = "../others/lesskey"
-"~/.my.cnf" = "../others/my.cnf"
-"~/.sift.conf" = "../others/sift.conf"
-"~/.ripgreprc" = "../others/ripgreprc"
-"~/.ssh/config" = "../ssh/config"
-"~/.ssh/config.d/10-forges.conf" = "../ssh/config.d/10-forges.conf"
-"~/.ssh/config.d/90-defaults.conf" = "../ssh/config.d/90-defaults.conf"
-"~/.config/lla/config.toml" = "../lla/config.toml"
-# theme.toml selects the flavor; package.toml is the flavor/plugin manifest,
-# symlinked so `ya pkg add` edits the versioned file (the flavors themselves are
-# cloned into ~/.config/yazi/flavors by the bootstrap task, not versioned).
-"~/.config/yazi/theme.toml" = "../yazi/theme.toml"
-"~/.config/yazi/package.toml" = "../yazi/package.toml"
-# Zed uses ~/.config/zed on both macOS and Linux, so this mapping is shared here
-# (VS Code, whose path differs per OS, lives in the platform profiles instead).
-# Zed rewrites settings.json in place like VS Code, so edits land in the repo.
-"~/.config/zed/keymap.json" = "../zed/keymap.json"
-"~/.config/zed/settings.json" = "../zed/settings.json"
-# The config is self-managed: the repository must exist before the first
-# bootstrap, then this link makes its global tool declarations available
-# everywhere.
-"~/.config/mise/config.toml" = "config.toml"
-"~/.claude/statusline-command.sh" = "../claude/statusline-command.sh"
-
-[tasks.bootstrap]
-description = "Install idempotent integrations not modeled by mise"
-run = "bash scripts/link-sublime.sh && bash scripts/install-zsh-plugins.sh && bash scripts/install-gh-extensions.sh && bash scripts/install-yazi-packages.sh && { [ ! -f claude/install.sh ] || bash claude/install.sh; } && { [ ! -d .git ] || git config --local core.hooksPath others/git-templates/hooks; }"
-
-# The reverse of `bootstrap dotfiles apply`: copies each mode = "copy" dotfile
-# from its live location back into the repo, so app-side edits to files that
-# cannot be symlinked (e.g. Rectangle) can be committed. Reads the file list
-# from mise, writes only into the repo. Review with `git diff`.
-# Absolute script path on purpose: run ad-hoc, this task loads the *global*
-# config (symlinked from the repo), whose config_root is $HOME — a relative
-# `scripts/` path would not resolve (unlike bootstrap, only ever run under
-# `mise -C <repo>`). DOTFILES_PATH matches the default the script itself uses.
-[tasks."dotfiles:backup"]
-description = "Copy mode=copy dotfiles from their live location back into the repo"
-run = 'bash "${DOTFILES_PATH:-$HOME/.dotfiles/public}/scripts/dotfiles-backup.sh"'
-
-# macOS system preferences. Deliberately NOT part of `mise bootstrap`: every line
-# writes a system preference, so it stays a run-once, by-hand step. The script
-# self-guards on Darwin. Pass a name with `./macos-defaults.sh "My Mac"`.
-[tasks.macos-defaults]
-description = "Curated macOS system preferences — run once, by hand (not in bootstrap)"
-run = "bash macos-defaults.sh"
+# This file — and ONLY this file — is symlinked into the global mise environment
+# (~/.config/mise/conf.d/public.toml, the link declared in the repo-root
+# mise.toml). That is why it holds nothing but [tools]: a globally loaded config
+# must be correct from any directory, and [tools] carry no paths. Anything with a
+# repository-relative path or bootstrap semantics ([dotfiles], [bootstrap.*],
+# [tasks.*]) would resolve against config_root = ~/.config/mise when read through
+# that symlink, so it lives in repo-only files (mise.toml, config.<os>.toml)
+# instead — see the [dotfiles] table in the repo-root mise.toml.
